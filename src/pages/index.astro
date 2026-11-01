@@ -36,62 +36,62 @@ const featuredWorks = [
   },
 ];
 
-// Escalera de valor (Planes comerciales claros)
+// Escalera de valor (Planes comerciales con entrega ágil internacional)
 const valueLadder = [
   {
-    tier: 'Nivel 1',
-    name: 'Boceto (Express)',
-    badge: 'Entrega 7–10 días',
-    price: 'Desde $1.290.000 COP',
-    priceUsd: '~$400 USD',
-    forWhom: 'Pymes, profesionales independientes y emprendedores que necesitan una web profesional lista sin meses de espera.',
+    tier: 'Nivel 1 &bull; Volumen',
+    name: 'Landing Express',
+    badge: '⚡ Entrega en 24–48h',
+    price: '$249 USD',
+    priceCop: '~$990.000 COP',
+    forWhom: 'Negocios locales, pymes, profesionales y marcas que necesitan captar clientes inmediatamente sin semanas de espera.',
     includes: [
-      'Plantilla del sistema de diseño Rembrandt adaptada a tu marca',
-      'Dominio .com + Hosting SSL incluido por 1 año',
-      'Botón directo de WhatsApp & formulario de captación',
-      'SEO técnico inicial e indexación en Google',
-      'Panel autogestionable para editar textos y fotos',
-      '1 ronda de revisión y entrega en 7–10 días hábiles',
+      'Página única de aterrizaje diseñada con foco en conversión directa',
+      'Entrega garantizada en 24 a 48 horas hábiles',
+      'Botón flotante directo a WhatsApp & formulario de captación',
+      'Hosting cloud ultraveloz + dominio .com incluido por 1 año',
+      '100/100 Core Web Vitals (carga instantánea en móvil y desktop)',
+      '1 ronda de revisión ágil y puesta en marcha inmediata',
     ],
-    ctaText: 'Ver Detalles Express',
-    ctaLink: '#contacto',
+    ctaText: 'Pedir Landing Express (24–48h)',
+    ctaLink: '/express',
     featured: false,
   },
   {
-    tier: 'Nivel 2',
-    name: 'Lienzo (Corporativo)',
-    badge: 'El más solicitado',
-    price: '$6.500.000 – $18.000.000 COP',
-    priceUsd: '~$2.000 – $5.600 USD',
-    forWhom: 'Empresas y marcas que necesitan verse al nivel de su precio y convertir visitantes en clientes de alto valor.',
+    tier: 'Nivel 2 &bull; Autoridad',
+    name: 'Web Corporativa Multi-Sección',
+    badge: '★ El más solicitado',
+    price: '$399 USD',
+    priceCop: '~$1.590.000 COP',
+    forWhom: 'Empresas y marcas de servicios que necesitan proyectar estatus, múltiples páginas y posicionamiento en Google.',
     includes: [
-      'Diseño 100% exclusivo en Figma (cero plantillas)',
-      'Arquitectura de información y copy persuasivo enfocado a ventas',
-      'Desarrollo ultraveloz en Astro o Framer',
-      'Integración con tu CRM, WhatsApp Business y pasarela de pago',
-      'SEO técnico estructurado y analítica avanzada GA4',
-      '2 rondas de revisión por fase y soporte continuo',
+      'Sitio web completo: Inicio, Servicios, Nosotros, Portafolio y Contacto',
+      'Entrega en 3 a 5 días hábiles',
+      'Estructura SEO optimizada para búsquedas en Google',
+      'Diseño exclusivo con paleta y tipografía adaptadas a tu marca',
+      'Integración con CRM, analítica GA4 y WhatsApp Business',
+      '2 rondas de revisión por fase y soporte post-lanzamiento',
     ],
-    ctaText: 'Cotizar Proyecto Lienzo',
+    ctaText: 'Iniciar Web Corporativa',
     ctaLink: '#contacto',
     featured: true,
   },
   {
-    tier: 'Nivel 3',
-    name: 'Obra (Signature / 3D)',
-    badge: 'Cupos limitados por trimestre',
-    price: 'Desde $28.000.000 COP',
-    priceUsd: 'Desde ~$8.750 USD',
-    forWhom: 'Startups, marcas boutique y corporativos que buscan estatus, innovación y una presencia digital que nadie más tenga.',
+    tier: 'Nivel 3 &bull; Escala',
+    name: 'Catálogo / Tienda Ágil / 3D',
+    badge: 'Alta Fidelidad',
+    price: '$690 – $1.490 USD',
+    priceCop: '~$2.7M – $5.9M COP',
+    forWhom: 'Marcas con catálogo de productos, venta online directa o proyectos que buscan experiencias interactivas 3D de autor.',
     includes: [
-      'Discovery estratégico pagado (investigación de mercado y prototipo clave)',
-      'Dirección de arte de autor y narrativa visual interactiva',
-      'Modelado e integración 3D WebGL / Spline en tiempo real',
-      'Microinteracciones y animaciones avanzadas (GSAP, shaders)',
-      'Optimización extrema de rendimiento (islas interactivas Astro)',
-      'Postulación y preparación para premios internacionales (Awwwards)',
+      'Catálogo interactivo o tienda con pasarela de pago (Wompi, Stripe, PayPal)',
+      'Integración 3D Spline / WebGL interactiva de autor',
+      'Automatización de pedidos con alerta inmediata a WhatsApp y correo',
+      'Entrega en 7 a 10 días hábiles',
+      'Optimización extrema de velocidad y tasa de conversión',
+      'Capacitación para autogestionar productos y precios',
     ],
-    ctaText: 'Aplicar para Obra Signature',
+    ctaText: 'Cotizar Proyecto a Medida',
     ctaLink: '#contacto',
     featured: false,
   },
@@ -276,7 +276,7 @@ const steps = [
                     <span class="text-2xl sm:text-3xl font-extrabold text-white block">
                       {plan.price}
                     </span>
-                    <span class="text-xs font-mono text-white/50">{plan.priceUsd}</span>
+                    <span class="text-xs font-mono text-white/50">{plan.priceCop}</span>
                   </div>
 
                   <p class="mt-5 text-xs sm:text-sm text-white/70 leading-relaxed">
@@ -318,8 +318,8 @@ const steps = [
         {/* Mención especial del Plan Cuidado Recurrente */}
         <div class="mt-12 rounded-xl border border-white/10 bg-white/[0.02] p-6 text-center max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div class="text-left">
-            <h4 class="text-sm font-semibold text-white">¿Tienes ya una web o terminaste tu proyecto?</h4>
-            <p class="text-xs text-white/60 mt-0.5">Plan Cuidado desde $89.000 COP/mes (Hosting, soporte, copias y renovaciones).</p>
+            <h4 class="text-sm font-semibold text-white">¿Tienes ya una web o quieres soporte continuo?</h4>
+            <p class="text-xs text-white/60 mt-0.5">Plan Cuidado desde $19 USD/mes (~$79.000 COP/mes) &bull; Hosting ultraveloz, soporte técnico y copias de seguridad.</p>
           </div>
           <a href="#contacto" class="text-xs uppercase font-semibold text-accent hover:underline shrink-0">
             Consultar mantenimiento &rarr;
