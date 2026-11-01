@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import Hero3D from '../components/Hero3D.astro';
 import Footer from '../components/Footer.astro';
 import ContactForm from '../components/ContactForm.astro';
 
@@ -50,35 +51,10 @@ const steps = [
   title="Rembrandt | Diseño y desarrollo web"
   description="Estudio de diseño y desarrollo web. Webs rápidas, accesibles y orientadas a negocio."
 >
-  <Header />
+  <Header theme="dark" />
 
   <main id="contenido">
-    <section class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-      <p class="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
-        Estudio de diseño y desarrollo
-      </p>
-      <h1 class="max-w-3xl text-4xl leading-tight sm:text-5xl lg:text-6xl">
-        Webs que transmiten confianza y traen clientes.
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg text-muted">
-        Diseñamos y construimos sitios para empresas que necesitan una presencia digital seria,
-        rápida y fácil de mantener.
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a
-          class="rounded-md bg-ink px-6 py-3 font-medium text-paper transition-colors hover:bg-accent-strong"
-          href="#contacto"
-        >
-          Hablemos de tu proyecto
-        </a>
-        <a
-          class="rounded-md border border-line bg-surface px-6 py-3 font-medium transition-colors hover:border-ink"
-          href="#servicios"
-        >
-          Ver servicios
-        </a>
-      </div>
-    </section>
+    <Hero3D />
 
     <section id="servicios" class="border-y border-line bg-surface">
       <div class="mx-auto max-w-6xl px-6 py-20">

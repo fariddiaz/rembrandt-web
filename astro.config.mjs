@@ -3,8 +3,8 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://fariddiaz.github.io',
-  base: '/rembrandt-web',
+  site: 'https://coruscating-frangollo-e4732e.netlify.app',
+  base: '/',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

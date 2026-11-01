@@ -1,4 +1,11 @@
 ---
+interface Props {
+  theme?: 'light' | 'dark';
+}
+
+const { theme = 'light' } = Astro.props;
+const isDark = theme === 'dark';
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const links = [
   { href: `${base}/#servicios`, label: 'Servicios' },
@@ -7,15 +14,29 @@ const links = [
 ];
 ---
 
-<header class="border-b border-line">
+<header
+  class={isDark
+    ? 'border-b border-white/10 bg-[#0d0d0d] text-white transition-colors'
+    : 'border-b border-line bg-paper text-ink transition-colors'}
+>
   <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-5">
-    <a href={import.meta.env.BASE_URL} class="font-display text-xl font-semibold tracking-tight">Rembrandt</a>
+    <a
+      href={import.meta.env.BASE_URL}
+      class="font-display text-xl font-semibold tracking-tight transition-colors hover:text-accent"
+    >
+      Rembrandt
+    </a>
     <nav aria-label="Principal">
       <ul class="flex flex-wrap items-center gap-6 text-sm">
         {
           links.map((link) => (
             <li>
-              <a class="text-muted transition-colors hover:text-ink" href={link.href}>
+              <a
+                class={isDark
+                  ? 'text-white/70 transition-colors hover:text-white'
+                  : 'text-muted transition-colors hover:text-ink'}
+                href={link.href}
+              >
                 {link.label}
               </a>
             </li>
@@ -23,7 +44,9 @@ const links = [
         }
         <li>
           <a
-            class="rounded-md bg-ink px-4 py-2 text-paper transition-colors hover:bg-accent-strong"
+            class={isDark
+              ? 'rounded-md bg-white px-4 py-2 text-ink font-medium transition-colors hover:bg-accent hover:text-white'
+              : 'rounded-md bg-ink px-4 py-2 text-paper transition-colors hover:bg-accent-strong'}
             href={`${base}/#contacto`}
           >
             Hablemos
