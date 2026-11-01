@@ -5,8 +5,8 @@ interface Props {
 }
 
 const {
-  splineUrl,
-  modelUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/models/xbot.glb`,
+  splineUrl = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode',
+  modelUrl,
 } = Astro.props;
 ---
 
@@ -16,10 +16,10 @@ const {
   data-spline-url={splineUrl}
   data-model-url={modelUrl}
 >
-  {/* Capa 1: Fondo Claroscuro Rembrandt - Iluminación radial cálida ámbar */}
+  {/* Capa 1: Fondo Rembrandt Dark - Iluminación radial violeta/púrpura eléctrico */}
   <div
     id="hero-radial-bg"
-    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(180,83,9,0.22)_0%,rgba(13,13,13,0.95)_68%,#0d0d0d_100%)] z-0 transition-all duration-300"
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(139,92,246,0.26)_0%,rgba(10,10,13,0.95)_68%,#0a0a0d_100%)] z-0 transition-all duration-300"
   ></div>
 
   {/* Capa 2: Tipografía de gran escala REMBRANDT detrás del personaje */}
@@ -69,7 +69,7 @@ const {
         <span class="text-xs uppercase tracking-widest text-white/70">Disponibles para proyectos</span>
       </div>
       <span class="text-xs tracking-widest text-accent font-mono hidden md:block">
-        [ FOCO DINÁMICO &bull; #b45309 ]
+        [ NEON VIOLET &bull; #8b5cf6 ]
       </span>
     </div>
 
@@ -283,7 +283,7 @@ const {
       if (radialBg) {
         const bgX = 50 + mouseX * 15;
         const bgY = 45 + mouseY * 15;
-        radialBg.style.background = `radial-gradient(circle at ${bgX}% ${bgY}%, rgba(180,83,9,0.28) 0%, rgba(13,13,13,0.95) 68%, #0d0d0d 100%)`;
+        radialBg.style.background = `radial-gradient(circle at ${bgX}% ${bgY}%, rgba(139,92,246,0.30) 0%, rgba(10,10,13,0.95) 68%, #0a0a0d 100%)`;
       }
     };
 
