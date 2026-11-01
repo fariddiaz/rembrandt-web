@@ -5,8 +5,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const graciasUrl = `${base}/gracias`;
 
 const fieldClass =
-  'w-full rounded-md border border-line bg-surface px-4 py-3 text-ink placeholder:text-muted/70 focus:border-accent focus:outline-none';
-const labelClass = 'mb-2 block text-sm font-medium';
+  'w-full rounded-lg border border-white/10 bg-[#16161d] px-4 py-3 text-white placeholder:text-white/40 focus:border-accent focus:outline-none transition-colors';
+const labelClass = 'mb-2 block text-xs font-semibold uppercase tracking-wider text-white/70';
 ---
 
 <div>
@@ -74,10 +74,11 @@ const labelClass = 'mb-2 block text-sm font-medium';
       <div>
         <label class={labelClass} for="plan">Tipo de Proyecto</label>
         <select class={fieldClass} id="plan" name="plan">
-          <option value="Lienzo Corporativo ($6.5M - $18M COP)">Lienzo Corporativo ($6.5M – $18M COP)</option>
-          <option value="Obra Signature / 3D (Desde $28M COP)">Obra Signature / 3D Craft (Desde $28M COP)</option>
-          <option value="Boceto Express ($1.29M - $3.49M COP)">Boceto Express 7-10d ($1.29M – $3.49M COP)</option>
-          <option value="Consultoría / Otro">Consultoría / Rediseño a medida</option>
+          <option value="Landing Express ($249 USD / ~$990.000 COP)">Landing Express 24-48h ($249 USD / ~$990.000 COP)</option>
+          <option value="Web Multi-Sección ($399 USD / ~$1.590.000 COP)">Web Corporativa Multi-Sección ($399 USD / ~$1.590.000 COP)</option>
+          <option value="Catálogo / Tienda Ágil ($590 USD / ~$2.390.000 COP)">Catálogo & Tienda Ágil ($590 USD / ~$2.390.000 COP)</option>
+          <option value="Obra Signature / 3D Craft (A medida)">Obra Signature / 3D Craft (A medida)</option>
+          <option value="Plan Cuidado ($19 USD/mes)">Mantenimiento / Plan Cuidado ($19 USD/mes)</option>
         </select>
       </div>
     </div>
@@ -102,20 +103,32 @@ const labelClass = 'mb-2 block text-sm font-medium';
         value="Acepto la política de privacidad"
         required
       />
-      <label class="text-sm text-muted" for="consent">
+      <label class="text-xs text-white/60" for="consent">
         He leído y acepto la
-        <a class="underline hover:text-ink" href={`${base}/privacidad`}>política de privacidad</a>.
+        <a class="underline hover:text-white" href={`${base}/privacidad`}>política de privacidad</a>.
       </label>
     </div>
 
-    <button
-      class="inline-flex items-center justify-center rounded-md bg-ink px-6 py-3 font-medium text-paper transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-60"
-      type="submit"
-    >
-      Enviar mensaje
-    </button>
+    <div class="flex flex-wrap items-center gap-4 pt-2">
+      <button
+        class="inline-flex items-center justify-center rounded-lg bg-accent px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-accent-strong shadow-lg shadow-accent/25 disabled:cursor-not-allowed disabled:opacity-60"
+        type="submit"
+      >
+        Enviar mensaje
+      </button>
 
-    <p data-form-status role="status" aria-live="polite" class="min-h-6 text-sm text-muted"></p>
+      <a
+        href="https://wa.me/573147714202?text=Hola%20Rembrandt%20Studio%2C%20quiero%20cotizar%20un%20proyecto"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-emerald-400 hover:bg-emerald-500/20 transition-all"
+      >
+        <span class="inline-block h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>WhatsApp directo</span>
+      </a>
+    </div>
+
+    <p data-form-status role="status" aria-live="polite" class="min-h-6 text-sm text-white/70"></p>
   </form>
 </div>
 
