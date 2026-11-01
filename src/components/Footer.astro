@@ -3,15 +3,18 @@ const year = new Date().getFullYear();
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<footer class="border-t border-line bg-surface">
+<footer class="border-t border-white/10 bg-[#070709] text-white/60">
   <div
-    class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between"
+    class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-12 text-xs sm:flex-row sm:items-center sm:justify-between"
   >
-    <p>&copy; {year} Rembrandt. Diseño y desarrollo web.</p>
+    <div class="flex items-center gap-2">
+      <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent"></span>
+      <p>&copy; {year} Rembrandt Studio &bull; Arte, Tecnología & Rendimiento Web.</p>
+    </div>
     <nav aria-label="Legal">
       <ul class="flex gap-6">
-        <li><a class="transition-colors hover:text-ink" href={`${base}/aviso-legal`}>Aviso legal</a></li>
-        <li><a class="transition-colors hover:text-ink" href={`${base}/privacidad`}>Privacidad</a></li>
+        <li><a class="transition-colors hover:text-white" href={`${base}/aviso-legal`}>Aviso legal</a></li>
+        <li><a class="transition-colors hover:text-white" href={`${base}/privacidad`}>Privacidad</a></li>
       </ul>
     </nav>
   </div>

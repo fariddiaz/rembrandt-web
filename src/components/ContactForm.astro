@@ -46,29 +46,40 @@ const labelClass = 'mb-2 block text-sm font-medium';
         />
       </div>
       <div>
-        <label class={labelClass} for="email">Email</label>
+        <label class={labelClass} for="email">Email corporativo</label>
         <input
           class={fieldClass}
           id="email"
           name="email"
           type="email"
           autocomplete="email"
-          placeholder="tu@email.com"
+          placeholder="tu@empresa.com"
           required
         />
       </div>
     </div>
 
-    <div>
-      <label class={labelClass} for="company">Empresa (opcional)</label>
-      <input
-        class={fieldClass}
-        id="company"
-        name="company"
-        type="text"
-        autocomplete="organization"
-        placeholder="Nombre de tu empresa"
-      />
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div>
+        <label class={labelClass} for="company">Empresa / Proyecto</label>
+        <input
+          class={fieldClass}
+          id="company"
+          name="company"
+          type="text"
+          autocomplete="organization"
+          placeholder="Nombre de tu empresa o marca"
+        />
+      </div>
+      <div>
+        <label class={labelClass} for="plan">Tipo de Proyecto</label>
+        <select class={fieldClass} id="plan" name="plan">
+          <option value="Lienzo Corporativo ($6.5M - $18M COP)">Lienzo Corporativo ($6.5M – $18M COP)</option>
+          <option value="Obra Signature / 3D (Desde $28M COP)">Obra Signature / 3D Craft (Desde $28M COP)</option>
+          <option value="Boceto Express ($1.29M - $3.49M COP)">Boceto Express 7-10d ($1.29M – $3.49M COP)</option>
+          <option value="Consultoría / Otro">Consultoría / Rediseño a medida</option>
+        </select>
+      </div>
     </div>
 
     <div>

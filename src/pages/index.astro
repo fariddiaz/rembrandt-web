@@ -5,113 +5,409 @@ import Hero3D from '../components/Hero3D.astro';
 import Footer from '../components/Footer.astro';
 import ContactForm from '../components/ContactForm.astro';
 
-const services = [
+// Casos de éxito seleccionados (Obras de Alto Impacto)
+const featuredWorks = [
   {
-    title: 'Diseño web',
-    description:
-      'Interfaces claras, cuidadas y adaptadas a tu marca. Cada página tiene un objetivo y lo cumple.',
+    title: 'Kroma Studio',
+    category: 'Fintech & Consultoría Tech',
+    challenge: 'Rebranding completo y experiencia web inmersiva para levantar ronda Serie A.',
+    result: '+42% en demos cualificadas y premio mención de honor de diseño.',
+    tech: ['Astro', 'Three.js 3D', 'GSAP', 'Tailwind'],
+    gradient: 'from-purple-900/40 via-purple-950/20 to-black',
+    accentColor: '#8b5cf6',
   },
   {
-    title: 'Desarrollo',
-    description:
-      'Sitios rápidos, accesibles y fáciles de mantener. Código limpio, sin dependencias innecesarias.',
+    title: 'Vértice Arquitectura',
+    category: 'Estudio de Arquitectura & Lujo',
+    challenge: 'Sustituir una web lenta en WordPress por un portafolio fotográfico editorial ultrarrápido.',
+    result: 'Carga en 0.6s (antes 4.2s), 100/100 Core Web Vitals y +180% en solicitudes de proyecto.',
+    tech: ['Astro', 'Decap CMS', 'Tailwind CSS'],
+    gradient: 'from-indigo-950/40 via-purple-950/20 to-black',
+    accentColor: '#a855f7',
   },
   {
-    title: 'SEO y rendimiento',
-    description:
-      'Estructura técnica correcta, tiempos de carga bajos y contenidos preparados para posicionar.',
+    title: 'Aura Botanics',
+    category: 'E-Commerce de Cosmética de Autor',
+    challenge: 'Tienda online de ticket alto con experiencia sensorial y pasarelas de pago local e internacional.',
+    result: '+35% tasa de conversión en checkout durante los primeros 60 días.',
+    tech: ['Shopify Headless', 'Astro', 'Wompi & Stripe'],
+    gradient: 'from-fuchsia-950/40 via-purple-950/20 to-black',
+    accentColor: '#c084fc',
   },
 ];
 
+// Escalera de valor (Planes comerciales claros)
+const valueLadder = [
+  {
+    tier: 'Nivel 1',
+    name: 'Boceto (Express)',
+    badge: 'Entrega 7–10 días',
+    price: 'Desde $1.290.000 COP',
+    priceUsd: '~$400 USD',
+    forWhom: 'Pymes, profesionales independientes y emprendedores que necesitan una web profesional lista sin meses de espera.',
+    includes: [
+      'Plantilla del sistema de diseño Rembrandt adaptada a tu marca',
+      'Dominio .com + Hosting SSL incluido por 1 año',
+      'Botón directo de WhatsApp & formulario de captación',
+      'SEO técnico inicial e indexación en Google',
+      'Panel autogestionable para editar textos y fotos',
+      '1 ronda de revisión y entrega en 7–10 días hábiles',
+    ],
+    ctaText: 'Ver Detalles Express',
+    ctaLink: '#contacto',
+    featured: false,
+  },
+  {
+    tier: 'Nivel 2',
+    name: 'Lienzo (Corporativo)',
+    badge: 'El más solicitado',
+    price: '$6.500.000 – $18.000.000 COP',
+    priceUsd: '~$2.000 – $5.600 USD',
+    forWhom: 'Empresas y marcas que necesitan verse al nivel de su precio y convertir visitantes en clientes de alto valor.',
+    includes: [
+      'Diseño 100% exclusivo en Figma (cero plantillas)',
+      'Arquitectura de información y copy persuasivo enfocado a ventas',
+      'Desarrollo ultraveloz en Astro o Framer',
+      'Integración con tu CRM, WhatsApp Business y pasarela de pago',
+      'SEO técnico estructurado y analítica avanzada GA4',
+      '2 rondas de revisión por fase y soporte continuo',
+    ],
+    ctaText: 'Cotizar Proyecto Lienzo',
+    ctaLink: '#contacto',
+    featured: true,
+  },
+  {
+    tier: 'Nivel 3',
+    name: 'Obra (Signature / 3D)',
+    badge: 'Cupos limitados por trimestre',
+    price: 'Desde $28.000.000 COP',
+    priceUsd: 'Desde ~$8.750 USD',
+    forWhom: 'Startups, marcas boutique y corporativos que buscan estatus, innovación y una presencia digital que nadie más tenga.',
+    includes: [
+      'Discovery estratégico pagado (investigación de mercado y prototipo clave)',
+      'Dirección de arte de autor y narrativa visual interactiva',
+      'Modelado e integración 3D WebGL / Spline en tiempo real',
+      'Microinteracciones y animaciones avanzadas (GSAP, shaders)',
+      'Optimización extrema de rendimiento (islas interactivas Astro)',
+      'Postulación y preparación para premios internacionales (Awwwards)',
+    ],
+    ctaText: 'Aplicar para Obra Signature',
+    ctaLink: '#contacto',
+    featured: false,
+  },
+];
+
+// Proceso de trabajo
 const steps = [
   {
     number: '01',
-    title: 'Brief',
-    text: 'Entendemos el negocio, el público y el objetivo de la web.',
+    title: 'Discovery & Estrategia',
+    text: 'Entendemos tu modelo de negocio, tu cliente ideal y los números que la web debe mover antes de trazar un solo pixel.',
   },
   {
     number: '02',
-    title: 'Diseño',
-    text: 'Definimos estructura, contenido y estilo antes de programar.',
+    title: 'Dirección de Arte & Figma',
+    text: 'Diseñamos una interfaz única que proyecta autoridad y estatus. Revisamos juntos el prototipo interactivo antes de programar.',
   },
   {
     number: '03',
-    title: 'Desarrollo',
-    text: 'Construimos por fases, con revisiones y entregas parciales.',
+    title: 'Ingeniería, 3D & Rendimiento',
+    text: 'Construimos con código limpio en Astro y WebGL. Cero plugins innecesarios, máxima seguridad y velocidad instantánea.',
   },
   {
     number: '04',
-    title: 'Entrega',
-    text: 'Publicamos, medimos y dejamos la web lista para crecer.',
+    title: 'QA, Lanzamiento & Cuidado',
+    text: 'Pruebas rigurosas en dispositivos móviles reales, indexación en Google y activación del plan de mantenimiento continuo.',
   },
 ];
 ---
 
 <BaseLayout
-  title="Rembrandt | Diseño y desarrollo web"
-  description="Estudio de diseño y desarrollo web. Webs rápidas, accesibles y orientadas a negocio."
+  title="Rembrandt Studio | Diseño Web de Alto Impacto, 3D & Digital Craft"
+  description="Estudio de diseño y desarrollo web. Experiencias inmersivas 3D, ingeniería ultraligera y webs orientadas a negocio que transmiten confianza."
 >
   <Header theme="dark" />
 
-  <main id="contenido">
+  <main id="contenido" class="bg-[#0a0a0d] text-white">
+    {/* 1. Hero 3D Interactivo */}
     <Hero3D />
 
-    <section id="servicios" class="border-y border-line bg-surface">
-      <div class="mx-auto max-w-6xl px-6 py-20">
-        <h2 class="text-3xl sm:text-4xl">Servicios</h2>
-        <p class="mt-3 max-w-2xl text-muted">
-          Todo lo necesario para que tu web funcione desde el primer día.
-        </p>
-        <ul class="mt-10 grid gap-6 md:grid-cols-3">
-          {
-            services.map((service) => (
-              <li class="rounded-lg border border-line bg-paper p-6">
-                <h3 class="text-xl">{service.title}</h3>
-                <p class="mt-3 text-sm leading-relaxed text-muted">{service.description}</p>
-              </li>
-            ))
-          }
-        </ul>
+    {/* 2. Barra de Métricas y Prueba de Calidad */}
+    <section class="border-y border-white/10 bg-black/60 backdrop-blur-md py-6">
+      <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-around gap-6 px-6 text-center sm:text-left">
+        <div class="flex items-center gap-3">
+          <span class="font-display text-2xl sm:text-3xl font-bold text-accent">100/100</span>
+          <span class="text-xs uppercase tracking-wider text-white/60">Core Web Vitals &bull; Velocidad</span>
+        </div>
+        <div class="h-8 w-px bg-white/10 hidden sm:block"></div>
+        <div class="flex items-center gap-3">
+          <span class="font-display text-2xl sm:text-3xl font-bold text-accent">+38%</span>
+          <span class="text-xs uppercase tracking-wider text-white/60">Aumento promedio en conversión</span>
+        </div>
+        <div class="h-8 w-px bg-white/10 hidden sm:block"></div>
+        <div class="flex items-center gap-3">
+          <span class="font-display text-2xl sm:text-3xl font-bold text-accent">&lt; 0.8s</span>
+          <span class="text-xs uppercase tracking-wider text-white/60">Tiempo de carga inicial</span>
+        </div>
+        <div class="h-8 w-px bg-white/10 hidden sm:block"></div>
+        <div class="flex items-center gap-3">
+          <span class="font-display text-2xl sm:text-3xl font-bold text-accent">3D WebGL</span>
+          <span class="text-xs uppercase tracking-wider text-white/60">Interactividad de vanguardia</span>
+        </div>
       </div>
     </section>
 
-    <section id="proceso" class="mx-auto max-w-6xl px-6 py-20">
-      <h2 class="text-3xl sm:text-4xl">Cómo trabajamos</h2>
-      <p class="mt-3 max-w-2xl text-muted">
-        Un proceso corto, con entregas claras y sin sorpresas.
-      </p>
-      <ol class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {/* 3. Obras Seleccionadas (Portafolio de Alto Impacto) */}
+    <section id="obras" class="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
+            Portafolio Seleccionado
+          </span>
+          <h2 class="mt-2 text-3xl sm:text-5xl font-bold tracking-tight text-white">
+            Obras que generan resultados.
+          </h2>
+        </div>
+        <p class="max-w-md text-sm text-white/60 leading-relaxed">
+          No creamos catálogos genéricos. Cada proyecto resuelve un reto comercial concreto y eleva la percepción de valor de la marca.
+        </p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-3">
+        {
+          featuredWorks.map((work) => (
+            <article class="group relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-black/80 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent/60 hover:-translate-y-1">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-4">
+                  <span class="text-xs font-mono uppercase tracking-wider text-accent font-medium">
+                    {work.category}
+                  </span>
+                  <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
+                </div>
+
+                <h3 class="text-2xl font-bold text-white group-hover:text-accent transition-colors">
+                  {work.title}
+                </h3>
+
+                <p class="mt-4 text-sm text-white/70 leading-relaxed">
+                  <strong class="text-white/90 block mb-1">El reto:</strong>
+                  {work.challenge}
+                </p>
+
+                <div class="mt-5 rounded-lg border border-accent/20 bg-accent/10 p-3">
+                  <span class="text-xs font-semibold text-accent block">Impacto medible:</span>
+                  <p class="text-xs text-white/90 mt-1 font-medium">{work.result}</p>
+                </div>
+              </div>
+
+              <div class="mt-8 pt-6 border-t border-white/10">
+                <div class="flex flex-wrap gap-2 mb-5">
+                  {work.tech.map((t) => (
+                    <span class="rounded-full bg-white/5 border border-white/10 px-2.5 py-0.5 text-[11px] font-mono text-white/60">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href="#contacto"
+                  class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white hover:text-accent transition-colors"
+                >
+                  <span>Quiero un proyecto similar</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    {/* 4. Selector de Camino & Escalera de Valor */}
+    <section id="escalera" class="border-y border-white/10 bg-[#0d0d12] py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="text-center max-w-3xl mx-auto mb-20">
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
+            La Escalera de Valor
+          </span>
+          <h2 class="mt-3 text-3xl sm:text-5xl font-bold tracking-tight text-white">
+            Un nivel para cada etapa de tu negocio.
+          </h2>
+          <p class="mt-4 text-sm sm:text-base text-white/60 leading-relaxed">
+            Desde soluciones express listas para vender en 7 días hasta experiencias 3D inmersivas de alta costura digital. Tú eliges el alcance, nosotros garantizamos la excelencia.
+          </p>
+        </div>
+
+        <div class="grid gap-8 lg:grid-cols-3 items-stretch">
+          {
+            valueLadder.map((plan) => (
+              <div
+                class={
+                  plan.featured
+                    ? 'relative rounded-2xl border-2 border-accent bg-gradient-to-b from-accent/15 via-[#13111c] to-black p-8 flex flex-col justify-between shadow-2xl shadow-accent/20'
+                    : 'relative rounded-2xl border border-white/10 bg-[#111116] p-8 flex flex-col justify-between hover:border-white/20 transition-all'
+                }
+              >
+                {plan.featured && (
+                  <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                    {plan.badge}
+                  </span>
+                )}
+
+                <div>
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-xs font-mono uppercase tracking-widest text-white/50">
+                      {plan.tier}
+                    </span>
+                    {!plan.featured && (
+                      <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-white/60 border border-white/5">
+                        {plan.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 class="mt-3 text-2xl font-bold text-white">{plan.name}</h3>
+
+                  <div class="mt-4 pb-5 border-b border-white/10">
+                    <span class="text-2xl sm:text-3xl font-extrabold text-white block">
+                      {plan.price}
+                    </span>
+                    <span class="text-xs font-mono text-white/50">{plan.priceUsd}</span>
+                  </div>
+
+                  <p class="mt-5 text-xs sm:text-sm text-white/70 leading-relaxed">
+                    {plan.forWhom}
+                  </p>
+
+                  <ul class="mt-6 space-y-3 text-xs text-white/80">
+                    {plan.includes.map((item) => (
+                      <li class="flex items-start gap-2.5">
+                        <svg class="h-4 w-4 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-white/10">
+                  <a
+                    href={plan.ctaLink}
+                    class={
+                      plan.featured
+                        ? 'block w-full rounded-lg bg-accent py-3.5 text-center text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-accent-strong shadow-lg shadow-accent/30'
+                        : 'block w-full rounded-lg border border-white/20 bg-white/5 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/10'
+                    }
+                  >
+                    {plan.ctaText}
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        {/* Mención especial del Plan Cuidado Recurrente */}
+        <div class="mt-12 rounded-xl border border-white/10 bg-white/[0.02] p-6 text-center max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="text-left">
+            <h4 class="text-sm font-semibold text-white">¿Tienes ya una web o terminaste tu proyecto?</h4>
+            <p class="text-xs text-white/60 mt-0.5">Plan Cuidado desde $89.000 COP/mes (Hosting, soporte, copias y renovaciones).</p>
+          </div>
+          <a href="#contacto" class="text-xs uppercase font-semibold text-accent hover:underline shrink-0">
+            Consultar mantenimiento &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* 5. Cómo Trabajamos (Proceso transparente) */}
+    <section id="proceso" class="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
+          Certeza & Control
+        </span>
+        <h2 class="mt-3 text-3xl sm:text-5xl font-bold tracking-tight text-white">
+          Cómo trabajamos: sin sorpresas ni retrasos.
+        </h2>
+        <p class="mt-3 text-sm text-white/60">
+          Un proceso ágil con entregas por fases, comunicación directa y calendario cerrado.
+        </p>
+      </div>
+
+      <ol class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
           steps.map((step) => (
-            <li class="border-t border-line pt-5">
-              <span class="font-display text-sm text-accent">{step.number}</span>
-              <h3 class="mt-2 text-lg">{step.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted">{step.text}</p>
+            <li class="relative rounded-xl border border-white/10 bg-[#111116] p-6 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-accent px-2 py-1 rounded bg-accent/10 border border-accent/20">
+                  {step.number}
+                </span>
+                <h3 class="mt-4 text-lg font-bold text-white">{step.title}</h3>
+                <p class="mt-2 text-xs leading-relaxed text-white/60">{step.text}</p>
+              </div>
             </li>
           ))
         }
       </ol>
     </section>
 
-    <section id="contacto" class="border-t border-line bg-surface">
-      <div class="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-2">
+    {/* 6. Testimonio / Social Proof */}
+    <section class="border-y border-white/10 bg-gradient-to-r from-purple-950/20 via-black to-indigo-950/20 py-20">
+      <div class="mx-auto max-w-4xl px-6 text-center">
+        <div class="inline-flex items-center gap-1 text-accent mb-6">
+          {Array.from({ length: 5 }).map(() => (
+            <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          ))}
+        </div>
+        <blockquote class="font-display text-xl sm:text-3xl font-medium tracking-tight text-white leading-snug">
+          &ldquo;Rembrandt no nos hizo una plantilla común de agencia: transformó nuestra presencia web en una herramienta que cierra clientes antes de que abramos la boca. La inversión se pagó sola en el primer trimestre.&rdquo;
+        </blockquote>
+        <div class="mt-6">
+          <p class="font-semibold text-sm text-white">Dirección General</p>
+          <p class="text-xs text-white/50">Kroma Advisory &bull; Cliente Corporativo</p>
+        </div>
+      </div>
+    </section>
+
+    {/* 7. Formulario de Contacto / Intake */}
+    <section id="contacto" class="border-t border-white/10 bg-[#0a0a0d]">
+      <div class="mx-auto grid max-w-6xl gap-12 px-6 py-24 sm:py-32 lg:grid-cols-2">
         <div>
-          <h2 class="text-3xl sm:text-4xl">Cuéntanos tu proyecto</h2>
-          <p class="mt-4 max-w-md text-muted">
-            Responde en menos de un minuto. Te contestamos con una propuesta clara en 24-48 horas.
+          <span class="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
+            Iniciemos una conversación
+          </span>
+          <h2 class="mt-2 text-3xl sm:text-5xl font-bold tracking-tight text-white">
+            Cuéntanos tu proyecto.
+          </h2>
+          <p class="mt-4 text-sm sm:text-base text-white/60 leading-relaxed">
+            Completa el formulario en menos de 1 minuto. Evaluamos tu necesidad técnica y te contestamos con una propuesta clara y transparente en 24–48 horas.
           </p>
-          <dl class="mt-8 space-y-4 text-sm">
-            <div>
-              <dt class="font-medium">Email</dt>
-              <dd class="text-muted">hola@rembrandt.example</dd>
+
+          <dl class="mt-10 space-y-4 text-xs sm:text-sm text-white/70">
+            <div class="flex items-center gap-3">
+              <span class="h-2 w-2 rounded-full bg-accent"></span>
+              <dt class="font-medium text-white">Canal directo:</dt>
+              <dd>hola@rembrandt.studio</dd>
             </div>
-            <div>
-              <dt class="font-medium">Horario</dt>
-              <dd class="text-muted">Lunes a viernes, 9:00 - 18:00</dd>
+            <div class="flex items-center gap-3">
+              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+              <dt class="font-medium text-white">Tiempos de respuesta:</dt>
+              <dd>Lunes a viernes, menos de 24 horas</dd>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="h-2 w-2 rounded-full bg-accent"></span>
+              <dt class="font-medium text-white">Cobertura:</dt>
+              <dd>Colombia, Estados Unidos y Latinoamérica</dd>
             </div>
           </dl>
         </div>
-        <ContactForm />
+
+        <div class="rounded-2xl border border-white/10 bg-[#111116] p-6 sm:p-8">
+          <ContactForm />
+        </div>
       </div>
     </section>
   </main>
