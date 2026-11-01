@@ -176,13 +176,16 @@ const steps = [
       <div class="grid gap-8 lg:grid-cols-3">
         {
           featuredWorks.map((work) => (
-            <article class="group relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-black/80 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent/60 hover:-translate-y-1">
-              <div>
+            <article
+              data-claroscuro-card
+              class="claroscuro-card group relative rounded-2xl border border-white/10 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent/60 hover:-translate-y-1 overflow-hidden"
+            >
+              <div class="relative z-10">
                 <div class="flex items-center justify-between gap-2 mb-4">
                   <span class="text-xs font-mono uppercase tracking-wider text-accent font-medium">
                     {work.category}
                   </span>
-                  <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
+                  <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_6px_#8b5cf6]"></span>
                 </div>
 
                 <h3 class="text-2xl font-bold text-white group-hover:text-accent transition-colors">
@@ -200,7 +203,7 @@ const steps = [
                 </div>
               </div>
 
-              <div class="mt-8 pt-6 border-t border-white/10">
+              <div class="mt-8 pt-6 border-t border-white/10 relative z-10">
                 <div class="flex flex-wrap gap-2 mb-5">
                   {work.tech.map((t) => (
                     <span class="rounded-full bg-white/5 border border-white/10 px-2.5 py-0.5 text-[11px] font-mono text-white/60">
@@ -242,19 +245,20 @@ const steps = [
           {
             valueLadder.map((plan) => (
               <div
+                data-claroscuro-card
                 class={
                   plan.featured
-                    ? 'relative rounded-2xl border-2 border-accent bg-gradient-to-b from-accent/15 via-[#13111c] to-black p-8 flex flex-col justify-between shadow-2xl shadow-accent/20'
-                    : 'relative rounded-2xl border border-white/10 bg-[#111116] p-8 flex flex-col justify-between hover:border-white/20 transition-all'
+                    ? 'claroscuro-card relative rounded-2xl border-2 border-accent p-8 flex flex-col justify-between shadow-2xl shadow-accent/20 overflow-hidden'
+                    : 'claroscuro-card relative rounded-2xl border border-white/10 p-8 flex flex-col justify-between hover:border-white/20 transition-all overflow-hidden'
                 }
               >
                 {plan.featured && (
-                  <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                  <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-[0_0_15px_#8b5cf6] z-20">
                     {plan.badge}
                   </span>
                 )}
 
-                <div>
+                <div class="relative z-10">
                   <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-mono uppercase tracking-widest text-white/50">
                       {plan.tier}
@@ -291,16 +295,19 @@ const steps = [
                   </ul>
                 </div>
 
-                <div class="mt-8 pt-6 border-t border-white/10">
+                <div class="mt-8 pt-6 border-t border-white/10 relative z-10">
                   <a
                     href={plan.ctaLink}
                     class={
                       plan.featured
-                        ? 'block w-full rounded-lg bg-accent py-3.5 text-center text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-accent-strong shadow-lg shadow-accent/30'
-                        : 'block w-full rounded-lg border border-white/20 bg-white/5 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/10'
+                        ? 'btn-firma group relative inline-flex flex-col items-center justify-center w-full rounded-lg bg-accent py-3.5 text-center text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-accent-strong shadow-lg shadow-accent/30 overflow-hidden'
+                        : 'group relative inline-flex flex-col items-center justify-center w-full rounded-lg border border-white/20 bg-white/5 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/10 overflow-hidden'
                     }
                   >
-                    {plan.ctaText}
+                    <span>{plan.ctaText}</span>
+                    <svg class="firma-stroke absolute bottom-1 h-2 w-20 pointer-events-none" viewBox="0 0 320 60" aria-hidden="true">
+                      <path pathLength="1" d="M10 42 C 38 12, 65 52, 98 28 S 145 18, 180 38 C 215 52, 235 18, 265 25 C 290 30, 302 44, 314 28" />
+                    </svg>
                   </a>
                 </div>
               </div>
@@ -413,4 +420,18 @@ const steps = [
   </main>
 
   <Footer />
+
+  <script>
+    // Efecto Claroscuro en Tarjetas (La luz violeta rasante sigue el cursor)
+    const cards = document.querySelectorAll<HTMLElement>('[data-claroscuro-card]');
+    cards.forEach((card) => {
+      card.addEventListener('pointermove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
 </BaseLayout>

@@ -5,21 +5,30 @@
   --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
 
   --color-paper: #fcfbfe;
-  --color-surface: #ffffff;
+  --color-surface: #121217;
   --color-ink: #0a0a0d;
-  --color-muted: #71717a;
-  --color-line: #e4e4e7;
+  --color-muted: #a1a1aa;
+  --color-line: rgba(255, 255, 255, 0.1);
   --color-accent: #8b5cf6;
   --color-accent-strong: #7c3aed;
+
+  /* Rembrandt Studio - Tokens Oficiales de Dirección de Arte */
+  --color-carbon: #0a0a0d;
+  --color-velo: #1c1530;
+  --color-violet-neon: #8b5cf6;
+  --color-destello: #ede9fe;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: #0a0a0d;
   }
 
   body {
-    @apply bg-paper font-sans text-ink antialiased;
+    background-color: #0a0a0d;
+    color: #fcfbfe;
+    @apply font-sans antialiased;
   }
 
   ::selection {
@@ -47,4 +56,48 @@
       scroll-behavior: auto;
     }
   }
+}
+
+/* Efecto Firma Rembrandt (Efecto 2) */
+.firma-stroke {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.group:hover .firma-stroke,
+.group:focus-visible .firma-stroke,
+.btn-firma:hover .firma-stroke {
+  stroke-dashoffset: 0;
+}
+
+/* Spotlight Claroscuro en Tarjetas */
+.claroscuro-card {
+  position: relative;
+  background-color: rgba(18, 18, 23, 0.7);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.claroscuro-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(139, 92, 246, 0.12),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.claroscuro-card:hover::before {
+  opacity: 1;
 }

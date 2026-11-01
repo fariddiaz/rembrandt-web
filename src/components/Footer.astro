@@ -3,19 +3,36 @@ const year = new Date().getFullYear();
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<footer class="border-t border-white/10 bg-[#070709] text-white/60">
+<footer class="relative overflow-hidden border-t border-white/10 bg-[#070709] text-white/60">
+  {/* Marca de agua sutil de la firma de Rembrandt */}
+  <div class="pointer-events-none absolute right-4 bottom-2 opacity-[0.06] select-none" aria-hidden="true">
+    <svg class="h-32 w-80 text-white" viewBox="0 0 320 60" fill="none" stroke="currentColor">
+      <path stroke-width="2.5" stroke-linecap="round" d="M12 42 C 35 12, 60 52, 95 28 S 140 18, 175 38 C 210 52, 230 18, 260 25 C 285 30, 295 44, 312 28" />
+    </svg>
+  </div>
+
   <div
-    class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-12 text-xs sm:flex-row sm:items-center sm:justify-between"
+    class="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12 text-xs sm:flex-row sm:items-center sm:justify-between relative z-10"
   >
-    <div class="flex items-center gap-2">
-      <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent"></span>
-      <p>&copy; {year} Rembrandt Studio &bull; Arte, Tecnología & Rendimiento Web.</p>
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center gap-2">
+        <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_6px_#8b5cf6]"></span>
+        <span class="font-display font-semibold tracking-wide text-white">Rembrandt Studio</span>
+        <span class="text-white/40">&bull; Arte, Tecnología & Rendimiento</span>
+      </div>
+      <p class="text-white/40 italic font-display text-[13px]">
+        "Oscuridad para que la luz importe."
+      </p>
     </div>
-    <nav aria-label="Legal">
-      <ul class="flex gap-6">
-        <li><a class="transition-colors hover:text-white" href={`${base}/aviso-legal`}>Aviso legal</a></li>
-        <li><a class="transition-colors hover:text-white" href={`${base}/privacidad`}>Privacidad</a></li>
-      </ul>
-    </nav>
+
+    <div class="flex flex-wrap items-center gap-6">
+      <p class="text-white/40">&copy; {year} Rembrandt Studio.</p>
+      <nav aria-label="Legal">
+        <ul class="flex gap-6">
+          <li><a class="transition-colors hover:text-white" href={`${base}/aviso-legal`}>Aviso legal</a></li>
+          <li><a class="transition-colors hover:text-white" href={`${base}/privacidad`}>Privacidad</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </footer>
