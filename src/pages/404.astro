@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Página no encontrada | Rembrandt"
+  description="La página no existe."
+  noindex={true}
+>
+  <Header />
+  <main id="contenido" class="mx-auto max-w-3xl px-6 py-28 text-center">
+    <p class="text-sm font-medium uppercase tracking-widest text-accent">Error 404</p>
+    <h1 class="mt-4 text-4xl sm:text-5xl">Esta página no existe</h1>
+    <p class="mx-auto mt-6 max-w-xl text-lg text-muted">
+      Puede que el enlace esté mal escrito o que la página se haya movido.
+    </p>
+    <a
+      class="mt-10 inline-flex rounded-md bg-ink px-6 py-3 font-medium text-paper transition-colors hover:bg-accent-strong"
+      href={import.meta.env.BASE_URL}
+    >
+      Volver al inicio
+    </a>
+  </main>
+  <Footer />
+</BaseLayout>

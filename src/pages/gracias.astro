@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Gracias | Rembrandt" description="Hemos recibido tu mensaje." noindex={true}>
+  <Header />
+  <main id="contenido" class="mx-auto max-w-3xl px-6 py-28 text-center">
+    <h1 class="text-4xl sm:text-5xl">Gracias por escribirnos</h1>
+    <p class="mx-auto mt-6 max-w-xl text-lg text-muted">
+      Hemos recibido tu mensaje. Te responderemos en 24-48 horas laborables.
+    </p>
+    <a
+      class="mt-10 inline-flex rounded-md bg-ink px-6 py-3 font-medium text-paper transition-colors hover:bg-accent-strong"
+      href={import.meta.env.BASE_URL}
+    >
+      Volver al inicio
+    </a>
+  </main>
+  <Footer />
+</BaseLayout>

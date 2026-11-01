@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const services = [
+  {
+    title: 'Diseño web',
+    description:
+      'Interfaces claras, cuidadas y adaptadas a tu marca. Cada página tiene un objetivo y lo cumple.',
+  },
+  {
+    title: 'Desarrollo',
+    description:
+      'Sitios rápidos, accesibles y fáciles de mantener. Código limpio, sin dependencias innecesarias.',
+  },
+  {
+    title: 'SEO y rendimiento',
+    description:
+      'Estructura técnica correcta, tiempos de carga bajos y contenidos preparados para posicionar.',
+  },
+];
+
+const steps = [
+  {
+    number: '01',
+    title: 'Brief',
+    text: 'Entendemos el negocio, el público y el objetivo de la web.',
+  },
+  {
+    number: '02',
+    title: 'Diseño',
+    text: 'Definimos estructura, contenido y estilo antes de programar.',
+  },
+  {
+    number: '03',
+    title: 'Desarrollo',
+    text: 'Construimos por fases, con revisiones y entregas parciales.',
+  },
+  {
+    number: '04',
+    title: 'Entrega',
+    text: 'Publicamos, medimos y dejamos la web lista para crecer.',
+  },
+];
+---
+
+<BaseLayout
+  title="Rembrandt | Diseño y desarrollo web"
+  description="Estudio de diseño y desarrollo web. Webs rápidas, accesibles y orientadas a negocio."
+>
+  <Header />
+
+  <main id="contenido">
+    <section class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+      <p class="mb-4 text-sm font-medium uppercase tracking-widest text-accent">
+        Estudio de diseño y desarrollo
+      </p>
+      <h1 class="max-w-3xl text-4xl leading-tight sm:text-5xl lg:text-6xl">
+        Webs que transmiten confianza y traen clientes.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-muted">
+        Diseñamos y construimos sitios para empresas que necesitan una presencia digital seria,
+        rápida y fácil de mantener.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          class="rounded-md bg-ink px-6 py-3 font-medium text-paper transition-colors hover:bg-accent-strong"
+          href="#contacto"
+        >
+          Hablemos de tu proyecto
+        </a>
+        <a
+          class="rounded-md border border-line bg-surface px-6 py-3 font-medium transition-colors hover:border-ink"
+          href="#servicios"
+        >
+          Ver servicios
+        </a>
+      </div>
+    </section>
+
+    <section id="servicios" class="border-y border-line bg-surface">
+      <div class="mx-auto max-w-6xl px-6 py-20">
+        <h2 class="text-3xl sm:text-4xl">Servicios</h2>
+        <p class="mt-3 max-w-2xl text-muted">
+          Todo lo necesario para que tu web funcione desde el primer día.
+        </p>
+        <ul class="mt-10 grid gap-6 md:grid-cols-3">
+          {
+            services.map((service) => (
+              <li class="rounded-lg border border-line bg-paper p-6">
+                <h3 class="text-xl">{service.title}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-muted">{service.description}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section id="proceso" class="mx-auto max-w-6xl px-6 py-20">
+      <h2 class="text-3xl sm:text-4xl">Cómo trabajamos</h2>
+      <p class="mt-3 max-w-2xl text-muted">
+        Un proceso corto, con entregas claras y sin sorpresas.
+      </p>
+      <ol class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          steps.map((step) => (
+            <li class="border-t border-line pt-5">
+              <span class="font-display text-sm text-accent">{step.number}</span>
+              <h3 class="mt-2 text-lg">{step.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section id="contacto" class="border-t border-line bg-surface">
+      <div class="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-2">
+        <div>
+          <h2 class="text-3xl sm:text-4xl">Cuéntanos tu proyecto</h2>
+          <p class="mt-4 max-w-md text-muted">
+            Responde en menos de un minuto. Te contestamos con una propuesta clara en 24-48 horas.
+          </p>
+          <dl class="mt-8 space-y-4 text-sm">
+            <div>
+              <dt class="font-medium">Email</dt>
+              <dd class="text-muted">hola@rembrandt.example</dd>
+            </div>
+            <div>
+              <dt class="font-medium">Horario</dt>
+              <dd class="text-muted">Lunes a viernes, 9:00 - 18:00</dd>
+            </div>
+          </dl>
+        </div>
+        <ContactForm />
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

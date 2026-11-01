@@ -1,0 +1,152 @@
+---
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const showKeyWarning = import.meta.env.DEV && !accessKey;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const graciasUrl = `${base}/gracias`;
+
+const fieldClass =
+  'w-full rounded-md border border-line bg-surface px-4 py-3 text-ink placeholder:text-muted/70 focus:border-accent focus:outline-none';
+const labelClass = 'mb-2 block text-sm font-medium';
+---
+
+<div>
+  {
+    showKeyWarning && (
+      <p class="mb-4 rounded-md border border-accent/30 bg-accent/10 px-4 py-3 text-sm">
+        Falta <code>PUBLIC_WEB3FORMS_KEY</code> en <code>.env</code>. El formulario no enviará
+        mensajes hasta configurarla.
+      </p>
+    )
+  }
+
+  <form action="https://api.web3forms.com/submit" method="POST" data-contact-form data-success-url={graciasUrl} class="space-y-5">
+    <input type="hidden" name="access_key" value={accessKey} />
+    <input type="hidden" name="subject" value="Nuevo mensaje desde la web" />
+    <input type="hidden" name="from_name" value="Web Rembrandt" />
+    <input
+      type="checkbox"
+      name="botcheck"
+      class="hidden"
+      tabindex="-1"
+      autocomplete="off"
+      aria-hidden="true"
+    />
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div>
+        <label class={labelClass} for="name">Nombre</label>
+        <input
+          class={fieldClass}
+          id="name"
+          name="name"
+          type="text"
+          autocomplete="name"
+          placeholder="Tu nombre"
+          required
+        />
+      </div>
+      <div>
+        <label class={labelClass} for="email">Email</label>
+        <input
+          class={fieldClass}
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          placeholder="tu@email.com"
+          required
+        />
+      </div>
+    </div>
+
+    <div>
+      <label class={labelClass} for="company">Empresa (opcional)</label>
+      <input
+        class={fieldClass}
+        id="company"
+        name="company"
+        type="text"
+        autocomplete="organization"
+        placeholder="Nombre de tu empresa"
+      />
+    </div>
+
+    <div>
+      <label class={labelClass} for="message">Mensaje</label>
+      <textarea
+        class={fieldClass}
+        id="message"
+        name="message"
+        rows="5"
+        placeholder="Cuéntanos qué necesitas"
+        required></textarea>
+    </div>
+
+    <div class="flex items-start gap-3">
+      <input
+        class="mt-1 size-4 rounded border-line text-accent focus:ring-accent"
+        id="consent"
+        name="consent"
+        type="checkbox"
+        value="Acepto la política de privacidad"
+        required
+      />
+      <label class="text-sm text-muted" for="consent">
+        He leído y acepto la
+        <a class="underline hover:text-ink" href={`${base}/privacidad`}>política de privacidad</a>.
+      </label>
+    </div>
+
+    <button
+      class="inline-flex items-center justify-center rounded-md bg-ink px-6 py-3 font-medium text-paper transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-60"
+      type="submit"
+    >
+      Enviar mensaje
+    </button>
+
+    <p data-form-status role="status" aria-live="polite" class="min-h-6 text-sm text-muted"></p>
+  </form>
+</div>
+
+<script>
+  const form = document.querySelector('[data-contact-form]');
+
+  if (form instanceof HTMLFormElement) {
+    const status = form.querySelector('[data-form-status]');
+    const button = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!(status instanceof HTMLElement) || !(button instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Enviando...';
+      status.textContent = '';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          const successUrl = form.getAttribute('data-success-url') || '/gracias';
+          window.location.assign(successUrl);
+          return;
+        }
+
+        status.textContent = 'No se pudo enviar. Inténtalo de nuevo o escríbenos por email.';
+      } catch {
+        status.textContent = 'No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.';
+      }
+
+      button.disabled = false;
+      button.textContent = 'Enviar mensaje';
+    });
+  }
+</script>

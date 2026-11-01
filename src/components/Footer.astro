@@ -1,0 +1,18 @@
+---
+const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<footer class="border-t border-line bg-surface">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p>&copy; {year} Rembrandt. Diseño y desarrollo web.</p>
+    <nav aria-label="Legal">
+      <ul class="flex gap-6">
+        <li><a class="transition-colors hover:text-ink" href={`${base}/aviso-legal`}>Aviso legal</a></li>
+        <li><a class="transition-colors hover:text-ink" href={`${base}/privacidad`}>Privacidad</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
