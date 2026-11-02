@@ -1,8 +1,12 @@
 ---
 // Marco artístico lateral: pinturas de Rembrandt en los bordes del viewport.
 // Puramente decorativo: fijo, sin eventos de puntero y bajo el contenido (main es z-[2], footer es z-[10]).
-// Tres estados según la sección visible (Hero → Planes → Portafolio/Proceso):
-// las pinturas se funden entre sí (cross-fade 1.2s) con un parallax sutil.
+// Cada página cuenta con sus propias obras maestras exclusivas:
+// 0: Inicio -> Tormenta en el Mar de Galilea · 1633 / La Ronda de Noche · 1642
+// 1: Planes -> Aristóteles con el busto de Homero · 1653 / El Molino · 1645
+// 2: Portafolio -> El Retorno del Hijo Pródigo · 1669 / Lección de Anatomía · 1632
+// 3: Proceso -> Filósofo en Meditación · 1632 / El Sacrificio de Isaac · 1635
+// 4: Contacto -> La Novia Judía · 1667 / Autorretrato con dos círculos · 1665
 
 interface Artwork {
   src: string;
@@ -11,19 +15,37 @@ interface Artwork {
 
 const left: Artwork[] = [
   { src: '/art/storm.jpg', caption: 'Tormenta en el Mar de Galilea · 1633' },
+  { src: '/art/aristotle.jpg', caption: 'Aristóteles con el busto de Homero · 1653' },
+  { src: '/art/prodigalson.jpg', caption: 'El Retorno del Hijo Pródigo · 1669' },
   { src: '/art/philosopher.jpg', caption: 'Filósofo en Meditación · 1632' },
-  { src: '/art/anatomy.jpg', caption: 'Lección de Anatomía · 1632' },
+  { src: '/art/jewishbride.jpg', caption: 'La Novia Judía · 1667' },
 ];
+
 const right: Artwork[] = [
   { src: '/art/nightwatch.jpg', caption: 'La Ronda de Noche · 1642' },
-  { src: '/art/jewishbride.jpg', caption: 'La Novia Judía · 1667' },
-  { src: '/art/belshazzar.jpg', caption: 'El Festín de Belsasar · 1635' },
+  { src: '/art/mill.jpg', caption: 'El Molino · 1645' },
+  { src: '/art/anatomy.jpg', caption: 'Lección de Anatomía · 1632' },
+  { src: '/art/isaac.jpg', caption: 'El Sacrificio de Isaac · 1635' },
+  { src: '/art/selfportrait.jpg', caption: 'Autorretrato con dos círculos · 1665' },
 ];
 
 const sides = [
   { side: 'left', works: left },
   { side: 'right', works: right },
 ] as const;
+
+// Detección en tiempo de compilación / render SSR para evitar cualquier parpadeo
+const pathname = Astro.url.pathname.toLowerCase().replace(/\/$/, '') || '/';
+let initialIndex = 0;
+if (pathname.startsWith('/planes')) {
+  initialIndex = 1;
+} else if (pathname.startsWith('/portafolio')) {
+  initialIndex = 2;
+} else if (pathname.startsWith('/proceso')) {
+  initialIndex = 3;
+} else if (pathname.startsWith('/contacto')) {
+  initialIndex = 4;
+}
 ---
 <div class="art-frame pointer-events-none fixed inset-0 z-0 hidden select-none xl:block" aria-hidden="true" data-art-borders>
   {sides.map(({ side, works }) => (
@@ -33,16 +55,16 @@ const sides = [
           <img
             src={w.src}
             alt=""
-            loading={i === 0 ? 'eager' : 'lazy'}
+            loading={i === initialIndex ? 'eager' : 'lazy'}
             decoding="async"
             draggable="false"
-            class:list={['art-img', i === 0 && 'is-active']}
+            class:list={['art-img', i === initialIndex && 'is-active']}
             data-art-state={i}
           />
         ))}
       </div>
       {works.map((w, i) => (
-        <span class:list={['art-caption', `art-caption--${side}`, i === 0 && 'is-active']} data-art-state={i}>
+        <span class:list={['art-caption', `art-caption--${side}`, i === initialIndex && 'is-active']} data-art-state={i}>
           {w.caption}
         </span>
       ))}
@@ -51,22 +73,27 @@ const sides = [
 </div>
 
 <script>
-  // Sección → estado del marco. Las secciones intermedias heredan el último estado alcanzado.
-  const STATE_ANCHORS: [string, number][] = [
-    ['#planes', 1],
-    ['#trabajo', 2],
-  ];
-
   function initArtBorders() {
     const root = document.querySelector<HTMLElement>('[data-art-borders]');
     if (!root) return;
 
     const layers = root.querySelectorAll<HTMLElement>('[data-art-parallax]');
     const items = root.querySelectorAll<HTMLElement>('[data-art-state]');
-    const anchors = STATE_ANCHORS.map(([sel, state]) => [document.querySelector<HTMLElement>(sel), state] as const);
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    let current = 0;
+    const path = window.location.pathname.toLowerCase();
+    let defaultState = 0;
+    if (path.includes('/planes')) {
+      defaultState = 1;
+    } else if (path.includes('/portafolio')) {
+      defaultState = 2;
+    } else if (path.includes('/proceso')) {
+      defaultState = 3;
+    } else if (path.includes('/contacto')) {
+      defaultState = 4;
+    }
+
+    let current = -1;
     let raf = 0;
 
     const setState = (state: number) => {
@@ -77,19 +104,21 @@ const sides = [
 
     const update = () => {
       raf = 0;
-      const path = window.location.pathname.toLowerCase();
-      let state = 0;
+      let state = defaultState;
 
-      if (path.includes('/planes')) {
-        state = 1;
-      } else if (path.includes('/portafolio') || path.includes('/proceso') || path.includes('/contacto')) {
-        state = 2;
-      } else {
+      // Si está en la página de inicio, puede cambiar dinámicamente según scroll entre secciones
+      if (defaultState === 0) {
+        const planesEl = document.querySelector<HTMLElement>('#planes');
+        const trabajoEl = document.querySelector<HTMLElement>('#trabajo');
         const probe = innerHeight * 0.5;
-        for (const [el, s] of anchors) {
-          if (el && el.getBoundingClientRect().top <= probe) state = s;
+
+        if (trabajoEl && trabajoEl.getBoundingClientRect().top <= probe) {
+          state = 2;
+        } else if (planesEl && planesEl.getBoundingClientRect().top <= probe) {
+          state = 1;
         }
       }
+
       setState(state);
 
       if (!reduceMotion) {
