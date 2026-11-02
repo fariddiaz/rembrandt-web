@@ -47,6 +47,16 @@ if (pathname.startsWith('/planes')) {
   initialIndex = 4;
 }
 ---
+<!-- Sello Artístico de Curaduría para Móvil (Obras maestras adaptadas a smartphones) -->
+<div class="pointer-events-none fixed top-20 right-3.5 z-30 select-none xl:hidden" aria-hidden="true">
+  <div class="glass flex items-center gap-2 rounded-full py-1 px-3 border border-amber-400/25 bg-carbon/80 shadow-lg backdrop-blur-md">
+    <span class="size-1.5 rounded-full bg-amber-300"></span>
+    <span class="font-serif italic text-[0.65rem] tracking-wide text-amber-200/90">
+      Rembrandt f. · {left[initialIndex]?.caption.split('·')[0].trim()}
+    </span>
+  </div>
+</div>
+
 <div class="art-frame pointer-events-none fixed inset-0 z-0 hidden select-none xl:block" aria-hidden="true" data-art-borders>
   {sides.map(({ side, works }) => (
     <div class={`art-border art-border--${side}`}>

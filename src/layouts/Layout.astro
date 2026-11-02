@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Cursor from '../components/Cursor.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import MobileBottomBar from '../components/MobileBottomBar.astro';
 import RembrandtArtBorders from '../components/RembrandtArtBorders.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 
@@ -56,7 +57,7 @@ const jsonLd = {
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0a0d" />
     <meta name="color-scheme" content="dark" />
     <meta name="generator" content={Astro.generator} />
@@ -142,6 +143,7 @@ const jsonLd = {
 
     <Cursor />
     <WhatsAppFloat />
+    <MobileBottomBar />
     <CookieBanner />
 
     <script>

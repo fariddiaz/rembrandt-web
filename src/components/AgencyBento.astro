@@ -22,10 +22,10 @@ const logos = [
 >
   <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
     
-    <!-- Frase Declarativa de Impacto (Estilo AgentAI) -->
-    <div class="mb-16 max-w-4xl">
-      <p class="text-[clamp(1.75rem,3.4vw,2.9rem)] font-light leading-[1.2] text-light">
-        Diseñamos y programamos <span class="font-normal text-violet-300">soluciones web</span> con las personas en el centro, asegurando que cada <span class="font-normal text-rose-300">página web convierta</span> visitas en clientes reales y ventas inmediatas.
+    <!-- Frase Declarativa de Impacto -->
+    <div class="mb-14 md:mb-16 max-w-4xl">
+      <p class="text-[clamp(1.5rem,3.4vw,2.9rem)] font-light leading-[1.25] text-light">
+        Diseñamos y programamos <span class="font-normal text-amber-200">soluciones web</span> con las personas en el centro, asegurando que cada <span class="font-normal text-light">página web convierta</span> visitas en clientes reales y ventas inmediatas.
       </p>
     </div>
 
@@ -33,7 +33,7 @@ const logos = [
     <div class="grid gap-6 md:grid-cols-12">
       
       <!-- Bento Card 1: Ubicación & Disponibilidad Global (7 cols) -->
-      <div class="glass relative flex flex-col justify-between overflow-hidden rounded-[2rem] p-7 md:col-span-7 md:p-10">
+      <div class="glass relative flex flex-col justify-between overflow-hidden rounded-3xl md:rounded-[2rem] p-6 sm:p-7 md:col-span-7 md:p-10">
         <!-- Iluminación cenital claroscuro -->
         <div class="absolute -right-16 -top-16 size-72 rounded-full bg-white/[0.03] blur-3xl" aria-hidden="true"></div>
 
@@ -41,17 +41,17 @@ const logos = [
           <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">
             Estudio Web de Autor
           </p>
-          <h3 class="mt-4 text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-light">
-            Estudio Digital con Alcance Global <span class="text-mute font-sans text-lg">· Proyectos en Colombia, EE.UU. y Latinoamérica</span>
+          <h3 class="mt-4 text-[clamp(1.4rem,2.4vw,2rem)] leading-tight text-light">
+            Estudio Digital con Alcance Global <span class="text-mute font-sans text-base sm:text-lg">· Proyectos en Colombia, EE.UU. y Latinoamérica</span>
           </h3>
-          <p class="mt-2 max-w-md text-sm text-mute">
+          <p class="mt-2.5 max-w-md text-xs sm:text-sm text-mute leading-relaxed">
             Coordinamos contigo 100% en línea por WhatsApp y videollamada para entregar tu web express en 4 a 6 días hábiles sin fricción.
           </p>
           <a
             href={waLink('Hola Rembrandt Studio, quiero iniciar un proyecto web para mi negocio.')}
             target="_blank"
             rel="noopener"
-            class="btn btn-light mt-6 !py-2.5 !px-5 text-sm"
+            class="btn btn-light btn-float-alt mt-6 !py-2.5 !px-5 text-sm active:scale-95 transition-transform"
             data-magnetic="0.3"
             data-cursor="PROYECTO"
           >
@@ -60,20 +60,20 @@ const logos = [
         </div>
 
         <!-- Preview visual inferior en tarjeta oscura con iluminación suave -->
-        <div class="mt-8 overflow-hidden rounded-xl border border-white/10 bg-carbon-2/80 p-5 shadow-inner">
+        <div class="mt-8 overflow-hidden rounded-xl border border-white/10 bg-carbon-2/80 p-4 sm:p-5 shadow-inner">
           <div class="flex items-center justify-between text-xs text-mute">
             <span class="flex items-center gap-2">
               <span class="size-2 rounded-full bg-emerald-400"></span>
               En desarrollo en tiempo real
             </span>
-            <span class="rounded bg-white/5 px-2 py-0.5">Astro + Tailwind + 3D</span>
+            <span class="rounded bg-white/5 px-2 py-0.5 font-mono text-[0.7rem]">Astro + 3D</span>
           </div>
           <div class="mt-4 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-              <Logo variant="mark-color" class="h-8 w-auto" />
+              <Logo variant="mark-color" class="h-7 sm:h-8 w-auto" />
               <div>
-                <p class="font-display text-lg text-light">Tu Marca Aquí</p>
-                <p class="text-xs text-mute">Diseño de autor sin plantillas genéricas</p>
+                <p class="font-display text-base sm:text-lg text-light">Tu Marca Aquí</p>
+                <p class="text-[0.7rem] sm:text-xs text-mute">Diseño de autor sin plantillas genéricas</p>
               </div>
             </div>
             <span class="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-light">
@@ -87,8 +87,8 @@ const logos = [
       <div class="flex flex-col gap-6 md:col-span-5">
         
         <!-- Bento Card 2: Calidad e Ingeniería Verificada (Sin datos inflados) -->
-        <div class="glass relative overflow-hidden rounded-[2rem] p-7 md:p-8">
-          <p class="text-xs font-medium uppercase tracking-[0.14em] text-violet-300">
+        <div class="glass relative overflow-hidden rounded-3xl md:rounded-[2rem] p-6 sm:p-7 md:p-8">
+          <p class="text-xs font-medium uppercase tracking-[0.14em] text-amber-200/90 font-mono">
             Ingeniería & Calidad de Código
           </p>
           <p class="mt-4 font-display text-[clamp(2.4rem,3.8vw,3.4rem)] leading-none text-light">
@@ -103,9 +103,9 @@ const logos = [
         </div>
 
         <!-- Bento Card 3: Testimonio con cita y foto de Leidys Lascarro -->
-        <div class="glass relative flex flex-col justify-between overflow-hidden rounded-[2rem] p-7 md:p-8">
-          <div class="text-violet-400 text-2xl font-serif leading-none">“</div>
-          <p class="mt-2 text-sm leading-relaxed text-light/90">
+        <div class="glass relative flex flex-col justify-between overflow-hidden rounded-3xl md:rounded-[2rem] p-6 sm:p-7 md:p-8">
+          <div class="text-amber-200/80 text-2xl font-serif leading-none">“</div>
+          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-light/90">
             El rediseño de nuestra web elevó el estatus de la marca ante parejas internacionales y aumentó notablemente las solicitudes de cotización directa por WhatsApp. Una inversión que marcó un antes y un después para Eventos Leymar.
           </p>
           <div class="mt-5 flex items-center gap-3 border-t border-white/10 pt-4">

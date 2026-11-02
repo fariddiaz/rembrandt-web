@@ -76,6 +76,25 @@ const advancedPlans = plans.slice(3, 5);
         </div>
       </div>
 
+      <!-- Selector Rápido de Planes para Móvil (Acceso táctil instantáneo) -->
+      <div class="mb-8 -mx-2 px-2 overflow-x-auto no-scrollbar md:hidden" aria-label="Acceso rápido a cada plan">
+        <div class="flex items-center gap-2 min-w-max pb-1">
+          {plans.map((p) => (
+            <a
+              href={`#plan-title-${p.id}`}
+              class:list={[
+                'rounded-full px-3.5 py-2 text-xs font-medium transition-all active:scale-95 backdrop-blur-md whitespace-nowrap',
+                p.featured
+                  ? 'border border-amber-400/40 bg-amber-400/15 text-amber-200 font-semibold shadow-sm'
+                  : 'border border-white/10 bg-white/5 text-light/80 hover:border-white/20',
+              ]}
+            >
+              {p.name.split('&')[0].replace('Web + Automatización', 'Auto WhatsApp').trim()}
+            </a>
+          ))}
+        </div>
+      </div>
+
       <!-- Fila 1: La Tríada Comercial (3 Columnas con Simetría y Altura Exactas) -->
       <section class="mb-6" aria-label="Planes principales de presencia y conversión">
         <div class="grid gap-6 md:grid-cols-3 items-stretch">
@@ -84,7 +103,7 @@ const advancedPlans = plans.slice(3, 5);
             return (
               <article
                 class:list={[
-                  'flex flex-col justify-between rounded-[2rem] p-7 md:p-8 transition-all duration-300',
+                  'flex flex-col justify-between rounded-[2rem] p-6 sm:p-7 md:p-8 transition-all duration-300',
                   isFeatured
                     ? 'glass-rembrandt border-amber-400/30 bg-amber-950/10 shadow-2xl relative'
                     : 'glass border-white/10 hover:border-white/20',
@@ -138,15 +157,15 @@ const advancedPlans = plans.slice(3, 5);
                   </ul>
                 </div>
 
-                <!-- Botón CTA alineado en la base -->
+                <!-- Botón CTA alineado en la base con levitación flotante -->
                 <div class="mt-8 pt-5 border-t border-white/10 flex flex-col gap-2.5">
                   <a
                     href={waLink(plan.message)}
                     target="_blank"
                     rel="noopener"
                     class:list={[
-                      'btn w-full justify-center text-center !py-2.5 text-sm',
-                      isFeatured ? 'btn-light' : 'btn-ghost',
+                      'btn w-full justify-center text-center !py-2.5 text-sm active:scale-95 transition-transform',
+                      isFeatured ? 'btn-light btn-float' : 'btn-ghost',
                     ]}
                     data-magnetic="0.2"
                   >
@@ -170,7 +189,7 @@ const advancedPlans = plans.slice(3, 5);
         <div class="grid gap-6 md:grid-cols-2 items-stretch">
           {advancedPlans.map((plan) => (
             <article
-              class="glass flex flex-col justify-between rounded-[2rem] p-7 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300"
+              class="glass flex flex-col justify-between rounded-[2rem] p-6 sm:p-7 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300"
               aria-labelledby={`plan-title-${plan.id}`}
             >
               <div>
@@ -224,7 +243,7 @@ const advancedPlans = plans.slice(3, 5);
                   href={waLink(plan.message)}
                   target="_blank"
                   rel="noopener"
-                  class="btn btn-ghost w-full justify-center text-center !py-2.5 text-sm"
+                  class="btn btn-ghost w-full justify-center text-center !py-2.5 text-sm active:scale-95 transition-transform"
                   data-magnetic="0.2"
                 >
                   {plan.cta}
@@ -450,6 +469,9 @@ const advancedPlans = plans.slice(3, 5);
           <h2 id="table-title" class="mt-2 font-display text-3xl md:text-4xl text-light">
             Todo lo que incluye cada opción frente a frente
           </h2>
+          <p class="md:hidden mt-3 inline-flex items-center gap-1.5 text-xs text-amber-200/80 bg-white/5 border border-white/10 px-3 py-1 rounded-full">
+            <span>⇄</span> Desliza horizontalmente para comparar
+          </p>
         </div>
 
         <div class="glass overflow-x-auto rounded-2xl border border-white/10 p-4 md:p-6 shadow-2xl">
