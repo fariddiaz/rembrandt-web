@@ -140,9 +140,39 @@
   }
 }
 
-/* ── Cursor personalizado (solo punteros finos; lo activa cursor.ts) ── */
+/* ── Cursor personalizado con estela cósmica (solo punteros finos) ── */
 html.has-cursor,
-html.has-cursor * { cursor: none !important; }
+html.has-cursor * {
+  cursor: none !important;
+}
+
+/* Excepción crucial: En diálogos, ventanas modales y previsualizador en vivo, restaurar puntero */
+html.has-cursor dialog,
+html.has-cursor dialog *,
+html.has-cursor dialog::backdrop,
+html.has-cursor [data-lenis-prevent],
+html.has-cursor [data-lenis-prevent] * {
+  cursor: auto !important;
+}
+
+html.has-cursor dialog button,
+html.has-cursor dialog a,
+html.has-cursor dialog [role="button"],
+html.has-cursor dialog [data-device],
+html.has-cursor dialog [data-preview-close] {
+  cursor: pointer !important;
+}
+
+.cursor-trail {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
 .cursor-dot,
 .cursor-ring {
@@ -155,54 +185,51 @@ html.has-cursor * { cursor: none !important; }
   opacity: 0;
   transition: opacity 0.3s;
 }
+
 html.has-cursor .cursor-dot,
-html.has-cursor .cursor-ring { opacity: 1; }
+html.has-cursor .cursor-ring,
+html.has-cursor .cursor-trail {
+  opacity: 1;
+}
+
 .cursor-dot {
   width: 6px;
   height: 6px;
   margin: -3px 0 0 -3px;
-  background: var(--color-light);
-  mix-blend-mode: difference;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.9), 0 0 4px #ffffff;
 }
+
 .cursor-ring {
-  width: 38px;
-  height: 38px;
-  margin: -19px 0 0 -19px;
-  border: 1px solid rgb(252 251 254 / 0.55);
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 1px solid rgba(216, 180, 254, 0.5);
+  box-shadow: 0 0 14px -2px rgba(139, 92, 246, 0.3);
   display: grid;
   place-items: center;
-  transition: width 0.45s var(--ease-cine), height 0.45s var(--ease-cine), margin 0.45s var(--ease-cine),
-    background-color 0.35s, border-color 0.35s, opacity 0.3s;
+  transition: width 0.35s var(--ease-cine), height 0.35s var(--ease-cine), margin 0.35s var(--ease-cine),
+    background-color 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 0.25s;
 }
-.cursor-ring .cursor-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--color-carbon);
-  opacity: 0;
-  transform: scale(0.6);
-  transition: opacity 0.25s, transform 0.4s var(--ease-cine);
-  white-space: nowrap;
-}
-.cursor-ring.is-label {
-  width: 86px;
-  height: 86px;
-  margin: -43px 0 0 -43px;
-  background: var(--color-light);
-  border-color: transparent;
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
-}
-.cursor-ring.is-label .cursor-label { opacity: 1; transform: scale(1); }
+
 .cursor-ring.is-hover {
-  width: 60px;
-  height: 60px;
-  margin: -30px 0 0 -30px;
-  border-color: var(--color-violet);
-  background: rgb(139 92 246 / 0.12);
+  width: 48px;
+  height: 48px;
+  margin: -24px 0 0 -24px;
+  border-color: rgba(232, 121, 249, 0.85);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, rgba(245, 158, 11, 0.08) 70%, transparent 100%);
+  box-shadow: 0 0 22px rgba(168, 85, 247, 0.45);
 }
-.cursor-ring.is-down { transform-origin: center; }
+
+.cursor-ring.is-down {
+  transform-origin: center;
+}
+
 html.cursor-hidden .cursor-dot,
-html.cursor-hidden .cursor-ring { opacity: 0; }
+html.cursor-hidden .cursor-ring,
+html.cursor-hidden .cursor-trail {
+  opacity: 0;
+}
 
 /* ── Tarjetas apiladas ───────────────────────────────────────── */
 .stack-card {

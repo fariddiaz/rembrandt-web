@@ -7,20 +7,17 @@ const fromPrice = plans[0]?.priceUsd ?? '$249 USD';
 ---
 <section
   id="hero"
-  class="relative isolate flex min-h-[100svh] items-center overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24"
+  class="relative isolate flex min-h-[92svh] items-center overflow-hidden pt-28 pb-12 md:pt-36 md:pb-16"
   data-wa-label={wa.label}
   data-wa-message={wa.message}
 >
   <!-- Foco de luz de fondo -->
   <div class="spotlight absolute inset-0 -z-10"></div>
 
-  <!-- Robot 3D interactivo (Spline) posicionado a la derecha / centro -->
+  <!-- Robot 3D interactivo (Spline) posicionado a la derecha / centro con Portal Galáctico -->
   <div class="absolute inset-x-0 top-[2vh] -z-10 h-[62svh] md:inset-y-0 md:left-[42%] md:right-[-4%] md:top-0 md:h-auto">
     <HeroRobot />
   </div>
-
-  <!-- Niebla inferior: las piernas del robot se disuelven en el carbón, sin corte recto -->
-  <div class="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-44 bg-gradient-to-t from-carbon via-carbon/80 to-transparent" aria-hidden="true"></div>
 
   <div class="pointer-events-none mx-auto w-[min(1240px,calc(100%-2.5rem))]">
     <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
@@ -79,7 +76,7 @@ const fromPrice = plans[0]?.priceUsd ?? '$249 USD';
         </div>
       </div>
 
-      <!-- Columna Derecha: Libre de tarjetas falsas para apreciar el Robot 3D Spline interactivo -->
+      <!-- Columna Derecha: Libre para apreciar el Robot 3D Spline interactivo -->
       <div class="hidden lg:block min-h-[380px]" aria-hidden="true"></div>
 
     </div>
@@ -99,34 +96,36 @@ const fromPrice = plans[0]?.priceUsd ?? '$249 USD';
   .hero-title .line:nth-child(2) > span { animation-delay: 0.08s; }
   .hero-title .line:nth-child(3) > span { animation-delay: 0.16s; }
 
-  .hero-copy, .hero-cta { animation: fade 1s 0.35s var(--ease-cine) both; }
-
-  .hero-metric-card {
-    animation: hero-card-float 4.8s ease-in-out infinite;
-    will-change: transform;
+  .hero-copy {
+    animation: rise 1.2s var(--ease-cine) 0.22s both;
+  }
+  .hero-cta {
+    animation: rise 1.2s var(--ease-cine) 0.32s both;
   }
 
-  @keyframes hero-card-float {
+  /* Levitación continua, suave y orgánica para las métricas */
+  .hero-metric-card {
+    will-change: transform;
+    animation: metric-float 4.8s ease-in-out infinite;
+  }
+
+  @keyframes metric-float {
     0%, 100% {
       transform: translateY(0px);
     }
     50% {
-      transform: translateY(-7px);
+      transform: translateY(-6px);
     }
   }
 
   @keyframes rise {
-    from { transform: translateY(102%); }
-    to { transform: none; }
-  }
-  @keyframes fade {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: none; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-metric-card {
-      animation: none;
+    from {
+      opacity: 0;
+      transform: translateY(1.4rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 </style>

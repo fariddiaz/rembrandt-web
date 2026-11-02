@@ -1,7 +1,9 @@
 ---
-// Marcado del cursor. La lógica vive en src/scripts/cursor.ts
+// Marcado del cursor de autor con estela de partículas (stardust trail).
+// La lógica vive en src/scripts/cursor.ts
 // (se inicializa desde smooth-scroll.ts → initMotion()).
-// En táctil estos nodos quedan con opacity:0 y sin listeners.
+// En pantallas táctiles queda deshabilitado limpiamente.
 ---
-<div class="cursor-ring" aria-hidden="true"><span class="cursor-label"></span></div>
+<canvas class="cursor-trail" aria-hidden="true"></canvas>
+<div class="cursor-ring" aria-hidden="true"></div>
 <div class="cursor-dot" aria-hidden="true"></div>

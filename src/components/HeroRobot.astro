@@ -1,9 +1,9 @@
 ---
-// Robot 3D interactivo (Spline).
-// 1) En el primer pintado solo hay un halo CSS -> no compite con el LCP (el H1).
+// Robot 3D interactivo (Spline) emergiendo de un Vórtice / Portal Galáctico.
+// 1) En el primer pintado hay un halo y el portal CSS cósmico -> no compite con el LCP.
 // 2) Tras 'load', con el navegador libre, se importa @splinetool/runtime
-//    (chunk aparte) y se carga la escena; el canvas aparece con un fundido suave.
-// 3) El halo violeta / carmesí sigue al cursor con un sutil desfase cinemático.
+//    y se carga la escena 3D; el canvas aparece con un fundido suave.
+// 3) El halo y el portal reaccionan con inercia al cursor.
 import { HERO_ROBOT_SCENE } from '../config/site';
 
 interface Props {
@@ -13,14 +13,36 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
 ---
 <!-- data-hero-orb: initHeroScroll() (smooth-scroll.ts) aleja este bloque al hacer scroll -->
 <div class="robot-wrap" data-hero-robot data-hero-orb data-scene={scene}>
+  <!-- Halo ambiental cósmico detrás del robot -->
   <div class="robot-halo" aria-hidden="true"></div>
+
+  <!-- Portal Galáctico Cósmico: emerge alrededor de la cintura y pelvis del robot -->
+  <div class="galaxy-portal" aria-hidden="true">
+    <div class="galaxy-nebula"></div>
+    <div class="galaxy-disk">
+      <div class="galaxy-ring galaxy-ring--outer"></div>
+      <div class="galaxy-ring galaxy-ring--plasma"></div>
+      <div class="galaxy-ring galaxy-ring--corona"></div>
+      <div class="galaxy-core"></div>
+    </div>
+    <!-- Chispas y partículas de energía estelar ascendente -->
+    <div class="galaxy-sparks">
+      <span class="spark s1"></span>
+      <span class="spark s2"></span>
+      <span class="spark s3"></span>
+      <span class="spark s4"></span>
+      <span class="spark s5"></span>
+      <span class="spark s6"></span>
+      <span class="spark s7"></span>
+      <span class="spark s8"></span>
+    </div>
+  </div>
+
   <canvas
     class="robot-canvas"
     role="img"
-    aria-label="Robot 3D interactivo que sigue el movimiento del cursor"
+    aria-label="Robot 3D interactivo que sigue el movimiento del cursor emergiendo de un portal cósmico"
   ></canvas>
-  <!-- Niebla inferior sobre el canvas: refuerza la máscara para que no se vea el borde -->
-  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-carbon via-carbon/85 to-transparent" aria-hidden="true"></div>
 </div>
 
 <script>
@@ -30,6 +52,7 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
   const wrap = document.querySelector<HTMLElement>('[data-hero-robot]');
   const canvas = wrap?.querySelector<HTMLCanvasElement>('.robot-canvas') ?? null;
   const halo = wrap?.querySelector<HTMLElement>('.robot-halo') ?? null;
+  const portal = wrap?.querySelector<HTMLElement>('.galaxy-portal') ?? null;
 
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(pointer: fine)').matches;
@@ -57,13 +80,12 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
       await app.load(scene);
       el.classList.add('is-ready');
     } catch (err) {
-      // Si falla o tarda, queda el halo CSS y la página se sigue viendo impecable.
       console.warn('[HeroRobot] No se pudo cargar la escena Spline:', err);
     }
   }
 
-  /** El halo persigue al cursor con inercia */
-  function followCursor(el: HTMLElement, glow: HTMLElement) {
+  /** El halo y el portal cósmico persiguen al cursor con inercia */
+  function followCursor(el: HTMLElement, glow: HTMLElement, portalEl: HTMLElement | null) {
     let tx = 0;
     let ty = 0;
     let x = 0;
@@ -74,6 +96,9 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
       x += (tx - x) * 0.08;
       y += (ty - y) * 0.08;
       glow.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+      if (portalEl) {
+        portalEl.style.transform = `translate3d(calc(-50% + ${(x * 0.4).toFixed(1)}px), ${(y * 0.4).toFixed(1)}px, 0)`;
+      }
       raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.5 ? requestAnimationFrame(tick) : 0;
     };
 
@@ -81,7 +106,7 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
       'pointermove',
       (e) => {
         const r = el.getBoundingClientRect();
-        if (r.bottom < 0) return; // el hero ya no está visible
+        if (r.bottom < 0) return;
         tx = (e.clientX - (r.left + r.width / 2)) * 0.12;
         ty = (e.clientY - (r.top + r.height / 2)) * 0.12;
         if (!raf) raf = requestAnimationFrame(tick);
@@ -91,7 +116,7 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
   }
 
   if (wrap && canvas) {
-    if (halo && finePointer && !reduceMotion) followCursor(wrap, halo);
+    if (halo && finePointer && !reduceMotion) followCursor(wrap, halo, portal);
 
     if (hasWebGL && !saveData) {
       const boot = () => idle(() => void mountRobot(wrap, canvas), { timeout: 2000 });
@@ -106,32 +131,167 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     position: absolute;
     inset: 0;
     pointer-events: none;
-    /* Las piernas del robot se desvanecen suavemente hacia el fondo carbón */
-    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.7) 65%, rgba(0,0,0,0.2) 85%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.7) 65%, rgba(0,0,0,0.2) 85%, transparent 100%);
+    overflow: visible;
   }
 
-  /* Halo violeta y carmesí detrás del robot: visible desde el primer instante */
+  /* Halo violeta y dorado detrás del robot */
   .robot-halo {
     position: absolute;
     left: 50%;
-    top: 50%;
-    width: min(48vw, 650px);
+    top: 48%;
+    width: min(50vw, 680px);
     aspect-ratio: 1;
     translate: -50% -50%;
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgb(139 92 246 / 0.5) 0%,
-      rgb(225 29 72 / 0.25) 35%,
-      rgb(124 58 237 / 0.15) 55%,
+      rgb(139 92 246 / 0.45) 0%,
+      rgb(225 29 72 / 0.22) 35%,
+      rgb(245 158 11 / 0.12) 55%,
       transparent 72%
     );
-    filter: blur(40px);
+    filter: blur(48px);
     will-change: transform;
-    animation: breathe 6s ease-in-out infinite;
+    animation: breathe 7s ease-in-out infinite;
   }
 
+  /* ── PORTAL GALÁCTICO EN LA CINTURA DEL ROBOT ── */
+  .galaxy-portal {
+    position: absolute;
+    left: 50%;
+    bottom: 16%;
+    width: min(90%, 540px);
+    height: 240px;
+    transform: translate3d(-50%, 0, 0);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Resplandor nebular profundo de base */
+  .galaxy-nebula {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 140%;
+    height: 140%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(139, 92, 246, 0.45) 0%,
+      rgba(244, 63, 94, 0.25) 40%,
+      rgba(245, 158, 11, 0.15) 60%,
+      transparent 76%
+    );
+    filter: blur(45px);
+    animation: nebula-breathe 8s ease-in-out infinite alternate;
+  }
+
+  /* Disco de acreción 3D inclinado (perspectiva cósmica de la cintura) */
+  .galaxy-disk {
+    position: absolute;
+    inset: 0;
+    transform: perspective(700px) rotateX(74deg) rotateZ(-12deg);
+    transform-style: preserve-3d;
+  }
+
+  /* Anillo exterior de órbita y polvo estelar */
+  .galaxy-ring--outer {
+    position: absolute;
+    inset: -6%;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(216, 180, 254, 0.45);
+    box-shadow:
+      0 0 30px rgba(139, 92, 246, 0.4),
+      inset 0 0 20px rgba(245, 158, 11, 0.2);
+    animation: galaxy-spin-slow 40s linear infinite;
+  }
+
+  /* Espirales de plasma cósmico (violeta, magenta, oro) */
+  .galaxy-ring--plasma {
+    position: absolute;
+    inset: 6%;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(139, 92, 246, 0.9) 45deg,
+      transparent 90deg,
+      rgba(244, 63, 94, 0.8) 160deg,
+      transparent 210deg,
+      rgba(245, 158, 11, 0.9) 275deg,
+      transparent 330deg
+    );
+    filter: blur(2px);
+    animation: galaxy-spin 15s linear infinite;
+  }
+
+  /* Corona del horizonte de sucesos: luz de singularidad */
+  .galaxy-ring--corona {
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 25%,
+      rgba(139, 92, 246, 0.3) 45%,
+      rgba(245, 158, 11, 0.65) 65%,
+      rgba(255, 255, 255, 0.9) 78%,
+      transparent 88%
+    );
+    box-shadow:
+      0 0 50px rgba(168, 85, 247, 0.8),
+      0 0 85px rgba(245, 158, 11, 0.5);
+    animation: corona-pulse 4s ease-in-out infinite alternate;
+  }
+
+  /* Núcleo oscuro del vórtice (de donde emerge el robot) */
+  .galaxy-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 48%;
+    height: 48%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      #03000a 60%,
+      rgba(139, 92, 246, 0.4) 85%,
+      transparent 100%
+    );
+    box-shadow: inset 0 0 25px #020008;
+  }
+
+  /* ── Chispas estelares ascendentes ── */
+  .galaxy-sparks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .spark {
+    position: absolute;
+    bottom: 30%;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #fbbf24, 0 0 14px #a855f7;
+    opacity: 0;
+    animation: spark-rise 3.2s ease-out infinite;
+  }
+
+  .spark.s1 { left: 24%; animation-delay: 0s; --dx: -16px; }
+  .spark.s2 { left: 35%; animation-delay: 0.5s; --dx: 12px; width: 4px; height: 4px; }
+  .spark.s3 { left: 48%; animation-delay: 1.1s; --dx: -8px; }
+  .spark.s4 { left: 62%; animation-delay: 1.7s; --dx: 18px; width: 4px; height: 4px; }
+  .spark.s5 { left: 74%; animation-delay: 2.3s; --dx: -14px; }
+  .spark.s6 { left: 40%; animation-delay: 2.8s; --dx: -22px; width: 2.5px; height: 2.5px; }
+  .spark.s7 { left: 56%; animation-delay: 3.4s; --dx: 14px; }
+  .spark.s8 { left: 68%; animation-delay: 0.8s; --dx: 24px; }
+
+  /* ── Canvas del Robot 3D ── */
   .robot-canvas {
     position: absolute;
     inset: 0;
@@ -139,15 +299,19 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     height: 100%;
     opacity: 0;
     outline: none;
+    z-index: 2;
     transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* El torso del robot se disuelve con elegancia al entrar en el horizonte del vórtice galáctico */
+    -webkit-mask-image: radial-gradient(ellipse 92% 72% at 50% 38%, #000 66%, rgba(0,0,0,0.45) 78%, transparent 92%);
+    mask-image: radial-gradient(ellipse 92% 72% at 50% 38%, #000 66%, rgba(0,0,0,0.45) 78%, transparent 92%);
   }
 
   .robot-wrap.is-ready .robot-canvas {
     opacity: 1;
-    pointer-events: auto; /* el robot reacciona al cursor */
+    pointer-events: auto;
   }
 
-  /* En táctil/móvil el robot es decorativo: no debe bloquear el scroll */
+  /* En táctil/móvil el robot es decorativo */
   @media (max-width: 767px), (pointer: coarse) {
     .robot-wrap.is-ready .robot-canvas {
       pointer-events: none;
@@ -155,10 +319,52 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     .robot-halo {
       width: 86vw;
     }
+    .galaxy-portal {
+      width: min(94%, 420px);
+      height: 180px;
+      bottom: 10%;
+    }
   }
 
   @keyframes breathe {
-    0%, 100% { scale: 1; opacity: 0.9; }
+    0%, 100% { scale: 1; opacity: 0.88; }
     50% { scale: 1.08; opacity: 1; }
+  }
+
+  @keyframes nebula-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.12); opacity: 1; }
+  }
+
+  @keyframes galaxy-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes galaxy-spin-slow {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+
+  @keyframes corona-pulse {
+    0% { transform: scale(0.96); opacity: 0.8; }
+    100% { transform: scale(1.04); opacity: 1; }
+  }
+
+  @keyframes spark-rise {
+    0% {
+      transform: translate3d(0, 0, 0) scale(0.4);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate3d(var(--dx, 10px), -120px, 0) scale(1.1);
+      opacity: 0;
+    }
   }
 </style>

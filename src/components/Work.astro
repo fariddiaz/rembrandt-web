@@ -386,6 +386,18 @@ const domainOf = (url: string) => {
     background: transparent;
     color: inherit;
     overflow: visible;
+    cursor: auto !important;
+  }
+  .preview-dialog *,
+  .preview-dialog::backdrop {
+    cursor: auto !important;
+  }
+  .preview-dialog button,
+  .preview-dialog a,
+  .preview-dialog [role="button"],
+  .preview-dialog .device-btn,
+  .preview-dialog [data-preview-close] {
+    cursor: pointer !important;
   }
   .preview-dialog::backdrop {
     background: rgb(10 10 13 / 0.82);
