@@ -67,12 +67,12 @@ export const plans: Plan[] = [
   {
     id: 'express',
     name: 'Página Web Express',
-    badge: '24–48 horas',
+    badge: '3–5 días',
     audience:
-      'Para emprendedores y negocios que necesitan una página moderna, lista para recibir clientes por WhatsApp en 1 a 2 días.',
+      'Para emprendedores y negocios que necesitan una página moderna, lista para recibir clientes por WhatsApp en 3 a 5 días.',
     priceUsd: '$249 USD',
     priceCop: '~$990.000 COP',
-    delivery: 'Entrega en 24 a 48 horas',
+    delivery: 'Entrega en 3 a 5 días hábiles',
     features: [
       'Una página moderna con la identidad de tu marca',
       'Botón directo a WhatsApp y formulario de contacto',

@@ -10,19 +10,19 @@ const baseWaUrl = `https://wa.me/${WHATSAPP_PHONE}`;
 const expressPlans = [
   {
     name: 'Landing Express',
-    tag: '⚡ 24 a 48 Horas',
+    tag: '⚡ 3 a 5 Días',
     priceUsd: '$249 USD',
     priceCop: '~$990.000 COP',
     forWhom: 'Profesionales, pymes y campañas de pauta que necesitan captar clientes inmediatamente sin semanas de espera.',
     features: [
       'Página única (One-Page) con arquitectura de alta conversión',
-      'Entrega garantizada en 24 a 48 horas hábiles',
+      'Entrega garantizada en 3 a 5 días hábiles',
       'Botón flotante directo a tu WhatsApp + formulario de captación',
       'Dominio .com + Hosting SSL ultraveloz gratis por 1 año',
       'Puntuación 100/100 en Google PageSpeed (carga en <0.8s)',
       '1 ronda de revisión y puesta en marcha inmediata',
     ],
-    waMessage: 'Hola Rembrandt Studio, me interesa el paquete Landing Express ($249 USD / $990.000 COP) con entrega en 24-48h.',
+    waMessage: 'Hola Rembrandt Studio, me interesa el paquete Landing Express ($249 USD / $990.000 COP) con entrega en 3 a 5 días.',
     featured: false,
   },
   {
@@ -63,7 +63,7 @@ const expressPlans = [
 
 const faqs = [
   {
-    q: '¿Cómo pueden entregar una web profesional en solo 24 a 48 horas?',
+    q: '¿Cómo pueden entregar una web profesional en solo 3 a 5 días?',
     a: 'Porque eliminamos toda la burocracia que engorda a las agencias tradicionales. Usamos arquitectura modular de código limpio en Astro, componentes optimizados y un proceso estandarizado sin reuniones de 3 horas. Tú nos das los datos en 5 minutos y nosotros construimos sin distracciones.',
   },
   {
@@ -86,8 +86,8 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Boceto Express | Tu Web Lista en 24 a 48 Horas | Rembrandt Studio"
-  description="Páginas web profesionales para pymes y emprendedores entregadas en 24 a 48 horas. Velocidad 100/100, dominio, hosting y WhatsApp incluidos desde $249 USD."
+  title="Boceto Express | Tu Web Lista en 3 a 5 Días | Rembrandt Studio"
+  description="Páginas web profesionales para pymes y emprendedores entregadas en 3 a 5 días. Velocidad 100/100, dominio, hosting y WhatsApp incluidos desde $249 USD."
 >
   <Header theme="dark" />
 
@@ -100,11 +100,11 @@ const faqs = [
       <div class="mx-auto max-w-4xl">
         <div class="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent mb-6 shadow-[0_0_15px_rgba(139,92,246,0.3)]">
           <span class="inline-block h-2 w-2 rounded-full bg-accent animate-pulse"></span>
-          <span>Entrega Garantizada en 24 a 48 Horas &bull; Cobertura Global</span>
+          <span>Entrega Garantizada en 3 a 5 Días &bull; Cobertura Global</span>
         </div>
 
         <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-tight">
-          Tu página web lista para vender en <span class="text-accent underline decoration-accent/40 decoration-wavy">24 a 48 horas.</span>
+          Tu página web lista para vender en <span class="text-accent underline decoration-accent/40 decoration-wavy">3 a 5 días.</span>
         </h1>
 
         <p class="mt-6 text-base sm:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
@@ -277,7 +277,7 @@ const faqs = [
             <span class="font-mono text-sm font-bold text-accent px-3 py-1 rounded bg-accent/10 border border-accent/20">
               Paso 02
             </span>
-            <h3 class="mt-6 text-xl font-bold text-white">Construimos en 24 a 48 horas</h3>
+            <h3 class="mt-6 text-xl font-bold text-white">Construimos en 3 a 5 días</h3>
             <p class="mt-3 text-xs sm:text-sm text-white/60 leading-relaxed">
               Programamos tu sitio con código limpio en Astro, diseño responsive para celular y optimización de velocidad extrema para que cargue al instante.
             </p>
@@ -327,13 +327,13 @@ const faqs = [
 
       {/* Banner final de cierre */}
       <div class="mt-16 rounded-2xl border border-accent/40 bg-gradient-to-r from-accent/20 via-black to-accent/10 p-8 sm:p-12 text-center">
-        <h3 class="text-2xl sm:text-3xl font-bold text-white">¿Listo para lanzar tu web en menos de 48 horas?</h3>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white">¿Listo para lanzar tu web en tiempo récord?</h3>
         <p class="mt-3 text-xs sm:text-sm text-white/70 max-w-lg mx-auto">
           Escríbenos directamente a WhatsApp. Te atendemos de inmediato para asegurar tu cupo de entrega.
         </p>
         <div class="mt-8">
           <a
-            href={`${baseWaUrl}?text=${encodeURIComponent('Hola Rembrandt Studio, estoy listo para iniciar mi web express en 24-48 horas.')}`}
+            href={`${baseWaUrl}?text=${encodeURIComponent('Hola Rembrandt Studio, estoy listo para iniciar mi web express en 3 a 5 días.')}`}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 rounded-full bg-paper px-8 py-4 text-xs font-bold uppercase tracking-wider text-ink transition-all hover:bg-accent hover:text-white hover:scale-105 shadow-[0_0_25px_rgba(139,92,246,0.4)]"
