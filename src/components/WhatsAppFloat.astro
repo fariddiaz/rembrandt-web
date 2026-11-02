@@ -1,0 +1,54 @@
+---
+const waPhone = '573147714202';
+const initialMsg = 'Hola Rembrandt Studio, quiero cotizar un proyecto web.';
+const initialUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(initialMsg)}`;
+---
+
+<a
+  id="wa-float"
+  href={initialUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  data-magnetic="0.25"
+  data-cursor="WhatsApp"
+  class="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2.5 rounded-full border border-emerald-500/40 bg-[#0a0a0d]/90 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-xl shadow-2xl transition-all hover:bg-emerald-500/20 hover:border-emerald-400 group"
+>
+  <span class="relative flex h-2.5 w-2.5">
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+  </span>
+  <span id="wa-float-label" class="transition-colors group-hover:text-emerald-400">WhatsApp Directo</span>
+</a>
+
+<script>
+  const waPhone = '573147714202';
+  const getWaLink = (msg: string) => `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`;
+
+  const setupWa = () => {
+    const btn = document.getElementById('wa-float') as HTMLAnchorElement | null;
+    const label = document.getElementById('wa-float-label');
+    if (!btn || !label) return;
+
+    const sections = document.querySelectorAll<HTMLElement>('[data-wa-label]');
+    if (!sections.length) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const target = entry.target as HTMLElement;
+          const text = target.dataset.waLabel;
+          const msg = target.dataset.waMsg;
+          if (text) label.textContent = text;
+          if (msg) btn.href = getWaLink(msg);
+        }
+      },
+      { rootMargin: '-40% 0px -40% 0px' }
+    );
+
+    sections.forEach((s) => io.observe(s));
+  };
+
+  document.addEventListener('astro:page-load', setupWa);
+  document.addEventListener('DOMContentLoaded', setupWa);
+</script>

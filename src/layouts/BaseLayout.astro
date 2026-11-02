@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import Cursor from '../components/Cursor.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 
 interface Props {
   title: string;
@@ -55,8 +57,23 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <script is:inline>
+      document.documentElement.dataset.first = sessionStorage.getItem('rs_visit') ? '0' : '1';
+      sessionStorage.setItem('rs_visit', '1');
+    </script>
   </head>
   <body class="bg-[#0a0a0d] text-[#fcfbfe] selection:bg-[#8b5cf6] selection:text-white relative min-h-screen">
+    {/* Preloader de la firma Rembrandt en primera visita (0.9s de pura elegancia) */}
+    <div id="rs-preloader" aria-hidden="true">
+      <div class="flex flex-col items-center gap-4">
+        <svg viewBox="0 0 320 60" class="w-44 text-accent">
+          <path pathLength="1" d="M10 42 C 38 12, 65 52, 98 28 S 145 18, 180 38 C 215 52, 235 18, 265 25 C 290 30, 302 44, 314 28" />
+        </svg>
+        <span class="text-[10px] uppercase font-mono tracking-[0.3em] text-white/50">Rembrandt Studio</span>
+      </div>
+    </div>
+
     {/* Capa de textura de grano de lienzo procedural (0 KB, auténtico canvas Rembrandt) */}
     <div
       class="pointer-events-none fixed inset-0 z-50 opacity-[0.035] mix-blend-screen"
@@ -73,7 +90,18 @@ const jsonLd = {
 
     <slot />
 
-    {/* Filtro SVG Duotono Rembrandt global (Negro carbón a Violeta neón) */}
+    {/* Cursor magnético fluido interactivo estilo Noomo */}
+    <Cursor />
+
+    {/* Botón flotante contextual a WhatsApp */}
+    <WhatsAppFloat />
+
+    {/* Motor de movimiento Lenis + GSAP ScrollTrigger */}
+    <script>
+      import '../scripts/motion';
+    </script>
+
+    {/* Filtro SVG Duotono Rembrandt global */}
     <svg width="0" height="0" class="absolute pointer-events-none" aria-hidden="true" focusable="false">
       <filter id="rembrandt-duotono" color-interpolation-filters="sRGB">
         <feColorMatrix

@@ -224,8 +224,13 @@ const steps = [
     </section>
 
     {/* 3. Obras Seleccionadas (Portafolio de Alto Impacto) */}
-    <section id="obras" class="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+    <section
+      id="obras"
+      data-wa-label="Quiero una Obra similar"
+      data-wa-msg="Hola Rembrandt Studio, vi sus obras seleccionadas y me interesa un proyecto similar para mi negocio."
+      class="mx-auto max-w-6xl px-6 py-24 sm:py-32"
+    >
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16" data-reveal="fade">
         <div>
           <span class="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
             Portafolio Seleccionado
@@ -244,6 +249,7 @@ const steps = [
           featuredWorks.map((work) => (
             <article
               data-claroscuro-card
+              data-cursor="Ver Caso"
               class="claroscuro-card group relative rounded-2xl border border-white/10 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent/60 hover:-translate-y-1 overflow-hidden"
             >
               <div class="relative z-10">
@@ -280,6 +286,7 @@ const steps = [
 
                 <a
                   href="#contacto"
+                  data-magnetic="0.2"
                   class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white hover:text-accent transition-colors"
                 >
                   <span>Quiero un proyecto similar</span>
@@ -293,9 +300,14 @@ const steps = [
     </section>
 
     {/* 4. Selector de Camino & Escalera de Valor */}
-    <section id="escalera" class="border-y border-white/10 bg-[#0d0d12] py-24 sm:py-32">
+    <section
+      id="escalera"
+      data-wa-label="Elegir un Plan Web"
+      data-wa-msg="Hola Rembrandt Studio, quiero información para elegir el mejor plan web para mi proyecto."
+      class="border-y border-white/10 bg-[#0d0d12] py-24 sm:py-32"
+    >
       <div class="mx-auto max-w-6xl px-6">
-        <div class="text-center max-w-3xl mx-auto mb-20">
+        <div class="text-center max-w-3xl mx-auto mb-20" data-reveal="fade">
           <span class="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
             La Escalera de Valor
           </span>
@@ -303,7 +315,7 @@ const steps = [
             Un nivel para cada etapa de tu negocio.
           </h2>
           <p class="mt-4 text-sm sm:text-base text-white/60 leading-relaxed">
-            Desde soluciones express listas para vender en 7 días hasta experiencias 3D inmersivas de alta costura digital. Tú eliges el alcance, nosotros garantizamos la excelencia.
+            Desde soluciones express listas para vender en 24–48 horas hasta experiencias 3D inmersivas de alta costura digital. Tú eliges el alcance, nosotros garantizamos la excelencia.
           </p>
         </div>
 
@@ -314,8 +326,8 @@ const steps = [
                 data-claroscuro-card
                 class={
                   plan.featured
-                    ? 'claroscuro-card relative rounded-2xl border-2 border-accent p-8 flex flex-col justify-between shadow-2xl shadow-accent/20 overflow-hidden'
-                    : 'claroscuro-card relative rounded-2xl border border-white/10 p-8 flex flex-col justify-between hover:border-white/20 transition-all overflow-hidden'
+                    ? 'plan-card claroscuro-card relative rounded-2xl border-2 border-accent p-8 flex flex-col justify-between shadow-2xl shadow-accent/20 overflow-hidden'
+                    : 'plan-card claroscuro-card relative rounded-2xl border border-white/10 p-8 flex flex-col justify-between hover:border-white/20 transition-all overflow-hidden'
                 }
               >
                 {plan.featured && (
@@ -395,8 +407,13 @@ const steps = [
     </section>
 
     {/* 5. Cómo Trabajamos (Proceso transparente) */}
-    <section id="proceso" class="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-      <div class="text-center max-w-3xl mx-auto mb-16">
+    <section
+      id="proceso"
+      data-wa-label="Empezar en 24h"
+      data-wa-msg="Hola Rembrandt Studio, me interesa su proceso ágil y quiero comenzar mi web con entrega en 24-48 horas."
+      class="mx-auto max-w-6xl px-6 py-24 sm:py-32"
+    >
+      <div class="text-center max-w-3xl mx-auto mb-16" data-reveal="fade">
         <span class="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
           Certeza & Control
         </span>
@@ -446,7 +463,12 @@ const steps = [
     </section>
 
     {/* 7. Formulario de Contacto / Intake */}
-    <section id="contacto" class="border-t border-white/10 bg-[#0a0a0d]">
+    <section
+      id="contacto"
+      data-wa-label="Iniciar Conversación"
+      data-wa-msg="Hola Rembrandt Studio, quiero hablar con ustedes para desarrollar mi página web."
+      class="border-t border-white/10 bg-[#0a0a0d]"
+    >
       <div class="mx-auto grid max-w-6xl gap-12 px-6 py-24 sm:py-32 lg:grid-cols-2">
         <div>
           <span class="text-xs font-semibold uppercase tracking-[0.3em] text-accent">

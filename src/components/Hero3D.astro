@@ -5,7 +5,7 @@ interface Props {
 }
 
 const {
-  splineUrl = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode',
+  splineUrl,
   modelUrl,
 } = Astro.props;
 
@@ -25,24 +25,11 @@ const waUrl = 'https://wa.me/573147714202?text=Hola%20Rembrandt%20Studio%2C%20qu
   ></div>
 
   {/* Capa 2: Canvas 3D interactivo en el centro/fondo */}
-  <div class="absolute inset-0 z-10 flex items-center justify-center pointer-events-auto">
-    <canvas id="three-hero-canvas" class="w-full h-full block cursor-grab active:cursor-grabbing opacity-90"></canvas>
-
-    {/* Spinner de carga elegante */}
-    <div
-      id="hero-loading"
-      class="pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-700 bg-[#0a0a0d]/85 backdrop-blur-sm z-30"
-    >
-      <div class="flex flex-col items-center gap-3">
-        <div class="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent"></div>
-        <span class="text-xs tracking-widest uppercase text-white/60 font-mono">
-          Cargando Escultura 3D...
-        </span>
-      </div>
-    </div>
+  <div class="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+    <canvas id="three-hero-canvas" class="w-full h-full block opacity-0 transition-opacity duration-1000"></canvas>
   </div>
 
-  {/* Capa 3: Grid asimétrico inspirado en la referencia AgentAI */}
+  {/* Capa 3: Grid asimétrico inspirado en la referencia Noomo / AgentAI */}
   <div class="relative z-20 mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pointer-events-none">
     {/* Columna Izquierda: Titular, CTAs y Micro-Métricas */}
     <div class="lg:col-span-7 flex flex-col items-start text-left pointer-events-auto">
@@ -63,13 +50,15 @@ const waUrl = 'https://wa.me/573147714202?text=Hola%20Rembrandt%20Studio%2C%20qu
 
       {/* Subtítulo */}
       <p class="mt-6 text-sm sm:text-base text-white/70 max-w-xl leading-relaxed font-light">
-        De la idea a producción en tiempo récord. Diseñamos experiencias web de alto calibre, 3D interactivo y velocidad extrema 100/100 que convierten visitas en clientes.
+        De la idea a producción en tiempo récord. Diseñamos experiencias web inmersivas, 3D interactivo y rendimiento 100/100 que convierten visitas en clientes de alto valor.
       </p>
 
-      {/* Botones de Acción */}
+      {/* Botones de Acción Magnéticos */}
       <div class="mt-8 flex flex-wrap items-center gap-4">
         <a
           href="#escalera"
+          data-magnetic="0.3"
+          data-cursor="Planes"
           class="btn-firma group relative inline-flex flex-col items-center justify-center rounded-full bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-[0_0_25px_rgba(139,92,246,0.4)] transition-all hover:bg-accent-strong hover:scale-105 overflow-hidden"
         >
           <span>Ver Planes y Precios &darr;</span>
@@ -82,6 +71,8 @@ const waUrl = 'https://wa.me/573147714202?text=Hola%20Rembrandt%20Studio%2C%20qu
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
+          data-magnetic="0.25"
+          data-cursor="WhatsApp"
           class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-xl transition-all hover:border-emerald-500/50 hover:bg-emerald-500/10"
         >
           <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -89,7 +80,7 @@ const waUrl = 'https://wa.me/573147714202?text=Hola%20Rembrandt%20Studio%2C%20qu
         </a>
       </div>
 
-      {/* Micro-tarjetas de métricas (Igual a la fila de la referencia) */}
+      {/* Micro-tarjetas de métricas */}
       <div class="mt-12 grid grid-cols-3 gap-3 w-full max-w-lg">
         <div class="rounded-xl border border-white/10 bg-[#121217]/80 p-3 sm:p-4 backdrop-blur-md">
           <span class="text-[10px] uppercase font-mono text-white/50 block">Velocidad</span>
@@ -111,13 +102,16 @@ const waUrl = 'https://wa.me/573147714202?text=Hola%20Rembrandt%20Studio%2C%20qu
       </div>
     </div>
 
-    {/* Espaciador central transparente para lucir el robot 3D */}
+    {/* Espaciador central transparente para lucir el orbe 3D */}
     <div class="hidden lg:block lg:col-span-1"></div>
 
-    {/* Columna Derecha: Bento Stack Flotante (Como en la referencia) */}
+    {/* Columna Derecha: Bento Stack Flotante */}
     <div class="lg:col-span-4 flex flex-col gap-4 items-end pointer-events-auto mt-8 lg:mt-0">
       {/* Tarjeta Flotante 1: Obras de Autor */}
-      <div class="w-full max-w-xs rounded-2xl border border-white/10 bg-[#121217]/85 p-5 backdrop-blur-xl shadow-2xl transition-all hover:border-accent/50 group">
+      <div
+        data-cursor="Explorar"
+        class="w-full max-w-xs rounded-2xl border border-white/10 bg-[#121217]/85 p-5 backdrop-blur-xl shadow-2xl transition-all hover:border-accent/50 group"
+      >
         <div class="flex items-center justify-between mb-3">
           <span class="text-[10px] font-mono uppercase text-accent font-semibold tracking-wider">
             Rembrandt Studio
@@ -154,6 +148,8 @@ const waUrl = 'https://wa.me/573147714202?text=Hola%20Rembrandt%20Studio%2C%20qu
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
+          data-magnetic="0.3"
+          data-cursor="Reservar"
           class="mt-4 block w-full rounded-xl bg-gradient-to-r from-accent to-accent-strong py-2.5 text-center text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-accent/25 hover:opacity-95 transition-all"
         >
           Reservar Cupo Express &rarr;
@@ -163,118 +159,68 @@ const waUrl = 'https://wa.me/573147714202?text=Hola%20Rembrandt%20Studio%2C%20qu
       {/* Píldora social flotante */}
       <div class="flex items-center gap-2 rounded-full border border-white/10 bg-[#121217]/80 px-4 py-2 backdrop-blur-md text-xs text-white/60">
         <span class="text-[10px] uppercase font-mono tracking-wider text-white/40 mr-1">Canales:</span>
-        <a href={waUrl} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">WhatsApp</a>
+        <a href={waUrl} target="_blank" rel="noopener noreferrer" data-cursor="Chat" class="hover:text-accent transition-colors">WhatsApp</a>
         <span class="text-white/20">&bull;</span>
-        <a href="mailto:hola@rembrandt.studio" class="hover:text-accent transition-colors">Email</a>
+        <a href="mailto:hola@rembrandt.studio" data-cursor="Mail" class="hover:text-accent transition-colors">Email</a>
         <span class="text-white/20">&bull;</span>
-        <a href="https://github.com/fariddiaz" target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">GitHub</a>
+        <a href="https://github.com/fariddiaz" target="_blank" rel="noopener noreferrer" data-cursor="Git" class="hover:text-accent transition-colors">GitHub</a>
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  const initHero3D = async () => {
-    const container = document.getElementById('hero-3d');
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  let orbInstance: { setProgress: (p: number) => void; destroy: () => void } | null = null;
+
+  const initHero = async () => {
     const canvas = document.getElementById('three-hero-canvas') as HTMLCanvasElement | null;
-    const loaderEl = document.getElementById('hero-loading');
     const radialBg = document.getElementById('hero-radial-bg');
+    if (!canvas) return;
 
-    if (!container || !canvas) return;
-
-    // 1. Claroscuro Dinámico: la luz violeta se desplaza sutilmente con el cursor
-    if (radialBg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      let targetX = 60, targetY = 35;
-      let currX = 60, currY = 35;
-      let isRafActive = false;
-
-      const renderLight = () => {
-        currX += (targetX - currX) * 0.08;
-        currY += (targetY - currY) * 0.08;
-        radialBg.style.background = `radial-gradient(circle 580px at ${currX.toFixed(2)}% ${currY.toFixed(2)}%, rgba(139,92,246,0.30) 0%, rgba(28,21,48,0.45) 45%, rgba(10,10,13,0.96) 75%, #0a0a0d 100%)`;
-
-        if (Math.abs(targetX - currX) + Math.abs(targetY - currY) > 0.05) {
-          requestAnimationFrame(renderLight);
-        } else {
-          isRafActive = false;
-        }
-      };
-
-      const onHeroPointer = (e: MouseEvent | TouchEvent) => {
-        const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-        const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-        const rect = container.getBoundingClientRect();
-        targetX = Math.max(15, Math.min(85, ((clientX - rect.left) / rect.width) * 100));
-        targetY = Math.max(15, Math.min(85, ((clientY - rect.top) / rect.height) * 100));
-
-        if (!isRafActive) {
-          isRafActive = true;
-          requestAnimationFrame(renderLight);
-        }
-      };
-
-      window.addEventListener('mousemove', onHeroPointer, { passive: true });
-      window.addEventListener('touchmove', onHeroPointer, { passive: true });
-    }
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      if (loaderEl) loaderEl.remove();
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      canvas.classList.remove('opacity-0');
       return;
     }
 
-    const splineUrl = container.dataset.splineUrl;
+    try {
+      const { mountHeroOrb } = await import('../scripts/hero-orb');
+      orbInstance = mountHeroOrb(canvas);
+      canvas.classList.remove('opacity-0');
 
-    // Modo 1: Carga nativa de Spline si se proporciona splineUrl
-    if (splineUrl) {
-      try {
-        const { Application } = await import('@splinetool/runtime');
-        const app = new Application(canvas);
-        await app.load(splineUrl);
-        if (loaderEl) {
-          loaderEl.classList.add('opacity-0');
-          setTimeout(() => loaderEl.remove(), 700);
-        }
-        return;
-      } catch (err) {
-        console.warn('Error cargando Spline:', err);
-      }
+      ScrollTrigger.create({
+        trigger: '#hero-3d',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+        onUpdate: (self) => {
+          orbInstance?.setProgress(self.progress);
+        },
+      });
+    } catch (err) {
+      console.warn('Error montando Orbe WebGL:', err);
+      canvas.classList.remove('opacity-0');
     }
 
-    // Modo 2: Three.js nativo como fallback
-    const THREE = await import('three');
-    const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
-
-    const modelUrl = container.dataset.modelUrl || '/models/xbot.glb';
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-    camera.position.set(0, 0.1, 2.3);
-
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      alpha: true,
-      antialias: true,
-      powerPreference: 'high-performance',
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-
-    const keyLight = new THREE.DirectionalLight(0x8b5cf6, 3.8);
-    keyLight.position.set(3.5, 4, 3);
-    scene.add(keyLight);
-
-    const ambientLight = new THREE.AmbientLight(0x1c1530, 1.2);
-    scene.add(ambientLight);
-
-    if (loaderEl) {
-      loaderEl.classList.add('opacity-0');
-      setTimeout(() => loaderEl.remove(), 700);
+    // Claroscuro dinámico en el fondo
+    if (radialBg) {
+      const handlePointer = (e: MouseEvent | TouchEvent) => {
+        const x = 'touches' in e ? e.touches[0].clientX : e.clientX;
+        const y = 'touches' in e ? e.touches[0].clientY : e.clientY;
+        const px = Math.round((x / window.innerWidth) * 100);
+        const py = Math.round((y / window.innerHeight) * 100);
+        radialBg.style.background = `radial-gradient(circle 580px at ${px}% ${py}%, rgba(139,92,246,0.30) 0%, rgba(28,21,48,0.45) 45%, rgba(10,10,13,0.96) 75%, #0a0a0d 100%)`;
+      };
+      window.addEventListener('mousemove', handlePointer, { passive: true });
     }
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHero3D);
-  } else {
-    initHero3D();
-  }
+  document.addEventListener('astro:page-load', initHero);
+  document.addEventListener('DOMContentLoaded', initHero);
+  document.addEventListener('astro:before-swap', () => {
+    orbInstance?.destroy();
+    orbInstance = null;
+  });
 </script>
