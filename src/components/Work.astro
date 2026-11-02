@@ -1,0 +1,44 @@
+---
+import { waSections } from '../config/site';
+const wa = waSections.trabajo;
+// Añade aquí más proyectos a medida que los publiques.
+const projects = [
+  {
+    name: 'Eventos Leymar',
+    url: 'https://eventosleymar.com',
+    domain: 'eventosleymar.com',
+    summary: 'Web para una wedding planner en Cartagena: servicios, galería y reservas por WhatsApp.',
+  },
+];
+---
+<section
+  id="trabajo"
+  class="py-[14vh]"
+  data-wa-label={wa.label}
+  data-wa-message={wa.message}
+>
+  <div class="mx-auto w-[min(1180px,calc(100%-2.5rem))]">
+    <h2 class="mb-12 text-[clamp(2.2rem,4.8vw,4rem)] leading-none">Trabajo reciente</h2>
+    {projects.map((p) => (
+      <a
+        href={p.url}
+        target="_blank"
+        rel="noopener"
+        class="project group glass block overflow-hidden rounded-[2rem]"
+        data-cursor="VER"
+      >
+        <div class="flex items-center gap-2 border-b border-white/10 px-6 py-4 text-sm text-mute">
+          <span class="size-2.5 rounded-full bg-white/15" /><span class="size-2.5 rounded-full bg-white/15" /><span class="size-2.5 rounded-full bg-white/15" />
+          <span class="ml-4">{p.domain}</span>
+        </div>
+        <div class="relative grid min-h-[48vh] place-items-center overflow-hidden p-10">
+          <div class="absolute inset-0 bg-[radial-gradient(50%_60%_at_30%_30%,rgb(139_92_246/0.35),transparent_70%)] transition-transform duration-[1.2s] ease-(--ease-cine) group-hover:scale-110" />
+          <p class="relative font-display text-[clamp(3rem,10vw,9rem)] leading-none transition-transform duration-[1.2s] ease-(--ease-cine) group-hover:-translate-y-2">
+            {p.name}
+          </p>
+        </div>
+        <p class="border-t border-white/10 px-6 py-5 text-mute">{p.summary}</p>
+      </a>
+    ))}
+  </div>
+</section>

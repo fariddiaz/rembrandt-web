@@ -1,0 +1,81 @@
+---
+import { plans, waLink, waSections } from '../config/site';
+const wa = waSections.planes;
+---
+<section
+  id="planes"
+  class="relative py-[16vh]"
+  data-wa-label={wa.label}
+  data-wa-message={wa.message}
+>
+  <div class="mx-auto w-[min(1180px,calc(100%-2.5rem))]">
+    <div class="mb-16 grid gap-6 md:grid-cols-[1.1fr_1fr] md:items-end">
+      <h2 class="text-[clamp(2.4rem,5.5vw,4.6rem)] leading-[0.98]">Elige cómo quieres empezar.</h2>
+      <p class="max-w-[30rem] text-lg leading-relaxed text-mute">
+        Precios cerrados, sin letra pequeña. Escríbenos por WhatsApp con el plan que te interesa
+        y te respondemos con los siguientes pasos.
+      </p>
+    </div>
+
+    <ol class="stack" aria-label="Planes">
+      {plans.map((plan, i) => (
+        <li class="stack-card" style={`--i:${i}`}>
+          <article
+            class:list={[
+              'glass grid gap-10 rounded-[2rem] p-7 md:grid-cols-[1.1fr_1fr] md:p-12',
+              plan.featured && 'is-featured',
+            ]}
+          >
+            <div class="flex flex-col">
+              {plan.featured && (
+                <p class="mb-5 w-fit rounded-full bg-violet-deep/25 px-3 py-1 text-sm text-violet-200 ring-1 ring-violet/50">
+                  Recomendado para empresas
+                </p>
+              )}
+              <h3 class="text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.02]">{plan.name}</h3>
+              <p class="mt-4 max-w-[26rem] text-lg leading-relaxed text-mute">{plan.tagline}</p>
+              <p class="mt-auto pt-10 text-sm text-mute">{plan.delivery}</p>
+            </div>
+
+            <div class="flex flex-col">
+              <p class="font-display text-[clamp(2.2rem,3.9vw,3.5rem)] leading-none whitespace-nowrap">{plan.priceUsd}</p>
+              {plan.priceCop && <p class="mt-2 text-mute">{plan.priceCop}</p>}
+              <ul class="mt-8 space-y-3 border-t border-white/10 pt-8">
+                {plan.features.map((f) => (
+                  <li class="flex gap-3 leading-snug">
+                    <span class="mt-[0.45em] size-1.5 shrink-0 rounded-full bg-violet shadow-[0_0_10px_#8b5cf6]" aria-hidden="true" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={waLink(plan.message)}
+                target="_blank"
+                rel="noopener"
+                class:list={['btn mt-10 w-fit', plan.featured ? 'btn-light' : 'btn-ghost']}
+                data-magnetic="0.3"
+                data-cursor="WHATSAPP"
+              >
+                {plan.cta}
+              </a>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .stack {
+    display: grid;
+    gap: 6vh;
+    padding-bottom: 8vh;
+  }
+  .is-featured {
+    box-shadow:
+      inset 0 1px 0 rgb(252 251 254 / 0.08),
+      0 0 0 1px rgb(139 92 246 / 0.35),
+      0 50px 120px -40px rgb(124 58 237 / 0.75);
+  }
+</style>

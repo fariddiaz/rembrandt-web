@@ -1,0 +1,76 @@
+---
+import HeroOrb from './HeroOrb.astro';
+import { waLink, waSections } from '../config/site';
+const wa = waSections.hero;
+---
+<section
+  id="hero"
+  class="relative isolate flex min-h-[100svh] items-end overflow-hidden pb-[12vh] pt-32 md:items-center md:pb-0"
+  data-wa-label={wa.label}
+  data-wa-message={wa.message}
+>
+  <!-- Foco de luz y orbe -->
+  <div class="spotlight absolute inset-0 -z-10"></div>
+  <div class="absolute inset-x-0 top-[6vh] -z-10 h-[62svh] md:inset-y-0 md:left-[38%] md:right-[-8%] md:top-0 md:h-auto">
+    <HeroOrb />
+  </div>
+
+  <div class="mx-auto w-[min(1180px,calc(100%-2.5rem))]">
+    <h1 class="hero-title font-display text-[clamp(3rem,9.2vw,8.6rem)] leading-[0.92]">
+      <span class="line"><span>Oscuridad</span></span>
+      <span class="line"><span>para que la luz</span></span>
+      <span class="line"><span>importe.</span></span>
+    </h1>
+
+    <p class="hero-copy mt-8 max-w-[34rem] text-[clamp(1.05rem,1.4vw,1.25rem)] leading-relaxed text-mute">
+      Diseñamos y programamos webs, tiendas y experiencias 3D que convierten visitas en clientes.
+      Tu landing puede estar publicada en 24 a 48 horas, desde $249 USD.
+    </p>
+
+    <div class="hero-cta mt-10 flex flex-wrap items-center gap-4">
+      <a href="#planes" class="btn btn-light" data-magnetic data-cursor="PLANES">Ver planes y precios</a>
+      <a
+        href={waLink(wa.message)}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-ghost"
+        data-magnetic
+        data-cursor="WHATSAPP"
+      >
+        Escribir por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Único momento orquestado de la página: el título emerge de la sombra.
+     Es CSS puro → empieza en el primer pintado, sin esperar JavaScript. */
+  .hero-title .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.06em;
+  }
+  .hero-title .line > span {
+    display: inline-block;
+    animation: rise 1.25s var(--ease-cine) both;
+  }
+  .hero-title .line:nth-child(2) > span { animation-delay: 0.09s; }
+  .hero-title .line:nth-child(3) > span {
+    animation-delay: 0.18s;
+    color: var(--color-light);
+    text-shadow: 0 0 48px rgb(139 92 246 / 0.55);
+  }
+  .hero-title .line:nth-child(1) > span,
+  .hero-title .line:nth-child(2) > span { color: rgb(252 251 254 / 0.62); }
+  .hero-copy, .hero-cta { animation: fade 1s 0.45s var(--ease-cine) both; }
+
+  @keyframes rise {
+    from { transform: translateY(102%); }
+    to { transform: none; }
+  }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+</style>

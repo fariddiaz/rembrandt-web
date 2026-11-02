@@ -1,13 +1,14 @@
+// @ts-check
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://coruscating-frangollo-e4732e.netlify.app',
-  base: '/',
-  integrations: [sitemap()],
+  site: 'https://rembrandtdigital.com',
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // three.js ya va en su propio chunk (import() dinámico en HeroOrb.astro)
+      chunkSizeWarningLimit: 600,
+    },
   },
 });
-

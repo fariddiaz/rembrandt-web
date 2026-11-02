@@ -1,11 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#17130f" />
-  <text
-    x="32"
-    y="46"
-    text-anchor="middle"
-    font-family="Georgia, serif"
-    font-size="40"
-    fill="#faf8f5"
-  >R</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><radialGradient id="g" cx="38%" cy="34%" r="70%"><stop offset="0" stop-color="#fcfbfe"/><stop offset=".35" stop-color="#8b5cf6"/><stop offset="1" stop-color="#0a0a0d"/></radialGradient></defs><rect width="64" height="64" rx="14" fill="#0a0a0d"/><circle cx="32" cy="32" r="20" fill="url(#g)"/></svg>

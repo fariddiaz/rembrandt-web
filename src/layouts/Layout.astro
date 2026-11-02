@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import Cursor from '../components/Cursor.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Rembrandt Studio · Webs, tiendas y 3D que venden',
+  description = 'Estudio de diseño y desarrollo web de alto rendimiento. Landing lista en 24–48 h desde $249 USD. Oscuridad para que la luz importe.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0d" />
+    <meta name="color-scheme" content="dark" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="bg-carbon text-light">
+    <slot />
+    <Cursor />
+    <WhatsAppFloat />
+
+    <script>
+      // Lenis + GSAP ScrollTrigger: un solo reloj (gsap.ticker) para todo.
+      import { initMotion } from '../scripts/smooth-scroll';
+      initMotion();
+    </script>
+  </body>
+</html>

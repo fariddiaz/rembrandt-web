@@ -1,0 +1,86 @@
+---
+// Contenedor del orbe 3D.
+// 1) Se pinta al instante un orbe CSS (fallback + resplandor) → no afecta al LCP.
+// 2) Cuando la página termina de cargar y el navegador está libre, se importa
+//    three.js (chunk aparte) y el canvas WebGL aparece con un fundido.
+---
+<div class="orb-wrap" data-hero-orb aria-hidden="true">
+  <div class="orb-fallback"></div>
+  <canvas id="orb-canvas"></canvas>
+</div>
+
+<script>
+  const canvas = document.querySelector<HTMLCanvasElement>('#orb-canvas');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const hasWebGL = (() => {
+    try {
+      const c = document.createElement('canvas');
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  })();
+
+  type IdleFn = (cb: () => void, opts?: { timeout: number }) => number;
+  const idle: IdleFn =
+    (window as unknown as { requestIdleCallback?: IdleFn }).requestIdleCallback ??
+    ((cb) => window.setTimeout(cb, 120));
+
+  const boot = () =>
+    idle(
+      () => {
+        import('../scripts/orb').then(({ mountOrb }) => {
+          if (canvas) mountOrb(canvas, { reduceMotion });
+        });
+      },
+      { timeout: 1800 },
+    );
+
+  if (canvas && hasWebGL) {
+    if (document.readyState === 'complete') boot();
+    else addEventListener('load', boot, { once: true });
+  }
+</script>
+
+<style>
+  .orb-wrap {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.6s var(--ease-cine);
+  }
+  canvas:global(.is-ready) { opacity: 1; }
+
+  /* Orbe CSS: lo que se ve antes de WebGL y si WebGL no existe */
+  .orb-fallback {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(46vw, 560px);
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 32% 28%, rgb(252 251 254 / 0.55), transparent 22%),
+      radial-gradient(circle at 50% 50%, transparent 52%, rgb(139 92 246 / 0.55) 68%, transparent 72%),
+      radial-gradient(circle at 45% 45%, #2a1650 0%, #0d0a16 62%);
+    filter: blur(2px);
+    box-shadow: 0 0 140px 30px rgb(124 58 237 / 0.28);
+  }
+  .orb-fallback { transition: background 1.2s, opacity 1.2s; }
+  .orb-wrap:has(:global(canvas.is-ready)) .orb-fallback {
+    background: transparent;
+    opacity: 0.8;
+  }
+  @media (max-width: 768px) {
+    .orb-fallback { width: 86vw; }
+  }
+</style>

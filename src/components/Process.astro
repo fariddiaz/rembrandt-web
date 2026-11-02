@@ -1,0 +1,42 @@
+---
+import { waLink, waSections } from '../config/site';
+const wa = waSections.proceso;
+const steps = [
+  { title: 'Nos escribes', text: 'Por WhatsApp nos cuentas qué vendes y a quién. Con eso basta para empezar.' },
+  { title: 'Ves tu boceto', text: 'Te enviamos el diseño y lo ajustamos contigo hasta que diga lo que quieres decir.' },
+  { title: 'Publicamos', text: 'Tu web queda en línea, rápida y conectada a tu WhatsApp, lista para recibir clientes.' },
+];
+---
+<section
+  id="proceso"
+  class="py-[14vh]"
+  data-wa-label={wa.label}
+  data-wa-message={wa.message}
+>
+  <div class="mx-auto grid w-[min(1180px,calc(100%-2.5rem))] gap-14 md:grid-cols-[0.9fr_1.1fr]">
+    <div>
+      <h2 class="text-[clamp(2.2rem,4.8vw,4rem)] leading-[1]">Tres pasos, sin reuniones eternas.</h2>
+      <a
+        href={waLink(wa.message)}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-light mt-10"
+        data-magnetic
+        data-cursor="WHATSAPP"
+      >
+        Dar el primer paso
+      </a>
+    </div>
+    <ol class="divide-y divide-white/10 border-y border-white/10">
+      {steps.map((s, i) => (
+        <li class="grid grid-cols-[3.5rem_1fr] gap-4 py-8">
+          <span class="font-display text-3xl text-violet">{i + 1}</span>
+          <div>
+            <h3 class="text-2xl">{s.title}</h3>
+            <p class="mt-2 max-w-[32rem] leading-relaxed text-mute">{s.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

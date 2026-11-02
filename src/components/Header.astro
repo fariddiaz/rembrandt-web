@@ -1,82 +1,35 @@
 ---
-interface Props {
-  theme?: 'light' | 'dark';
-}
-
-const { theme = 'dark' } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
-const currentPath = Astro.url.pathname;
-const isExpress = currentPath.includes('/express');
-
+import { waLink, waSections } from '../config/site';
 const links = [
-  { href: `${base}/`, label: 'Inicio', active: !isExpress },
-  { href: `${base}/#obras`, label: 'Obras' },
-  { href: `${base}/#servicios`, label: 'Servicios' },
-  { href: `${base}/express`, label: 'Express 24h ⚡', active: isExpress },
-  { href: `${base}/#contacto`, label: 'Contacto' },
+  { href: '#planes', label: 'Planes' },
+  { href: '#trabajo', label: 'Trabajo' },
+  { href: '#proceso', label: 'Proceso' },
+  { href: '#cuidado', label: 'Plan Cuidado' },
 ];
 ---
-
-<header class="fixed top-4 inset-x-0 z-50 pointer-events-none px-4 sm:px-6">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-3">
-    {/* Logo flotante en cápsula de cristal */}
-    <a
-      href={import.meta.env.BASE_URL}
-      class="pointer-events-auto flex items-center gap-2.5 rounded-full border border-white/10 bg-[#0a0a0d]/80 px-4 py-2.5 backdrop-blur-xl shadow-lg shadow-black/40 transition-all hover:border-accent/50 group"
-    >
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent shadow-[0_0_8px_#8b5cf6]"></span>
-      </span>
-      <span class="font-display text-sm sm:text-base font-bold tracking-tight text-white group-hover:text-accent transition-colors">
-        Rembrandt
-      </span>
+<header class="fixed inset-x-0 top-0 z-50">
+  <nav
+    class="glass mx-auto mt-4 flex w-[min(1180px,calc(100%-2rem))] items-center justify-between rounded-full py-2.5 pr-2.5 pl-5 md:pl-6"
+    aria-label="Principal"
+  >
+    <a href="#hero" class="flex items-baseline gap-1.5" aria-label="Rembrandt Studio, inicio">
+      <span class="font-display text-[1.35rem] leading-none">Rembrandt</span>
+      <span class="text-mute text-sm">Studio</span>
     </a>
-
-    {/* Dock central de navegación estilo píldora de la referencia */}
-    <nav class="pointer-events-auto hidden md:block" aria-label="Principal">
-      <ul class="flex items-center gap-1 rounded-full border border-white/10 bg-[#0a0a0d]/80 p-1.5 backdrop-blur-xl shadow-xl shadow-black/40">
-        {
-          links.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class={
-                  link.active
-                    ? 'rounded-full bg-accent px-4 py-1.5 text-xs font-semibold text-white shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all'
-                    : 'rounded-full px-3.5 py-1.5 text-xs font-medium text-white/70 transition-all hover:bg-white/10 hover:text-white'
-                }
-              >
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-
-    {/* Botón CTA derecho en píldora con halo neón */}
-    <div class="pointer-events-auto flex items-center gap-2">
-      <a
-        href="https://wa.me/573147714202?text=Hola%20Rembrandt%20Studio%2C%20quiero%20cotizar%20un%20proyecto"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hidden sm:inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-2 text-xs font-semibold text-emerald-400 backdrop-blur-xl hover:bg-emerald-500/20 transition-all"
-      >
-        <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>WhatsApp</span>
-      </a>
-
-      <a
-        href={`${base}/#contacto`}
-        class="group relative inline-flex flex-col items-center justify-center rounded-full bg-accent px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all hover:bg-accent-strong hover:scale-105 overflow-hidden"
-      >
-        <span>Iniciar Proyecto</span>
-        <svg class="firma-stroke absolute bottom-0.5 h-1.5 w-16 pointer-events-none" viewBox="0 0 320 60" aria-hidden="true">
-          <path pathLength="1" d="M10 42 C 38 12, 65 52, 98 28 S 145 18, 180 38 C 215 52, 235 18, 265 25 C 290 30, 302 44, 314 28" />
-        </svg>
-      </a>
-    </div>
-  </div>
+    <ul class="hidden items-center gap-8 text-[0.95rem] text-mute md:flex">
+      {links.map((l) => (
+        <li><a href={l.href} class="transition-colors hover:text-light">{l.label}</a></li>
+      ))}
+    </ul>
+    <a
+      href={waLink(waSections.contacto.message)}
+      target="_blank"
+      rel="noopener"
+      class="btn btn-light !py-3 !px-5 text-sm"
+      data-magnetic="0.3"
+      data-cursor="WHATSAPP"
+    >
+      Cotizar<span class="hidden sm:inline">&nbsp;por WhatsApp</span>
+    </a>
+  </nav>
 </header>
