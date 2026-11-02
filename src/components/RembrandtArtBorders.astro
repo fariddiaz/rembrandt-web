@@ -63,8 +63,19 @@ if (pathname.startsWith('/planes')) {
           />
         ))}
       </div>
+    </div>
+  ))}
+</div>
+
+<!-- Rótulos verticales de autor: capa independiente a z-30 para nitidez permanente en todas las páginas -->
+<div class="art-captions-layer pointer-events-none fixed inset-0 z-30 hidden select-none xl:block" aria-hidden="true" data-art-captions>
+  {sides.map(({ side, works }) => (
+    <div class={`art-caption-col art-caption-col--${side}`}>
       {works.map((w, i) => (
-        <span class:list={['art-caption', `art-caption--${side}`, i === initialIndex && 'is-active']} data-art-state={i}>
+        <span
+          class:list={['art-caption', `art-caption--${side}`, i === initialIndex && 'is-active']}
+          data-art-state={i}
+        >
           {w.caption}
         </span>
       ))}
@@ -75,63 +86,50 @@ if (pathname.startsWith('/planes')) {
 <script>
   function initArtBorders() {
     const root = document.querySelector<HTMLElement>('[data-art-borders]');
-    if (!root) return;
+    const captionsRoot = document.querySelector<HTMLElement>('[data-art-captions]');
+    if (!root && !captionsRoot) return;
 
-    const layers = root.querySelectorAll<HTMLElement>('[data-art-parallax]');
-    const items = root.querySelectorAll<HTMLElement>('[data-art-state]');
+    const layers = root?.querySelectorAll<HTMLElement>('[data-art-parallax]') ?? [];
+    const items = document.querySelectorAll<HTMLElement>('[data-art-state]');
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const path = window.location.pathname.toLowerCase();
-    let defaultState = 0;
+    // Detección estricta y limpia según la página actual
+    const path = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+    let targetState = 0;
     if (path.includes('/planes')) {
-      defaultState = 1;
+      targetState = 1;
     } else if (path.includes('/portafolio')) {
-      defaultState = 2;
+      targetState = 2;
     } else if (path.includes('/proceso')) {
-      defaultState = 3;
+      targetState = 3;
     } else if (path.includes('/contacto')) {
-      defaultState = 4;
+      targetState = 4;
     }
 
-    let current = -1;
-    let raf = 0;
+    // Activar exactamente las obras de la ventana correspondiente
+    items.forEach((el) => {
+      el.classList.toggle('is-active', Number(el.dataset.artState) === targetState);
+    });
 
-    const setState = (state: number) => {
-      if (state === current) return;
-      current = state;
-      items.forEach((el) => el.classList.toggle('is-active', Number(el.dataset.artState) === state));
-    };
+    let raf = 0;
 
     const update = () => {
       raf = 0;
-      let state = defaultState;
 
-      // Si está en la página de inicio, puede cambiar dinámicamente según scroll entre secciones
-      if (defaultState === 0) {
-        const planesEl = document.querySelector<HTMLElement>('#planes');
-        const trabajoEl = document.querySelector<HTMLElement>('#trabajo');
-        const probe = innerHeight * 0.5;
-
-        if (trabajoEl && trabajoEl.getBoundingClientRect().top <= probe) {
-          state = 2;
-        } else if (planesEl && planesEl.getBoundingClientRect().top <= probe) {
-          state = 1;
-        }
-      }
-
-      setState(state);
-
-      // Ocultar rótulos cuando el footer entra al viewport para evitar solapamientos
+      // Ocultar rótulos cuando el footer entra al área inferior, pero únicamente si el usuario ha hecho scroll
+      // Esto evita que páginas con poco contenido (como portafolio en pantallas altas) oculten sus rótulos de entrada
       const footer = document.querySelector('footer');
-      if (footer) {
+      if (footer && captionsRoot) {
         const fRect = footer.getBoundingClientRect();
-        root.classList.toggle('at-footer', fRect.top < window.innerHeight);
+        const hasScrolledDown = window.scrollY > 150;
+        const footerOverlapsBottom = fRect.top < (window.innerHeight - 80);
+        const shouldFade = hasScrolledDown && footerOverlapsBottom;
+        captionsRoot.classList.toggle('at-footer', shouldFade);
       }
 
-      if (!reduceMotion) {
-        // Parallax sutil: la pintura se desplaza más lento que el contenido (máx. ±4% de su alto)
-        const max = document.documentElement.scrollHeight - innerHeight || 1;
-        const shift = (scrollY / max - 0.5) * -8;
+      if (!reduceMotion && root) {
+        const max = document.documentElement.scrollHeight - window.innerHeight || 1;
+        const shift = (window.scrollY / max - 0.5) * -8;
         layers.forEach((l) => (l.style.transform = `translate3d(0, ${shift.toFixed(2)}%, 0)`));
       }
     };
@@ -140,8 +138,8 @@ if (pathname.startsWith('/planes')) {
       if (!raf) raf = requestAnimationFrame(update);
     };
 
-    addEventListener('scroll', onScroll, { passive: true });
-    addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
     update();
   }
 
@@ -213,14 +211,29 @@ if (pathname.startsWith('/planes')) {
     mask-composite: intersect;
   }
 
-  /* Tinte violeta sutil sobre el duotono, con la misma viñeta */
+  /* Tinte ámbar/dorado de claroscuro sutil sobre el duotono */
   .art-parallax::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--color-violet);
+    background: #d4af37;
     mix-blend-mode: color;
-    opacity: 0.08;
+    opacity: 0.05;
+  }
+
+  /* Columnas de rótulos verticales en los márgenes extremos */
+  .art-caption-col {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3.5rem;
+    pointer-events: none;
+  }
+  .art-caption-col--left {
+    left: 0;
+  }
+  .art-caption-col--right {
+    right: 0;
   }
 
   /* Textos verticales de autor originales: impecables, permanentes y elegantes */
@@ -228,17 +241,20 @@ if (pathname.startsWith('/planes')) {
     position: absolute;
     bottom: 3.5rem;
     writing-mode: vertical-rl;
-    font-size: 0.62rem;
-    letter-spacing: 0.32em;
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--color-light);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: rgba(247, 237, 219, 0.65);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
     opacity: 0;
     white-space: nowrap;
-    transition: opacity 0.8s var(--ease-cine);
+    transition: opacity 0.6s var(--ease-cine);
     pointer-events: none;
   }
   .art-caption.is-active {
-    opacity: 0.2;
+    opacity: 1;
   }
   .art-caption--left {
     left: 1.15rem;
@@ -248,8 +264,8 @@ if (pathname.startsWith('/planes')) {
     right: 1.15rem;
   }
 
-  /* Al llegar al footer, los textos se desvanecen con máxima pulcritud */
-  :global([data-art-borders].at-footer) .art-caption {
+  /* Al llegar al footer tras haber scrolleado, los textos se desvanecen con máxima pulcritud */
+  :global([data-art-captions].at-footer) .art-caption {
     opacity: 0 !important;
     transition: opacity 0.35s ease;
   }
