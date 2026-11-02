@@ -2,30 +2,20 @@
 import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
-<footer class="relative z-20 bg-carbon border-t border-white/10 py-12 pb-24 text-sm text-mute md:pb-14">
-  <div class="mx-auto flex w-[min(1240px,calc(100%-2.5rem))] flex-col gap-8">
-    <div class="flex flex-wrap items-center justify-between gap-6">
-      <div class="flex flex-wrap items-center gap-4">
-        <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 group" aria-label="Rembrandt Studio, volver arriba">
-          <Logo variant="mark-color" class="h-6 w-auto transition-transform duration-300 group-hover:scale-105" />
-          <Logo variant="wordmark" class="h-4 w-auto text-light transition-opacity duration-300 group-hover:opacity-90" />
-          <span class="rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 text-[0.62rem] font-medium tracking-wider text-mute uppercase font-sans">Studio</span>
-        </a>
-        <span class="text-xs text-mute/80">© {year} · Todos los derechos reservados</span>
-      </div>
-      <div class="flex items-center gap-6 text-xs text-mute">
-        <span>Páginas Web Express en 3–5 días</span>
-        <span class="hidden sm:inline">·</span>
-        <span class="hidden sm:inline">Diseño de Autor & Experiencias 3D</span>
-      </div>
+<footer class="relative z-20 bg-carbon border-t border-white/10 py-12 pb-28 text-sm text-mute md:pb-12">
+  <div class="mx-auto flex w-[min(1240px,calc(100%-2.5rem))] flex-wrap items-center justify-between gap-6">
+    <div class="flex flex-wrap items-center gap-4">
+      <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 group" aria-label="Rembrandt Studio, volver arriba">
+        <Logo variant="mark-color" class="h-6 w-auto transition-transform duration-300 group-hover:scale-105" />
+        <Logo variant="wordmark" class="h-4 w-auto text-light transition-opacity duration-300 group-hover:opacity-90" />
+        <span class="rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 text-[0.62rem] font-medium tracking-wider text-mute uppercase font-sans">Studio</span>
+      </a>
+      <span class="text-xs text-mute/80">© {year} · Todos los derechos reservados</span>
     </div>
-
-    <!-- Obras artísticas de Rembrandt presentadas con sutileza en la parte inferior, sin interferir con la información -->
-    <div class="border-t border-white/5 pt-5 flex flex-wrap items-center justify-between gap-3 text-[0.68rem] text-mute/50 tracking-wider">
-      <span class="uppercase tracking-widest text-mute/40 font-mono">Claroscuro de Rembrandt van Rijn:</span>
-      <span class="text-mute/65 font-serif italic text-[0.74rem]">
-        Tormenta en el Mar de Galilea (1633) · La Ronda de Noche (1642) · Filósofo en Meditación (1632) · Lección de Anatomía (1632) · El Festín de Belsasar (1635)
-      </span>
+    <div class="flex items-center gap-6 text-xs text-mute">
+      <span>Páginas Web Express en 3–5 días</span>
+      <span class="hidden sm:inline">·</span>
+      <span class="hidden sm:inline">Diseño de Autor & Experiencias 3D</span>
     </div>
   </div>
 </footer>
