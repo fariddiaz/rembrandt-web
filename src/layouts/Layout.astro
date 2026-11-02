@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Cursor from '../components/Cursor.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import RembrandtArtBorders from '../components/RembrandtArtBorders.astro';
 
 interface Props {
   title?: string;
@@ -29,6 +30,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="bg-carbon text-light">
+    <RembrandtArtBorders />
     <slot />
     <Cursor />
     <WhatsAppFloat />
