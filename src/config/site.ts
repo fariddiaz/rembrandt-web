@@ -170,7 +170,7 @@ export const caseStudies: CaseStudy[] = [
     id: 'leymar',
     client: 'Eventos Leymar',
     sector: 'Wedding Planner & Eventos · Cartagena',
-    url: '/preview/eventosleymar', // preview interna: el iframe carga sin bloqueos de X-Frame-Options
+    url: 'https://www.eventosleymar.com',
     liveUrl: 'https://eventosleymar.com',
     challenge:
       'Captar novias y parejas internacionales que planean su boda de ensueño en Cartagena y recibir solicitudes de cotización directas por WhatsApp sin intermediarios.',
