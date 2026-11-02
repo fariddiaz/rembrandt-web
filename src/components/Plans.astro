@@ -38,14 +38,13 @@ const wa = waSections.planes;
             aria-labelledby={`plan-${plan.id}`}
           >
             <div class="flex flex-col">
-              <div class="mb-5 flex flex-wrap items-center gap-3">
-                <span class="text-xs uppercase tracking-[0.14em] text-mute font-mono">Opción {i + 1}</span>
-                {plan.featured && (
+              {plan.featured && (
+                <div class="mb-4">
                   <span class="rounded-md border border-white/20 bg-white/10 px-3 py-0.5 text-xs font-medium text-light backdrop-blur-md">
                     Más elegido por empresas
                   </span>
-                )}
-              </div>
+                </div>
+              )}
 
               <h3 id={`plan-${plan.id}`} class="text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.02] text-light">
                 {plan.name}

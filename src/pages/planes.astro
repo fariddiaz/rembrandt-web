@@ -5,10 +5,16 @@ import Footer from '../components/Footer.astro';
 import { plans, maintenancePackages, onDemandMaintenance, plansFaq, waLink, waSections, CONTACT_EMAIL } from '../config/site';
 
 const wa = waSections.planes;
+
+// Dividimos los 5 planes en dos niveles armónicos y perfectamente simétricos:
+// Fila 1: La tríada comercial esencial (3 columnas balanceadas de igual proporción)
+const corePlans = plans.slice(0, 3);
+// Fila 2: Soluciones avanzadas de alto impacto (2 columnas simétricas 50% / 50%)
+const advancedPlans = plans.slice(3, 5);
 ---
 <Layout
-  title="Planes y Precios · Rembrandt Studio | Webs que Venden y Automatización WhatsApp"
-  description="Planes web claros, precios cerrados y sin letras chicas. Landing express en 4 a 6 días y webs con automatización de WhatsApp 24/7 para empresarios."
+  title="Planes y Precios · Rembrandt Studio | Webs de Alto Rendimiento y Automatización"
+  description="Planes web claros, precios cerrados y sin letras chicas. Entrega express en 4 a 6 días y webs con automatización de WhatsApp 24/7 para empresarios."
 >
   <Header activePath="/planes" />
 
@@ -27,152 +33,115 @@ const wa = waSections.planes;
 
     <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
       
-      <!-- Encabezado Editorial de la Página de Planes -->
-      <header class="mb-16 md:mb-20 max-w-3xl">
-        <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
-          Inversión Comercial & Retorno de Inversión
-        </p>
-        <h1 class="mt-4 font-display text-[clamp(2.6rem,5.5vw,5rem)] leading-[0.98] text-light">
+      <!-- Encabezado Editorial con el Sello de Autor "Rembrandt f." -->
+      <header class="mb-12 max-w-3xl">
+        <div class="flex items-center gap-3">
+          <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
+            Inversión Comercial & Retorno Real
+          </p>
+          <span class="font-serif italic text-xs tracking-[0.25em] text-amber-200/50">Rembrandt f.</span>
+        </div>
+        <h1 class="mt-4 font-display text-[clamp(2.4rem,5vw,4.4rem)] leading-[1.02] text-light">
           Planes claros. Tu negocio vendiendo las 24 horas.
         </h1>
-        <p class="mt-6 text-lg md:text-xl leading-relaxed text-mute">
-          Sin términos técnicos confusos ni costos ocultos. Diseñamos herramientas comerciales hechas para captar clientes, posicionar tu marca con autoridad y responder al instante por WhatsApp mientras te enfocas en operar tu empresa.
+        <p class="mt-4 text-base md:text-lg leading-relaxed text-mute">
+          Sin términos técnicos confusos ni cobros ocultos. Diseñamos herramientas comerciales hechas para captar clientes, posicionar tu marca con autoridad y responder al instante por WhatsApp mientras te enfocas en operar tu empresa.
         </p>
       </header>
 
-      <!-- Pilares de Confianza en Liquid Glass -->
-      <section class="mb-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Compromisos clave">
-        <div class="glass rounded-2xl p-6">
-          <p class="font-display text-2xl text-light">4 a 6 días</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-violet-300">Entrega Rápida & Perfecta</p>
-          <p class="mt-2 text-xs leading-relaxed text-mute">
-            Garantía estricta en planes express. El tiempo exacto para maquetar, afinar y entregar sin fallos.
-          </p>
+      <!-- Cinta de Compromisos de Autor (Sutil, delgada y elegante, sin diapositivas gigantes) -->
+      <div class="glass mb-14 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 px-6 py-3.5 text-xs text-mute backdrop-blur-md">
+        <div class="flex items-center gap-2">
+          <span class="size-1.5 rounded-full bg-emerald-400"></span>
+          <span><strong class="text-light font-medium">4 a 6 días</strong> · Entrega express garantizada</span>
         </div>
+        <div class="hidden sm:block h-3 w-px bg-white/10"></div>
+        <div class="flex items-center gap-2">
+          <span class="size-1.5 rounded-full bg-amber-400"></span>
+          <span><strong class="text-light font-medium">WhatsApp 24/7</strong> · Asistente con respuesta inmediata</span>
+        </div>
+        <div class="hidden md:block h-3 w-px bg-white/10"></div>
+        <div class="flex items-center gap-2">
+          <span class="size-1.5 rounded-full bg-violet-400"></span>
+          <span><strong class="text-light font-medium">Propiedad 100%</strong> · Código y dominio tuyos</span>
+        </div>
+        <div class="hidden lg:block h-3 w-px bg-white/10"></div>
+        <div class="flex items-center gap-2">
+          <span class="size-1.5 rounded-full bg-light"></span>
+          <span><strong class="text-light font-medium">0.7s</strong> · Carga instantánea en celulares</span>
+        </div>
+      </div>
 
-        <div class="glass rounded-2xl p-6">
-          <p class="font-display text-2xl text-light">24/7</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-rose-300">WhatsApp Inteligente</p>
-          <p class="mt-2 text-xs leading-relaxed text-mute">
-            Automatización que saluda, califica prospectos, comparte tu catálogo y agenda reuniones día y noche.
-          </p>
-        </div>
-
-        <div class="glass rounded-2xl p-6">
-          <p class="font-display text-2xl text-light">100% Tuya</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-emerald-300">Propiedad Total</p>
-          <p class="mt-2 text-xs leading-relaxed text-mute">
-            Sin mensualidades obligatorias ni plataformas cerradas. El código fuente y tu dominio te pertenecen.
-          </p>
-        </div>
-
-        <div class="glass rounded-2xl p-6">
-          <p class="font-display text-2xl text-light">0.7s</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-amber-300">Velocidad Extrema</p>
-          <p class="mt-2 text-xs leading-relaxed text-mute">
-            Astro + Tailwind. Carga instantánea en cualquier celular para no perder ni un solo cliente potencial.
-          </p>
-        </div>
-      </section>
-          <p class="mt-2 text-xs leading-relaxed text-mute">
-            Automatización que saluda, califica prospectos, comparte tu catálogo y agenda reuniones día y noche.
-          </p>
-        </div>
-
-        <div class="glass rounded-2xl p-6">
-          <p class="font-display text-2xl text-light">100% Tuya</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-emerald-300">Propiedad Total</p>
-          <p class="mt-2 text-xs leading-relaxed text-mute">
-            Sin mensualidades obligatorias ni plataformas cerradas. El código fuente y tu dominio te pertenecen.
-          </p>
-        </div>
-
-        <div class="glass rounded-2xl p-6">
-          <p class="font-display text-2xl text-light">0.7s</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-amber-300">Velocidad Extrema</p>
-          <p class="mt-2 text-xs leading-relaxed text-mute">
-            Astro + Tailwind. Carga instantánea en cualquier celular para no perder ni un solo cliente potencial.
-          </p>
-        </div>
-      </section>
-
-      <!-- Grid Principal de los 5 Planes en Liquid Glass -->
-      <section class="mb-24" aria-label="Catálogo de planes">
-        <div class="grid gap-8 lg:grid-cols-3">
-          {plans.map((plan, i) => {
+      <!-- Fila 1: La Tríada Comercial (3 Columnas con Simetría y Altura Exactas) -->
+      <section class="mb-6" aria-label="Planes principales de presencia y conversión">
+        <div class="grid gap-6 md:grid-cols-3 items-stretch">
+          {corePlans.map((plan) => {
             const isFeatured = plan.featured;
             return (
               <article
                 class:list={[
-                  'glass flex flex-col justify-between rounded-[2rem] p-7 md:p-9 transition-all duration-300',
+                  'flex flex-col justify-between rounded-[2rem] p-7 md:p-8 transition-all duration-300',
                   isFeatured
-                    ? 'border-violet/40 bg-white/[0.04] lg:-translate-y-2 shadow-2xl relative ring-1 ring-violet/30'
-                    : 'border-white/10',
+                    ? 'glass-rembrandt border-amber-400/30 bg-amber-950/10 shadow-2xl relative'
+                    : 'glass border-white/10 hover:border-white/20',
                 ]}
                 aria-labelledby={`plan-title-${plan.id}`}
               >
                 <div>
-                  <div class="flex items-center justify-between gap-2">
-                    <span class="font-mono text-xs uppercase tracking-wider text-mute">
-                      Plan {String(i + 1).padStart(2, '0')}
+                  <div class="flex items-center justify-between gap-2 min-h-[1.75rem]">
+                    <span class="text-xs uppercase tracking-wider text-amber-200/90 font-medium">
+                      {plan.badge}
                     </span>
                     {isFeatured && (
-                      <span class="rounded-md border border-white/20 bg-white/10 px-3 py-0.5 text-[0.72rem] font-medium text-light backdrop-blur-md">
-                        Recomendado para Empresas
+                      <span class="rounded-md border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 text-[0.7rem] font-medium text-amber-200">
+                        Recomendado
                       </span>
                     )}
                   </div>
 
-                  <h2 id={`plan-title-${plan.id}`} class="mt-4 font-display text-2xl md:text-3xl text-light">
+                  <h2 id={`plan-title-${plan.id}`} class="mt-3 font-display text-2xl text-light leading-snug">
                     {plan.name}
                   </h2>
 
-                  <p class="mt-2 text-xs font-medium uppercase tracking-wider text-violet-300/90">
-                    {plan.badge}
-                  </p>
-
-                  <p class="mt-4 text-sm leading-relaxed text-mute">
+                  <p class="mt-2 text-xs md:text-sm text-mute leading-relaxed min-h-[3.6rem]">
                     {plan.audience}
                   </p>
 
-                  <!-- Precio y Entrega -->
-                  <div class="mt-6 border-y border-white/10 py-5">
-                    <p class="font-display text-4xl leading-none text-light">
-                      {plan.priceUsd}
-                    </p>
-                    {plan.priceCop && (
-                      <p class="mt-1 text-sm text-mute">{plan.priceCop}</p>
-                    )}
-                    <p class="mt-3 flex items-center gap-2 text-xs text-light/80">
-                      <span class="size-2 rounded-full bg-emerald-400" aria-hidden="true"></span>
+                  <!-- Precio y Plazo -->
+                  <div class="mt-6 border-y border-white/10 py-4">
+                    <div class="flex items-baseline gap-2">
+                      <span class="font-display text-3xl md:text-4xl text-light leading-none">
+                        {plan.priceUsd}
+                      </span>
+                      {plan.priceCop && (
+                        <span class="text-xs text-mute font-sans">{plan.priceCop}</span>
+                      )}
+                    </div>
+                    <p class="mt-2 flex items-center gap-1.5 text-xs text-light/80">
+                      <span class="size-1.5 rounded-full bg-emerald-400"></span>
                       {plan.delivery}
                     </p>
                   </div>
 
-                  <!-- Lista de Beneficios para el Empresario -->
-                  <div class="mt-6">
-                    <p class="text-xs font-semibold uppercase tracking-wider text-light/70 mb-3">
-                      Lo que incluye tu inversión:
-                    </p>
-                    <ul class="space-y-3 text-xs md:text-sm text-light/90">
-                      {plan.features.map((f) => (
-                        <li class="flex items-start gap-2.5 leading-snug">
-                          <span class="mt-[0.35em] size-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true"></span>
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <!-- Entregables -->
+                  <ul class="mt-6 space-y-2.5 text-xs text-light/90">
+                    {plan.features.map((f) => (
+                      <li class="flex items-start gap-2 leading-relaxed">
+                        <span class="mt-[0.35em] size-1.5 shrink-0 rounded-full bg-amber-300/80"></span>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <!-- Botones de Acción -->
-                <div class="mt-8 pt-6 border-t border-white/10 flex flex-col gap-3">
+                <!-- Botón CTA alineado en la base -->
+                <div class="mt-8 pt-5 border-t border-white/10 flex flex-col gap-2.5">
                   <a
                     href={waLink(plan.message)}
                     target="_blank"
                     rel="noopener"
                     class:list={[
-                      'btn w-full justify-center text-center !py-3 text-sm',
+                      'btn w-full justify-center text-center !py-2.5 text-sm',
                       isFeatured ? 'btn-light' : 'btn-ghost',
                     ]}
                     data-magnetic="0.2"
@@ -181,9 +150,9 @@ const wa = waSections.planes;
                   </a>
                   <a
                     href={`/contacto?plan=${plan.id}`}
-                    class="text-center text-xs text-mute hover:text-light transition-colors underline underline-offset-4"
+                    class="text-center text-[0.72rem] text-mute hover:text-light transition-colors underline underline-offset-4"
                   >
-                    O solicitar propuesta formal por correo →
+                    O cotizar por formulario →
                   </a>
                 </div>
               </article>
@@ -192,171 +161,247 @@ const wa = waSections.planes;
         </div>
       </section>
 
-      <!-- Sección Destacada: ¿Cómo Funciona la Automatización de WhatsApp? -->
-      <section class="glass mb-24 overflow-hidden rounded-[2.5rem] p-8 md:p-14 border border-violet/20" aria-labelledby="automation-flow">
+      <!-- Fila 2: Soluciones Especializadas (2 Columnas Simétricas 50% / 50%) -->
+      <section class="mb-24" aria-label="Soluciones especializadas y a medida">
+        <div class="grid gap-6 md:grid-cols-2 items-stretch">
+          {advancedPlans.map((plan) => (
+            <article
+              class="glass flex flex-col justify-between rounded-[2rem] p-7 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300"
+              aria-labelledby={`plan-title-${plan.id}`}
+            >
+              <div>
+                <div class="flex items-center justify-between gap-2 min-h-[1.75rem]">
+                  <span class="text-xs uppercase tracking-wider text-amber-200/90 font-medium">
+                    {plan.badge}
+                  </span>
+                  <span class="rounded-md border border-white/10 bg-white/5 px-2.5 py-0.5 text-[0.7rem] text-mute">
+                    Solución Avanzada
+                  </span>
+                </div>
+
+                <h2 id={`plan-title-${plan.id}`} class="mt-3 font-display text-2xl text-light leading-snug">
+                  {plan.name}
+                </h2>
+
+                <p class="mt-2 text-xs md:text-sm text-mute leading-relaxed min-h-[3rem]">
+                  {plan.audience}
+                </p>
+
+                <!-- Precio y Plazo -->
+                <div class="mt-6 border-y border-white/10 py-4">
+                  <div class="flex items-baseline gap-2">
+                    <span class="font-display text-3xl md:text-4xl text-light leading-none">
+                      {plan.priceUsd}
+                    </span>
+                    {plan.priceCop && (
+                      <span class="text-xs text-mute font-sans">{plan.priceCop}</span>
+                    )}
+                  </div>
+                  <p class="mt-2 flex items-center gap-1.5 text-xs text-light/80">
+                    <span class="size-1.5 rounded-full bg-emerald-400"></span>
+                    {plan.delivery}
+                  </p>
+                </div>
+
+                <!-- Entregables -->
+                <ul class="mt-6 space-y-2.5 text-xs text-light/90">
+                  {plan.features.map((f) => (
+                    <li class="flex items-start gap-2 leading-relaxed">
+                      <span class="mt-[0.35em] size-1.5 shrink-0 rounded-full bg-amber-300/80"></span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <!-- Botón CTA alineado en la base -->
+              <div class="mt-8 pt-5 border-t border-white/10 flex flex-col gap-2.5">
+                <a
+                  href={waLink(plan.message)}
+                  target="_blank"
+                  rel="noopener"
+                  class="btn btn-ghost w-full justify-center text-center !py-2.5 text-sm"
+                  data-magnetic="0.2"
+                >
+                  {plan.cta}
+                </a>
+                <a
+                  href={`/contacto?plan=${plan.id}`}
+                  class="text-center text-[0.72rem] text-mute hover:text-light transition-colors underline underline-offset-4"
+                >
+                  O cotizar por formulario →
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Sección Especial: Flujo de la Automatización de WhatsApp (Hitos Narrativos Elegantes) -->
+      <section class="glass-rembrandt mb-24 overflow-hidden rounded-[2.5rem] p-8 md:p-12 border border-amber-400/20" aria-labelledby="automation-flow">
         <div class="grid gap-10 lg:grid-cols-12 lg:items-center">
           <div class="lg:col-span-5">
-            <p class="text-xs uppercase tracking-[0.2em] text-violet-300 font-medium">
-              Tecnología Comercial de Vanguardia
+            <p class="text-xs uppercase tracking-[0.2em] text-amber-200/90 font-medium">
+              Ingeniería Comercial
             </p>
-            <h2 id="automation-flow" class="mt-3 font-display text-[clamp(2rem,3.8vw,3.2rem)] leading-tight text-light">
+            <h2 id="automation-flow" class="mt-3 font-display text-[clamp(1.9rem,3.4vw,2.8rem)] leading-tight text-light">
               ¿Cómo funciona la Automatización de WhatsApp para tu empresa?
             </h2>
-            <p class="mt-4 text-base text-mute leading-relaxed">
-              El 70% de las ventas en internet se pierden cuando un cliente escribe y tarda más de 5 minutos en recibir respuesta. Nuestro sistema conecta tu página web con un asistente virtual inteligente en tu WhatsApp Business que opera las 24 horas.
+            <p class="mt-4 text-sm text-mute leading-relaxed">
+              El 70% de las ventas en internet se pierden cuando un cliente escribe y tarda más de 5 minutos en recibir respuesta. Nuestro sistema conecta tu página web con un asistente virtual inteligente en tu WhatsApp Business que opera las 24 horas del día.
             </p>
 
-            <div class="mt-6 space-y-3">
-              <div class="flex items-center gap-3 text-sm text-light">
-                <span class="size-2 rounded-full bg-emerald-400"></span>
+            <div class="mt-6 space-y-2.5 text-xs text-light/90">
+              <div class="flex items-center gap-2.5">
+                <span class="size-1.5 rounded-full bg-emerald-400"></span>
                 <span>Cero comisiones mensuales por mensaje de nuestra parte</span>
               </div>
-              <div class="flex items-center gap-3 text-sm text-light">
-                <span class="size-2 rounded-full bg-emerald-400"></span>
-                <span>Configurado con tu tono de voz y tus respuestas reales</span>
+              <div class="flex items-center gap-2.5">
+                <span class="size-1.5 rounded-full bg-emerald-400"></span>
+                <span>Configurado con tu tono de voz y respuestas reales de tu negocio</span>
               </div>
-              <div class="flex items-center gap-3 text-sm text-light">
-                <span class="size-2 rounded-full bg-emerald-400"></span>
+              <div class="flex items-center gap-2.5">
+                <span class="size-1.5 rounded-full bg-emerald-400"></span>
                 <span>Notificación instantánea a tu móvil cuando el cliente quiere pagar</span>
               </div>
             </div>
 
             <a
-              href={waLink('Hola Rembrandt Studio, quiero saber más sobre la Automatización de WhatsApp para mi negocio.')}
+              href={waLink('Hola Rembrandt Studio, quiero ver una demostración de la Automatización de WhatsApp para mi negocio.')}
               target="_blank"
               rel="noopener"
-              class="btn btn-light mt-8"
+              class="btn btn-light mt-8 !py-2.5 !px-6 text-sm"
               data-magnetic="0.3"
             >
-              Ver demostración por WhatsApp
+              Ver demostración en vivo
             </a>
           </div>
 
-          <!-- Diagrama de Flujo Paso a Paso en Liquid Glass -->
-          <div class="space-y-4 lg:col-span-7">
-            <div class="rounded-2xl border border-white/10 bg-carbon-2/80 p-5 backdrop-blur-md">
+          <!-- Cuatro Hitos de Atención Comercial (Sin PASO 01, con diseño simétrico) -->
+          <div class="space-y-3.5 lg:col-span-7">
+            <div class="rounded-2xl border border-white/10 bg-carbon-2/80 p-4 sm:p-5 backdrop-blur-md">
               <div class="flex items-center justify-between text-xs text-mute">
-                <span class="font-mono text-violet-300 font-semibold">Momento I · El Clic de Interés</span>
+                <span class="font-medium text-amber-200/90 tracking-wide">El Clic de Interés</span>
                 <span>Inmediatez: 0s</span>
               </div>
               <p class="mt-2 text-sm font-semibold text-light">
                 El cliente entra a tu web y solicita información
               </p>
-              <p class="mt-1 text-xs text-mute">
+              <p class="mt-1 text-xs text-mute leading-relaxed">
                 Llega directamente a tu WhatsApp con un mensaje estructurado indicando el servicio o producto exacto de su interés.
               </p>
             </div>
 
-            <div class="rounded-2xl border border-violet/30 bg-violet/5 p-5 backdrop-blur-md">
-              <div class="flex items-center justify-between text-xs text-violet-300">
-                <span class="font-mono font-semibold">Momento II · Acogida Inmediata 24/7</span>
-                <span>Respuesta: &lt; 3 segundos</span>
+            <div class="rounded-2xl border border-amber-400/20 bg-amber-400/[0.03] p-4 sm:p-5 backdrop-blur-md">
+              <div class="flex items-center justify-between text-xs text-amber-300">
+                <span class="font-medium tracking-wide">Acogida Inmediata 24/7</span>
+                <span>Respuesta: &lt; 3s</span>
               </div>
               <p class="mt-2 text-sm font-semibold text-light">
                 El asistente virtual saluda con la voz de tu marca
               </p>
-              <p class="mt-1 text-xs text-mute">
+              <p class="mt-1 text-xs text-mute leading-relaxed">
                 "¡Hola! Bienvenido a [Tu Empresa]. Con gusto te asesoramos: (1) Ver tarifas y catálogo, (2) Agendar videollamada, (3) Hablar con un especialista".
               </p>
             </div>
 
-            <div class="rounded-2xl border border-white/10 bg-carbon-2/80 p-5 backdrop-blur-md">
+            <div class="rounded-2xl border border-white/10 bg-carbon-2/80 p-4 sm:p-5 backdrop-blur-md">
               <div class="flex items-center justify-between text-xs text-mute">
-                <span class="font-mono text-rose-300 font-semibold">Momento III · Filtro de Alto Valor</span>
-                <span>Proceso: Calificación en vivo</span>
+                <span class="font-medium text-rose-300 tracking-wide">Filtro de Alto Valor</span>
+                <span>Calificación automática</span>
               </div>
               <p class="mt-2 text-sm font-semibold text-light">
                 Filtra curiosos y recopila los datos clave
               </p>
-              <p class="mt-1 text-xs text-mute">
-                Identifica ciudad, tipo de requerimiento y presupuesto disponible. Si está listo para comprar, le despacha tu catálogo o enlace de pago directo.
+              <p class="mt-1 text-xs text-mute leading-relaxed">
+                Identifica ciudad, tipo de requerimiento y presupuesto. Si está listo para comprar, le despacha tu catálogo o enlace de pago directo.
               </p>
             </div>
 
-            <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 backdrop-blur-md">
+            <div class="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] p-4 sm:p-5 backdrop-blur-md">
               <div class="flex items-center justify-between text-xs text-emerald-300">
-                <span class="font-mono font-semibold">Momento IV · El Encuentro de Cierre</span>
+                <span class="font-medium tracking-wide">El Encuentro de Cierre</span>
                 <span>Resultado: Venta asistida</span>
               </div>
               <p class="mt-2 text-sm font-semibold text-light">
                 Cita agendada o alerta a tu WhatsApp personal
               </p>
-              <p class="mt-1 text-xs text-mute">
-                El prospecto agenda en tu calendario (Google Calendar o Cal.com) y tú recibes una alerta prioritaria en tu móvil con todo el resumen del cliente.
+              <p class="mt-1 text-xs text-mute leading-relaxed">
+                El prospecto agenda en tu calendario (Google Calendar o Cal.com) y tú recibes una alerta en tu móvil con todo el resumen del cliente.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Servicios de Mantenimiento Mensual en Paquetes & Opción a Demanda -->
+      <!-- Paquetes de Mantenimiento Mensual Sutil & Opción a Demanda -->
       <section class="mb-24" aria-labelledby="maintenance-section-title">
-        <div class="mb-12 text-center max-w-3xl mx-auto">
+        <div class="mb-10 text-center max-w-2xl mx-auto">
           <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">
-            Soporte Continuo & Tranquilidad Post-Lanzamiento
+            Soporte Continuo & Tranquilidad Técnica
           </p>
-          <h2 id="maintenance-section-title" class="mt-2 font-display text-3xl md:text-5xl text-light">
+          <h2 id="maintenance-section-title" class="mt-2 font-display text-3xl md:text-4xl text-light">
             Mantenimiento mensual para que tu web nunca se detenga
           </h2>
-          <p class="mt-4 text-base md:text-lg text-mute leading-relaxed">
-            Un servicio opcional y accesible diseñado para que tu web siga cargando rápido, segura y con tus contenidos al día sin que tengas que lidiar con problemas técnicos ni pagar mensualidades abusivas.
+          <p class="mt-3 text-sm text-mute leading-relaxed">
+            Un servicio opcional y accesible diseñado para que tu web siga cargando rápido, segura y con tus contenidos al día sin tener que lidiar con problemas técnicos ni pagar mensualidades abusivas.
           </p>
         </div>
 
-        <!-- Grid de los 3 Paquetes de Mantenimiento -->
-        <div class="grid gap-6 lg:grid-cols-3">
+        <!-- Grid Armónico de 3 Columnas para Paquetes Mensuales -->
+        <div class="grid gap-6 md:grid-cols-3 items-stretch">
           {maintenancePackages.map((pkg) => (
             <article
               class:list={[
-                'glass flex flex-col justify-between rounded-[2rem] p-7 md:p-8 transition-all duration-300',
+                'flex flex-col justify-between rounded-[2rem] p-7 transition-all duration-300',
                 pkg.featured
-                  ? 'border-violet/40 bg-white/[0.04] lg:-translate-y-2 shadow-2xl ring-1 ring-violet/30'
-                  : 'border-white/10',
+                  ? 'glass-rembrandt border-amber-400/30 bg-amber-950/10 shadow-xl'
+                  : 'glass border-white/10 hover:border-white/20',
               ]}
             >
               <div>
-                <div class="flex items-center justify-between gap-2">
-                  <span class="text-xs font-semibold uppercase tracking-wider text-violet-300">
+                <div class="flex items-center justify-between gap-2 min-h-[1.5rem]">
+                  <span class="text-xs font-medium uppercase tracking-wider text-amber-200/90">
                     {pkg.badge}
                   </span>
                   {pkg.featured && (
-                    <span class="rounded-md border border-white/20 bg-white/10 px-2.5 py-0.5 text-[0.68rem] font-medium text-light">
+                    <span class="rounded-md border border-amber-400/30 bg-amber-400/10 px-2 py-0.5 text-[0.68rem] text-amber-200">
                       Más Elegido
                     </span>
                   )}
                 </div>
 
-                <h3 class="mt-3 font-display text-2xl text-light">{pkg.name}</h3>
-                <p class="mt-2 text-xs text-mute leading-relaxed">{pkg.audience}</p>
+                <h3 class="mt-3 font-display text-xl text-light">{pkg.name}</h3>
+                <p class="mt-2 text-xs text-mute leading-relaxed min-h-[2.5rem]">{pkg.audience}</p>
 
-                <div class="mt-6 border-y border-white/10 py-4">
+                <div class="mt-5 border-y border-white/10 py-3.5">
                   <div class="flex items-baseline gap-1">
-                    <span class="font-display text-4xl text-light leading-none">{pkg.priceUsd}</span>
+                    <span class="font-display text-3xl text-light leading-none">{pkg.priceUsd}</span>
                     <span class="text-xs text-mute font-sans">{pkg.period}</span>
                   </div>
                   <p class="mt-1 text-xs text-mute">{pkg.priceCop}</p>
                   {pkg.annualDiscount && (
-                    <p class="mt-2 text-[0.72rem] text-emerald-400 font-medium">{pkg.annualDiscount}</p>
+                    <p class="mt-1.5 text-[0.7rem] text-emerald-400 font-medium">{pkg.annualDiscount}</p>
                   )}
                 </div>
 
-                <ul class="mt-6 space-y-2.5 text-xs text-light/90">
+                <ul class="mt-5 space-y-2 text-xs text-light/90">
                   {pkg.features.map((feat) => (
-                    <li class="flex items-start gap-2">
-                      <span class="mt-1 size-1.5 shrink-0 rounded-full bg-violet-400"></span>
+                    <li class="flex items-start gap-2 leading-snug">
+                      <span class="mt-1 size-1.5 shrink-0 rounded-full bg-amber-300/80"></span>
                       <span>{feat}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div class="mt-8 pt-5 border-t border-white/10">
+              <div class="mt-7 pt-4 border-t border-white/10">
                 <a
                   href={waLink(pkg.message)}
                   target="_blank"
                   rel="noopener"
                   class:list={[
-                    'btn w-full justify-center text-center !py-2.5 text-xs font-medium',
+                    'btn w-full justify-center text-center !py-2 text-xs font-medium',
                     pkg.featured ? 'btn-light' : 'btn-ghost',
                   ]}
                   data-magnetic="0.2"
@@ -369,22 +414,22 @@ const wa = waSections.planes;
         </div>
 
         <!-- Opción Sin Mensualidad (Pago Único / A Demanda) -->
-        <aside class="glass mt-8 rounded-[2rem] p-7 md:p-10 border border-white/10" aria-label="Opción a demanda">
+        <aside class="glass mt-6 rounded-[2rem] p-6 sm:p-8 border border-white/10" aria-label="Opción a demanda">
           <div class="grid gap-6 md:grid-cols-12 md:items-center">
             <div class="md:col-span-7">
               <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">Libertad Total</p>
-              <h3 class="mt-1 font-display text-2xl text-light">
+              <h3 class="mt-1 font-display text-xl text-light">
                 {onDemandMaintenance.title}
               </h3>
-              <p class="mt-3 text-xs md:text-sm text-mute leading-relaxed">
+              <p class="mt-2 text-xs text-mute leading-relaxed">
                 {onDemandMaintenance.desc}
               </p>
             </div>
 
-            <div class="md:col-span-5 space-y-2.5 border-t border-white/10 pt-5 md:border-t-0 md:pt-0">
-              <p class="text-xs font-semibold uppercase tracking-wider text-light/80 mb-2">Tarifas de ajustes puntuales:</p>
+            <div class="md:col-span-5 space-y-2 border-t border-white/10 pt-4 md:border-t-0 md:pt-0">
+              <p class="text-xs font-semibold uppercase tracking-wider text-light/80 mb-1">Tarifas de ajustes puntuales:</p>
               {onDemandMaintenance.rates.map((rate) => (
-                <div class="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] p-3 text-xs">
+                <div class="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] p-2.5 text-xs">
                   <span class="text-mute pr-2">{rate.task}</span>
                   <span class="font-mono font-bold text-light whitespace-nowrap">{rate.price}</span>
                 </div>
@@ -394,7 +439,7 @@ const wa = waSections.planes;
         </aside>
       </section>
 
-      <!-- Tabla Comparativa de Planes -->
+      <!-- Tabla Comparativa de Planes (Tipografía Balanceada y Simetría Exacta) -->
       <section class="mb-24" aria-labelledby="table-title">
         <div class="mb-8 text-center max-w-2xl mx-auto">
           <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">Comparativa Detallada</p>
@@ -410,25 +455,25 @@ const wa = waSections.planes;
                 <th class="py-4 pr-4">Característica</th>
                 <th class="py-4 px-3 text-center">Express</th>
                 <th class="py-4 px-3 text-center">Corporativa</th>
-                <th class="py-4 px-3 text-center text-violet-300 font-bold bg-white/[0.03] rounded-t-xl">Web + Auto WhatsApp</th>
+                <th class="py-4 px-3 text-center text-amber-200 font-bold bg-white/[0.03] rounded-t-xl">Web + Auto WhatsApp</th>
                 <th class="py-4 px-3 text-center">Tienda Ágil</th>
                 <th class="py-4 px-3 text-center">Signature 3D</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-white/5 text-light/90">
               <tr>
-                <td class="py-3.5 pr-4 font-medium text-light">Tiempo de Entrega (Rápido & Perfecto)</td>
-                <td class="py-3.5 px-3 text-center font-mono font-medium">4–6 días</td>
-                <td class="py-3.5 px-3 text-center font-mono font-medium">8–12 días</td>
-                <td class="py-3.5 px-3 text-center font-mono text-violet-300 font-bold bg-white/[0.03]">12–15 días</td>
-                <td class="py-3.5 px-3 text-center font-mono font-medium">15–20 días</td>
-                <td class="py-3.5 px-3 text-center font-mono font-medium">3–5 semanas</td>
+                <td class="py-3.5 pr-4 font-medium text-light">Tiempo de Entrega</td>
+                <td class="py-3.5 px-3 text-center font-mono">4–6 días</td>
+                <td class="py-3.5 px-3 text-center font-mono">8–12 días</td>
+                <td class="py-3.5 px-3 text-center font-mono text-amber-200 font-bold bg-white/[0.03]">12–15 días</td>
+                <td class="py-3.5 px-3 text-center font-mono">15–20 días</td>
+                <td class="py-3.5 px-3 text-center font-mono">3–5 semanas</td>
               </tr>
               <tr>
                 <td class="py-3.5 pr-4 font-medium text-light">Estructura</td>
                 <td class="py-3.5 px-3 text-center">Landing Page</td>
                 <td class="py-3.5 px-3 text-center">3–5 Páginas</td>
-                <td class="py-3.5 px-3 text-center text-violet-300 bg-white/[0.03]">3–5 Páginas</td>
+                <td class="py-3.5 px-3 text-center text-amber-200 bg-white/[0.03]">3–5 Páginas</td>
                 <td class="py-3.5 px-3 text-center">Catálogo + Carrito</td>
                 <td class="py-3.5 px-3 text-center">Experiencia 3D</td>
               </tr>
@@ -476,7 +521,7 @@ const wa = waSections.planes;
                 <td class="py-3.5 pr-4 font-medium text-light">Inversión Aproximada</td>
                 <td class="py-3.5 px-3 text-center font-bold text-light">$249 USD</td>
                 <td class="py-3.5 px-3 text-center font-bold text-light">$399 USD</td>
-                <td class="py-3.5 px-3 text-center font-bold text-violet-300 bg-white/[0.03]">$490 USD</td>
+                <td class="py-3.5 px-3 text-center font-bold text-amber-200 bg-white/[0.03]">$490 USD</td>
                 <td class="py-3.5 px-3 text-center font-bold text-light">$590 USD</td>
                 <td class="py-3.5 px-3 text-center font-bold text-light">Desde $950 USD</td>
               </tr>
@@ -494,16 +539,16 @@ const wa = waSections.planes;
           </h2>
         </div>
 
-        <div class="space-y-4">
-          {plansFaq.map((faq, idx) => (
-            <details class="glass group rounded-2xl border border-white/10 p-5 sm:p-6 transition-all duration-200 open:bg-white/[0.04]">
-              <summary class="flex cursor-pointer items-center justify-between gap-4 font-sans text-base sm:text-lg font-semibold text-light list-none">
+        <div class="space-y-3.5">
+          {plansFaq.map((faq) => (
+            <details class="glass group rounded-2xl border border-white/10 p-5 transition-all duration-200 open:bg-white/[0.04]">
+              <summary class="flex cursor-pointer items-center justify-between gap-4 font-sans text-base font-semibold text-light list-none">
                 <span>{faq.q}</span>
                 <span class="size-6 shrink-0 rounded-full border border-white/10 flex items-center justify-center text-xs text-mute transition-transform group-open:rotate-45">
                   +
                 </span>
               </summary>
-              <p class="mt-4 text-sm leading-relaxed text-mute border-t border-white/10 pt-4">
+              <p class="mt-3.5 text-xs md:text-sm leading-relaxed text-mute border-t border-white/10 pt-3.5">
                 {faq.a}
               </p>
             </details>
@@ -511,27 +556,27 @@ const wa = waSections.planes;
         </div>
       </section>
 
-      <!-- CTA de Cierre -->
-      <section class="glass rounded-[2.5rem] p-8 md:p-14 text-center border border-white/10" aria-label="Llamado a la acción">
-        <h2 class="font-display text-3xl md:text-5xl text-light">
+      <!-- CTA de Cierre Armónico -->
+      <section class="glass rounded-[2.5rem] p-8 md:p-12 text-center border border-white/10" aria-label="Llamado a la acción">
+        <h2 class="font-display text-2xl md:text-4xl text-light">
           ¿No tienes claro cuál es el plan para tu negocio?
         </h2>
-        <p class="mt-4 max-w-xl mx-auto text-base text-mute">
+        <p class="mt-3 max-w-lg mx-auto text-sm text-mute">
           Escríbenos por WhatsApp o déjanos un mensaje. En 10 minutos evaluamos tu caso y te recomendamos exactamente lo que necesitas sin gastar de más.
         </p>
-        <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
           <a
             href={waLink('Hola Rembrandt Studio, quiero asesoría para elegir el plan ideal para mi negocio.')}
             target="_blank"
             rel="noopener"
-            class="btn btn-light"
+            class="btn btn-light !py-2.5 !px-6 text-sm"
             data-magnetic="0.3"
           >
             Consultar por WhatsApp
           </a>
           <a
             href="/contacto"
-            class="btn btn-ghost"
+            class="btn btn-ghost !py-2.5 !px-6 text-sm"
             data-magnetic="0.3"
           >
             Ir a formulario de contacto

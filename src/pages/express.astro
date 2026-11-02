@@ -98,13 +98,15 @@ const faqs = [
       <div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_25%,rgba(139,92,246,0.22)_0%,rgba(10,10,13,0.95)_65%,#0a0a0d_100%)]"></div>
 
       <div class="mx-auto max-w-4xl">
-        <div class="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent mb-6 shadow-[0_0_15px_rgba(139,92,246,0.3)]">
-          <span class="inline-block h-2 w-2 rounded-full bg-accent animate-pulse"></span>
-          <span>Entrega Garantizada en 3 a 5 Días &bull; Cobertura Global</span>
+        <div class="mb-6 flex items-center justify-center gap-3">
+          <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
+            Ingeniería Express &bull; Cobertura Global
+          </p>
+          <span class="font-serif italic text-xs tracking-[0.25em] text-amber-200/50">Rembrandt f.</span>
         </div>
 
         <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-tight">
-          Tu página web lista para vender en <span class="text-accent underline decoration-accent/40 decoration-wavy">3 a 5 días.</span>
+          Tu página web lista para vender en <span class="text-amber-200">4 a 6 días hábiles.</span>
         </h1>
 
         <p class="mt-6 text-base sm:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
@@ -114,19 +116,16 @@ const faqs = [
         <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href="#planes"
-            class="btn-firma group relative inline-flex flex-col items-center justify-center rounded-full bg-paper px-8 py-4 text-xs font-bold uppercase tracking-wider text-ink transition-all hover:bg-accent hover:text-white hover:scale-105 shadow-[0_0_25px_rgba(139,92,246,0.35)] overflow-hidden"
+            class="btn btn-light !py-3.5 !px-8 text-sm"
           >
             <span>Ver Planes desde $249 USD</span>
-            <svg class="firma-stroke absolute bottom-1 h-2.5 w-24 pointer-events-none" viewBox="0 0 320 60" aria-hidden="true">
-              <path pathLength="1" d="M10 42 C 38 12, 65 52, 98 28 S 145 18, 180 38 C 215 52, 235 18, 265 25 C 290 30, 302 44, 314 28" />
-            </svg>
           </a>
 
           <a
             href={`${baseWaUrl}?text=${encodeURIComponent('Hola Rembrandt Studio, quiero hablar con ustedes sobre una web express.')}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded-full border border-white/20 bg-white/5 px-8 py-4 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:border-emerald-500/50 hover:bg-emerald-500/10 flex items-center gap-2"
+            class="btn btn-ghost !py-3.5 !px-8 text-sm flex items-center gap-2"
           >
             <span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
             <span>Hablar por WhatsApp &rarr;</span>
@@ -136,21 +135,15 @@ const faqs = [
         {/* Garantías de confianza */}
         <div class="mt-14 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-white/60">
           <div class="flex items-center gap-2">
-            <svg class="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
+            <span class="text-amber-300 font-bold">✓</span>
             <span>Dominio & Hosting incluido por 1 año</span>
           </div>
           <div class="flex items-center gap-2">
-            <svg class="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
+            <span class="text-amber-300 font-bold">✓</span>
             <span>100/100 Core Web Vitals en Google</span>
           </div>
           <div class="flex items-center gap-2">
-            <svg class="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
+            <span class="text-amber-300 font-bold">✓</span>
             <span>50% anticipo / 50% contra entrega</span>
           </div>
         </div>
@@ -160,7 +153,7 @@ const faqs = [
     {/* 2. Planes Express Clave */}
     <section id="planes" class="mx-auto max-w-6xl px-6 py-24 sm:py-32">
       <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
+        <span class="text-xs font-semibold uppercase tracking-[0.3em] text-mute">
           Precios Claros & Sin Letra Chica
         </span>
         <h2 class="mt-3 text-3xl sm:text-5xl font-bold tracking-tight text-white">
@@ -178,12 +171,12 @@ const faqs = [
               data-claroscuro-card
               class={
                 plan.featured
-                  ? 'claroscuro-card relative rounded-2xl border-2 border-accent p-8 flex flex-col justify-between shadow-2xl shadow-accent/20 overflow-hidden'
-                  : 'claroscuro-card relative rounded-2xl border border-white/10 p-8 flex flex-col justify-between hover:border-white/20 transition-all overflow-hidden'
+                  ? 'glass-rembrandt relative rounded-2xl border border-amber-400/30 bg-amber-950/10 p-8 flex flex-col justify-between shadow-2xl overflow-hidden'
+                  : 'glass relative rounded-2xl border border-white/10 p-8 flex flex-col justify-between hover:border-white/20 transition-all overflow-hidden'
               }
             >
               {plan.featured && (
-                <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-[0_0_15px_#8b5cf6] z-20">
+                <span class="absolute top-0 right-8 rounded-b-lg border-x border-b border-amber-400/30 bg-amber-500/10 px-3 py-1 font-mono text-[0.68rem] font-medium tracking-widest text-amber-200 uppercase backdrop-blur-md">
                   {plan.tag}
                 </span>
               )}
@@ -192,7 +185,7 @@ const faqs = [
                 <div class="flex items-center justify-between gap-2">
                   <h3 class="text-2xl font-bold text-white">{plan.name}</h3>
                   {!plan.featured && (
-                    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-accent border border-accent/20">
+                    <span class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-white/5 text-mute border border-white/10">
                       {plan.tag}
                     </span>
                   )}
@@ -212,9 +205,7 @@ const faqs = [
                 <ul class="mt-6 space-y-3 text-xs text-white/80">
                   {plan.features.map((feat) => (
                     <li class="flex items-start gap-2.5">
-                      <svg class="h-4 w-4 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-                      </svg>
+                      <span class="text-amber-300 font-bold shrink-0 mt-0.5">✓</span>
                       <span>{feat}</span>
                     </li>
                   ))}
@@ -228,17 +219,14 @@ const faqs = [
                   rel="noopener noreferrer"
                   class={
                     plan.featured
-                      ? 'btn-firma group relative inline-flex flex-col items-center justify-center w-full rounded-lg bg-accent py-3.5 text-center text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-accent-strong shadow-lg shadow-accent/30 overflow-hidden'
-                      : 'group relative inline-flex flex-col items-center justify-center w-full rounded-lg border border-white/20 bg-white/5 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/10 overflow-hidden'
+                      ? 'btn btn-light w-full !py-3 text-center text-xs'
+                      : 'btn btn-ghost w-full !py-3 text-center text-xs'
                   }
                 >
-                  <span class="flex items-center gap-2">
+                  <span class="flex items-center justify-center gap-2">
                     <span>Pedir por WhatsApp</span>
                     <span>&rarr;</span>
                   </span>
-                  <svg class="firma-stroke absolute bottom-1 h-2 w-20 pointer-events-none" viewBox="0 0 320 60" aria-hidden="true">
-                    <path pathLength="1" d="M10 42 C 38 12, 65 52, 98 28 S 145 18, 180 38 C 215 52, 235 18, 265 25 C 290 30, 302 44, 314 28" />
-                  </svg>
                 </a>
               </div>
             </div>
@@ -264,30 +252,30 @@ const faqs = [
 
         <div class="grid gap-8 md:grid-cols-3">
           <div class="rounded-xl border border-white/10 bg-[#121217] p-8">
-            <span class="font-mono text-sm font-bold text-accent px-3 py-1 rounded bg-accent/10 border border-accent/20">
-              Paso 01
+            <span class="text-xs font-medium uppercase tracking-wider text-accent">
+              Briefing Express
             </span>
-            <h3 class="mt-6 text-xl font-bold text-white">Eliges tu plan y brief de 5 min</h3>
+            <h3 class="mt-4 text-xl font-bold text-white">Eliges tu plan y brief de 5 min</h3>
             <p class="mt-3 text-xs sm:text-sm text-white/60 leading-relaxed">
               Nos escribes por WhatsApp con el paquete de tu preferencia y nos envías tu logo, teléfono y los servicios o productos que vendes.
             </p>
           </div>
 
           <div class="rounded-xl border border-white/10 bg-[#121217] p-8">
-            <span class="font-mono text-sm font-bold text-accent px-3 py-1 rounded bg-accent/10 border border-accent/20">
-              Paso 02
+            <span class="text-xs font-medium uppercase tracking-wider text-accent">
+              Ingeniería & Diseño
             </span>
-            <h3 class="mt-6 text-xl font-bold text-white">Construimos en 3 a 5 días</h3>
+            <h3 class="mt-4 text-xl font-bold text-white">Construimos en 4 a 6 días hábiles</h3>
             <p class="mt-3 text-xs sm:text-sm text-white/60 leading-relaxed">
               Programamos tu sitio con código limpio en Astro, diseño responsive para celular y optimización de velocidad extrema para que cargue al instante.
             </p>
           </div>
 
           <div class="rounded-xl border border-white/10 bg-[#121217] p-8">
-            <span class="font-mono text-sm font-bold text-accent px-3 py-1 rounded bg-accent/10 border border-accent/20">
-              Paso 03
+            <span class="text-xs font-medium uppercase tracking-wider text-accent">
+              Lanzamiento
             </span>
-            <h3 class="mt-6 text-xl font-bold text-white">Revisión y puesta en marcha</h3>
+            <h3 class="mt-4 text-xl font-bold text-white">Revisión y puesta en marcha</h3>
             <p class="mt-3 text-xs sm:text-sm text-white/60 leading-relaxed">
               Te entregamos un enlace privado para revisar. Si necesitas algún ajuste puntual de texto o foto, lo hacemos de inmediato, conectamos tu dominio y queda en vivo vendiendo.
             </p>
@@ -326,17 +314,17 @@ const faqs = [
       </div>
 
       {/* Banner final de cierre */}
-      <div class="mt-16 rounded-2xl border border-accent/40 bg-gradient-to-r from-accent/20 via-black to-accent/10 p-8 sm:p-12 text-center">
-        <h3 class="text-2xl sm:text-3xl font-bold text-white">¿Listo para lanzar tu web en tiempo récord?</h3>
-        <p class="mt-3 text-xs sm:text-sm text-white/70 max-w-lg mx-auto">
+      <div class="glass-rembrandt mt-16 rounded-[2rem] border border-amber-400/20 bg-amber-950/10 p-8 sm:p-12 text-center backdrop-blur-xl">
+        <h3 class="font-display text-2xl sm:text-3xl text-light">¿Listo para lanzar tu web en tiempo récord?</h3>
+        <p class="mt-3 text-xs sm:text-sm text-mute max-w-lg mx-auto">
           Escríbenos directamente a WhatsApp. Te atendemos de inmediato para asegurar tu cupo de entrega.
         </p>
         <div class="mt-8">
           <a
-            href={`${baseWaUrl}?text=${encodeURIComponent('Hola Rembrandt Studio, estoy listo para iniciar mi web express en 3 a 5 días.')}`}
+            href={`${baseWaUrl}?text=${encodeURIComponent('Hola Rembrandt Studio, estoy listo para iniciar mi web express en 4 a 6 días hábiles.')}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-full bg-paper px-8 py-4 text-xs font-bold uppercase tracking-wider text-ink transition-all hover:bg-accent hover:text-white hover:scale-105 shadow-[0_0_25px_rgba(139,92,246,0.4)]"
+            class="btn btn-light !py-3.5 !px-8 text-sm"
           >
             <span>Iniciar por WhatsApp Ahora</span>
             <span>&rarr;</span>
