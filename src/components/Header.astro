@@ -1,14 +1,24 @@
 ---
 import Logo from './Logo.astro';
-import { waLink, waSections } from '../config/site';
+
+interface Props {
+  activePath?: string;
+}
+
+const currentPath = Astro.props.activePath ?? (Astro.url.pathname.replace(/\/$/, '') || '/');
 
 const links = [
-  { href: '#hero', label: 'Inicio' },
-  { href: '#planes', label: 'Planes' },
-  { href: '#trabajo', label: 'Portafolio' },
-  { href: '#proceso', label: 'Proceso' },
-  { href: '#contacto', label: 'Contacto' },
+  { href: '/', label: 'Inicio' },
+  { href: '/planes', label: 'Planes' },
+  { href: '/portafolio', label: 'Portafolio' },
+  { href: '/proceso', label: 'Proceso' },
+  { href: '/contacto', label: 'Contacto' },
 ];
+
+const isLinkActive = (href: string) => {
+  if (href === '/') return currentPath === '/' || currentPath === '';
+  return currentPath.startsWith(href);
+};
 ---
 <header class="fixed inset-x-0 top-0 z-50">
   <nav
@@ -16,33 +26,98 @@ const links = [
     aria-label="Principal"
   >
     <!-- Logo Oficial de Marca: Isotipo R con degradado + Logotipo Rembrandt + Badge Studio -->
-    <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 group py-1" aria-label="Rembrandt Studio, inicio">
+    <a href="/" class="flex items-center gap-2.5 sm:gap-3 group py-1" aria-label="Rembrandt Studio, inicio">
       <Logo variant="mark-color" class="h-7 sm:h-8 w-auto transition-transform duration-300 group-hover:scale-105" />
       <Logo variant="wordmark" class="h-4 sm:h-4.5 w-auto text-light transition-opacity duration-300 group-hover:opacity-90" />
       <span class="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[0.68rem] font-medium tracking-wider text-mute uppercase font-sans">Studio</span>
     </a>
 
-    <!-- Menú Cápsula Centrado -->
-    <ul class="hidden items-center gap-7 text-[0.92rem] text-mute md:flex">
-      {links.map((l) => (
-        <li>
-          <a
-            href={l.href}
-            class="transition-colors hover:text-light"
-          >
-            {l.label}
-          </a>
-        </li>
-      ))}
+    <!-- Menú Centrado Multi-Página -->
+    <ul class="hidden items-center gap-2 text-[0.92rem] md:flex">
+      {links.map((l) => {
+        const active = isLinkActive(l.href);
+        return (
+          <li>
+            <a
+              href={l.href}
+              class:list={[
+                'rounded-full px-4 py-1.5 transition-all duration-200',
+                active
+                  ? 'border border-white/15 bg-white/10 font-medium text-light shadow-sm'
+                  : 'text-mute hover:text-light hover:bg-white/[0.04]',
+              ]}
+              aria-current={active ? 'page' : undefined}
+            >
+              {l.label}
+            </a>
+          </li>
+        );
+      })}
     </ul>
 
-    <!-- CTA Universal de Cotización (dirige a la sección de contacto multicanal) -->
-    <a
-      href="#contacto"
-      class="btn btn-light !py-2.5 !px-5 text-sm"
-      data-magnetic="0.3"
-    >
-      Iniciar Proyecto
-    </a>
+    <!-- CTA Universal hacia la página de Contacto -->
+    <div class="flex items-center gap-2">
+      <a
+        href="/contacto"
+        class="btn btn-light !py-2.5 !px-5 text-sm"
+        data-magnetic="0.3"
+      >
+        Iniciar Proyecto
+      </a>
+
+      <!-- Botón móvil toggle -->
+      <button
+        type="button"
+        class="md:hidden flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-light hover:bg-white/10"
+        aria-label="Abrir menú de navegación"
+        id="mobile-menu-toggle"
+      >
+        <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
   </nav>
+
+  <!-- Menú desplegable móvil en Liquid Glass -->
+  <div
+    id="mobile-menu"
+    class="glass mx-auto mt-2 hidden w-[min(1240px,calc(100%-2rem))] flex-col gap-2 rounded-2xl p-4 border border-white/10 shadow-2xl backdrop-blur-2xl md:hidden"
+  >
+    {links.map((l) => {
+      const active = isLinkActive(l.href);
+      return (
+        <a
+          href={l.href}
+          class:list={[
+            'rounded-xl px-4 py-2.5 text-sm transition-all',
+            active
+              ? 'border border-white/15 bg-white/10 font-semibold text-light'
+              : 'text-mute hover:bg-white/5 hover:text-light',
+          ]}
+        >
+          {l.label}
+        </a>
+      );
+    })}
+    <div class="mt-2 border-t border-white/10 pt-3">
+      <a
+        href="/contacto"
+        class="btn btn-light w-full justify-center text-center text-sm"
+      >
+        Iniciar Proyecto
+      </a>
+    </div>
+  </div>
 </header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('flex');
+    });
+  }
+</script>

@@ -77,10 +77,18 @@ const sides = [
 
     const update = () => {
       raf = 0;
-      const probe = innerHeight * 0.5;
+      const path = window.location.pathname.toLowerCase();
       let state = 0;
-      for (const [el, s] of anchors) {
-        if (el && el.getBoundingClientRect().top <= probe) state = s;
+
+      if (path.includes('/planes')) {
+        state = 1;
+      } else if (path.includes('/portafolio') || path.includes('/proceso') || path.includes('/contacto')) {
+        state = 2;
+      } else {
+        const probe = innerHeight * 0.5;
+        for (const [el, s] of anchors) {
+          if (el && el.getBoundingClientRect().top <= probe) state = s;
+        }
       }
       setState(state);
 

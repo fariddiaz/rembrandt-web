@@ -29,25 +29,34 @@ const steps = [
   </div>
   <div class="mx-auto grid w-[min(1240px,calc(100%-2.5rem))] gap-14 md:grid-cols-[0.9fr_1.1fr] md:items-start">
     <div>
-      <div class="inline-flex items-center gap-2 rounded-full bg-violet/10 px-3.5 py-1 text-xs font-medium uppercase tracking-[0.14em] text-violet-200 ring-1 ring-violet/30">
-        Metodología ágil y sin fricción
-      </div>
+      <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
+        Metodología Ágil
+      </p>
       <h2 class="mt-4 text-[clamp(2.2rem,4.4vw,4rem)] leading-[1.02]">
         Tres pasos directos, sin reuniones eternas.
       </h2>
       <p class="mt-4 max-w-[28rem] text-lg text-mute">
         Hacemos que lanzar la página web de tu negocio sea rápido, claro y sin complicaciones técnicas.
       </p>
-      <a
-        href={waLink(wa.message)}
-        target="_blank"
-        rel="noopener"
-        class="btn btn-light mt-8"
-        data-magnetic
-        data-cursor="WHATSAPP"
-      >
-        Dar el primer paso
-      </a>
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a
+          href="/proceso"
+          class="btn btn-light"
+          data-magnetic
+        >
+          Conocer proceso a fondo
+        </a>
+        <a
+          href={waLink(wa.message)}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-ghost"
+          data-magnetic
+          data-cursor="WHATSAPP"
+        >
+          Dar el primer paso
+        </a>
+      </div>
     </div>
 
     <ol class="divide-y divide-white/10 border-y border-white/10">

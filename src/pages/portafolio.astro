@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Work from '../components/Work.astro';
+import { waLink, waSections } from '../config/site';
+
+const wa = waSections.trabajo;
+---
+<Layout
+  title="Portafolio y Casos de Estudio · Rembrandt Studio"
+  description="Explora proyectos reales construidos por Rembrandt Studio: diseño de autor, velocidad extrema y arquitectura enfocada en convertir visitas en clientes reales."
+>
+  <Header activePath="/portafolio" />
+
+  <main class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32">
+    <!-- Fondo claroscuro de arte: Lección de Anatomía (1632) -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+      <img
+        src="/art/anatomy.jpg"
+        alt=""
+        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-carbon via-carbon/90 to-carbon"></div>
+    </div>
+
+    <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
+      
+      <!-- Encabezado Editorial -->
+      <header class="mb-16 md:mb-20 max-w-3xl">
+        <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
+          Casos de Éxito & Resultados Comprobados
+        </p>
+        <h1 class="mt-4 font-display text-[clamp(2.6rem,5.5vw,5rem)] leading-[0.98] text-light">
+          Diseño con propósito. Plataformas que venden.
+        </h1>
+        <p class="mt-6 text-lg md:text-xl leading-relaxed text-mute">
+          Cada uno de nuestros desarrollos nace de una meta de negocio: posicionar la marca con máxima autoridad, acelerar la toma de decisiones del visitante y abrir canales directos de venta por WhatsApp.
+        </p>
+      </header>
+
+      <!-- Componente Central de Casos de Estudio con Preview Interactiva -->
+      <Work />
+
+      <!-- Testimonio Destacado en Liquid Glass -->
+      <section class="glass mt-24 rounded-[2.5rem] p-8 md:p-14 border border-white/10" aria-label="Testimonios">
+        <div class="max-w-3xl mx-auto text-center">
+          <div class="font-serif text-5xl leading-none text-violet-300">“</div>
+          <blockquote class="mt-4 font-display text-2xl md:text-3xl leading-snug text-light">
+            El rediseño de nuestra web elevó inmediatamente el estatus de la marca ante parejas internacionales en Estados Unidos y Europa. Las consultas de bodas destino se multiplicaron desde el primer mes.
+          </blockquote>
+          <div class="mt-8 flex items-center justify-center gap-4">
+            <img
+              src="/preview-assets/leidys-lascarro.jpg"
+              alt="Leidys Lascarro"
+              width="48"
+              height="48"
+              class="size-12 rounded-full object-cover ring-1 ring-white/20"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="text-left">
+              <p class="font-semibold text-light text-sm">Leidys Lascarro</p>
+              <p class="text-xs text-mute">Directora & Fundadora · Eventos Leymar</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA de Cierre hacia Contacto -->
+      <section class="glass mt-20 rounded-[2.5rem] p-8 md:p-14 text-center border border-white/10">
+        <h2 class="font-display text-3xl md:text-5xl text-light">
+          ¿Listo para crear la próxima historia de éxito?
+        </h2>
+        <p class="mt-4 max-w-xl mx-auto text-base text-mute">
+          Cuéntanos sobre tu negocio o servicio. Diseñamos una solución a la medida de tus objetivos comerciales.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a
+            href="/contacto"
+            class="btn btn-light"
+            data-magnetic="0.3"
+          >
+            Iniciar Proyecto Ahora
+          </a>
+          <a
+            href={waLink('Hola Rembrandt Studio, estuve viendo su portafolio y quiero cotizar una web para mi negocio.')}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost"
+            data-magnetic="0.3"
+          >
+            Conversar por WhatsApp
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

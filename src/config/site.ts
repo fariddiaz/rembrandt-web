@@ -47,7 +47,7 @@ export const waSections = {
 
 export type WaSectionKey = keyof typeof waSections;
 
-// ── Planes ──────────────────────────────────────────────────
+// ── Planes Claros para Empresarios ──────────────────────────
 
 export interface Plan {
   id: string;
@@ -69,75 +69,144 @@ export const plans: Plan[] = [
   {
     id: 'express',
     name: 'Página Web Express',
-    badge: '3–5 días',
+    badge: 'Entrega 3–5 días',
     audience:
-      'Para emprendedores y negocios que necesitan una página moderna, lista para recibir clientes por WhatsApp en 3 a 5 días.',
+      'Para emprendedores y negocios de servicios que necesitan una página web moderna, profesional y lista para recibir clientes por WhatsApp en 3 a 5 días.',
     priceUsd: '$249 USD',
     priceCop: '~$990.000 COP',
-    delivery: 'Entrega en 3 a 5 días hábiles',
+    delivery: 'Garantía de entrega en 3 a 5 días hábiles',
     features: [
-      'Una página moderna con la identidad de tu marca',
-      'Botón directo a WhatsApp y formulario de contacto',
-      'Se ve perfecta en celulares y carga en menos de 1 segundo',
-      'Publicada en tu dominio propio y registrada en Google',
-      'Sin suscripciones raras: la página es 100% tuya',
+      'Página de aterrizaje (Landing Page) de alto impacto y conversión',
+      'Diseño de autor a medida con los colores y estilo de tu marca',
+      'Botón directo a WhatsApp y formulario express conectado a tu correo',
+      'Carga ultrarrápida (0.7 segundos) optimizada para celulares',
+      'Dominio propio, certificado de seguridad SSL y alta en Google',
+      'Sin costos ocultos: la web y su código te pertenecen al 100%',
     ],
-    cta: 'Quiero mi página express',
-    message: 'Hola, quiero la Página Web Express ($249 USD). Mi negocio es: ',
+    cta: 'Elegir Plan Express',
+    message: 'Hola Rembrandt Studio, quiero la Página Web Express ($249 USD / ~$990.000 COP). Mi negocio es: ',
   },
   {
     id: 'empresarial',
-    name: 'Página Web Empresarial',
-    badge: 'Multi-página',
+    name: 'Web Corporativa & Autoridad',
+    badge: 'Multi-Página (3–5 secciones)',
     audience:
-      'Para empresas que ofrecen varios servicios o productos y necesitan explicar cada uno a fondo con autoridad y estatus.',
+      'Para empresas constituidas y firmas que ofrecen múltiples servicios y necesitan posicionarse con máxima autoridad, confianza institucional y visibilidad en Google.',
     priceUsd: '$399 USD',
     priceCop: '~$1.590.000 COP',
     delivery: 'Entrega en 5 a 7 días hábiles',
     features: [
-      'De 3 a 5 secciones/páginas (Inicio, Servicios, Nosotros, Casos, Contacto)',
-      'Diseño visual exclusivo y personalizado para tu empresa',
-      'Optimización SEO completa para posicionar en Google',
-      'Integración con WhatsApp, correo corporativo y analítica',
-      'Panel autoadministrable fácil de actualizar',
+      'Estructura multi-página: Inicio, Servicios, Nosotros, Portafolio y Contacto',
+      'Diseño editorial exclusivo en claroscuro con Liquid Glass',
+      'Optimización SEO avanzada para posicionar palabras clave en Google',
+      'Correos corporativos con tu dominio (ej: contacto@tuempresa.com)',
+      'Formulario de cotización con validación y analítica de visitas',
+      'Panel autoadministrable intuitivo para editar textos y fotografías',
     ],
-    cta: 'Quiero la web empresarial',
-    message: 'Hola, me interesa la Página Web Empresarial ($399 USD). Mi empresa es: ',
+    cta: 'Elegir Plan Corporativo',
+    message: 'Hola Rembrandt Studio, me interesa la Web Corporativa ($399 USD / ~$1.590.000 COP). Mi empresa es: ',
+  },
+  {
+    id: 'automatizacion',
+    name: 'Web + Automatización WhatsApp',
+    badge: 'Web + Chatbot Inteligente 24/7',
+    audience:
+      'El plan favorito de empresarios ocupados: tu página web capta prospectos y un sistema automatizado en WhatsApp responde al instante, califica al cliente y agenda citas las 24 horas.',
+    priceUsd: '$490 USD',
+    priceCop: '~$1.950.000 COP',
+    delivery: 'Entrega en 7 a 10 días hábiles',
+    features: [
+      'Todo lo incluido en la Web Corporativa de alto rendimiento',
+      'Automatización de bienvenida y respuesta inmediata en WhatsApp 24/7',
+      'Calificación automática de prospectos (filtra curiosos y detecta clientes listos para comprar)',
+      'Envío automático de catálogos, listas de precios y enlaces de pago',
+      'Integración con calendario para agendar citas o videollamadas automáticamente',
+      'Notificaciones instantáneas a tu teléfono cuando un cliente calificado solicita atención humana',
+    ],
+    cta: 'Elegir Web + Automatización',
+    message: 'Hola Rembrandt Studio, me interesa el Plan Web + Automatización WhatsApp ($490 USD / ~$1.950.000 COP). Mi negocio es: ',
     featured: true,
   },
   {
-    id: 'tienda-3d',
-    name: 'Tienda Online & Catálogo 3D',
-    badge: 'E-commerce & 3D',
+    id: 'tienda-agil',
+    name: 'Catálogo & Tienda Ágil',
+    badge: 'E-commerce & Catálogo',
     audience:
-      'Para marcas y proyectos que quieren vender productos físicos o digitales con pagos en línea o sorprender con experiencias interactivas en 3D.',
-    priceUsd: '$590 – $1.490 USD',
+      'Para marcas y comercios que quieren vender productos físicos o digitales con pagos en línea automáticos y una experiencia de compra fluida sin comisiones abusivas.',
+    priceUsd: '$590 USD',
+    priceCop: '~$2.390.000 COP',
+    delivery: 'Entrega en 10 a 14 días hábiles',
+    features: [
+      'Catálogo interactivo con carrito de compras y ficha técnica por producto',
+      'Pasarela de pagos en línea integrada: Stripe, Wompi, PSE, Tarjetas de crédito/débito',
+      'Confirmación automática de pedidos con comprobante por WhatsApp y correo',
+      'Panel de control ágil para gestionar inventario, precios y pedidos en segundos',
+      'Cálculo automático de envíos y cupones de descuento promocionales',
+      'Capacitación personalizada en video para que administres tu tienda fácilmente',
+    ],
+    cta: 'Elegir Tienda Ágil',
+    message: 'Hola Rembrandt Studio, quiero cotizar el Plan Catálogo & Tienda Ágil ($590 USD / ~$2.390.000 COP). Vendo: ',
+  },
+  {
+    id: 'signature-3d',
+    name: 'Obra Signature & 3D Craft',
+    badge: 'A Medida · 3D Interactivo',
+    audience:
+      'Para marcas de lujo, estudios de arquitectura, startups y empresas que buscan una presencia digital única en el mundo con interactividad 3D (Spline/WebGL) y diseño de autor sin plantillas.',
+    priceUsd: 'Desde $950 USD',
     delivery: 'Entrega en 2 a 3 semanas',
     features: [
-      'Pasarela de pagos en línea (tarjetas, PSE, MercadoPago o Stripe)',
-      'Catálogo interactivo con carrito de compras y control de stock',
-      'Modelos 3D interactivos en tiempo real o animaciones a medida',
-      'Diseño de autor premium de máxima distinción',
-      'Capacitación para que gestiones tus ventas sin depender de nadie',
+      'Modelado e integración de elementos 3D interactivos en tiempo real',
+      'Animaciones cinemáticas al scroll y dirección de arte exclusiva',
+      'Arquitectura de software a medida con Astro, React o Next.js',
+      'Sonido ambiental de autor o interactividad inmersiva',
+      'Estrategia de posicionamiento de marca de máximo prestigio',
+      'Soporte directo de nivel fundadores durante todo el desarrollo',
     ],
-    cta: 'Cotizar tienda o 3D',
-    message: 'Hola, quiero cotizar la Tienda Online o Catálogo 3D. Vendo: ',
+    cta: 'Cotizar Proyecto Signature',
+    message: 'Hola Rembrandt Studio, quiero cotizar un Proyecto Signature a medida con 3D. Mi idea es: ',
   },
 ];
 
 export const carePlan = {
   name: 'Plan Cuidado',
-  subtitle: 'Mantenimiento mensual',
+  subtitle: 'Mantenimiento y tranquilidad mensual',
   priceUsd: '$19 USD',
   unit: '/mes',
   features: [
-    'Hosting ultrarrápido y certificado de seguridad (SSL) incluido',
-    'Copias de seguridad semanales y monitoreo 24/7',
-    'Soporte directo por WhatsApp y cambios de texto o fotos cada mes',
+    'Hosting en servidores ultra-rápidos de fibra óptica y certificado de seguridad SSL incluido',
+    'Copias de seguridad continuas y monitoreo 24/7 para garantizar 99.9% de actividad',
+    'Soporte prioritario por WhatsApp para cambios de textos, fotos, precios y actualizaciones cada mes',
+    'Sin contratos de permanencia: puedes pausar o cancelar en cualquier momento con un clic',
   ],
   cta: 'Activar Plan Cuidado',
   message: waSections.cuidado.message,
 };
+
+// ── Preguntas Frecuentes para Empresarios ────────────────────
+
+export const plansFaq = [
+  {
+    q: '¿Qué necesito entregar para comenzar?',
+    a: 'Solo el logo de tu empresa (si lo tienes), información básica de tus servicios o productos y fotos de tu trabajo. Si no tienes fotos profesionales o textos redactados, nosotros te ayudamos a estructurarlos para que tu web venda desde el primer día.',
+  },
+  {
+    q: '¿Cómo funciona la entrega en 3 a 5 días del Plan Express?',
+    a: 'Trabajamos con un proceso de ingeniería ágil y sin intermediarios. Una vez recibidos tus datos y aprobado el esquema visual, programamos tu sitio en 3 a 5 días hábiles garantizados por contrato.',
+  },
+  {
+    q: '¿Cómo funciona la automatización de WhatsApp?',
+    a: 'Integramos un flujo inteligente conectado a tu WhatsApp Business. Cuando un cliente visita tu web y da clic en contactar, el sistema le responde en segundos, le pregunta qué necesita, le muestra tus opciones y agenda una cita en tu calendario sin que tengas que pausar tu trabajo.',
+  },
+  {
+    q: '¿La página web es 100% de mi propiedad?',
+    a: 'Totalmente. A diferencia de plataformas cerradas que te cobran alquiler mensual de por vida, en Rembrandt Studio el código fuente, el diseño y el dominio te pertenecen al 100%. Te entregamos acceso total y sin ataduras.',
+  },
+  {
+    q: '¿Cómo se realizan los pagos?',
+    a: 'Manejamos un esquema seguro: 50% de anticipo para iniciar el diseño y desarrollo, y el 50% restante al finalizar cuando tu sitio esté probado a tu entera satisfacción. Aceptamos transferencias en Colombia (Bancolombia, Nequi, PSE) y pagos internacionales en USD vía Stripe y tarjetas.',
+  },
+];
 
 // ── Casos de éxito ──────────────────────────────────────────
 
