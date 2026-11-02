@@ -22,7 +22,7 @@ const wa = waSections.planes;
         </h2>
       </div>
       <p class="max-w-[32rem] text-lg leading-relaxed text-mute">
-        Sin sorpresas ni cobros ocultos. Elige el plan que mejor se adapte a tu etapa actual y escríbenos por WhatsApp para coordinar los detalles.
+        Sin sorpresas ni cobros ocultos. Elige el plan que mejor se adapte a tu etapa actual y escríbenos por WhatsApp o mediante nuestro formulario para coordinar los detalles.
       </p>
     </div>
 
@@ -84,19 +84,26 @@ const wa = waSections.planes;
                 </ul>
               </div>
 
-              <a
-                href={waLink(plan.message)}
-                target="_blank"
-                rel="noopener"
-                class:list={[
-                  'btn mt-10 w-fit !py-3.5 !px-8 text-sm md:text-base',
-                  plan.featured ? 'btn-light' : 'btn-ghost',
-                ]}
-                data-magnetic="0.3"
-                data-cursor="WHATSAPP"
-              >
-                {plan.cta}
-              </a>
+              <div class="mt-10 flex flex-wrap items-center gap-4">
+                <a
+                  href={waLink(plan.message)}
+                  target="_blank"
+                  rel="noopener"
+                  class:list={[
+                    'btn !py-3.5 !px-8 text-sm md:text-base',
+                    plan.featured ? 'btn-light' : 'btn-ghost',
+                  ]}
+                  data-magnetic="0.3"
+                >
+                  {plan.cta}
+                </a>
+                <a
+                  href="#contacto"
+                  class="text-xs text-mute hover:text-light transition-colors underline underline-offset-4"
+                >
+                  O cotizar por formulario →
+                </a>
+              </div>
             </div>
           </article>
         </li>
@@ -128,16 +135,23 @@ const wa = waSections.planes;
           </p>
           <p class="text-xs text-mute mt-1">Sin contratos forzados</p>
         </div>
-        <a
-          href={waLink(carePlan.message)}
-          target="_blank"
-          rel="noopener"
-          class="btn btn-ghost !py-3 !px-6"
-          data-magnetic="0.3"
-          data-cursor="WHATSAPP"
-        >
-          {carePlan.cta}
-        </a>
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href={waLink(carePlan.message)}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost !py-3 !px-6"
+            data-magnetic="0.3"
+          >
+            {carePlan.cta}
+          </a>
+          <a
+            href="#contacto"
+            class="text-xs text-mute hover:text-light transition-colors underline underline-offset-4"
+          >
+            Formulario
+          </a>
+        </div>
       </div>
     </aside>
 
