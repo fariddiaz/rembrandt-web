@@ -6,11 +6,12 @@ const wa = waSections.showcase;
 
 const logos = [
   { file: 'leymar.svg', name: 'Eventos Leymar' },
-  { file: 'lumina.svg', name: 'Lumina' },
-  { file: 'aura.svg', name: 'Aura' },
-  { file: 'zenith.svg', name: 'Zenith' },
-  { file: 'orion.svg', name: 'Orion' },
-  { file: 'vanguard.svg', name: 'Vanguard' },
+  { file: 'astro.svg', name: 'Astro' },
+  { file: 'tailwind.svg', name: 'Tailwind CSS' },
+  { file: 'nextjs.svg', name: 'Next.js' },
+  { file: 'spline.svg', name: 'Spline 3D' },
+  { file: 'typescript.svg', name: 'TypeScript' },
+  { file: 'stripe.svg', name: 'Stripe' },
 ];
 ---
 <section class="relative py-16 md:py-24 overflow-hidden" aria-label="Acerca del estudio">
@@ -23,7 +24,7 @@ const logos = [
       </p>
     </div>
 
-    <!-- Bento Grid Showcase (Adaptado de la referencia visual) -->
+    <!-- Bento Grid Showcase -->
     <div class="grid gap-6 md:grid-cols-12">
       
       <!-- Bento Card 1: Ubicación & Disponibilidad Global (7 cols) -->
@@ -34,7 +35,7 @@ const logos = [
         <div>
           <div class="inline-flex items-center gap-2 rounded-full bg-white/5 px-3.5 py-1 text-xs text-rose-300 ring-1 ring-white/10">
             <span class="size-1.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]" aria-hidden="true"></span>
-            Disponible para proyectos en todo el mundo
+            Estudio Web de Alto Impacto
           </div>
           <h3 class="mt-4 text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-light">
             Estudio Digital con Alcance Global <span class="text-mute font-sans text-lg">· Proyectos en Colombia, EE.UU. y Latinoamérica</span>
@@ -81,22 +82,19 @@ const logos = [
       <!-- Bento Columna Derecha (5 cols) -->
       <div class="flex flex-col gap-6 md:col-span-5">
         
-        <!-- Bento Card 2: Rating & Confianza -->
+        <!-- Bento Card 2: Calidad e Ingeniería Verificada (Sin datos inflados) -->
         <div class="glass relative overflow-hidden rounded-[2rem] p-7 md:p-8">
-          <p class="text-xs font-medium uppercase tracking-[0.14em] text-mute">
-            Confianza respaldada por resultados reales
+          <p class="text-xs font-medium uppercase tracking-[0.14em] text-violet-300">
+            Ingeniería & Calidad de Código
           </p>
-          <p class="mt-4 font-display text-[clamp(2.5rem,4vw,3.6rem)] leading-none text-light">
-            120+
+          <p class="mt-4 font-display text-[clamp(2.4rem,3.8vw,3.4rem)] leading-none text-light">
+            100%
           </p>
-          <div class="mt-2 flex items-center gap-2">
-            <div class="flex text-amber-400 text-sm">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            </div>
-            <span class="text-xs text-mute">Calificación 5.0 en Google y testimonios</span>
-          </div>
-          <p class="mt-3 text-xs text-mute">
-            Entregamos desde páginas web express en 24h hasta tiendas y proyectos 3D con máxima puntualidad.
+          <p class="mt-2 text-sm font-medium text-light">
+            Código propio a medida sin plantillas pesadas
+          </p>
+          <p class="mt-2 text-xs leading-relaxed text-mute">
+            Cada sitio se optimiza para cargar en menos de 1 segundo, con arquitectura moderna (Astro + Tailwind) y entrega en plazos acordados.
           </p>
         </div>
 
@@ -130,15 +128,15 @@ const logos = [
     <!-- Marquee infinito de logos de confianza (derecha → izquierda) -->
     <div class="mt-16 border-y border-white/10 py-7">
       <p class="text-center text-xs font-medium uppercase tracking-[0.18em] text-mute/80">
-        Marcas y negocios que impulsan su presencia digital con Rembrandt
+        Tecnologías, plataformas y marcas que impulsan cada desarrollo
       </p>
-      <div class="logo-marquee mt-6 overflow-hidden" aria-label="Marcas cliente">
+      <div class="logo-marquee mt-6 overflow-hidden" aria-label="Marcas y tecnologías">
         <div class="logo-track flex w-max items-center">
           {[0, 1].map((copy) => (
-            <ul class="flex shrink-0 items-center gap-16 pr-16 md:gap-24 md:pr-24" aria-hidden={copy === 1 ? 'true' : undefined}>
+            <ul class="flex shrink-0 items-center gap-14 pr-14 md:gap-20 md:pr-20" aria-hidden={copy === 1 ? 'true' : undefined}>
               {logos.map((l) => (
-                <li class="shrink-0">
-                  <img src={`/logos/${l.file}`} alt={copy === 0 ? l.name : ''} width="160" height="40" loading="lazy" decoding="async" class="h-8 w-auto opacity-60 md:h-9" />
+                <li class="shrink-0 flex items-center justify-center">
+                  <img src={`/logos/${l.file}`} alt={copy === 0 ? l.name : ''} width="150" height="38" loading="lazy" decoding="async" class="h-7 md:h-8 w-auto opacity-75 hover:opacity-100 transition-opacity" />
                 </li>
               ))}
             </ul>
@@ -152,11 +150,11 @@ const logos = [
 
 <style>
   .logo-marquee {
-    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
   .logo-track {
-    animation: marquee-scroll 32s linear infinite;
+    animation: marquee-scroll 28s linear infinite;
   }
   .logo-marquee:hover .logo-track {
     animation-play-state: paused;
