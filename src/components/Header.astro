@@ -1,4 +1,5 @@
 ---
+import Logo from './Logo.astro';
 import { waLink, waSections } from '../config/site';
 
 const links = [
@@ -11,14 +12,14 @@ const links = [
 ---
 <header class="fixed inset-x-0 top-0 z-50">
   <nav
-    class="glass mx-auto mt-4 flex w-[min(1240px,calc(100%-2rem))] items-center justify-between rounded-full py-2.5 pr-2.5 pl-5 md:pl-7 border border-white/10 shadow-2xl backdrop-blur-xl"
+    class="glass mx-auto mt-4 flex w-[min(1240px,calc(100%-2rem))] items-center justify-between rounded-full py-2 pr-2.5 pl-4 sm:pl-6 border border-white/10 shadow-2xl backdrop-blur-xl"
     aria-label="Principal"
   >
-    <!-- Logo de Marca Rembrandt con punto de luz distintivo -->
-    <a href="#hero" class="flex items-center gap-2 group" aria-label="Rembrandt Studio, inicio">
-      <span class="size-2.5 rounded-full bg-violet shadow-[0_0_10px_#8b5cf6] transition-transform duration-300 group-hover:scale-125" />
-      <span class="font-display text-[1.4rem] leading-none text-light tracking-wide">Rembrandt</span>
-      <span class="text-xs uppercase tracking-widest text-mute font-sans font-medium">Studio</span>
+    <!-- Logo Oficial de Marca: Isotipo R con degradado + Logotipo Completo -->
+    <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 group py-1" aria-label="Rembrandt Studio, inicio">
+      <Logo variant="mark-color" class="h-7 sm:h-8 w-auto transition-transform duration-300 group-hover:scale-105" />
+      <Logo variant="full" class="hidden sm:inline-flex h-5 w-auto text-light transition-opacity duration-300 group-hover:opacity-90" />
+      <Logo variant="wordmark" class="inline-flex sm:hidden h-4 w-auto text-light" />
     </a>
 
     <!-- Menú Cápsula Centrado -->

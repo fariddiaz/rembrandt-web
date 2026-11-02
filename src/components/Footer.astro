@@ -1,11 +1,14 @@
 ---
+import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-white/10 py-12 pb-28 text-sm text-mute md:pb-12">
   <div class="mx-auto flex w-[min(1240px,calc(100%-2.5rem))] flex-wrap items-center justify-between gap-6">
-    <div class="flex items-center gap-2.5">
-      <span class="size-2 rounded-full bg-violet shadow-[0_0_8px_#8b5cf6]" />
-      <span class="font-display text-lg text-light">Rembrandt Studio</span>
+    <div class="flex flex-wrap items-center gap-4">
+      <a href="#hero" class="flex items-center gap-3 group" aria-label="Rembrandt Studio, volver arriba">
+        <Logo variant="mark-color" class="h-6 w-auto transition-transform duration-300 group-hover:scale-105" />
+        <Logo variant="full" class="h-4.5 w-auto text-light transition-opacity duration-300 group-hover:opacity-90" />
+      </a>
       <span class="text-xs text-mute/80">© {year} · Todos los derechos reservados</span>
     </div>
     <div class="flex items-center gap-6 text-xs text-mute">

@@ -1,0 +1,39 @@
+---
+// Logotipo oficial en línea (hereda currentColor, sin peticiones de red extra).
+// Fuente única: los SVG oficiales de public/brand/.
+import full from '../../public/brand/logo-rembrandt-full.svg?raw';
+import wordmark from '../../public/brand/logo-rembrandt-wordmark.svg?raw';
+import mark from '../../public/brand/logo-rembrandt-r.svg?raw';
+import markColor from '../../public/brand/logo-rembrandt-r-color.svg?raw';
+
+interface Props {
+  variant?: 'full' | 'wordmark' | 'mark' | 'mark-color';
+  class?: string;
+}
+
+const { variant = 'full', class: className = '' } = Astro.props;
+
+const svgs = {
+  full,
+  wordmark,
+  mark,
+  'mark-color': markColor,
+};
+
+const svgContent = svgs[variant] || full;
+---
+<span class:list={['rembrandt-logo', `logo-${variant}`, className]} set:html={svgContent} />
+
+<style>
+  .rembrandt-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+  }
+  .rembrandt-logo :global(svg) {
+    height: 100%;
+    width: auto;
+    display: block;
+    overflow: visible;
+  }
+</style>
