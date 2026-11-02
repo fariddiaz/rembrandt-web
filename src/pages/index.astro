@@ -129,31 +129,97 @@ const steps = [
   <Header theme="dark" />
 
   <main id="contenido" class="bg-[#0a0a0d] text-white">
-    {/* 1. Hero 3D Interactivo */}
+    {/* 1. Hero Asimétrico 3D inspirado en AgentAI */}
     <Hero3D />
 
-    {/* 2. Barra de Métricas y Prueba de Calidad */}
-    <section class="border-y border-white/10 bg-black/60 backdrop-blur-md py-6">
-      <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-around gap-6 px-6 text-center sm:text-left">
-        <div class="flex items-center gap-3">
-          <span class="font-display text-2xl sm:text-3xl font-bold text-accent">100/100</span>
-          <span class="text-xs uppercase tracking-wider text-white/60">Core Web Vitals &bull; Velocidad</span>
+    {/* 2. Manifiesto Editorial (Como en la referencia) */}
+    <section class="mx-auto max-w-5xl px-6 py-20 sm:py-28 text-center sm:text-left border-b border-white/10 relative">
+      <div class="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-accent mb-6 shadow-[0_0_12px_rgba(139,92,246,0.2)]">
+        <span class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
+        <span>Manifiesto del Taller</span>
+      </div>
+      <h2 class="font-display text-2xl sm:text-4xl md:text-5xl font-medium tracking-tight text-white leading-snug text-balance">
+        Diseñamos y programamos <span class="text-accent underline decoration-accent/40 decoration-wavy">soluciones web</span> con foco en las personas, garantizando que cada <span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-purple-500 bg-clip-text text-transparent font-bold">sistema e interacción</span> eleve la conversión y el estatus real de tu marca.
+      </h2>
+    </section>
+
+    {/* 3. Bento Grid Principal (About, Ubicación Global & Confianza de Autor) */}
+    <section class="mx-auto max-w-6xl px-6 py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        {/* Bento Card Grande Izquierda */}
+        <div class="lg:col-span-7 rounded-3xl border border-white/10 bg-[#121217]/80 p-8 sm:p-10 flex flex-col justify-between backdrop-blur-xl relative overflow-hidden group shadow-2xl">
+          <div class="pointer-events-none absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-accent/15 blur-3xl group-hover:bg-accent/25 transition-all"></div>
+          <div>
+            <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/70 mb-5">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>Disponible para proyectos inmediatos</span>
+            </div>
+            <h3 class="text-2xl sm:text-4xl font-bold text-white leading-tight">
+              Basado en <span class="text-accent">Colombia</span> &bull; Despliegue Global
+            </h3>
+            <p class="mt-4 text-sm sm:text-base text-white/60 max-w-lg leading-relaxed font-light">
+              Operamos como un taller de alta ingeniería digital. Sin burocracia, sin reuniones eternas y con entregas récord desde 24 a 48 horas en Astro, Tailwind y 3D WebGL.
+            </p>
+          </div>
+
+          <div class="mt-10 rounded-2xl bg-gradient-to-r from-purple-950/40 via-violet-950/20 to-black border border-white/10 p-6 flex items-center justify-between">
+            <div>
+              <span class="text-xs uppercase font-mono text-accent font-semibold block">Entrega Express</span>
+              <span class="text-lg font-bold text-white">¿Necesitas lanzar esta semana?</span>
+            </div>
+            <a
+              href="/express"
+              class="rounded-full bg-accent px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-accent/30 hover:bg-accent-strong transition-all shrink-0"
+            >
+              Ver Express &rarr;
+            </a>
+          </div>
         </div>
-        <div class="h-8 w-px bg-white/10 hidden sm:block"></div>
-        <div class="flex items-center gap-3">
-          <span class="font-display text-2xl sm:text-3xl font-bold text-accent">+38%</span>
-          <span class="text-xs uppercase tracking-wider text-white/60">Aumento promedio en conversión</span>
+
+        {/* Bento Columna Derecha: Métricas y Cita de Autor */}
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          {/* Card 1: Métricas de satisfacción */}
+          <div class="rounded-3xl border border-white/10 bg-[#121217]/80 p-8 backdrop-blur-xl flex flex-col justify-between shadow-2xl">
+            <span class="text-xs text-white/60 leading-relaxed block">
+              Confiado por clientes y marcas en 4 industrias &bull; Desplegando desde la idea a producción en 24–48 horas.
+            </span>
+            <div class="mt-6 flex items-baseline justify-between pt-4 border-t border-white/10">
+              <div class="flex items-center gap-1 text-amber-400 text-lg">
+                ★★★★★
+              </div>
+              <span class="font-display text-5xl font-extrabold text-white tracking-tight">100%</span>
+            </div>
+          </div>
+
+          {/* Card 2: Testimonio con Foto/Quote estilo AgentAI */}
+          <div class="rounded-3xl border border-white/10 bg-[#121217]/80 p-6 sm:p-8 backdrop-blur-xl flex items-center gap-5 shadow-2xl">
+            <div class="h-16 w-16 shrink-0 rounded-2xl bg-gradient-to-tr from-accent to-purple-900 border border-white/20 flex items-center justify-center font-display text-2xl font-bold text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]">
+              FD
+            </div>
+            <div>
+              <p class="text-xs sm:text-sm italic text-white/80 leading-relaxed font-light">
+                "El buen software y el diseño de autor parecen obvios — porque todo el trabajo complejo de ingeniería queda oculto."
+              </p>
+              <div class="mt-2 text-xs">
+                <strong class="text-white">Farid Diaz</strong>
+                <span class="text-white/40"> &bull; Rembrandt Lead Engineer</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="h-8 w-px bg-white/10 hidden sm:block"></div>
-        <div class="flex items-center gap-3">
-          <span class="font-display text-2xl sm:text-3xl font-bold text-accent">&lt; 0.8s</span>
-          <span class="text-xs uppercase tracking-wider text-white/60">Tiempo de carga inicial</span>
-        </div>
-        <div class="h-8 w-px bg-white/10 hidden sm:block"></div>
-        <div class="flex items-center gap-3">
-          <span class="font-display text-2xl sm:text-3xl font-bold text-accent">3D WebGL</span>
-          <span class="text-xs uppercase tracking-wider text-white/60">Interactividad de vanguardia</span>
-        </div>
+      </div>
+    </section>
+
+    {/* 4. Cinta Marquee de Tecnologías (Logo Ribbon) */}
+    <section class="border-y border-white/10 bg-black/60 py-6 overflow-hidden">
+      <div class="mx-auto max-w-6xl px-6 flex flex-wrap items-center justify-between gap-6 text-xs uppercase tracking-widest text-white/40 font-mono">
+        <span class="text-white/60 font-semibold">Tecnologías de Autor:</span>
+        <span class="hover:text-accent transition-colors">Astro v5</span>
+        <span class="hover:text-accent transition-colors">Tailwind CSS</span>
+        <span class="hover:text-accent transition-colors">WebGL / Three.js</span>
+        <span class="hover:text-accent transition-colors">Spline 3D</span>
+        <span class="hover:text-accent transition-colors">TypeScript</span>
+        <span class="hover:text-accent transition-colors">Vercel Edge</span>
       </div>
     </section>
 
