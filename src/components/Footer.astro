@@ -1,9 +1,17 @@
 ---
 const year = new Date().getFullYear();
 ---
-<footer class="border-t border-white/10 py-10 pb-28 text-sm text-mute md:pb-10">
-  <div class="mx-auto flex w-[min(1180px,calc(100%-2.5rem))] flex-wrap items-baseline justify-between gap-4">
-    <p><span class="font-display text-lg text-light">Rembrandt</span> Studio, {year}</p>
-    <p>Oscuridad para que la luz importe.</p>
+<footer class="border-t border-white/10 py-12 pb-28 text-sm text-mute md:pb-12">
+  <div class="mx-auto flex w-[min(1240px,calc(100%-2.5rem))] flex-wrap items-center justify-between gap-6">
+    <div class="flex items-center gap-2.5">
+      <span class="size-2 rounded-full bg-violet shadow-[0_0_8px_#8b5cf6]" />
+      <span class="font-display text-lg text-light">Rembrandt Studio</span>
+      <span class="text-xs text-mute/80">© {year} · Todos los derechos reservados</span>
+    </div>
+    <div class="flex items-center gap-6 text-xs text-mute">
+      <span>Páginas Web Express en 24–48 horas</span>
+      <span class="hidden sm:inline">·</span>
+      <span class="hidden sm:inline">Diseño de Autor & Experiencias 3D</span>
+    </div>
   </div>
 </footer>

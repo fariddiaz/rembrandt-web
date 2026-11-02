@@ -1,28 +1,41 @@
 ---
 import { waLink, waSections } from '../config/site';
+
 const wa = waSections.contacto;
 ---
 <section
   id="contacto"
-  class="relative overflow-hidden py-[18vh] text-center"
+  class="relative overflow-hidden py-24 md:py-36 text-center"
   data-wa-label={wa.label}
   data-wa-message={wa.message}
 >
-  <div class="absolute inset-0 -z-10 bg-[radial-gradient(45%_55%_at_50%_60%,rgb(124_58_237/0.35),transparent_70%)]"></div>
+  <div class="absolute inset-0 -z-10 bg-[radial-gradient(50%_60%_at_50%_50%,rgb(124_58_237/0.3),transparent_70%)]"></div>
+  
   <div class="mx-auto w-[min(980px,calc(100%-2.5rem))]">
-    <h2 class="text-[clamp(2.6rem,7vw,6.2rem)] leading-[0.95]">Escríbenos hoy. En 48 horas ves tu web.</h2>
-    <p class="mx-auto mt-8 max-w-[34rem] text-lg text-mute">
-      Respondemos personalmente por WhatsApp al +57 314 771 4202.
+    <div class="inline-flex items-center gap-2 rounded-full bg-violet/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-violet-200 ring-1 ring-violet/40">
+      <span class="size-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
+      Cupos disponibles para esta semana
+    </div>
+
+    <h2 class="mt-6 text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[0.98] text-light">
+      Escríbenos hoy.<br />En 48 horas ves tu web.
+    </h2>
+
+    <p class="mx-auto mt-6 max-w-xl text-base md:text-lg text-mute">
+      Atendemos y cotizamos personalmente por WhatsApp al <strong class="text-light">+57 314 771 4202</strong>. Sin compromiso ni intermediarios.
     </p>
-    <a
-      href={waLink(wa.message)}
-      target="_blank"
-      rel="noopener"
-      class="btn btn-light mt-12 !px-9 !py-5 text-lg"
-      data-magnetic="0.45"
-      data-cursor="WHATSAPP"
-    >
-      Abrir WhatsApp
-    </a>
+
+    <div class="mt-10 flex flex-wrap justify-center gap-4">
+      <a
+        href={waLink(wa.message)}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-light !px-9 !py-4 text-base md:text-lg shadow-[0_0_35px_rgb(139_92_246/0.45)]"
+        data-magnetic="0.4"
+        data-cursor="WHATSAPP"
+      >
+        Escribir por WhatsApp ahora
+      </a>
+    </div>
   </div>
 </section>

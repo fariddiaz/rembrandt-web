@@ -1,76 +1,142 @@
 ---
-import HeroOrb from './HeroOrb.astro';
-import { waLink, waSections } from '../config/site';
+import HeroRobot from './HeroRobot.astro';
+import { plans, waLink, waSections } from '../config/site';
+
 const wa = waSections.hero;
+const fromPrice = plans[0]?.priceUsd ?? '$249 USD';
 ---
 <section
   id="hero"
-  class="relative isolate flex min-h-[100svh] items-end overflow-hidden pb-[12vh] pt-32 md:items-center md:pb-0"
+  class="relative isolate flex min-h-[100svh] items-center overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24"
   data-wa-label={wa.label}
   data-wa-message={wa.message}
 >
-  <!-- Foco de luz y orbe -->
+  <!-- Foco de luz de fondo -->
   <div class="spotlight absolute inset-0 -z-10"></div>
-  <div class="absolute inset-x-0 top-[6vh] -z-10 h-[62svh] md:inset-y-0 md:left-[38%] md:right-[-8%] md:top-0 md:h-auto">
-    <HeroOrb />
+
+  <!-- Robot 3D interactivo (Spline) posicionado a la derecha / centro -->
+  <div class="absolute inset-x-0 top-[2vh] -z-10 h-[62svh] md:inset-y-0 md:left-[42%] md:right-[-4%] md:top-0 md:h-auto">
+    <HeroRobot />
   </div>
 
-  <div class="mx-auto w-[min(1180px,calc(100%-2.5rem))]">
-    <h1 class="hero-title font-display text-[clamp(3rem,9.2vw,8.6rem)] leading-[0.92]">
-      <span class="line"><span>Oscuridad</span></span>
-      <span class="line"><span>para que la luz</span></span>
-      <span class="line"><span>importe.</span></span>
-    </h1>
+  <div class="pointer-events-none mx-auto w-[min(1240px,calc(100%-2.5rem))]">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+      
+      <!-- Columna Izquierda: Mensaje Comercial de Alto Impacto -->
+      <div class="pointer-events-auto max-w-[42rem]">
+        <!-- Badge superior estilo AgentAI -->
+        <div class="hero-copy mb-6 inline-flex items-center gap-2.5 rounded-full bg-violet/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.14em] text-violet-200 ring-1 ring-violet/40 backdrop-blur-md">
+          <span class="size-2 rounded-full bg-violet shadow-[0_0_12px_#8b5cf6]" aria-hidden="true"></span>
+          Páginas Web Express & Proyectos a Medida
+        </div>
 
-    <p class="hero-copy mt-8 max-w-[34rem] text-[clamp(1.05rem,1.4vw,1.25rem)] leading-relaxed text-mute">
-      Diseñamos y programamos webs, tiendas y experiencias 3D que convierten visitas en clientes.
-      Tu landing puede estar publicada en 24 a 48 horas, desde $249 USD.
-    </p>
+        <!-- Título H1 principal con tipografía equilibrada y legible -->
+        <h1 class="hero-title font-display text-[clamp(2.5rem,5.6vw,5.2rem)] leading-[0.98]">
+          <span class="line"><span>Tu página web profesional,</span></span>
+          <span class="line"><span>rápida y diseñada</span></span>
+          <span class="line"><span class="bg-gradient-to-r from-violet-300 via-light to-violet-400 bg-clip-text text-transparent">para vender.</span></span>
+        </h1>
 
-    <div class="hero-cta mt-10 flex flex-wrap items-center gap-4">
-      <a href="#planes" class="btn btn-light" data-magnetic data-cursor="PLANES">Ver planes y precios</a>
-      <a
-        href={waLink(wa.message)}
-        target="_blank"
-        rel="noopener"
-        class="btn btn-ghost"
-        data-magnetic
-        data-cursor="WHATSAPP"
-      >
-        Escribir por WhatsApp
-      </a>
+        <!-- Subtítulo formal, claro para todo público emprendedor -->
+        <p class="hero-copy mt-7 max-w-[34rem] text-[clamp(1.05rem,1.35vw,1.22rem)] leading-relaxed text-mute">
+          Diseño de autor e ingeniería digital. Entregamos páginas web express listas en 24 a 48 horas y proyectos corporativos con 3D interactivo para marcas que buscan destacar y convertir visitas en clientes reales.
+        </p>
+
+        <!-- Botones de Acción (CTAs) -->
+        <div class="hero-cta mt-9 flex flex-wrap items-center gap-4">
+          <a
+            href="#planes"
+            class="btn btn-light shadow-[0_0_30px_rgb(139_92_246/0.4)]"
+            data-magnetic
+            data-cursor="PLANES"
+          >
+            Ver planes y precios
+          </a>
+          <a
+            href={waLink(wa.message)}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost"
+            data-magnetic
+            data-cursor="WHATSAPP"
+          >
+            Escribir por WhatsApp
+          </a>
+        </div>
+
+        <!-- Métricas Rápidas en Mini Bento Cards (Estilo AgentAI) -->
+        <div class="hero-cta mt-10 grid max-w-[36rem] grid-cols-3 gap-3">
+          <div class="glass rounded-2xl p-3.5 backdrop-blur-md">
+            <p class="font-display text-xl leading-none text-light md:text-2xl">24–48h</p>
+            <p class="mt-1 text-xs text-mute">Entrega express garantizada</p>
+          </div>
+          <div class="glass rounded-2xl p-3.5 backdrop-blur-md">
+            <p class="font-display text-xl leading-none text-light md:text-2xl">0.7s</p>
+            <p class="mt-1 text-xs text-mute">Velocidad de carga inmediata</p>
+          </div>
+          <div class="glass rounded-2xl p-3.5 backdrop-blur-md">
+            <p class="font-display text-xl leading-none text-light md:text-2xl">Desde {fromPrice.split(' ')[0]}</p>
+            <p class="mt-1 text-xs text-mute">Precios claros sin letra chica</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Tarjetas flotantes estilo Bento alrededor del Robot 3D (como AgentAI) -->
+      <div class="hidden lg:flex flex-col items-end justify-center gap-6 pt-12">
+        <!-- Floating Stat Card 1 -->
+        <div class="pointer-events-auto glass w-64 rounded-2xl p-4.5 shadow-2xl backdrop-blur-xl transition-transform hover:-translate-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase tracking-wider text-mute">Proyectos Web</span>
+            <span class="size-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
+          </div>
+          <p class="mt-2 font-display text-3xl leading-none text-light">230+</p>
+          <p class="mt-1 text-xs text-mute">Páginas web y experiencias digitales exitosas</p>
+        </div>
+
+        <!-- Floating Stat Card 2 -->
+        <div class="pointer-events-auto glass w-64 rounded-2xl p-4.5 shadow-2xl backdrop-blur-xl transition-transform hover:-translate-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase tracking-wider text-mute">Satisfacción</span>
+            <span class="text-amber-400 text-xs">★★★★★</span>
+          </div>
+          <p class="mt-2 font-display text-3xl leading-none text-light">4.9 / 5.0</p>
+          <p class="mt-1 text-xs text-mute">Emprendedores y marcas que crecen con su web</p>
+          <a
+            href={waLink('Hola Rembrandt Studio, quiero cotizar mi proyecto web.')}
+            target="_blank"
+            rel="noopener"
+            class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-violet-300 hover:text-light transition-colors"
+          >
+            Iniciar proyecto <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
 <style>
-  /* Único momento orquestado de la página: el título emerge de la sombra.
-     Es CSS puro → empieza en el primer pintado, sin esperar JavaScript. */
   .hero-title .line {
     display: block;
     overflow: hidden;
-    padding-bottom: 0.06em;
+    padding-bottom: 0.08em;
   }
   .hero-title .line > span {
     display: inline-block;
-    animation: rise 1.25s var(--ease-cine) both;
+    animation: rise 1.2s var(--ease-cine) both;
   }
-  .hero-title .line:nth-child(2) > span { animation-delay: 0.09s; }
-  .hero-title .line:nth-child(3) > span {
-    animation-delay: 0.18s;
-    color: var(--color-light);
-    text-shadow: 0 0 48px rgb(139 92 246 / 0.55);
-  }
-  .hero-title .line:nth-child(1) > span,
-  .hero-title .line:nth-child(2) > span { color: rgb(252 251 254 / 0.62); }
-  .hero-copy, .hero-cta { animation: fade 1s 0.45s var(--ease-cine) both; }
+  .hero-title .line:nth-child(2) > span { animation-delay: 0.08s; }
+  .hero-title .line:nth-child(3) > span { animation-delay: 0.16s; }
+
+  .hero-copy, .hero-cta { animation: fade 1s 0.35s var(--ease-cine) both; }
 
   @keyframes rise {
     from { transform: translateY(102%); }
     to { transform: none; }
   }
   @keyframes fade {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: none; }
   }
 </style>

@@ -1,81 +1,142 @@
 ---
-import { plans, waLink, waSections } from '../config/site';
+import { carePlan, plans, waLink, waSections } from '../config/site';
 const wa = waSections.planes;
 ---
 <section
   id="planes"
-  class="relative py-[16vh]"
+  class="relative py-20 md:py-28"
   data-wa-label={wa.label}
   data-wa-message={wa.message}
 >
-  <div class="mx-auto w-[min(1180px,calc(100%-2.5rem))]">
-    <div class="mb-16 grid gap-6 md:grid-cols-[1.1fr_1fr] md:items-end">
-      <h2 class="text-[clamp(2.4rem,5.5vw,4.6rem)] leading-[0.98]">Elige cómo quieres empezar.</h2>
-      <p class="max-w-[30rem] text-lg leading-relaxed text-mute">
-        Precios cerrados, sin letra pequeña. Escríbenos por WhatsApp con el plan que te interesa
-        y te respondemos con los siguientes pasos.
+  <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
+    
+    <!-- Encabezado de la Sección -->
+    <div class="mb-16 grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-end">
+      <div>
+        <div class="inline-flex items-center gap-2 rounded-full bg-violet/10 px-3.5 py-1 text-xs font-medium uppercase tracking-[0.14em] text-violet-200 ring-1 ring-violet/30">
+          Inversión clara y transparente
+        </div>
+        <h2 class="mt-4 text-[clamp(2.4rem,5vw,4.4rem)] leading-[1.02]">
+          Planes claros, precios cerrados.
+        </h2>
+      </div>
+      <p class="max-w-[32rem] text-lg leading-relaxed text-mute">
+        Sin sorpresas ni cobros ocultos. Elige el plan que mejor se adapte a tu etapa actual y escríbenos por WhatsApp para coordinar los detalles.
       </p>
     </div>
 
-    <ol class="stack" aria-label="Planes">
+    <!-- Lista de Planes en Tarjetas Bento / Stack -->
+    <div class="grid gap-8 lg:grid-cols-3">
       {plans.map((plan, i) => (
-        <li class="stack-card" style={`--i:${i}`}>
-          <article
-            class:list={[
-              'glass grid gap-10 rounded-[2rem] p-7 md:grid-cols-[1.1fr_1fr] md:p-12',
-              plan.featured && 'is-featured',
-            ]}
-          >
-            <div class="flex flex-col">
-              {plan.featured && (
-                <p class="mb-5 w-fit rounded-full bg-violet-deep/25 px-3 py-1 text-sm text-violet-200 ring-1 ring-violet/50">
-                  Recomendado para empresas
-                </p>
-              )}
-              <h3 class="text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.02]">{plan.name}</h3>
-              <p class="mt-4 max-w-[26rem] text-lg leading-relaxed text-mute">{plan.tagline}</p>
-              <p class="mt-auto pt-10 text-sm text-mute">{plan.delivery}</p>
+        <article
+          class:list={[
+            'glass relative flex flex-col justify-between rounded-[2rem] p-7 md:p-9 transition-transform duration-300 hover:-translate-y-1',
+            plan.featured && 'ring-2 ring-violet shadow-[0_0_50px_rgb(139_92_246/0.25)]',
+          ]}
+          aria-labelledby={`plan-${plan.id}`}
+        >
+          {plan.featured && (
+            <div class="absolute -top-3.5 left-8 rounded-full bg-gradient-to-r from-violet-600 to-rose-600 px-4 py-1 text-xs font-semibold text-white shadow-lg">
+              Más elegido por empresas
+            </div>
+          )}
+
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs uppercase tracking-[0.14em] text-mute">Opción {i + 1}</span>
+              <span class="rounded-full bg-white/5 px-3 py-0.5 text-xs text-violet-200 ring-1 ring-white/10">
+                {plan.badge}
+              </span>
             </div>
 
-            <div class="flex flex-col">
-              <p class="font-display text-[clamp(2.2rem,3.9vw,3.5rem)] leading-none whitespace-nowrap">{plan.priceUsd}</p>
-              {plan.priceCop && <p class="mt-2 text-mute">{plan.priceCop}</p>}
-              <ul class="mt-8 space-y-3 border-t border-white/10 pt-8">
-                {plan.features.map((f) => (
-                  <li class="flex gap-3 leading-snug">
-                    <span class="mt-[0.45em] size-1.5 shrink-0 rounded-full bg-violet shadow-[0_0_10px_#8b5cf6]" aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <a
-                href={waLink(plan.message)}
-                target="_blank"
-                rel="noopener"
-                class:list={['btn mt-10 w-fit', plan.featured ? 'btn-light' : 'btn-ghost']}
-                data-magnetic="0.3"
-                data-cursor="WHATSAPP"
-              >
-                {plan.cta}
-              </a>
+            <h3 id={`plan-${plan.id}`} class="mt-4 text-[clamp(1.7rem,2.4vw,2.2rem)] leading-tight text-light">
+              {plan.name}
+            </h3>
+
+            <p class="mt-3 text-sm leading-relaxed text-mute">
+              {plan.audience}
+            </p>
+
+            <div class="mt-6 border-y border-white/10 py-5">
+              <p class="font-display text-4xl leading-none text-light">
+                {plan.priceUsd}
+              </p>
+              {plan.priceCop && (
+                <p class="mt-1 text-xs text-mute">{plan.priceCop}</p>
+              )}
+              <p class="mt-3 flex items-center gap-2 text-xs text-light/80">
+                <span class="size-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+                {plan.delivery}
+              </p>
             </div>
-          </article>
-        </li>
+
+            <!-- Inclusiones del Plan -->
+            <ul class="mt-6 space-y-3 text-sm text-light/90">
+              {plan.features.map((f) => (
+                <li class="flex gap-2.5 leading-snug">
+                  <span class="mt-1 size-1.5 shrink-0 rounded-full bg-violet shadow-[0_0_8px_#8b5cf6]" aria-hidden="true" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="mt-8 pt-4">
+            <a
+              href={waLink(plan.message)}
+              target="_blank"
+              rel="noopener"
+              class:list={[
+                'btn w-full justify-center !py-3.5',
+                plan.featured ? 'btn-light shadow-[0_0_25px_rgb(139_92_246/0.4)]' : 'btn-ghost',
+              ]}
+              data-magnetic="0.2"
+              data-cursor="WHATSAPP"
+            >
+              {plan.cta}
+            </a>
+          </div>
+        </article>
       ))}
-    </ol>
+    </div>
+
+    <!-- Plan Cuidado: Resumen destacado para después del lanzamiento -->
+    <aside
+      class="glass mt-12 flex flex-col gap-6 rounded-[2rem] p-7 md:flex-row md:items-center md:justify-between md:p-10 border border-violet/20"
+      aria-label={carePlan.name}
+    >
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-violet-300">
+          <span class="size-2 rounded-full bg-violet" />
+          Servicio Opcional Post-Lanzamiento
+        </div>
+        <h3 class="mt-2 text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-light">
+          {carePlan.name} · <span class="text-mute font-sans text-lg">{carePlan.subtitle}</span>
+        </h3>
+        <p class="mt-2 text-sm text-mute">
+          Hosting premium, certificado SSL, copias de seguridad continuas y soporte directo por WhatsApp para cambios de fotos y textos cada mes. Tu web siempre al 100%.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-6">
+        <div>
+          <p class="font-display text-4xl leading-none text-light whitespace-nowrap">
+            {carePlan.priceUsd}<span class="font-sans text-base text-mute">{carePlan.unit}</span>
+          </p>
+          <p class="text-xs text-mute mt-1">Sin contratos forzados</p>
+        </div>
+        <a
+          href={waLink(carePlan.message)}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-ghost !py-3"
+          data-magnetic="0.3"
+          data-cursor="WHATSAPP"
+        >
+          {carePlan.cta}
+        </a>
+      </div>
+    </aside>
+
   </div>
 </section>
-
-<style>
-  .stack {
-    display: grid;
-    gap: 6vh;
-    padding-bottom: 8vh;
-  }
-  .is-featured {
-    box-shadow:
-      inset 0 1px 0 rgb(252 251 254 / 0.08),
-      0 0 0 1px rgb(139 92 246 / 0.35),
-      0 50px 120px -40px rgb(124 58 237 / 0.75);
-  }
-</style>

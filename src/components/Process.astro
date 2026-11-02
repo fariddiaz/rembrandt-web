@@ -1,40 +1,56 @@
 ---
 import { waLink, waSections } from '../config/site';
+
 const wa = waSections.proceso;
 const steps = [
-  { title: 'Nos escribes', text: 'Por WhatsApp nos cuentas qué vendes y a quién. Con eso basta para empezar.' },
-  { title: 'Ves tu boceto', text: 'Te enviamos el diseño y lo ajustamos contigo hasta que diga lo que quieres decir.' },
-  { title: 'Publicamos', text: 'Tu web queda en línea, rápida y conectada a tu WhatsApp, lista para recibir clientes.' },
+  {
+    title: '1. Nos escribes por WhatsApp',
+    text: 'Nos cuentas qué vendes, a quién te diriges y qué estilo buscas. Con eso es suficiente para iniciar tu proyecto sin formularios engorrosos ni reuniones interminables.',
+  },
+  {
+    title: '2. Diseñamos y afinamos contigo',
+    text: 'Te presentamos la propuesta visual en tiempo récord (24 a 48h para planes express). Hacemos los ajustes necesarios contigo para que tu marca se vea impecable.',
+  },
+  {
+    title: '3. Lanzamiento y ventas en vivo',
+    text: 'Publicamos tu sitio en tu dominio propio, optimizado para celulares y Google, con el botón de WhatsApp configurado para recibir clientes desde el primer minuto.',
+  },
 ];
 ---
 <section
   id="proceso"
-  class="py-[14vh]"
+  class="relative py-20 md:py-28"
   data-wa-label={wa.label}
   data-wa-message={wa.message}
 >
-  <div class="mx-auto grid w-[min(1180px,calc(100%-2.5rem))] gap-14 md:grid-cols-[0.9fr_1.1fr]">
+  <div class="mx-auto grid w-[min(1240px,calc(100%-2.5rem))] gap-14 md:grid-cols-[0.9fr_1.1fr] md:items-start">
     <div>
-      <h2 class="text-[clamp(2.2rem,4.8vw,4rem)] leading-[1]">Tres pasos, sin reuniones eternas.</h2>
+      <div class="inline-flex items-center gap-2 rounded-full bg-violet/10 px-3.5 py-1 text-xs font-medium uppercase tracking-[0.14em] text-violet-200 ring-1 ring-violet/30">
+        Metodología ágil y sin fricción
+      </div>
+      <h2 class="mt-4 text-[clamp(2.2rem,4.4vw,4rem)] leading-[1.02]">
+        Tres pasos directos, sin reuniones eternas.
+      </h2>
+      <p class="mt-4 max-w-[28rem] text-lg text-mute">
+        Hacemos que lanzar la página web de tu negocio sea rápido, claro y sin complicaciones técnicas.
+      </p>
       <a
         href={waLink(wa.message)}
         target="_blank"
         rel="noopener"
-        class="btn btn-light mt-10"
+        class="btn btn-light mt-8 shadow-[0_0_25px_rgb(139_92_246/0.3)]"
         data-magnetic
         data-cursor="WHATSAPP"
       >
         Dar el primer paso
       </a>
     </div>
+
     <ol class="divide-y divide-white/10 border-y border-white/10">
-      {steps.map((s, i) => (
-        <li class="grid grid-cols-[3.5rem_1fr] gap-4 py-8">
-          <span class="font-display text-3xl text-violet">{i + 1}</span>
-          <div>
-            <h3 class="text-2xl">{s.title}</h3>
-            <p class="mt-2 max-w-[32rem] leading-relaxed text-mute">{s.text}</p>
-          </div>
+      {steps.map((s) => (
+        <li class="py-7">
+          <h3 class="text-xl md:text-2xl font-sans font-semibold text-light">{s.title}</h3>
+          <p class="mt-2.5 max-w-[34rem] text-sm md:text-base leading-relaxed text-mute">{s.text}</p>
         </li>
       ))}
     </ol>

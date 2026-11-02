@@ -1,31 +1,46 @@
 ---
 import { waLink, waSections } from '../config/site';
+
 const links = [
+  { href: '#hero', label: 'Inicio' },
   { href: '#planes', label: 'Planes' },
-  { href: '#trabajo', label: 'Trabajo' },
+  { href: '#trabajo', label: 'Portafolio' },
   { href: '#proceso', label: 'Proceso' },
-  { href: '#cuidado', label: 'Plan Cuidado' },
+  { href: '#contacto', label: 'Contacto' },
 ];
 ---
 <header class="fixed inset-x-0 top-0 z-50">
   <nav
-    class="glass mx-auto mt-4 flex w-[min(1180px,calc(100%-2rem))] items-center justify-between rounded-full py-2.5 pr-2.5 pl-5 md:pl-6"
+    class="glass mx-auto mt-4 flex w-[min(1240px,calc(100%-2rem))] items-center justify-between rounded-full py-2.5 pr-2.5 pl-5 md:pl-7 border border-white/10 shadow-2xl backdrop-blur-xl"
     aria-label="Principal"
   >
-    <a href="#hero" class="flex items-baseline gap-1.5" aria-label="Rembrandt Studio, inicio">
-      <span class="font-display text-[1.35rem] leading-none">Rembrandt</span>
-      <span class="text-mute text-sm">Studio</span>
+    <!-- Logo de Marca Rembrandt con punto de luz distintivo -->
+    <a href="#hero" class="flex items-center gap-2 group" aria-label="Rembrandt Studio, inicio">
+      <span class="size-2.5 rounded-full bg-violet shadow-[0_0_10px_#8b5cf6] transition-transform duration-300 group-hover:scale-125" />
+      <span class="font-display text-[1.4rem] leading-none text-light tracking-wide">Rembrandt</span>
+      <span class="text-xs uppercase tracking-widest text-mute font-sans font-medium">Studio</span>
     </a>
-    <ul class="hidden items-center gap-8 text-[0.95rem] text-mute md:flex">
+
+    <!-- Menú Cápsula Centrado -->
+    <ul class="hidden items-center gap-7 text-[0.92rem] text-mute md:flex">
       {links.map((l) => (
-        <li><a href={l.href} class="transition-colors hover:text-light">{l.label}</a></li>
+        <li>
+          <a
+            href={l.href}
+            class="transition-colors hover:text-light"
+          >
+            {l.label}
+          </a>
+        </li>
       ))}
     </ul>
+
+    <!-- CTA de Acción Rápida a WhatsApp -->
     <a
       href={waLink(waSections.contacto.message)}
       target="_blank"
       rel="noopener"
-      class="btn btn-light !py-3 !px-5 text-sm"
+      class="btn btn-light !py-2.5 !px-5 text-sm shadow-[0_0_20px_rgb(139_92_246/0.3)]"
       data-magnetic="0.3"
       data-cursor="WHATSAPP"
     >

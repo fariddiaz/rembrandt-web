@@ -1,0 +1,159 @@
+---
+// Robot 3D interactivo (Spline).
+// 1) En el primer pintado solo hay un halo CSS -> no compite con el LCP (el H1).
+// 2) Tras 'load', con el navegador libre, se importa @splinetool/runtime
+//    (chunk aparte) y se carga la escena; el canvas aparece con un fundido suave.
+// 3) El halo violeta / carmesí sigue al cursor con un sutil desfase cinemático.
+import { HERO_ROBOT_SCENE } from '../config/site';
+
+interface Props {
+  scene?: string;
+}
+const { scene = HERO_ROBOT_SCENE } = Astro.props;
+---
+<!-- data-hero-orb: initHeroScroll() (smooth-scroll.ts) aleja este bloque al hacer scroll -->
+<div class="robot-wrap" data-hero-robot data-hero-orb data-scene={scene}>
+  <div class="robot-halo" aria-hidden="true"></div>
+  <canvas
+    class="robot-canvas"
+    role="img"
+    aria-label="Robot 3D interactivo que sigue el movimiento del cursor"
+  ></canvas>
+</div>
+
+<script>
+  type IdleFn = (cb: () => void, opts?: { timeout: number }) => number;
+  type NetInfo = { saveData?: boolean };
+
+  const wrap = document.querySelector<HTMLElement>('[data-hero-robot]');
+  const canvas = wrap?.querySelector<HTMLCanvasElement>('.robot-canvas') ?? null;
+  const halo = wrap?.querySelector<HTMLElement>('.robot-halo') ?? null;
+
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = matchMedia('(pointer: fine)').matches;
+  const saveData = (navigator as Navigator & { connection?: NetInfo }).connection?.saveData === true;
+
+  const hasWebGL = (() => {
+    try {
+      const c = document.createElement('canvas');
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  })();
+
+  const idle: IdleFn =
+    (window as unknown as { requestIdleCallback?: IdleFn }).requestIdleCallback ??
+    ((cb) => window.setTimeout(cb, 120));
+
+  async function mountRobot(el: HTMLElement, cv: HTMLCanvasElement) {
+    const scene = el.dataset.scene;
+    if (!scene) return;
+    try {
+      const { Application } = await import('@splinetool/runtime');
+      const app = new Application(cv);
+      await app.load(scene);
+      el.classList.add('is-ready');
+    } catch (err) {
+      // Si falla o tarda, queda el halo CSS y la página se sigue viendo impecable.
+      console.warn('[HeroRobot] No se pudo cargar la escena Spline:', err);
+    }
+  }
+
+  /** El halo persigue al cursor con inercia */
+  function followCursor(el: HTMLElement, glow: HTMLElement) {
+    let tx = 0;
+    let ty = 0;
+    let x = 0;
+    let y = 0;
+    let raf = 0;
+
+    const tick = () => {
+      x += (tx - x) * 0.08;
+      y += (ty - y) * 0.08;
+      glow.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.5 ? requestAnimationFrame(tick) : 0;
+    };
+
+    addEventListener(
+      'pointermove',
+      (e) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0) return; // el hero ya no está visible
+        tx = (e.clientX - (r.left + r.width / 2)) * 0.12;
+        ty = (e.clientY - (r.top + r.height / 2)) * 0.12;
+        if (!raf) raf = requestAnimationFrame(tick);
+      },
+      { passive: true },
+    );
+  }
+
+  if (wrap && canvas) {
+    if (halo && finePointer && !reduceMotion) followCursor(wrap, halo);
+
+    if (hasWebGL && !saveData) {
+      const boot = () => idle(() => void mountRobot(wrap, canvas), { timeout: 2000 });
+      if (document.readyState === 'complete') boot();
+      else addEventListener('load', boot, { once: true });
+    }
+  }
+</script>
+
+<style>
+  .robot-wrap {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* Halo violeta y carmesí detrás del robot: visible desde el primer instante */
+  .robot-halo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(48vw, 650px);
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgb(139 92 246 / 0.5) 0%,
+      rgb(225 29 72 / 0.25) 35%,
+      rgb(124 58 237 / 0.15) 55%,
+      transparent 72%
+    );
+    filter: blur(40px);
+    will-change: transform;
+    animation: breathe 6s ease-in-out infinite;
+  }
+
+  .robot-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    outline: none;
+    transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .robot-wrap.is-ready .robot-canvas {
+    opacity: 1;
+    pointer-events: auto; /* el robot reacciona al cursor */
+  }
+
+  /* En táctil/móvil el robot es decorativo: no debe bloquear el scroll */
+  @media (max-width: 767px), (pointer: coarse) {
+    .robot-wrap.is-ready .robot-canvas {
+      pointer-events: none;
+    }
+    .robot-halo {
+      width: 86vw;
+    }
+  }
+
+  @keyframes breathe {
+    0%, 100% { scale: 1; opacity: 0.9; }
+    50% { scale: 1.08; opacity: 1; }
+  }
+</style>

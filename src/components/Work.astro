@@ -1,44 +1,397 @@
 ---
-import { waSections } from '../config/site';
+import { caseStudies, waLink, waSections } from '../config/site';
+
 const wa = waSections.trabajo;
-// Añade aquí más proyectos a medida que los publiques.
-const projects = [
-  {
-    name: 'Eventos Leymar',
-    url: 'https://eventosleymar.com',
-    domain: 'eventosleymar.com',
-    summary: 'Web para una wedding planner en Cartagena: servicios, galería y reservas por WhatsApp.',
-  },
-];
+const domainOf = (url: string) => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+};
 ---
 <section
   id="trabajo"
-  class="py-[14vh]"
+  class="relative py-20 md:py-32"
   data-wa-label={wa.label}
   data-wa-message={wa.message}
 >
-  <div class="mx-auto w-[min(1180px,calc(100%-2.5rem))]">
-    <h2 class="mb-12 text-[clamp(2.2rem,4.8vw,4rem)] leading-none">Trabajo reciente</h2>
-    {projects.map((p) => (
-      <a
-        href={p.url}
-        target="_blank"
-        rel="noopener"
-        class="project group glass block overflow-hidden rounded-[2rem]"
-        data-cursor="VER"
-      >
-        <div class="flex items-center gap-2 border-b border-white/10 px-6 py-4 text-sm text-mute">
-          <span class="size-2.5 rounded-full bg-white/15" /><span class="size-2.5 rounded-full bg-white/15" /><span class="size-2.5 rounded-full bg-white/15" />
-          <span class="ml-4">{p.domain}</span>
+  <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
+    
+    <!-- Encabezado de Portafolio -->
+    <div class="mb-20 grid gap-6 md:grid-cols-[1.1fr_1fr] md:items-end">
+      <div>
+        <div class="inline-flex items-center gap-2 rounded-full bg-violet/10 px-3.5 py-1 text-xs font-medium uppercase tracking-[0.14em] text-violet-200 ring-1 ring-violet/30">
+          Resultados comprobados
         </div>
-        <div class="relative grid min-h-[48vh] place-items-center overflow-hidden p-10">
-          <div class="absolute inset-0 bg-[radial-gradient(50%_60%_at_30%_30%,rgb(139_92_246/0.35),transparent_70%)] transition-transform duration-[1.2s] ease-(--ease-cine) group-hover:scale-110" />
-          <p class="relative font-display text-[clamp(3rem,10vw,9rem)] leading-none transition-transform duration-[1.2s] ease-(--ease-cine) group-hover:-translate-y-2">
-            {p.name}
+        <h2 class="mt-4 text-[clamp(2.4rem,5vw,4.4rem)] leading-[1.02]">
+          Casos de estudio reales.
+        </h2>
+      </div>
+      <p class="max-w-[32rem] text-lg leading-relaxed text-mute">
+        Cada proyecto comienza con una meta de negocio: captar clientes, transmitir autoridad y vender más. Mira lo que construimos y los resultados alcanzados.
+      </p>
+    </div>
+
+    <!-- Lista de Casos de Éxito -->
+    <ol class="grid gap-24 md:gap-32">
+      {caseStudies.map((c, i) => {
+        const domain = c.url ? domainOf(c.url) : c.client;
+        const Poster = c.url ? 'button' : 'div';
+        const posterAttrs = c.url
+          ? {
+              type: 'button',
+              'data-preview': c.url,
+              'data-preview-title': c.client,
+              'data-cursor': 'PREVIEW',
+              'aria-label': `Ver preview interactiva de ${c.client}`,
+            }
+          : {};
+
+        return (
+          <li>
+            <article
+              class="grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-14"
+              style={`--t1:${c.tint[0]};--t2:${c.tint[1]}`}
+              aria-labelledby={`case-${c.id}`}
+            >
+              <!-- Marco de Navegador Simulado (Browser Mockup) -->
+              <div class:list={['glass overflow-hidden rounded-[1.75rem] border border-white/10 shadow-2xl', i % 2 === 1 && 'lg:order-2']}>
+                <!-- Barra superior de ventana -->
+                <div class="flex items-center gap-2 border-b border-white/10 px-5 py-3.5 text-xs text-mute bg-carbon/50 backdrop-blur-md">
+                  <div class="flex gap-1.5">
+                    <span class="size-3 rounded-full bg-rose-500/80" />
+                    <span class="size-3 rounded-full bg-amber-500/80" />
+                    <span class="size-3 rounded-full bg-emerald-500/80" />
+                  </div>
+                  <span class="ml-4 min-w-0 flex-1 truncate rounded-full bg-white/5 px-4 py-1 text-center font-mono text-[0.72rem] text-light/70 ring-1 ring-white/10">
+                    https://{domain}
+                  </span>
+                </div>
+
+                <!-- Contenido / Poster del Navegador -->
+                <Poster class="poster group relative block w-full text-left cursor-pointer" {...posterAttrs}>
+                  <span class="poster-bg" aria-hidden="true" />
+                  {c.image ? (
+                    <img
+                      src={c.image}
+                      alt={`Captura del sitio de ${c.client}`}
+                      loading="lazy"
+                      decoding="async"
+                      class="absolute inset-0 size-full object-cover object-top"
+                    />
+                  ) : (
+                    <div class="relative flex min-h-[300px] sm:min-h-[380px] h-full flex-col justify-between p-6 sm:p-10">
+                      <div class="flex items-center justify-between text-[0.75rem] uppercase tracking-[0.16em] text-light/60">
+                        <span class="font-bold text-light">{c.client}</span>
+                        <span class="hidden sm:flex gap-4">
+                          <span>Servicios</span>
+                          <span>Galería</span>
+                          <span>Contacto</span>
+                        </span>
+                      </div>
+                      
+                      <div>
+                        <span class="block font-display text-[clamp(2rem,4.2vw,3.6rem)] leading-[0.98] text-light transition-transform duration-700 ease-out group-hover:-translate-y-1">
+                          {c.client}
+                        </span>
+                        <span class="mt-2 block text-sm text-light/80">{c.sector}</span>
+                      </div>
+
+                      {c.url && (
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex items-center gap-2 rounded-full bg-light px-4 py-2 text-xs font-bold text-carbon shadow-[0_0_25px_rgb(139_92_246/0.5)] transition-transform duration-300 group-hover:scale-105">
+                            <span aria-hidden="true">▶</span> Ver preview interactiva
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </Poster>
+              </div>
+
+              <!-- Ficha de Negocio: Reto · Solución · Impacto -->
+              <div class="flex flex-col">
+                <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-violet-300">
+                  <span class="size-1.5 rounded-full bg-violet" />
+                  Caso {String(i + 1).padStart(2, '0')} · {c.sector}
+                </div>
+
+                <h3 id={`case-${c.id}`} class="mt-3 text-[clamp(1.9rem,3.2vw,2.8rem)] leading-[1.05] text-light">
+                  {c.client}
+                </h3>
+
+                <!-- Desglose estructurado -->
+                <div class="mt-7 space-y-5">
+                  <div class="rounded-xl bg-white/[0.02] p-4 ring-1 ring-white/5">
+                    <p class="case-label text-rose-300">¿Qué necesitaba el cliente?</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-mute">{c.challenge}</p>
+                  </div>
+
+                  <div class="rounded-xl bg-white/[0.02] p-4 ring-1 ring-white/5">
+                    <p class="case-label text-violet-300">¿Qué le construimos?</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-mute">{c.solution}</p>
+                  </div>
+
+                  <div class="rounded-xl bg-violet/5 p-4 ring-1 ring-violet/20">
+                    <p class="case-label text-emerald-300">¿Qué logramos para el cliente?</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-light font-medium">{c.impact}</p>
+                  </div>
+                </div>
+
+                <!-- Métricas Destacadas -->
+                {c.metrics.length > 0 && (
+                  <div class="mt-6 grid grid-cols-2 gap-3" aria-label="Resultados">
+                    {c.metrics.map((m) => (
+                      <div class="glass rounded-xl p-3.5 text-center">
+                        <span class="block font-display text-2xl leading-none text-light">{m.value}</span>
+                        <span class="mt-1.5 block text-xs text-mute">{m.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <!-- Acciones -->
+                <div class="mt-8 flex flex-wrap items-center gap-3">
+                  {c.url ? (
+                    <>
+                      <button
+                        type="button"
+                        class="btn btn-light !py-2.5 !px-5 text-sm"
+                        data-preview={c.url}
+                        data-preview-title={c.client}
+                        data-magnetic="0.3"
+                        data-cursor="PREVIEW"
+                      >
+                        Ver preview interactiva
+                      </button>
+                      <a
+                        href={c.url}
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-ghost !py-2.5 !px-5 text-sm"
+                        data-magnetic="0.3"
+                        data-cursor="VISITAR"
+                      >
+                        Visitar sitio en vivo <span aria-hidden="true">↗</span>
+                      </a>
+                    </>
+                  ) : (
+                    <a
+                      href={waLink(`Hola, vi el caso de ${c.client} y quiero algo parecido para mi marca.`)}
+                      target="_blank"
+                      rel="noopener"
+                      class="btn btn-ghost !py-2.5 !px-5 text-sm"
+                      data-magnetic="0.3"
+                      data-cursor="WHATSAPP"
+                    >
+                      Quiero un proyecto similar
+                    </a>
+                  )}
+                </div>
+
+              </div>
+            </article>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+
+  <!-- Modal de Preview Interactiva con Vista Escritorio y Celular -->
+  <dialog id="case-preview" class="preview-dialog" aria-labelledby="case-preview-title" data-lenis-prevent>
+    <div class="glass flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/15 bg-carbon/95 shadow-2xl">
+      <!-- Barra de herramientas del modal -->
+      <header class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-3.5 bg-carbon-2/80">
+        <div class="flex items-center gap-2">
+          <span class="size-3 rounded-full bg-rose-500/80" />
+          <span class="size-3 rounded-full bg-amber-500/80" />
+          <span class="size-3 rounded-full bg-emerald-500/80" />
+          <p id="case-preview-title" class="ml-3 min-w-0 flex-1 truncate text-xs font-mono text-mute">
+            <span class="text-light font-sans font-semibold" data-preview-name></span> · <span data-preview-domain></span>
           </p>
         </div>
-        <p class="border-t border-white/10 px-6 py-5 text-mute">{p.summary}</p>
-      </a>
-    ))}
-  </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Toggle Vista Escritorio / Celular -->
+          <div class="flex rounded-full bg-white/5 p-1 text-xs" role="group" aria-label="Tamaño de la vista">
+            <button type="button" class="device-btn" data-device="desktop" aria-pressed="true">
+              Escritorio
+            </button>
+            <button type="button" class="device-btn" data-device="mobile" aria-pressed="false">
+              Celular
+            </button>
+          </div>
+
+          <!-- Abrir en pestaña nueva -->
+          <a data-preview-live href="#" target="_blank" rel="noopener" class="btn btn-ghost !py-1.5 !px-3.5 text-xs">
+            Abrir en vivo <span aria-hidden="true">↗</span>
+          </a>
+
+          <!-- Botón de Cerrar -->
+          <button
+            type="button"
+            data-preview-close
+            class="grid size-8 place-items-center rounded-full bg-white/10 text-sm text-light hover:bg-white/20 transition-colors"
+            aria-label="Cerrar ventana de preview"
+          >
+            ✕
+          </button>
+        </div>
+      </header>
+
+      <!-- Contenedor del iframe interactivo -->
+      <div class="relative flex-1 bg-carbon overflow-hidden">
+        <div class="preview-frame" data-preview-wrap>
+          <iframe
+            title="Preview interactiva del sitio web"
+            data-preview-frame
+            class="size-full border-0 bg-carbon"
+            referrerpolicy="strict-origin-when-cross-origin"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Pie de página del modal -->
+      <footer class="flex items-center justify-between border-t border-white/10 px-5 py-2.5 text-xs text-mute bg-carbon-2/60">
+        <span>Preview en tiempo real. Puedes interactuar con los elementos directamente.</span>
+        <span class="text-light/60">Presiona ESC o clic fuera para cerrar</span>
+      </footer>
+    </div>
+  </dialog>
 </section>
+
+<script>
+  type LenisLike = { stop: () => void; start: () => void };
+  const getLenis = () => (window as unknown as { lenis?: LenisLike }).lenis;
+
+  function initPreview() {
+    const dialog = document.querySelector<HTMLDialogElement>('#case-preview');
+    if (!dialog) return;
+
+    const frame = dialog.querySelector<HTMLIFrameElement>('[data-preview-frame]');
+    const wrap = dialog.querySelector<HTMLElement>('[data-preview-wrap]');
+    const name = dialog.querySelector<HTMLElement>('[data-preview-name]');
+    const domain = dialog.querySelector<HTMLElement>('[data-preview-domain]');
+    const live = dialog.querySelector<HTMLAnchorElement>('[data-preview-live]');
+    const closeBtn = dialog.querySelector<HTMLButtonElement>('[data-preview-close]');
+    const deviceBtns = dialog.querySelectorAll<HTMLButtonElement>('[data-device]');
+    if (!frame || !wrap || !name || !domain || !live || !closeBtn) return;
+
+    const setDevice = (device: string) => {
+      wrap.classList.toggle('is-mobile', device === 'mobile');
+      deviceBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.device === device)));
+    };
+
+    const open = (url: string, title: string) => {
+      frame.src = url;
+      name.textContent = title;
+      try {
+        domain.textContent = new URL(url).hostname.replace(/^www\./, '');
+      } catch {
+        domain.textContent = url;
+      }
+      live.href = url;
+      setDevice('desktop');
+      dialog.showModal();
+      getLenis()?.stop();
+    };
+
+    document.querySelectorAll<HTMLElement>('[data-preview]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const url = trigger.dataset.preview;
+        if (url) open(url, trigger.dataset.previewTitle ?? '');
+      });
+    });
+
+    deviceBtns.forEach((b) => b.addEventListener('click', () => setDevice(b.dataset.device ?? 'desktop')));
+    closeBtn.addEventListener('click', () => dialog.close());
+    
+    // Clic en el fondo oscuro cierra el modal
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      frame.src = 'about:blank'; // libera recursos del iframe
+      getLenis()?.start();
+    });
+  }
+
+  // Inicializar al cargar el DOM o cambiar de página
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPreview);
+  } else {
+    initPreview();
+  }
+</script>
+
+<style>
+  .poster-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(55% 65% at 25% 25%, color-mix(in srgb, var(--t1) 40%, transparent), transparent 70%),
+      radial-gradient(60% 70% at 85% 90%, color-mix(in srgb, var(--t2) 35%, transparent), transparent 70%),
+      linear-gradient(160deg, #15131d, #0b0a10);
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .poster:hover .poster-bg {
+    transform: scale(1.05);
+  }
+
+  .case-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .preview-dialog {
+    width: min(1280px, calc(100% - 2rem));
+    height: min(88vh, 900px);
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    overflow: visible;
+  }
+  .preview-dialog::backdrop {
+    background: rgb(10 10 13 / 0.82);
+    backdrop-filter: blur(8px);
+  }
+  .preview-dialog[open] {
+    animation: pop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .preview-frame {
+    width: 100%;
+    height: 100%;
+    margin-inline: auto;
+    transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .preview-frame.is-mobile {
+    width: min(390px, 100%);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    border-inline: 1px solid rgb(255 255 255 / 0.15);
+  }
+
+  .device-btn {
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    color: var(--color-mute);
+    transition: background-color 0.25s, color 0.25s;
+  }
+  .device-btn[aria-pressed='true'] {
+    background: rgb(139 92 246 / 0.3);
+    color: var(--color-light);
+  }
+
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+</style>
