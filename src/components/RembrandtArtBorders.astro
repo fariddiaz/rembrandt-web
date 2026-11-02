@@ -1,6 +1,6 @@
 ---
 // Marco artístico lateral: pinturas de Rembrandt en los bordes del viewport.
-// Puramente decorativo: fijo, sin eventos de puntero y bajo el contenido (main es z-[2]).
+// Puramente decorativo: fijo, sin eventos de puntero y bajo el contenido (main es z-[2], footer es z-[10]).
 // Tres estados según la sección visible (Hero → Planes → Portafolio/Proceso):
 // las pinturas se funden entre sí (cross-fade 1.2s) con un parallax sutil.
 
@@ -89,14 +89,6 @@ const sides = [
         const max = document.documentElement.scrollHeight - innerHeight || 1;
         const shift = (scrollY / max - 0.5) * -8;
         layers.forEach((l) => (l.style.transform = `translate3d(0, ${shift.toFixed(2)}%, 0)`));
-      }
-
-      // Al aproximarse al footer, se desvanecen las leyendas para no quedar por encima de los datos
-      const footer = document.querySelector('footer');
-      if (footer) {
-        const footerRect = footer.getBoundingClientRect();
-        const isNear = footerRect.top <= innerHeight;
-        root.classList.toggle('is-footer-near', isNear);
       }
     };
 
@@ -187,7 +179,7 @@ const sides = [
     opacity: 0.08;
   }
 
-  /* Textos verticales de autor originales: impecables y elegantes */
+  /* Textos verticales de autor originales: impecables, permanentes y elegantes */
   .art-caption {
     position: absolute;
     bottom: 2.5rem;
@@ -210,11 +202,5 @@ const sides = [
   }
   .art-caption--right {
     right: 1.1rem;
-  }
-
-  /* Al llegar a la parte de abajo, las leyendas no quedan por encima del footer */
-  .art-frame.is-footer-near .art-caption {
-    opacity: 0 !important;
-    transition: opacity 0.4s ease;
   }
 </style>
