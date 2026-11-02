@@ -33,17 +33,15 @@ const wa = waSections.cuidado;
 
     <div class="md:text-right">
       <p class="font-display text-4xl md:text-5xl leading-none text-light whitespace-nowrap">
-        {carePlan.priceUsd}<span class="font-sans text-base text-mute">{carePlan.unit}</span>
+        Desde $15<span class="font-sans text-base text-mute"> USD/mes</span>
       </p>
+      <p class="text-xs text-mute mt-1 font-sans">O pago único a demanda</p>
       <a
-        href={waLink(carePlan.message)}
-        target="_blank"
-        rel="noopener"
+        href="/planes"
         class="btn btn-ghost mt-5 !py-3 !px-6 text-sm"
         data-magnetic="0.3"
-        data-cursor="WHATSAPP"
       >
-        {carePlan.cta}
+        Ver Paquetes de Cuidado
       </a>
     </div>
   </div>

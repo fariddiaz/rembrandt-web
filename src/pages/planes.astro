@@ -2,13 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { plans, carePlan, plansFaq, waLink, waSections, CONTACT_EMAIL } from '../config/site';
+import { plans, maintenancePackages, onDemandMaintenance, plansFaq, waLink, waSections, CONTACT_EMAIL } from '../config/site';
 
 const wa = waSections.planes;
 ---
 <Layout
   title="Planes y Precios · Rembrandt Studio | Webs que Venden y Automatización WhatsApp"
-  description="Planes web claros, precios cerrados y sin letras chicas. Landing express en 3 a 5 días y webs con automatización de WhatsApp 24/7 para empresarios."
+  description="Planes web claros, precios cerrados y sin letras chicas. Landing express en 4 a 6 días y webs con automatización de WhatsApp 24/7 para empresarios."
 >
   <Header activePath="/planes" />
 
@@ -43,16 +43,37 @@ const wa = waSections.planes;
       <!-- Pilares de Confianza en Liquid Glass -->
       <section class="mb-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Compromisos clave">
         <div class="glass rounded-2xl p-6">
-          <p class="font-display text-2xl text-light">3 a 5 días</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-violet-300">Entrega Express</p>
+          <p class="font-display text-2xl text-light">4 a 6 días</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-violet-300">Entrega Rápida & Perfecta</p>
           <p class="mt-2 text-xs leading-relaxed text-mute">
-            Garantía de entrega ágil en planes express. Tu web lista y funcionando sin demoras de meses.
+            Garantía estricta en planes express. El tiempo exacto para maquetar, afinar y entregar sin fallos.
           </p>
         </div>
 
         <div class="glass rounded-2xl p-6">
           <p class="font-display text-2xl text-light">24/7</p>
           <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-rose-300">WhatsApp Inteligente</p>
+          <p class="mt-2 text-xs leading-relaxed text-mute">
+            Automatización que saluda, califica prospectos, comparte tu catálogo y agenda reuniones día y noche.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <p class="font-display text-2xl text-light">100% Tuya</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-emerald-300">Propiedad Total</p>
+          <p class="mt-2 text-xs leading-relaxed text-mute">
+            Sin mensualidades obligatorias ni plataformas cerradas. El código fuente y tu dominio te pertenecen.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <p class="font-display text-2xl text-light">0.7s</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-wider text-amber-300">Velocidad Extrema</p>
+          <p class="mt-2 text-xs leading-relaxed text-mute">
+            Astro + Tailwind. Carga instantánea en cualquier celular para no perder ni un solo cliente potencial.
+          </p>
+        </div>
+      </section>
           <p class="mt-2 text-xs leading-relaxed text-mute">
             Automatización que saluda, califica prospectos, comparte tu catálogo y agenda reuniones día y noche.
           </p>
@@ -215,99 +236,162 @@ const wa = waSections.planes;
           <div class="space-y-4 lg:col-span-7">
             <div class="rounded-2xl border border-white/10 bg-carbon-2/80 p-5 backdrop-blur-md">
               <div class="flex items-center justify-between text-xs text-mute">
-                <span class="font-mono text-violet-300 font-semibold">PASO 01 · Captación Inmediata</span>
-                <span>Tiempo: 0 segundos</span>
+                <span class="font-mono text-violet-300 font-semibold">Momento I · El Clic de Interés</span>
+                <span>Inmediatez: 0s</span>
               </div>
               <p class="mt-2 text-sm font-semibold text-light">
-                El cliente visita tu web y da clic en cotizar
+                El cliente entra a tu web y solicita información
               </p>
               <p class="mt-1 text-xs text-mute">
-                Llega directamente a tu WhatsApp con un mensaje estructurado indicando el servicio o producto de su interés.
+                Llega directamente a tu WhatsApp con un mensaje estructurado indicando el servicio o producto exacto de su interés.
               </p>
             </div>
 
             <div class="rounded-2xl border border-violet/30 bg-violet/5 p-5 backdrop-blur-md">
               <div class="flex items-center justify-between text-xs text-violet-300">
-                <span class="font-mono font-semibold">PASO 02 · Respuesta Inteligente 24/7</span>
-                <span>Tiempo: &lt; 3 segundos</span>
+                <span class="font-mono font-semibold">Momento II · Acogida Inmediata 24/7</span>
+                <span>Respuesta: &lt; 3 segundos</span>
               </div>
               <p class="mt-2 text-sm font-semibold text-light">
-                El bot saluda cordialmente y presenta las opciones
+                El asistente virtual saluda con la voz de tu marca
               </p>
               <p class="mt-1 text-xs text-mute">
-                "¡Hola! Gracias por escribir a [Tu Marca]. ¿En qué podemos ayudarte hoy? (1) Precios y planes, (2) Agendar videollamada, (3) Hablar con un asesor".
+                "¡Hola! Bienvenido a [Tu Empresa]. Con gusto te asesoramos: (1) Ver tarifas y catálogo, (2) Agendar videollamada, (3) Hablar con un especialista".
               </p>
             </div>
 
             <div class="rounded-2xl border border-white/10 bg-carbon-2/80 p-5 backdrop-blur-md">
               <div class="flex items-center justify-between text-xs text-mute">
-                <span class="font-mono text-rose-300 font-semibold">PASO 03 · Filtro & Calificación Comercial</span>
-                <span>Tiempo: Automático</span>
+                <span class="font-mono text-rose-300 font-semibold">Momento III · Filtro de Alto Valor</span>
+                <span>Proceso: Calificación en vivo</span>
               </div>
               <p class="mt-2 text-sm font-semibold text-light">
-                Filtra curiosos y recopila los datos del cliente
+                Filtra curiosos y recopila los datos clave
               </p>
               <p class="mt-1 text-xs text-mute">
-                Pregunta ciudad, presupuesto estimado o requerimiento específico. Si el cliente está listo para comprar, le envía tu catálogo o enlace de pago directo.
+                Identifica ciudad, tipo de requerimiento y presupuesto disponible. Si está listo para comprar, le despacha tu catálogo o enlace de pago directo.
               </p>
             </div>
 
             <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 backdrop-blur-md">
               <div class="flex items-center justify-between text-xs text-emerald-300">
-                <span class="font-mono font-semibold">PASO 04 · Agendamiento & Cierre de Venta</span>
+                <span class="font-mono font-semibold">Momento IV · El Encuentro de Cierre</span>
                 <span>Resultado: Venta asistida</span>
               </div>
               <p class="mt-2 text-sm font-semibold text-light">
-                Cita en tu calendario o aviso a tu celular para cerrar
+                Cita agendada o alerta a tu WhatsApp personal
               </p>
               <p class="mt-1 text-xs text-mute">
-                Sincroniza la cita en Google Calendar / Cal.com y te envía un aviso: "Cliente listo con presupuesto para contratar". Solo entras a cerrar.
+                El prospecto agenda en tu calendario (Google Calendar o Cal.com) y tú recibes una alerta prioritaria en tu móvil con todo el resumen del cliente.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Plan Cuidado y Tranquilidad Técnica -->
-      <section class="glass mb-24 rounded-[2rem] p-8 md:p-12 border border-white/10" aria-label="Mantenimiento web">
-        <div class="grid gap-8 md:grid-cols-12 md:items-center">
-          <div class="md:col-span-8">
-            <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">
-              Tranquilidad Técnica Post-Lanzamiento
-            </p>
-            <h2 class="mt-2 font-display text-[clamp(1.8rem,3vw,2.5rem)] text-light">
-              {carePlan.name} · <span class="font-sans text-lg text-mute font-normal">{carePlan.subtitle}</span>
-            </h2>
-            <p class="mt-3 text-sm md:text-base text-mute leading-relaxed max-w-2xl">
-              Nos encargamos del servidor, los respaldos semanales, las actualizaciones de seguridad y el soporte prioritario por WhatsApp para cambios de textos o fotos cada mes. Tu web siempre impecable mientras tú te dedicas a tu negocio.
-            </p>
-
-            <ul class="mt-6 grid gap-2 sm:grid-cols-2 text-xs md:text-sm text-light/90">
-              {carePlan.features.map((f) => (
-                <li class="flex items-center gap-2">
-                  <span class="size-1.5 rounded-full bg-violet-400"></span>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div class="md:col-span-4 md:text-right border-t border-white/10 pt-6 md:border-t-0 md:pt-0">
-            <p class="font-display text-4xl md:text-5xl text-light leading-none">
-              {carePlan.priceUsd}
-            </p>
-            <p class="mt-1 text-xs text-mute font-sans">{carePlan.unit} · Sin contratos de permanencia</p>
-            <a
-              href={waLink(carePlan.message)}
-              target="_blank"
-              rel="noopener"
-              class="btn btn-ghost mt-6 !py-3 !px-6 text-sm"
-              data-magnetic="0.3"
-            >
-              {carePlan.cta}
-            </a>
-          </div>
+      <!-- Servicios de Mantenimiento Mensual en Paquetes & Opción a Demanda -->
+      <section class="mb-24" aria-labelledby="maintenance-section-title">
+        <div class="mb-12 text-center max-w-3xl mx-auto">
+          <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">
+            Soporte Continuo & Tranquilidad Post-Lanzamiento
+          </p>
+          <h2 id="maintenance-section-title" class="mt-2 font-display text-3xl md:text-5xl text-light">
+            Mantenimiento mensual para que tu web nunca se detenga
+          </h2>
+          <p class="mt-4 text-base md:text-lg text-mute leading-relaxed">
+            Un servicio opcional y accesible diseñado para que tu web siga cargando rápido, segura y con tus contenidos al día sin que tengas que lidiar con problemas técnicos ni pagar mensualidades abusivas.
+          </p>
         </div>
+
+        <!-- Grid de los 3 Paquetes de Mantenimiento -->
+        <div class="grid gap-6 lg:grid-cols-3">
+          {maintenancePackages.map((pkg) => (
+            <article
+              class:list={[
+                'glass flex flex-col justify-between rounded-[2rem] p-7 md:p-8 transition-all duration-300',
+                pkg.featured
+                  ? 'border-violet/40 bg-white/[0.04] lg:-translate-y-2 shadow-2xl ring-1 ring-violet/30'
+                  : 'border-white/10',
+              ]}
+            >
+              <div>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-violet-300">
+                    {pkg.badge}
+                  </span>
+                  {pkg.featured && (
+                    <span class="rounded-md border border-white/20 bg-white/10 px-2.5 py-0.5 text-[0.68rem] font-medium text-light">
+                      Más Elegido
+                    </span>
+                  )}
+                </div>
+
+                <h3 class="mt-3 font-display text-2xl text-light">{pkg.name}</h3>
+                <p class="mt-2 text-xs text-mute leading-relaxed">{pkg.audience}</p>
+
+                <div class="mt-6 border-y border-white/10 py-4">
+                  <div class="flex items-baseline gap-1">
+                    <span class="font-display text-4xl text-light leading-none">{pkg.priceUsd}</span>
+                    <span class="text-xs text-mute font-sans">{pkg.period}</span>
+                  </div>
+                  <p class="mt-1 text-xs text-mute">{pkg.priceCop}</p>
+                  {pkg.annualDiscount && (
+                    <p class="mt-2 text-[0.72rem] text-emerald-400 font-medium">{pkg.annualDiscount}</p>
+                  )}
+                </div>
+
+                <ul class="mt-6 space-y-2.5 text-xs text-light/90">
+                  {pkg.features.map((feat) => (
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 size-1.5 shrink-0 rounded-full bg-violet-400"></span>
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="mt-8 pt-5 border-t border-white/10">
+                <a
+                  href={waLink(pkg.message)}
+                  target="_blank"
+                  rel="noopener"
+                  class:list={[
+                    'btn w-full justify-center text-center !py-2.5 text-xs font-medium',
+                    pkg.featured ? 'btn-light' : 'btn-ghost',
+                  ]}
+                  data-magnetic="0.2"
+                >
+                  {pkg.cta}
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- Opción Sin Mensualidad (Pago Único / A Demanda) -->
+        <aside class="glass mt-8 rounded-[2rem] p-7 md:p-10 border border-white/10" aria-label="Opción a demanda">
+          <div class="grid gap-6 md:grid-cols-12 md:items-center">
+            <div class="md:col-span-7">
+              <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">Libertad Total</p>
+              <h3 class="mt-1 font-display text-2xl text-light">
+                {onDemandMaintenance.title}
+              </h3>
+              <p class="mt-3 text-xs md:text-sm text-mute leading-relaxed">
+                {onDemandMaintenance.desc}
+              </p>
+            </div>
+
+            <div class="md:col-span-5 space-y-2.5 border-t border-white/10 pt-5 md:border-t-0 md:pt-0">
+              <p class="text-xs font-semibold uppercase tracking-wider text-light/80 mb-2">Tarifas de ajustes puntuales:</p>
+              {onDemandMaintenance.rates.map((rate) => (
+                <div class="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] p-3 text-xs">
+                  <span class="text-mute pr-2">{rate.task}</span>
+                  <span class="font-mono font-bold text-light whitespace-nowrap">{rate.price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
       </section>
 
       <!-- Tabla Comparativa de Planes -->
@@ -333,12 +417,12 @@ const wa = waSections.planes;
             </thead>
             <tbody class="divide-y divide-white/5 text-light/90">
               <tr>
-                <td class="py-3.5 pr-4 font-medium text-light">Tiempo de Entrega</td>
-                <td class="py-3.5 px-3 text-center font-mono">3–5 días</td>
-                <td class="py-3.5 px-3 text-center font-mono">5–7 días</td>
-                <td class="py-3.5 px-3 text-center font-mono text-violet-300 font-bold bg-white/[0.03]">7–10 días</td>
-                <td class="py-3.5 px-3 text-center font-mono">10–14 días</td>
-                <td class="py-3.5 px-3 text-center font-mono">A convenir</td>
+                <td class="py-3.5 pr-4 font-medium text-light">Tiempo de Entrega (Rápido & Perfecto)</td>
+                <td class="py-3.5 px-3 text-center font-mono font-medium">4–6 días</td>
+                <td class="py-3.5 px-3 text-center font-mono font-medium">8–12 días</td>
+                <td class="py-3.5 px-3 text-center font-mono text-violet-300 font-bold bg-white/[0.03]">12–15 días</td>
+                <td class="py-3.5 px-3 text-center font-mono font-medium">15–20 días</td>
+                <td class="py-3.5 px-3 text-center font-mono font-medium">3–5 semanas</td>
               </tr>
               <tr>
                 <td class="py-3.5 pr-4 font-medium text-light">Estructura</td>

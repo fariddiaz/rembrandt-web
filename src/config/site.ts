@@ -69,17 +69,17 @@ export const plans: Plan[] = [
   {
     id: 'express',
     name: 'Página Web Express',
-    badge: 'Entrega 3–5 días',
+    badge: 'Entrega 4–6 días',
     audience:
-      'Para emprendedores y negocios de servicios que necesitan una página web moderna, profesional y lista para recibir clientes por WhatsApp en 3 a 5 días.',
+      'Para emprendedores y negocios de servicios que necesitan una página web moderna, profesional y lista para recibir clientes por WhatsApp en 4 a 6 días hábiles.',
     priceUsd: '$249 USD',
     priceCop: '~$990.000 COP',
-    delivery: 'Garantía de entrega en 3 a 5 días hábiles',
+    delivery: 'Garantía de entrega en 4 a 6 días hábiles',
     features: [
-      'Página de aterrizaje (Landing Page) de alto impacto y conversión',
-      'Diseño de autor a medida con los colores y estilo de tu marca',
+      'Página de aterrizaje (Landing Page) de alto impacto y conversión probada',
+      'Diseño de autor a medida con los colores y la personalidad de tu marca',
       'Botón directo a WhatsApp y formulario express conectado a tu correo',
-      'Carga ultrarrápida (0.7 segundos) optimizada para celulares',
+      'Carga ultrarrápida (0.7 segundos) optimizada para teléfonos móviles',
       'Dominio propio, certificado de seguridad SSL y alta en Google',
       'Sin costos ocultos: la web y su código te pertenecen al 100%',
     ],
@@ -94,7 +94,7 @@ export const plans: Plan[] = [
       'Para empresas constituidas y firmas que ofrecen múltiples servicios y necesitan posicionarse con máxima autoridad, confianza institucional y visibilidad en Google.',
     priceUsd: '$399 USD',
     priceCop: '~$1.590.000 COP',
-    delivery: 'Entrega en 5 a 7 días hábiles',
+    delivery: 'Entrega en 8 a 12 días hábiles',
     features: [
       'Estructura multi-página: Inicio, Servicios, Nosotros, Portafolio y Contacto',
       'Diseño editorial exclusivo en claroscuro con Liquid Glass',
@@ -114,7 +114,7 @@ export const plans: Plan[] = [
       'El plan favorito de empresarios ocupados: tu página web capta prospectos y un sistema automatizado en WhatsApp responde al instante, califica al cliente y agenda citas las 24 horas.',
     priceUsd: '$490 USD',
     priceCop: '~$1.950.000 COP',
-    delivery: 'Entrega en 7 a 10 días hábiles',
+    delivery: 'Entrega en 12 a 15 días hábiles',
     features: [
       'Todo lo incluido en la Web Corporativa de alto rendimiento',
       'Automatización de bienvenida y respuesta inmediata en WhatsApp 24/7',
@@ -135,7 +135,7 @@ export const plans: Plan[] = [
       'Para marcas y comercios que quieren vender productos físicos o digitales con pagos en línea automáticos y una experiencia de compra fluida sin comisiones abusivas.',
     priceUsd: '$590 USD',
     priceCop: '~$2.390.000 COP',
-    delivery: 'Entrega en 10 a 14 días hábiles',
+    delivery: 'Entrega en 15 a 20 días hábiles',
     features: [
       'Catálogo interactivo con carrito de compras y ficha técnica por producto',
       'Pasarela de pagos en línea integrada: Stripe, Wompi, PSE, Tarjetas de crédito/débito',
@@ -154,7 +154,7 @@ export const plans: Plan[] = [
     audience:
       'Para marcas de lujo, estudios de arquitectura, startups y empresas que buscan una presencia digital única en el mundo con interactividad 3D (Spline/WebGL) y diseño de autor sin plantillas.',
     priceUsd: 'Desde $950 USD',
-    delivery: 'Entrega en 2 a 3 semanas',
+    delivery: 'Entrega en 3 a 5 semanas (20 a 25 días hábiles)',
     features: [
       'Modelado e integración de elementos 3D interactivos en tiempo real',
       'Animaciones cinemáticas al scroll y dirección de arte exclusiva',
@@ -168,18 +168,107 @@ export const plans: Plan[] = [
   },
 ];
 
+// ── Servicios de Mantenimiento Mensual en Paquetes & Opción a Demanda ───
+
+export interface MaintenancePackage {
+  id: string;
+  name: string;
+  badge?: string;
+  audience: string;
+  priceUsd: string;
+  priceCop: string;
+  period: string;
+  annualDiscount?: string;
+  features: string[];
+  cta: string;
+  message: string;
+  featured?: boolean;
+}
+
+export const maintenancePackages: MaintenancePackage[] = [
+  {
+    id: 'esencial',
+    name: 'Cuidado Esencial',
+    badge: 'Servidor & Uptime 99.9%',
+    audience: 'Para landing pages y webs informativas que necesitan estar siempre activas, rápidas y seguras sin preocupaciones técnicas.',
+    priceUsd: '$15 USD',
+    priceCop: '~$59.000 COP',
+    period: '/mes',
+    annualDiscount: '$149 USD/año (Ahorras 2 meses)',
+    features: [
+      'Alojamiento en Servidores Cloud ultrarrápidos con CDN global',
+      'Certificado de seguridad SSL (HTTPS) renovado automáticamente',
+      'Copias de seguridad semanales automáticas en la nube',
+      'Monitoreo de actividad 24/7 (si la web cae, se levanta de inmediato)',
+      'Actualizaciones de seguridad y parches de compatibilidad móvil',
+    ],
+    cta: 'Elegir Cuidado Esencial',
+    message: 'Hola Rembrandt Studio, me interesa el Plan Cuidado Esencial ($15 USD/mes) para mi web.',
+  },
+  {
+    id: 'activo',
+    name: 'Cuidado Activo',
+    badge: 'El Más Elegido por Negocios',
+    audience: 'Para empresas en crecimiento que actualizan promociones, fotos de proyectos, precios o servicios cada mes sin perder tiempo.',
+    priceUsd: '$29 USD',
+    priceCop: '~$115.000 COP',
+    period: '/mes',
+    annualDiscount: '$290 USD/año (Ahorras 2 meses)',
+    features: [
+      'Todo lo incluido en el Plan Cuidado Esencial',
+      'Hasta 2 horas de modificaciones mensuales (textos, fotos, banners, precios)',
+      'Soporte prioritario directo por WhatsApp (< 2 horas de respuesta hábil)',
+      'Chequeo mensual de velocidad de carga (< 1 segundo)',
+      'Ajustes de SEO básico en nuevas publicaciones y servicios',
+    ],
+    cta: 'Elegir Cuidado Activo',
+    message: 'Hola Rembrandt Studio, me interesa el Plan Cuidado Activo ($29 USD/mes) para mi web.',
+    featured: true,
+  },
+  {
+    id: 'pro-auto',
+    name: 'Cuidado Pro & Automatizaciones',
+    badge: 'Empresas, Tiendas & Chatbots',
+    audience: 'Para negocios con Web + Automatización WhatsApp o E-commerce que dependen de su plataforma para captar y vender a diario.',
+    priceUsd: '$49 USD',
+    priceCop: '~$195.000 COP',
+    period: '/mes',
+    annualDiscount: '$490 USD/año (Ahorras 2 meses)',
+    features: [
+      'Todo lo incluido en el Plan Cuidado Activo',
+      'Supervisión continua del Chatbot de WhatsApp y ajuste de flujos',
+      'Monitoreo técnico de pasarelas de pago (Stripe, Bold, Wompi, PSE)',
+      'Hasta 4 horas de cambios y ajustes mensuales prioritarios',
+      'Informe mensual simplificado de visitas y contactos recibidos',
+      'Atención VIP preferencial los 7 días de la semana',
+    ],
+    cta: 'Elegir Cuidado Pro',
+    message: 'Hola Rembrandt Studio, me interesa el Plan Cuidado Pro & Automatizaciones ($49 USD/mes) para mi web.',
+  },
+];
+
+export const onDemandMaintenance = {
+  title: '¿Prefieres no pagar mensualidades? Opción a Demanda (Pago Único)',
+  desc: 'En Rembrandt Studio el código y la web son 100% de tu propiedad. Si prefieres no tener un plan mensual recurrente, no hay ningún problema: te entregamos tu sitio con su hosting configurado. Cuando necesites un cambio puntual en el futuro, simplemente nos escribes por WhatsApp y pagas una tarifa fija única solo por el trabajo realizado.',
+  rates: [
+    { task: 'Ajuste puntual simple (cambio de teléfono, correo, precios o textos breves)', price: '$15 USD', cop: '~$59.000 COP' },
+    { task: 'Actualización de banner, fotos de galería o publicación de nuevo servicio', price: '$29 USD', cop: '~$115.000 COP' },
+    { task: 'Optimización técnica integral o ajuste de árbol en Chatbot WhatsApp', price: '$45 USD', cop: '~$180.000 COP' },
+  ],
+};
+
 export const carePlan = {
-  name: 'Plan Cuidado',
-  subtitle: 'Mantenimiento y tranquilidad mensual',
-  priceUsd: '$19 USD',
+  name: 'Planes de Mantenimiento & Tranquilidad',
+  subtitle: 'Desde $15 USD/mes o pago único a demanda',
+  priceUsd: '$15 USD',
   unit: '/mes',
   features: [
-    'Hosting en servidores ultra-rápidos de fibra óptica y certificado de seguridad SSL incluido',
+    'Alojamiento en Servidores Cloud ultrarrápidos y certificado de seguridad SSL incluido',
     'Copias de seguridad continuas y monitoreo 24/7 para garantizar 99.9% de actividad',
-    'Soporte prioritario por WhatsApp para cambios de textos, fotos, precios y actualizaciones cada mes',
-    'Sin contratos de permanencia: puedes pausar o cancelar en cualquier momento con un clic',
+    'Soporte prioritario por WhatsApp para cambios de textos, fotos, precios y actualizaciones',
+    'Sin contratos de permanencia: puedes pausar, cancelar o cambiar de plan cuando quieras',
   ],
-  cta: 'Activar Plan Cuidado',
+  cta: 'Ver Paquetes de Mantenimiento',
   message: waSections.cuidado.message,
 };
 
@@ -191,8 +280,8 @@ export const plansFaq = [
     a: 'Solo el logo de tu empresa (si lo tienes), información básica de tus servicios o productos y fotos de tu trabajo. Si no tienes fotos profesionales o textos redactados, nosotros te ayudamos a estructurarlos para que tu web venda desde el primer día.',
   },
   {
-    q: '¿Cómo funciona la entrega en 3 a 5 días del Plan Express?',
-    a: 'Trabajamos con un proceso de ingeniería ágil y sin intermediarios. Una vez recibidos tus datos y aprobado el esquema visual, programamos tu sitio en 3 a 5 días hábiles garantizados por contrato.',
+    q: '¿Cómo funciona la entrega en 4 a 6 días del Plan Express?',
+    a: 'Es el plazo exacto para lograr una web rápida y perfecta. Trabajamos con un proceso de ingeniería ágil y directo: en 4 a 6 días hábiles redactamos los textos comerciales, diseñamos la propuesta visual de autor, programamos en código limpio y conectamos tu dominio propio sin demoras.',
   },
   {
     q: '¿Cómo funciona la automatización de WhatsApp?',
