@@ -90,6 +90,14 @@ const sides = [
         const shift = (scrollY / max - 0.5) * -8;
         layers.forEach((l) => (l.style.transform = `translate3d(0, ${shift.toFixed(2)}%, 0)`));
       }
+
+      // Detectar cuando el footer entra en la ventana para que las leyendas no crucen la línea divisoria
+      const footer = document.querySelector('footer');
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        const isNear = footerRect.top <= innerHeight;
+        root.classList.toggle('is-footer-near', isNear);
+      }
     };
 
     const onScroll = () => {
@@ -147,25 +155,25 @@ const sides = [
     opacity: 0.16;
   }
 
-  /* Viñeta: se disuelve hacia el centro y también arriba/abajo, fundiéndose en el carbón */
+  /* Viñeta: se disuelve hacia el centro y suavemente antes del fondo, fundiéndose en el carbón */
   .art-border--left .art-parallax {
     -webkit-mask-image:
       linear-gradient(to right, #000 0%, transparent 80%),
-      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 75%, transparent 92%);
     -webkit-mask-composite: source-in;
     mask-image:
       linear-gradient(to right, #000 0%, transparent 80%),
-      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 75%, transparent 92%);
     mask-composite: intersect;
   }
   .art-border--right .art-parallax {
     -webkit-mask-image:
       linear-gradient(to left, #000 0%, transparent 80%),
-      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 75%, transparent 92%);
     -webkit-mask-composite: source-in;
     mask-image:
       linear-gradient(to left, #000 0%, transparent 80%),
-      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 75%, transparent 92%);
     mask-composite: intersect;
   }
 
@@ -181,7 +189,7 @@ const sides = [
 
   .art-caption {
     position: absolute;
-    bottom: 2.5rem;
+    bottom: 3.5rem;
     writing-mode: vertical-rl;
     font-size: 0.62rem;
     letter-spacing: 0.32em;
@@ -189,7 +197,8 @@ const sides = [
     color: var(--color-light);
     opacity: 0;
     white-space: nowrap;
-    transition: opacity 1.2s var(--ease-cine);
+    transition: opacity 0.5s var(--ease-cine);
+    pointer-events: none;
   }
   .art-caption.is-active {
     opacity: 0.18;
@@ -200,5 +209,12 @@ const sides = [
   }
   .art-caption--right {
     right: 1.1rem;
+  }
+
+  /* Al llegar al footer, las leyendas laterales se desvanecen limpiamente
+     para que nunca corten la línea divisoria ni se mezclen con el contenido del footer */
+  .art-frame.is-footer-near .art-caption {
+    opacity: 0 !important;
+    transition: opacity 0.3s ease;
   }
 </style>
