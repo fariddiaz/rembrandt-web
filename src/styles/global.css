@@ -66,33 +66,32 @@
 
 /* ── Componentes ──────────────────────────────────────────────── */
 @layer components {
-  /* Vidrio oscuro con borde iluminado (borde degradado vía máscara) */
+  /* Liquid Glass: vidrio translúcido neutro, borde fino y sombra profunda sin neón */
   .glass {
     position: relative;
-    background: linear-gradient(160deg, rgb(28 25 38 / 0.72), rgb(12 11 16 / 0.6));
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
     box-shadow:
-      inset 0 1px 0 rgb(252 251 254 / 0.06),
-      0 40px 90px -40px rgb(124 58 237 / 0.45);
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+      0 30px 60px -30px rgba(0, 0, 0, 0.7),
+      0 12px 24px -12px rgba(0, 0, 0, 0.45);
   }
+  /* Reflejo especular: luz cenital que se desvanece sobre el cristal */
   .glass::after {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    padding: 1px;
     pointer-events: none;
     background: linear-gradient(
-      150deg,
-      rgb(167 139 250 / 0.75),
-      rgb(139 92 246 / 0.12) 35%,
-      rgb(139 92 246 / 0.05) 65%,
-      rgb(252 251 254 / 0.35)
+      180deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.015) 22%,
+      transparent 45%
     );
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
   }
 
   .btn {
@@ -107,18 +106,33 @@
     transition: background-color 0.3s var(--ease-cine), box-shadow 0.3s var(--ease-cine), color 0.3s;
     will-change: transform;
   }
+  /* Botones con reflejo especular sutil (luz superior + sombra de contacto), sin resplandor */
   .btn-light {
-    background: var(--color-light);
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-light) 55%, #e9e6f0 100%);
     color: var(--color-carbon);
-    box-shadow: 0 0 0 0 rgb(139 92 246 / 0);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(10, 10, 13, 0.12),
+      0 10px 24px -12px rgba(0, 0, 0, 0.6);
   }
-  .btn-light:hover { box-shadow: 0 0 40px 4px rgb(139 92 246 / 0.55); }
+  .btn-light:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(10, 10, 13, 0.12),
+      0 16px 32px -14px rgba(0, 0, 0, 0.7);
+  }
   .btn-ghost {
     color: var(--color-light);
-    background: rgb(139 92 246 / 0.08);
-    box-shadow: inset 0 0 0 1px rgb(139 92 246 / 0.45);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
-  .btn-ghost:hover { background: rgb(139 92 246 / 0.2); }
+  .btn-ghost:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.04) 100%);
+  }
 
   /* Halo de luz tipo foco de Rembrandt */
   .spotlight {
@@ -176,7 +190,7 @@ html.has-cursor .cursor-ring { opacity: 1; }
   margin: -43px 0 0 -43px;
   background: var(--color-light);
   border-color: transparent;
-  box-shadow: 0 0 40px rgb(139 92 246 / 0.6);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
 }
 .cursor-ring.is-label .cursor-label { opacity: 1; transform: scale(1); }
 .cursor-ring.is-hover {

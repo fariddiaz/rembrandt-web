@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" fill="none">
+  <path d="M16 8L26 26H6L16 8Z" fill="white" opacity="0.85"/>
+  <path d="M16 16L22 26H10L16 16Z" fill="#07070a"/>
+  <text x="36" y="26" font-family="system-ui, sans-serif" font-weight="600" font-size="15" letter-spacing="3" fill="white" opacity="0.85">ORION</text>
+</svg>

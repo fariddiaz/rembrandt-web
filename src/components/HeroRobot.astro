@@ -19,6 +19,8 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     role="img"
     aria-label="Robot 3D interactivo que sigue el movimiento del cursor"
   ></canvas>
+  <!-- Niebla inferior sobre el canvas: refuerza la máscara para que no se vea el borde -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-carbon via-carbon/80 to-transparent" aria-hidden="true"></div>
 </div>
 
 <script>
@@ -104,6 +106,9 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     position: absolute;
     inset: 0;
     pointer-events: none;
+    /* Las piernas del robot se desvanecen hacia abajo en lugar de cortarse */
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 68%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 68%, transparent 100%);
   }
 
   /* Halo violeta y carmesí detrás del robot: visible desde el primer instante */

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" fill="none">
+  <circle cx="16" cy="20" r="10" stroke="white" stroke-width="2" opacity="0.85"/>
+  <circle cx="16" cy="20" r="4" fill="white" opacity="0.85"/>
+  <text x="36" y="26" font-family="system-ui, sans-serif" font-weight="600" font-size="15" letter-spacing="3" fill="white" opacity="0.85">AURA</text>
+</svg>

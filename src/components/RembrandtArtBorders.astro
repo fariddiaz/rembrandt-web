@@ -1,17 +1,112 @@
 ---
 // Marco artístico lateral: pinturas de Rembrandt en los bordes del viewport.
 // Puramente decorativo: fijo, sin eventos de puntero y bajo el contenido (main es z-[2]).
+// Tres estados según la sección visible (Hero → Planes → Portafolio/Proceso):
+// las pinturas se funden entre sí (cross-fade 1.2s) con un parallax sutil.
+
+interface Artwork {
+  src: string;
+  caption: string;
+}
+
+const left: Artwork[] = [
+  { src: '/art/storm.jpg', caption: 'Tormenta en el Mar de Galilea · 1633' },
+  { src: '/art/philosopher.jpg', caption: 'Filósofo en Meditación · 1632' },
+  { src: '/art/anatomy.jpg', caption: 'Lección de Anatomía · 1632' },
+];
+const right: Artwork[] = [
+  { src: '/art/nightwatch.jpg', caption: 'La Ronda de Noche · 1642' },
+  { src: '/art/jewishbride.jpg', caption: 'La Novia Judía · 1667' },
+  { src: '/art/belshazzar.jpg', caption: 'El Festín de Belsasar · 1635' },
+];
+
+const sides = [
+  { side: 'left', works: left },
+  { side: 'right', works: right },
+] as const;
 ---
-<div class="pointer-events-none fixed inset-0 z-0 hidden select-none xl:block" aria-hidden="true">
-  <div class="art-border art-border--left">
-    <img src="/art/storm.jpg" alt="" loading="lazy" decoding="async" draggable="false" />
-    <span class="art-caption art-caption--left">Rembrandt · 1633</span>
-  </div>
-  <div class="art-border art-border--right">
-    <img src="/art/nightwatch.jpg" alt="" loading="lazy" decoding="async" draggable="false" />
-    <span class="art-caption art-caption--right">De Nachtwacht · 1642</span>
-  </div>
+<div class="art-frame pointer-events-none fixed inset-0 z-0 hidden select-none xl:block" aria-hidden="true" data-art-borders>
+  {sides.map(({ side, works }) => (
+    <div class={`art-border art-border--${side}`}>
+      <div class="art-parallax" data-art-parallax>
+        {works.map((w, i) => (
+          <img
+            src={w.src}
+            alt=""
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            draggable="false"
+            class:list={['art-img', i === 0 && 'is-active']}
+            data-art-state={i}
+          />
+        ))}
+      </div>
+      {works.map((w, i) => (
+        <span class:list={['art-caption', `art-caption--${side}`, i === 0 && 'is-active']} data-art-state={i}>
+          {w.caption}
+        </span>
+      ))}
+    </div>
+  ))}
 </div>
+
+<script>
+  // Sección → estado del marco. Las secciones intermedias heredan el último estado alcanzado.
+  const STATE_ANCHORS: [string, number][] = [
+    ['#planes', 1],
+    ['#trabajo', 2],
+  ];
+
+  function initArtBorders() {
+    const root = document.querySelector<HTMLElement>('[data-art-borders]');
+    if (!root) return;
+
+    const layers = root.querySelectorAll<HTMLElement>('[data-art-parallax]');
+    const items = root.querySelectorAll<HTMLElement>('[data-art-state]');
+    const anchors = STATE_ANCHORS.map(([sel, state]) => [document.querySelector<HTMLElement>(sel), state] as const);
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let current = 0;
+    let raf = 0;
+
+    const setState = (state: number) => {
+      if (state === current) return;
+      current = state;
+      items.forEach((el) => el.classList.toggle('is-active', Number(el.dataset.artState) === state));
+    };
+
+    const update = () => {
+      raf = 0;
+      const probe = innerHeight * 0.5;
+      let state = 0;
+      for (const [el, s] of anchors) {
+        if (el && el.getBoundingClientRect().top <= probe) state = s;
+      }
+      setState(state);
+
+      if (!reduceMotion) {
+        // Parallax sutil: la pintura se desplaza más lento que el contenido (máx. ±4% de su alto)
+        const max = document.documentElement.scrollHeight - innerHeight || 1;
+        const shift = (scrollY / max - 0.5) * -8;
+        layers.forEach((l) => (l.style.transform = `translate3d(0, ${shift.toFixed(2)}%, 0)`));
+      }
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initArtBorders);
+  } else {
+    initArtBorders();
+  }
+</script>
 
 <style>
   .art-border {
@@ -19,6 +114,7 @@
     top: 0;
     bottom: 0;
     width: clamp(220px, 20vw, 380px);
+    overflow: hidden;
     pointer-events: none;
   }
   .art-border--left {
@@ -28,39 +124,59 @@
     right: 0;
   }
 
-  .art-border img {
+  /* Capa con margen extra arriba/abajo para que el parallax nunca muestre bordes */
+  .art-parallax {
+    position: absolute;
+    inset: -6% 0;
+    /* La máscara aísla la capa: el modo screen se aplica al grupo completo contra el carbón */
+    mix-blend-mode: screen;
+    will-change: transform;
+  }
+
+  .art-img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%) contrast(140%) brightness(80%);
-    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 1.2s var(--ease-cine);
+  }
+  .art-img.is-active {
     opacity: 0.16;
   }
-  .art-border--left img {
-    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
+
+  /* Viñeta: se disuelve hacia el centro y también arriba/abajo, fundiéndose en el carbón */
+  .art-border--left .art-parallax {
+    -webkit-mask-image:
+      linear-gradient(to right, #000 0%, transparent 80%),
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, #000 0%, transparent 80%),
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mask-composite: intersect;
   }
-  .art-border--right img {
-    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
-    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
+  .art-border--right .art-parallax {
+    -webkit-mask-image:
+      linear-gradient(to left, #000 0%, transparent 80%),
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to left, #000 0%, transparent 80%),
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mask-composite: intersect;
   }
 
   /* Tinte violeta sutil sobre el duotono, con la misma viñeta */
-  .art-border::after {
+  .art-parallax::after {
     content: '';
     position: absolute;
     inset: 0;
     background: var(--color-violet);
     mix-blend-mode: color;
     opacity: 0.08;
-  }
-  .art-border--left::after {
-    -webkit-mask-image: linear-gradient(to right, #000 0%, transparent 80%);
-    mask-image: linear-gradient(to right, #000 0%, transparent 80%);
-  }
-  .art-border--right::after {
-    -webkit-mask-image: linear-gradient(to left, #000 0%, transparent 80%);
-    mask-image: linear-gradient(to left, #000 0%, transparent 80%);
   }
 
   .art-caption {
@@ -71,8 +187,12 @@
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--color-light);
-    opacity: 0.18;
+    opacity: 0;
     white-space: nowrap;
+    transition: opacity 1.2s var(--ease-cine);
+  }
+  .art-caption.is-active {
+    opacity: 0.18;
   }
   .art-caption--left {
     left: 1.1rem;

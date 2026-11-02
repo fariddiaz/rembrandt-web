@@ -150,6 +150,8 @@ export interface CaseStudy {
   sector: string;
   /** URL pública. Sin URL se ocultan los botones de preview y "visitar". */
   url?: string;
+  /** Sitio real en producción para "Abrir en vivo" / "Visitar sitio en vivo" (si falta, se usa url). */
+  liveUrl?: string;
   /** Captura opcional (ruta en /public) para el marco del navegador. */
   image?: string;
   /** El reto: ¿qué necesitaba el cliente? */
@@ -168,7 +170,8 @@ export const caseStudies: CaseStudy[] = [
     id: 'leymar',
     client: 'Eventos Leymar',
     sector: 'Wedding Planner & Eventos · Cartagena',
-    url: 'https://eventosleymar.com',
+    url: '/preview/eventosleymar', // preview interna: el iframe carga sin bloqueos de X-Frame-Options
+    liveUrl: 'https://eventosleymar.com',
     challenge:
       'Captar novias y parejas internacionales que planean su boda de ensueño en Cartagena y recibir solicitudes de cotización directas por WhatsApp sin intermediarios.',
     solution:
@@ -180,37 +183,5 @@ export const caseStudies: CaseStudy[] = [
       { value: '+45%', label: 'Aumento en cotizaciones' },
     ],
     tint: ['#c9a27a', '#8b5cf6'],
-  },
-  {
-    id: 'atlanta',
-    client: 'Atlanta Insurance Services',
-    sector: 'Agencia de Seguros · Bilingüe (USA / Latam)',
-    challenge:
-      'Proyectar autoridad y confianza institucional para que clientes angloparlantes e hispanos pudieran comparar y cotizar pólizas en línea con rapidez y sencillez.',
-    solution:
-      'Un sitio corporativo bilingüe (ES / EN) con desglose de pólizas comerciales, señales visuales de confianza y formularios dinámicos conectados a WhatsApp y CRM.',
-    impact:
-      'Una presencia digital sólida y confiable que genera prospectos calificados a diario y atiende por igual a clientes en inglés y español.',
-    metrics: [
-      { value: 'ES / EN', label: 'Plataforma 100% bilingüe' },
-      { value: '3x', label: 'Más prospectos calificados' },
-    ],
-    tint: ['#3b82f6', '#8b5cf6'],
-  },
-  {
-    id: 'kroma',
-    client: 'Kroma Advisory',
-    sector: 'Fintech & Consultoría de Inversión',
-    challenge:
-      'Proyectar prestigio y solidez tecnológica ante inversionistas institucionales para apoyar una ronda de capitalización.',
-    solution:
-      'Una experiencia digital vanguardista con gráficos 3D interactivos en tiempo real, arquitectura de información pulcra y una narrativa financiera contundente.',
-    impact:
-      'Una presencia digital de alto estatus que acompaña presentaciones ejecutivas y distingue de forma inmediata a la firma frente a sus competidores.',
-    metrics: [
-      { value: '3D', label: 'Visualización interactiva' },
-      { value: '100/100', label: 'Rendimiento en Lighthouse' },
-    ],
-    tint: ['#10b981', '#8b5cf6'],
   },
 ];

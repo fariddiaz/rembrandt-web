@@ -1,0 +1,183 @@
+---
+// Preview interactiva interna de Eventos Leymar
+// Se carga dentro del modal sin bloqueos de X-Frame-Options
+---
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventos Leymar · Wedding Planner Cartagena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #0c0b0e;
+        color: #f7f4ee;
+      }
+      .font-serif-luxury {
+        font-family: 'Cormorant Garamond', serif;
+      }
+      .gold-gradient {
+        background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa771c 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .glass-card {
+        background: rgba(22, 20, 26, 0.7);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+      }
+    </style>
+  </head>
+  <body class="overflow-x-hidden selection:bg-[#d4af37]/30 selection:text-white">
+
+    <!-- Header de Eventos Leymar -->
+    <header class="sticky top-0 z-50 bg-[#0c0b0e]/90 backdrop-blur-md border-b border-white/10 px-6 py-4">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="/preview-assets/logo-leymar.svg" alt="Eventos Leymar" class="h-9 w-auto brightness-200" />
+        </div>
+
+        <nav class="hidden md:flex items-center gap-7 text-xs uppercase tracking-widest text-neutral-300">
+          <a href="#bodas" class="hover:text-[#d4af37] transition-colors">Bodas Destino</a>
+          <a href="#servicios" class="hover:text-[#d4af37] transition-colors">Servicios</a>
+          <a href="#directora" class="hover:text-[#d4af37] transition-colors">Leidys Lascarro</a>
+          <a href="#contacto" class="hover:text-[#d4af37] transition-colors">Contacto</a>
+        </nav>
+
+        <a
+          href="https://wa.me/573147714202?text=Hola%20Eventos%20Leymar,%20deseo%20cotizar%20mi%20boda"
+          target="_blank"
+          rel="noopener"
+          class="rounded-full bg-gradient-to-r from-[#d4af37] to-[#aa771c] px-4 py-2 text-xs font-semibold uppercase tracking-wider text-black shadow-lg hover:brightness-110 transition-all"
+        >
+          Cotizar Boda
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero de Eventos Leymar -->
+    <section class="relative min-h-[75vh] flex items-center justify-center px-6 py-20 text-center overflow-hidden">
+      <!-- Glow de fondo -->
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.12)_0%,transparent_70%)] pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 rounded-full border border-[#d4af37]/40 bg-[#d4af37]/10 px-4 py-1 text-xs uppercase tracking-[0.2em] text-[#f3e5ab] mb-6">
+          Wedding & Event Planner · Cartagena de Indias
+        </div>
+
+        <h1 class="font-serif-luxury text-4xl sm:text-6xl md:text-7xl font-light leading-[1.05] tracking-tight mb-6">
+          Momentos que trascienden el tiempo en la <span class="gold-gradient italic font-normal">Ciudad Heroica.</span>
+        </h1>
+
+        <p class="max-w-2xl mx-auto text-neutral-400 text-sm sm:text-base leading-relaxed mb-8">
+          Diseñamos, coordinamos y producimos bodas destino de ensueño y recepciones de alta gama con más de 26 años de trayectoria impecable.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="#bodas"
+            class="rounded-full bg-gradient-to-r from-[#d4af37] to-[#aa771c] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-black shadow-xl hover:scale-105 transition-transform"
+          >
+            Explorar Galerías
+          </a>
+          <a
+            href="#directora"
+            class="rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-xs font-medium uppercase tracking-wider text-white hover:bg-white/10 transition-colors"
+          >
+            Conocer a Leidys
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorías de Servicios (Bodas, Corporativos, Quinceañeros) -->
+    <section id="servicios" class="py-16 px-6 max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-xs uppercase tracking-[0.2em] text-[#d4af37] mb-2 font-medium">Experiencias a la Medida</p>
+        <h2 class="font-serif-luxury text-3xl sm:text-4xl text-white">Nuestras Especialidades</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass-card rounded-2xl p-6 transition-transform hover:-translate-y-1">
+          <div class="text-2xl mb-3">💍</div>
+          <h3 class="font-serif-luxury text-xl text-white mb-2">Bodas Destino</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Coordinación integral para parejas de todo el mundo que eligen casarse en los baluartes, casonas coloniales y playas de Cartagena.
+          </p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 transition-transform hover:-translate-y-1">
+          <div class="text-2xl mb-3">🍸</div>
+          <h3 class="font-serif-luxury text-xl text-white mb-2">Eventos Corporativos</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Cenas de gala, aniversarios empresariales y congresos ejecutivos con logística impecable y montaje audiovisual de vanguardia.
+          </p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 transition-transform hover:-translate-y-1">
+          <div class="text-2xl mb-3">👑</div>
+          <h3 class="font-serif-luxury text-xl text-white mb-2">Quinceañeros & Sociales</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Celebraciones memorables con ambientación temática exclusiva, diseño floral y producción sensorial para noches inolvidables.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de la Directora: Leidys Lascarro -->
+    <section id="directora" class="py-16 px-6 border-t border-white/10 bg-[#100f14]/60">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-12 gap-10 items-center">
+        <div class="md:col-span-5 flex justify-center">
+          <div class="relative w-64 h-80 rounded-2xl overflow-hidden border border-[#d4af37]/30 shadow-2xl">
+            <img
+              src="/preview-assets/leidys-lascarro.jpg"
+              alt="Leidys Lascarro - Directora y Wedding Planner"
+              class="w-full h-full object-cover object-top"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-center">
+              <p class="text-sm font-serif-luxury text-white">Leidys Lascarro</p>
+              <p class="text-[10px] text-[#d4af37] uppercase tracking-wider">Fundadora & Directora</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-7">
+          <p class="text-xs uppercase tracking-[0.2em] text-[#d4af37] mb-2 font-medium">Liderazgo & Experiencia</p>
+          <h2 class="font-serif-luxury text-3xl sm:text-4xl text-white mb-4">
+            26 Años de Pasión por la Excelencia
+          </h2>
+          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-4">
+            "Cada evento es una historia única que merece ser contada con sofisticación, puntualidad y alma. En Eventos Leymar nos aseguramos de que los novios disfruten su gran día con absoluta tranquilidad."
+          </p>
+          <div class="flex items-center gap-6 pt-4 border-t border-white/10 text-xs text-neutral-400">
+            <div>
+              <span class="block font-serif-luxury text-2xl text-white">500+</span>
+              <span>Bodas Realizadas</span>
+            </div>
+            <div>
+              <span class="block font-serif-luxury text-2xl text-white">26+</span>
+              <span>Años de Trayectoria</span>
+            </div>
+            <div>
+              <span class="block font-serif-luxury text-2xl text-white">100%</span>
+              <span>Clientes Felices</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer de la Preview -->
+    <footer class="py-8 px-6 text-center text-xs text-neutral-500 border-t border-white/10">
+      <p>© Eventos Leymar · Cartagena de Indias, Colombia</p>
+      <p class="mt-1 text-[11px] text-[#d4af37]/70">Diseño y desarrollo web por Rembrandt Studio</p>
+    </footer>
+
+  </body>
+</html>
