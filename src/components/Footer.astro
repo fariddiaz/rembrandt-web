@@ -1,21 +1,69 @@
 ---
 import Logo from './Logo.astro';
+import { CONTACT_EMAIL, WHATSAPP_NUMBER } from '../config/site';
+
 const year = new Date().getFullYear();
 ---
 <footer class="relative z-20 bg-carbon border-t border-white/10 py-12 pb-28 text-sm text-mute md:pb-12">
-  <div class="mx-auto flex w-[min(1240px,calc(100%-2.5rem))] flex-wrap items-center justify-between gap-6">
-    <div class="flex flex-wrap items-center gap-4">
-      <a href="/" class="flex items-center gap-2.5 sm:gap-3 group" aria-label="Rembrandt Studio, inicio">
-        <Logo variant="mark-color" class="h-6 w-auto transition-transform duration-300 group-hover:scale-105" />
-        <Logo variant="wordmark" class="h-4 w-auto text-light transition-opacity duration-300 group-hover:opacity-90" />
-        <span class="rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 text-[0.62rem] font-medium tracking-wider text-mute uppercase font-sans">Studio</span>
-      </a>
-      <span class="text-xs text-mute/80">© {year} · Todos los derechos reservados</span>
+  <div class="mx-auto flex w-[min(1240px,calc(100%-2.5rem))] flex-col gap-6">
+    
+    <!-- Fila 1: Marca, Identidad y Claims de Autor -->
+    <div class="flex flex-wrap items-center justify-between gap-6 border-b border-white/5 pb-6">
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="/" class="flex items-center gap-2.5 sm:gap-3 group" aria-label="Rembrandt Studio, inicio">
+          <Logo variant="mark-color" class="h-6 w-auto transition-transform duration-300 group-hover:scale-105" />
+          <Logo variant="wordmark" class="h-4 w-auto text-light transition-opacity duration-300 group-hover:opacity-90" />
+          <span class="rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 text-[0.62rem] font-medium tracking-wider text-mute uppercase font-sans">Studio</span>
+        </a>
+        <span class="text-xs text-mute/80">© {year} · Todos los derechos reservados</span>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 text-xs text-mute sm:gap-6">
+        <span>Páginas Web Express en 4–6 días</span>
+        <span class="hidden sm:inline text-white/20">·</span>
+        <span>Automatización WhatsApp 24/7</span>
+        <span class="hidden sm:inline text-white/20">·</span>
+        <span>Diseño de Autor & Experiencias 3D</span>
+      </div>
     </div>
-    <div class="flex items-center gap-6 text-xs text-mute">
-      <span>Páginas Web Express en 4–6 días</span>
-      <span class="hidden sm:inline">·</span>
-      <span class="hidden sm:inline">Diseño de Autor & Experiencias 3D</span>
+
+    <!-- Fila 2: Enlaces Legales, Privacidad y Cookies -->
+    <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-mute/70">
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+        <a href="/politica-de-privacidad" class="hover:text-light transition-colors underline underline-offset-4">
+          Política de Privacidad
+        </a>
+        <span class="text-white/20">·</span>
+        <a href="/terminos-y-condiciones" class="hover:text-light transition-colors underline underline-offset-4">
+          Términos y Condiciones
+        </a>
+        <span class="text-white/20">·</span>
+        <button
+          type="button"
+          id="open-cookie-preferences-btn"
+          class="hover:text-light transition-colors underline underline-offset-4 cursor-pointer"
+        >
+          Preferencias de Cookies
+        </button>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href={`mailto:${CONTACT_EMAIL}`} class="hover:text-amber-200 transition-colors">
+          {CONTACT_EMAIL}
+        </a>
+        <span class="text-white/20">·</span>
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener" class="hover:text-emerald-300 transition-colors">
+          WhatsApp Oficial
+        </a>
+      </div>
     </div>
+
   </div>
 </footer>
+
+<script>
+  const cookiePrefBtn = document.getElementById('open-cookie-preferences-btn');
+  cookiePrefBtn?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('rs:open-cookie-banner'));
+  });
+</script>

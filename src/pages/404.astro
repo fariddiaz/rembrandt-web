@@ -1,27 +1,74 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<BaseLayout
-  title="Página no encontrada | Rembrandt"
-  description="La página no existe."
+<Layout
+  title="Página no encontrada (Error 404) · Rembrandt Studio"
+  description="La página que estás buscando no existe o ha cambiado de dirección. Explora nuestros planes, portafolio o vuelve al inicio."
   noindex={true}
 >
   <Header />
-  <main id="contenido" class="mx-auto max-w-3xl px-6 py-28 text-center">
-    <p class="text-sm font-medium uppercase tracking-widest text-accent">Error 404</p>
-    <h1 class="mt-4 text-4xl sm:text-5xl">Esta página no existe</h1>
-    <p class="mx-auto mt-6 max-w-xl text-lg text-muted">
-      Puede que el enlace esté mal escrito o que la página se haya movido.
-    </p>
-    <a
-      class="mt-10 inline-flex rounded-md bg-ink px-6 py-3 font-medium text-paper transition-colors hover:bg-accent-strong"
-      href={import.meta.env.BASE_URL}
-    >
-      Volver al inicio
-    </a>
+
+  <main class="relative z-[2] flex min-h-[82vh] items-center pt-28 pb-24 md:pt-36 md:pb-32">
+    <!-- Fondo claroscuro de arte: Tormenta en el Mar de Galilea (1633) -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+      <img
+        src="/art/storm.jpg"
+        alt=""
+        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-carbon via-carbon/90 to-carbon"></div>
+    </div>
+
+    <div class="mx-auto w-[min(780px,calc(100%-2.5rem))] text-center">
+      
+      <p class="font-mono text-xs uppercase tracking-[0.25em] text-amber-200/80 font-medium">
+        Error 404 · Fuera de la Galería
+      </p>
+
+      <h1 class="mt-4 font-display text-[clamp(2.6rem,6vw,4.8rem)] leading-[0.98] text-light">
+        Esta obra no se encuentra en el lienzo.
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-lg text-base md:text-lg leading-relaxed text-mute">
+        La dirección que intentas visitar no existe, ha sido reubicada o el enlace ingresado tiene una errata. Te invitamos a continuar explorando nuestro estudio:
+      </p>
+
+      <!-- Rutas útiles recomendadas -->
+      <div class="glass mx-auto mt-10 rounded-2xl border border-white/10 p-5 max-w-md">
+        <p class="text-xs uppercase tracking-wider text-light/70 font-mono mb-3">
+          Secciones sugeridas
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3 text-xs">
+          <a href="/planes" class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-light hover:border-amber-400/40 hover:text-amber-200 transition-colors">
+            Planes y Precios →
+          </a>
+          <a href="/portafolio" class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-light hover:border-amber-400/40 hover:text-amber-200 transition-colors">
+            Casos de Éxito →
+          </a>
+          <a href="/contacto" class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-light hover:border-amber-400/40 hover:text-amber-200 transition-colors">
+            Contacto Directo →
+          </a>
+        </div>
+      </div>
+
+      <!-- Botón de retorno al inicio -->
+      <div class="mt-10">
+        <a
+          href="/"
+          class="btn btn-light"
+          data-magnetic="0.3"
+        >
+          Volver a la Página de Inicio
+        </a>
+      </div>
+
+    </div>
   </main>
+
   <Footer />
-</BaseLayout>
+</Layout>

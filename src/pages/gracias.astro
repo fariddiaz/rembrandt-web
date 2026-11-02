@@ -1,22 +1,95 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { waLink } from '../config/site';
 ---
 
-<BaseLayout title="Gracias | Rembrandt" description="Hemos recibido tu mensaje." noindex={true}>
+<Layout
+  title="Mensaje Recibido · Rembrandt Studio"
+  description="Hemos recibido tu solicitud de propuesta. Nuestro equipo revisará los detalles y te responderá en menos de 2 horas hábiles."
+  noindex={true}
+>
   <Header />
-  <main id="contenido" class="mx-auto max-w-3xl px-6 py-28 text-center">
-    <h1 class="text-4xl sm:text-5xl">Gracias por escribirnos</h1>
-    <p class="mx-auto mt-6 max-w-xl text-lg text-muted">
-      Hemos recibido tu mensaje. Te responderemos en menos de 24 horas hábiles.
-    </p>
-    <a
-      class="mt-10 inline-flex rounded-md bg-ink px-6 py-3 font-medium text-paper transition-colors hover:bg-accent-strong"
-      href={import.meta.env.BASE_URL}
-    >
-      Volver al inicio
-    </a>
+
+  <main class="relative z-[2] flex min-h-[80vh] items-center pt-28 pb-24 md:pt-36 md:pb-32">
+    <!-- Fondo claroscuro de arte: El Retorno del Hijo Pródigo (1669) -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+      <img
+        src="/art/prodigalson.jpg"
+        alt=""
+        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-carbon via-carbon/90 to-carbon"></div>
+    </div>
+
+    <div class="mx-auto w-[min(780px,calc(100%-2.5rem))] text-center">
+      
+      <!-- Icono de confirmación en cristal Rembrandt -->
+      <div class="mx-auto mb-6 grid size-16 place-items-center rounded-2xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 shadow-xl shadow-emerald-950/40">
+        <svg class="size-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+
+      <p class="text-xs uppercase tracking-[0.22em] text-emerald-400 font-mono">
+        Solicitud Enviada con Éxito
+      </p>
+
+      <h1 class="mt-4 font-display text-[clamp(2.4rem,4.5vw,3.6rem)] leading-[1.05] text-light">
+        Hemos recibido los detalles de tu proyecto.
+      </h1>
+
+      <p class="mx-auto mt-5 max-w-xl text-base md:text-lg leading-relaxed text-mute">
+        Analizaremos el alcance de tu negocio y te responderemos con una propuesta personalizada y cotización formal en menos de <strong class="text-light">2 horas hábiles</strong>.
+      </p>
+
+      <!-- Próximos pasos transparentes -->
+      <div class="glass mx-auto mt-10 rounded-2xl border border-white/10 p-6 text-left max-w-lg">
+        <p class="text-xs font-semibold uppercase tracking-wider text-light/80 mb-3 font-mono">
+          ¿Qué ocurre a continuación?
+        </p>
+        <ol class="space-y-3 text-xs md:text-sm text-mute">
+          <li class="flex items-start gap-2.5">
+            <span class="font-mono text-amber-300 font-bold">1.</span>
+            <span>Revisamos tus requerimientos, nicho de mercado y referencias estéticas.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="font-mono text-amber-300 font-bold">2.</span>
+            <span>Te remitimos una propuesta con cotización cerrada, sin costos ocultos.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="font-mono text-amber-300 font-bold">3.</span>
+            <span>Si deseas avanzar con urgencia, puedes escribirnos de inmediato por WhatsApp.</span>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Acciones de retorno y contacto inmediato -->
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/"
+          class="btn btn-light"
+          data-magnetic="0.3"
+        >
+          Volver a la Página de Inicio
+        </a>
+
+        <a
+          href={waLink('Hola Rembrandt Studio 👋 Acabo de enviar el formulario de contacto y me gustaría adelantar detalles de mi proyecto por aquí.')}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-ghost"
+          data-magnetic="0.3"
+        >
+          Agilizar por WhatsApp Directo
+        </a>
+      </div>
+
+    </div>
   </main>
+
   <Footer />
-</BaseLayout>
+</Layout>

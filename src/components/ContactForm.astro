@@ -1,12 +1,10 @@
 ---
-import { CONTACT_EMAIL } from '../config/site';
-
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const graciasUrl = `${base}/gracias`;
 
 const fieldClass =
-  'w-full rounded-xl border border-white/10 bg-carbon-2/80 px-4 py-3 text-sm text-light placeholder:text-mute/40 focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet/50 transition-colors';
+  'w-full rounded-xl border border-white/10 bg-carbon-2/80 px-4 py-3 text-sm text-light placeholder:text-mute/40 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400/50 transition-colors';
 const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider text-light/80';
 ---
 
@@ -21,6 +19,8 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
     <input type="hidden" name="access_key" value={accessKey} />
     <input type="hidden" name="subject" value="Nuevo proyecto web desde Rembrandt Studio" />
     <input type="hidden" name="from_name" value="Rembrandt Studio Web" />
+    
+    {/* Campo trampa Honeypot anti-spam */}
     <input
       type="checkbox"
       name="botcheck"
@@ -41,6 +41,8 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
           autocomplete="name"
           placeholder="Ej: David Smith / Carlos Gómez"
           required
+          minlength="2"
+          maxlength="80"
         />
       </div>
       <div>
@@ -59,21 +61,23 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
 
     <div class="grid gap-4 sm:grid-cols-2">
       <div>
-        <label class={labelClass} for="plan">Tipo de Proyecto</label>
+        <label class={labelClass} for="plan">Plan o Solución de Interés</label>
         <select class={fieldClass} id="plan" name="plan">
-          <option value="Landing Express ($249 USD / ~$990.000 COP)">Landing Express 3–5 días ($249 USD / ~$990.000 COP)</option>
-          <option value="Web Multi-Sección ($399 USD / ~$1.590.000 COP)">Web Corporativa Multi-Sección ($399 USD / ~$1.590.000 COP)</option>
-          <option value="Catálogo / Tienda Ágil ($590 USD / ~$2.390.000 COP)">Catálogo & Tienda Ágil ($590 USD / ~$2.390.000 COP)</option>
-          <option value="Obra Signature / 3D Craft (A medida)">Proyecto a Medida & 3D Craft (A convenir)</option>
-          <option value="Plan Cuidado ($19 USD/mes)">Mantenimiento / Plan Cuidado ($19 USD/mes)</option>
+          <option value="express">Página Web Express (4–6 días · $249 USD / ~$990.000 COP)</option>
+          <option value="empresarial">Web Corporativa & Autoridad (8–12 días · $399 USD / ~$1.590.000 COP)</option>
+          <option value="automatizacion" selected>Web + Auto WhatsApp 24/7 (12–15 días · $490 USD / ~$1.950.000 COP)</option>
+          <option value="tienda-agil">Catálogo & Tienda Ágil (15–20 días · $590 USD / ~$2.390.000 COP)</option>
+          <option value="signature-3d">Obra Signature & 3D Craft (A medida · Desde $950 USD)</option>
+          <option value="mantenimiento">Paquetes de Mantenimiento Mensual (Desde $15 USD/mes)</option>
+          <option value="a-demanda">Soporte Técnico a Demanda (Pago Único sin mensualidades)</option>
         </select>
       </div>
       <div>
         <label class={labelClass} for="budget">Presupuesto Estimado</label>
         <select class={fieldClass} id="budget" name="budget">
-          <option value="Desde $249 USD / ~$1.0M COP">Desde $249 USD (~$1M COP)</option>
-          <option value="$399 - $590 USD / ~$1.6M - $2.4M COP">$399 - $590 USD (~$1.6M - $2.4M COP)</option>
-          <option value="$1,000 - $2,500+ USD">$1,000 - $2,500+ USD</option>
+          <option value="$249 - $399 USD">$249 - $399 USD (~$1M - $1.6M COP)</option>
+          <option value="$490 - $590 USD" selected>$490 - $590 USD (~$1.9M - $2.4M COP)</option>
+          <option value="$950 - $2,500+ USD">$950 - $2,500+ USD</option>
           <option value="Por definir">Prefiero evaluarlo en la propuesta</option>
         </select>
       </div>
@@ -88,12 +92,14 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
         rows="4"
         placeholder="¿A qué se dedica tu marca? ¿Tienes una web actual o empiezas desde cero? Cuéntanos cualquier detalle relevante..."
         required
+        minlength="10"
+        maxlength="2000"
       ></textarea>
     </div>
 
     <div class="flex items-start gap-2.5 pt-1">
       <input
-        class="mt-1 size-4 rounded border-white/20 bg-carbon text-violet focus:ring-violet"
+        class="mt-1 size-4 rounded border-white/20 bg-carbon text-amber-400 focus:ring-amber-400 cursor-pointer"
         id="consent"
         name="consent"
         type="checkbox"
@@ -101,8 +107,10 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
         required
       />
       <label class="text-xs text-mute leading-relaxed" for="consent">
-        Acepto que Rembrandt Studio me contacte para enviarme la propuesta.
-        <a class="underline hover:text-light transition-colors" href={`${base}/privacidad`}>Política de privacidad</a>.
+        Acepto que Rembrandt Studio me contacte para enviarme la propuesta solicitada.
+        <a class="underline hover:text-amber-200 transition-colors" href="/politica-de-privacidad" target="_blank">
+          Política de Privacidad
+        </a>.
       </label>
     </div>
 
@@ -112,7 +120,7 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
         type="submit"
         data-magnetic="0.2"
       >
-        <span>Enviar propuesta</span>
+        <span>Enviar solicitud de propuesta</span>
         <span aria-hidden="true">→</span>
       </button>
 
@@ -122,46 +130,96 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
       </span>
     </div>
 
-    <p data-form-status role="status" aria-live="polite" class="min-h-5 text-xs text-mute pt-1"></p>
+    <div
+      data-form-status
+      role="status"
+      aria-live="polite"
+      class="hidden rounded-xl border p-3.5 text-xs transition-all"
+    ></div>
   </form>
 </div>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  function initForm() {
+    const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+    if (!form) return;
 
-  if (form) {
+    // Preseleccionar plan si viene por URL (ej: /contacto?plan=express)
+    const urlParams = new URLSearchParams(window.location.search);
+    const planParam = urlParams.get('plan');
+    if (planParam) {
+      const select = form.querySelector<HTMLSelectElement>('#plan');
+      if (select) {
+        const matchingOption = Array.from(select.options).find(
+          (opt) => opt.value.toLowerCase() === planParam.toLowerCase(),
+        );
+        if (matchingOption) {
+          select.value = matchingOption.value;
+        }
+      }
+    }
+
     const status = form.querySelector<HTMLElement>('[data-form-status]');
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    let lastSubmitTime = 0;
+
+    const showStatus = (message: string, isError: boolean) => {
+      if (!status) return;
+      status.classList.remove('hidden', 'border-rose-500/20', 'bg-rose-500/10', 'text-rose-300', 'border-emerald-500/20', 'bg-emerald-500/10', 'text-emerald-300');
+      if (isError) {
+        status.classList.add('border-rose-500/20', 'bg-rose-500/10', 'text-rose-300');
+      } else {
+        status.classList.add('border-emerald-500/20', 'bg-emerald-500/10', 'text-emerald-300');
+      }
+      status.textContent = message;
+    };
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       if (!status || !button) return;
 
+      // Prevención de envíos repetidos accidentales (Throttling de 4 segundos)
+      const now = Date.now();
+      if (now - lastSubmitTime < 4000) {
+        showStatus('Por favor espera unos segundos antes de enviar nuevamente.', true);
+        return;
+      }
+      lastSubmitTime = now;
+
+      // Validación de email en cliente
+      const emailInput = form.querySelector<HTMLInputElement>('#email');
+      const email = emailInput?.value.trim() ?? '';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showStatus('Por favor ingresa un correo electrónico válido.', true);
+        emailInput?.focus();
+        return;
+      }
+
       const accessKeyInput = form.querySelector<HTMLInputElement>('input[name="access_key"]');
       const hasKey = !!accessKeyInput?.value;
 
       button.disabled = true;
       const originalText = button.innerHTML;
-      button.textContent = 'Enviando...';
-      status.textContent = '';
+      button.innerHTML = '<span>Enviando propuesta...</span>';
+      status.classList.add('hidden');
 
       if (!hasKey) {
-        // Modo fallback: si no hay key de Web3Forms configurada en producción,
-        // crea el enlace mailto directo con los datos para no perder jamás un prospecto
+        // Fallback seguro si la clave Web3Forms no está configurada en desarrollo local:
+        // canaliza a mailto para garantizar cero pérdida de prospectos
         const formData = new FormData(form);
         const name = formData.get('name') || '';
-        const email = formData.get('email') || '';
         const plan = formData.get('plan') || '';
         const message = formData.get('message') || '';
-        
+
         const mailSubject = encodeURIComponent(`Nuevo proyecto web - ${name}`);
         const mailBody = encodeURIComponent(
-          `Nombre: ${name}\nEmail: ${email}\nPlan de interés: ${plan}\n\nDetalles:\n${message}`
+          `Nombre: ${name}\nEmail: ${email}\nPlan seleccionado: ${plan}\n\nDetalles del proyecto:\n${message}`,
         );
-        
+
         window.location.href = `mailto:contacto@rembrandtstudio.co?subject=${mailSubject}&body=${mailBody}`;
-        status.textContent = 'Redirigiendo a tu cliente de correo...';
+        showStatus('Redirigiendo a tu cliente de correo corporativo...', false);
         button.disabled = false;
         button.innerHTML = originalText;
         return;
@@ -181,13 +239,25 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
           return;
         }
 
-        status.textContent = 'No se pudo enviar. Escríbenos directamente a contacto@rembrandtstudio.co';
+        showStatus(
+          result.message || 'No se pudo enviar. Puedes escribirnos directamente a contacto@rembrandtstudio.co o al WhatsApp oficial.',
+          true,
+        );
       } catch {
-        status.textContent = 'Error de conexión. Escríbenos directamente a contacto@rembrandtstudio.co';
+        showStatus(
+          'Error de conexión. Escríbenos directamente a contacto@rembrandtstudio.co o al WhatsApp +57 314 771 4202.',
+          true,
+        );
       }
 
       button.disabled = false;
       button.innerHTML = originalText;
     });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initForm);
+  } else {
+    initForm();
   }
 </script>

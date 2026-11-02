@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /gracias
+Disallow: /preview/
+Disallow: /404
 
-Sitemap: https://example.com/sitemap-index.xml
+Sitemap: https://rembrandtdigital.com/sitemap-index.xml

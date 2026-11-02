@@ -47,12 +47,12 @@
     mix-blend-mode: overlay;
   }
   ::selection {
-    background: var(--color-violet-deep);
-    color: var(--color-light);
+    background: rgba(212, 175, 55, 0.25);
+    color: #fff9e6;
   }
   :focus-visible {
-    outline: 2px solid var(--color-violet);
-    outline-offset: 4px;
+    outline: 2px solid #d4af37;
+    outline-offset: 3px;
     border-radius: 6px;
   }
   h1, h2, h3 {

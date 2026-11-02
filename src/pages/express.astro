@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -85,11 +85,11 @@ const faqs = [
 ];
 ---
 
-<BaseLayout
-  title="Boceto Express | Tu Web Lista en 3 a 5 Días | Rembrandt Studio"
-  description="Páginas web profesionales para pymes y emprendedores entregadas en 3 a 5 días. Velocidad 100/100, dominio, hosting y WhatsApp incluidos desde $249 USD."
+<Layout
+  title="Página Web Express · Entrega en 4 a 6 Días · Rembrandt Studio"
+  description="Páginas web express de alto rendimiento para marcas y empresas en 4 a 6 días hábiles. Velocidad extrema, dominio, hosting y WhatsApp directo incluidos desde $249 USD."
 >
-  <Header theme="dark" />
+  <Header />
 
   <main id="contenido" class="bg-[#0a0a0d] text-white">
     {/* 1. Hero Express Directo a la Venta */}
@@ -349,4 +349,4 @@ const faqs = [
       });
     });
   </script>
-</BaseLayout>
+</Layout>

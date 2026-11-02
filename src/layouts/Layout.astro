@@ -3,16 +3,53 @@ import '../styles/global.css';
 import Cursor from '../components/Cursor.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import RembrandtArtBorders from '../components/RembrandtArtBorders.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  canonicalURL?: string;
+  noindex?: boolean;
 }
 
 const {
-  title = 'Rembrandt Studio · Webs, tiendas y 3D que venden',
-  description = 'Estudio de diseño y desarrollo web de alto rendimiento. Landing lista en 3–5 días desde $249 USD. Oscuridad para que la luz importe.',
+  title = 'Rembrandt Studio · Webs, Tiendas & 3D de Alto Impacto',
+  description = 'Estudio de diseño de autor e ingeniería digital. Páginas web express en 4 a 6 días, proyectos corporativos con automatización en WhatsApp y experiencias 3D interactivas.',
+  image = '/og-image.png',
+  canonicalURL,
+  noindex = false,
 } = Astro.props;
+
+const site = Astro.site ?? new URL('https://rembrandtdigital.com');
+const canonical = canonicalURL ? new URL(canonicalURL, site) : new URL(Astro.url.pathname, site);
+const ogImage = new URL(image, site);
+
+const gaId = import.meta.env.PUBLIC_GA_ID ?? '';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Rembrandt Studio',
+  legalName: 'Rembrandt Studio',
+  url: site.toString(),
+  logo: new URL('/brand/logo-rembrandt-full.svg', site).toString(),
+  image: ogImage.toString(),
+  description,
+  telephone: '+573147714202',
+  email: 'contacto@rembrandtstudio.co',
+  priceRange: '$249 - $950 USD',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'CO',
+  },
+  areaServed: [
+    { '@type': 'Country', name: 'Colombia' },
+    { '@type': 'Country', name: 'United States' },
+    { '@type': 'AdministrativeArea', name: 'Latinoamérica' },
+  ],
+  sameAs: ['https://wa.me/573147714202'],
+};
 ---
 
 <!doctype html>
@@ -22,18 +59,90 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0a0a0d" />
     <meta name="color-scheme" content="dark" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Metadatos SEO Principales -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+    />
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:site_name" content="Rembrandt Studio" />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Rembrandt Studio · Ingeniería Digital & Diseño Web de Autor" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicons y Manifest Web -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Datos Estructurados JSON-LD (Schema.org) -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Google Consent Mode v2 (Respeto estricto a la privacidad antes de cargar analítica) -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      var savedConsent = localStorage.getItem('rs_cookie_consent');
+      gtag('consent', 'default', {
+        analytics_storage: savedConsent === 'accepted' ? 'granted' : 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500,
+      });
+    </script>
+
+    <!-- Google Analytics 4 (Solo se activa si se provee PUBLIC_GA_ID en entorno) -->
+    {
+      gaId && (
+        <>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+          <script is:inline define:vars={{ gaId }}>
+            gtag('js', new Date());
+            gtag('config', gaId, { anonymize_ip: true });
+          </script>
+        </>
+      )
+    }
   </head>
-  <body class="bg-carbon text-light">
+  <body class="bg-carbon text-light selection:bg-amber-400/20 selection:text-amber-200 relative min-h-screen">
+    <!-- Enlace accesible de salto al contenido -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:rounded-xl focus:border focus:border-amber-400 focus:bg-carbon focus:px-5 focus:py-3 focus:text-xs focus:font-semibold focus:text-light focus:shadow-2xl"
+    >
+      Saltar al contenido principal
+    </a>
+
     <RembrandtArtBorders />
-    <slot />
+    
+    <div id="main-content">
+      <slot />
+    </div>
+
     <Cursor />
     <WhatsAppFloat />
+    <CookieBanner />
 
     <script>
       // Lenis + GSAP ScrollTrigger: un solo reloj (gsap.ticker) para todo.

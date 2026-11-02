@@ -1,0 +1,21 @@
+{
+  "name": "Rembrandt Studio",
+  "short_name": "Rembrandt",
+  "description": "Estudio de ingeniería digital y diseño web de autor. Páginas web de alto rendimiento y experiencias interactivas.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0d",
+  "theme_color": "#0a0a0d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { CONTACT_EMAIL, WHATSAPP_NUMBER } from '../config/site';
+
+const lastUpdated = '2 de noviembre de 2026';
+---
+
+<Layout
+  title="Términos y Condiciones · Rembrandt Studio"
+  description="Condiciones de contratación, propiedad intelectual, esquemas de pago y garantías de entrega de los servicios de Rembrandt Studio."
+>
+  <Header />
+
+  <main class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32">
+    <!-- Fondo claroscuro de arte: El Molino (1645) -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+      <img
+        src="/art/mill.jpg"
+        alt=""
+        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-carbon via-carbon/90 to-carbon"></div>
+    </div>
+
+    <div class="mx-auto w-[min(960px,calc(100%-2.5rem))]">
+      <header class="mb-12 border-b border-white/10 pb-8">
+        <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">Marco Contractual & Condiciones Comerciales</p>
+        <h1 class="mt-4 font-display text-[clamp(2.4rem,4.5vw,3.8rem)] leading-[1.05] text-light">
+          Términos y Condiciones
+        </h1>
+        <p class="mt-3 text-xs font-mono text-mute">
+          Última actualización: {lastUpdated} · Rembrandt Studio
+        </p>
+      </header>
+
+      <div class="prose prose-invert max-w-none space-y-8 text-sm md:text-base leading-relaxed text-light/80">
+        
+        <!-- Sección 1 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">1. Objeto y Alcance del Servicio</h2>
+          <p>
+            El presente documento regula la relación comercial entre <strong>Rembrandt Studio</strong> (en adelante, «el Estudio») y los clientes que contraten servicios de diseño web, ingeniería de software, desarrollo de páginas de aterrizaje express, portales corporativos, catálogos de comercio electrónico, experiencias 3D interactivas y flujos de automatización para WhatsApp.
+          </p>
+          <p class="mt-3 text-sm text-mute">
+            El acceso al sitio web, la solicitud de cotizaciones y la contratación formal de cualquier servicio implican la aceptación plena e incondicional de los presentes Términos y Condiciones.
+          </p>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">2. Propiedad Total del Cliente (100% Tuya)</h2>
+          <p>
+            En Rembrandt Studio defendemos la soberanía digital de cada empresa. A diferencia de las plataformas cerradas de suscripción cautiva:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2 text-sm text-mute">
+            <li><strong>Código Fuente y Activos:</strong> Una vez cancelada la totalidad del valor acordado para el proyecto, el código fuente, hojas de estilo, archivos multimedia y base de datos del sitio web pasan a ser <strong>propiedad absoluta del cliente</strong>.</li>
+            <li><strong>Dominio y Credenciales:</strong> El dominio web adquirido se registrará a nombre del cliente o su empresa, garantizando que el titular mantenga el control autónomo de sus activos digitales.</li>
+            <li><strong>Sin Ataduras Forzosas:</strong> No existen cláusulas de permanencia mínima obligatoria sobre el desarrollo inicial ni cobros por liberación de archivos.</li>
+          </ul>
+        </section>
+
+        <!-- Sección 3 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">3. Esquema de Pagos y Facturación</h2>
+          <p>
+            Para garantizar la seriedad y el compromiso bilateral en la ejecución de los proyectos, se establece el siguiente esquema comercial estándar:
+          </p>
+          <div class="mt-4 grid gap-4 md:grid-cols-2 text-sm">
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
+              <h3 class="font-semibold text-light mb-1">50% Anticipo Inicial</h3>
+              <p class="text-xs text-mute">
+                Requerido para reservar el cupo de desarrollo en el cronograma, adquirir el dominio, estructurar la arquitectura y comenzar el diseño de autor.
+              </p>
+            </div>
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
+              <h3 class="font-semibold text-light mb-1">50% Contra Entrega y Aprobación</h3>
+              <p class="text-xs text-mute">
+                Se liquida una vez el sitio web esté completamente desarrollado, revisado en entorno de previsualización y aprobado a entera satisfacción por el cliente.
+              </p>
+            </div>
+          </div>
+          <p class="mt-4 text-xs text-mute">
+            Se aceptan transferencias bancarias en Colombia (Bancolombia, Nequi, PSE) y pagos internacionales en dólares estadounidenses (USD) mediante Stripe, transferencias bancarias internacionales y tarjetas de crédito/débito.
+          </p>
+        </section>
+
+        <!-- Sección 4 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">4. Plazos de Entrega y Compromiso de Agilidad</h2>
+          <p>
+            Rembrandt Studio se compromete a entregar proyectos rápidos y perfectos en los plazos contractuales acordados para cada solución:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-1.5 text-sm text-mute">
+            <li><strong>Página Web Express:</strong> 4 a 6 días hábiles.</li>
+            <li><strong>Web Corporativa & Autoridad:</strong> 8 a 12 días hábiles.</li>
+            <li><strong>Web + Automatización WhatsApp:</strong> 12 a 15 días hábiles.</li>
+            <li><strong>Catálogo & Tienda Ágil:</strong> 15 a 20 días hábiles.</li>
+            <li><strong>Obra Signature & 3D Craft:</strong> 3 a 5 semanas calendario.</li>
+          </ul>
+          <p class="mt-3 text-xs text-mute">
+            El cómputo de los plazos inicia a partir del día hábil siguiente a la recepción del anticipo y de los insumos indispensables (logotipos, referencias y contenido acordado). Si el cliente experimenta demoras en el envío de material o aprobaciones, el cronograma se extenderá de forma proporcional.
+          </p>
+        </section>
+
+        <!-- Sección 5 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">5. Servicios de Mantenimiento Post-Lanzamiento</h2>
+          <p>
+            El cliente puede elegir libremente entre suscribir un paquete mensual de cuidado técnico o solicitar intervenciones a demanda:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-1.5 text-sm text-mute">
+            <li><strong>Planes Recurrentes (Cuidado Esencial, Activo y Pro):</strong> Incluyen monitoreo 24/7, servidores de alta velocidad, copias de seguridad continuas y horas de ajustes mensuales. Pueden cancelarse o pausarse en cualquier momento notificando con cinco (5) días hábiles de anticipación.</li>
+            <li><strong>Opción a Demanda (Pago Único):</strong> Sin mensualidades obligatorias. El cliente contrata y paga únicamente por la modificación técnica puntual solicitada por WhatsApp o correo corporativo.</li>
+          </ul>
+        </section>
+
+        <!-- Sección 6 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">6. Limitación de Responsabilidad y Legislación Aplicable</h2>
+          <p>
+            Rembrandt Studio aplica rigurosas prácticas de ingeniería, seguridad y optimización de carga. No obstante, no asume responsabilidad por:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-1.5 text-sm text-mute">
+            <li>Caídas originadas por fallas masivas fortuitas en proveedores globales de telecomunicaciones o infraestructura en la nube (AWS, Cloudflare, etc.).</li>
+            <li>Modificaciones no autorizadas realizadas por terceros o por el cliente sobre el código fuente una vez entregado.</li>
+            <li>Interrupciones o cambios en las políticas de APIs externas (Meta/WhatsApp, Stripe, etc.) ajenas a la gobernanza del Estudio.</li>
+          </ul>
+          <p class="mt-4 text-sm">
+            Los presentes términos se rigen e interpretan de conformidad con las leyes de la República de Colombia. Cualquier inquietud sobre estos términos o solicitud de aclaración contractual puede remitirse al correo <a href={`mailto:${CONTACT_EMAIL}`} class="text-amber-200 underline">{CONTACT_EMAIL}</a> o a la línea de atención <a href={`https://wa.me/${WHATSAPP_NUMBER}`} class="text-amber-200 underline">+{WHATSAPP_NUMBER}</a>.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

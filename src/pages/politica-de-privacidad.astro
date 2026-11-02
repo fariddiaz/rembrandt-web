@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { CONTACT_EMAIL, WHATSAPP_NUMBER } from '../config/site';
+
+const lastUpdated = '2 de noviembre de 2026';
+---
+
+<Layout
+  title="Política de Privacidad · Rembrandt Studio"
+  description="Información detallada sobre el tratamiento y protección de datos personales conforme a la Ley 1581 de 2012 y estándares internacionales de privacidad."
+>
+  <Header />
+
+  <main class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32">
+    <!-- Fondo claroscuro de arte: Filósofo en Meditación (1632) -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+      <img
+        src="/art/philosopher.jpg"
+        alt=""
+        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-carbon via-carbon/90 to-carbon"></div>
+    </div>
+
+    <div class="mx-auto w-[min(960px,calc(100%-2.5rem))]">
+      <header class="mb-12 border-b border-white/10 pb-8">
+        <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">Cumplimiento Legal & Protección de Datos</p>
+        <h1 class="mt-4 font-display text-[clamp(2.4rem,4.5vw,3.8rem)] leading-[1.05] text-light">
+          Política de Privacidad
+        </h1>
+        <p class="mt-3 text-xs font-mono text-mute">
+          Última actualización: {lastUpdated} · Marco normativo: Ley Estatutaria 1581 de 2012 (Colombia) y RGPD
+        </p>
+      </header>
+
+      <div class="prose prose-invert max-w-none space-y-8 text-sm md:text-base leading-relaxed text-light/80">
+        
+        <!-- Sección 1 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">1. Identificación del Responsable del Tratamiento</h2>
+          <p>
+            El responsable del tratamiento de los datos personales recopilados a través de este sitio web es <strong>Rembrandt Studio</strong> (en adelante, «el Estudio»), estudio digital dedicado a la arquitectura de software, diseño web de autor y desarrollo de herramientas de automatización comercial, con operaciones principales en Colombia y atención a clientes internacionales.
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-1 text-sm text-mute">
+            <li><strong>Correo oficial de atención:</strong> <a href={`mailto:${CONTACT_EMAIL}`} class="text-amber-200 underline">{CONTACT_EMAIL}</a></li>
+            <li><strong>Canal de mensajería comercial:</strong> <a href={`https://wa.me/${WHATSAPP_NUMBER}`} class="text-amber-200 underline">+57 314 771 4202</a></li>
+            <li><strong>Sitio web principal:</strong> https://rembrandtdigital.com</li>
+          </ul>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">2. Datos Personales que Recopilamos</h2>
+          <p>
+            En Rembrandt Studio aplicamos el principio de minimización de datos: únicamente solicitamos la información estrictamente necesaria para entablar comunicación comercial, cotizar proyectos web y prestar los servicios contratados.
+          </p>
+          <div class="mt-4 grid gap-4 md:grid-cols-2 text-sm">
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
+              <h3 class="font-semibold text-light mb-1">Formularios de contacto</h3>
+              <p class="text-xs text-mute">
+                Nombre completo, dirección de correo electrónico corporativo o personal, plan de interés, rango de presupuesto estimado y descripción general del proyecto o negocio.
+              </p>
+            </div>
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
+              <h3 class="font-semibold text-light mb-1">Comunicaciones por WhatsApp</h3>
+              <p class="text-xs text-mute">
+                Número de teléfono, nombre del remitente y contenido voluntario de las consultas, audios o referencias compartidas para la cotización de servicios.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección 3 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">3. Finalidad del Tratamiento de los Datos</h2>
+          <p>Los datos suministrados serán tratados exclusivamente para las siguientes finalidades legítimas:</p>
+          <ol class="mt-3 list-decimal pl-5 space-y-2 text-sm text-mute">
+            <li>Elaborar y remitir propuestas comerciales, cotizaciones y cronogramas de entrega solicitados por el titular.</li>
+            <li>Coordinar reuniones técnicas, videollamadas de alineación y demostraciones de soluciones interactivas o flujos de WhatsApp.</li>
+            <li>Ejecutar los contratos de prestación de servicios de diseño web, desarrollo de software y mantenimiento suscritos con el cliente.</li>
+            <li>Gestionar la facturación, cobro y soporte técnico post-lanzamiento.</li>
+          </ol>
+        </section>
+
+        <!-- Sección 4 -->
+        <section id="cookies" class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">4. Política de Cookies y Tecnologías Similares</h2>
+          <p>
+            Una cookie es un pequeño archivo de texto almacenado en su navegador. Nuestro sitio web clasifica las cookies en dos categorías:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2 text-sm text-mute">
+            <li><strong>Cookies estrictamente técnicas y esenciales:</strong> Necesarias para la navegación, seguridad contra ataques CSRF/spam y memorización de su preferencia de cookies en <code class="text-xs bg-white/5 px-1 py-0.5 rounded">localStorage</code>. No requieren consentimiento previo.</li>
+            <li><strong>Cookies analíticas opcionales (Google Analytics 4):</strong> Empleadas exclusivamente para medir de forma anónima y agregada el volumen de visitas, páginas más consultadas y rendimiento técnico de carga. Estas cookies <strong>no recopilan información personal identificable (PII)</strong> y solo se activan si usted otorga su consentimiento expreso a través de nuestro banner.</li>
+          </ul>
+          <p class="mt-4 text-xs text-mute">
+            Puede modificar o revocar su consentimiento en cualquier momento haciendo clic en el enlace «Preferencias de cookies» ubicado en el pie de página de nuestro sitio.
+          </p>
+        </section>
+
+        <!-- Sección 5 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">5. Transferencia y Encargados del Tratamiento</h2>
+          <p>
+            Rembrandt Studio no comercializa, alquila ni transfiere datos personales a terceros con fines publicitarios. Para la prestación de nuestros servicios tecnológicos, interactuamos con proveedores de infraestructura de clase mundial bajo acuerdos de confidencialidad y procesamiento seguro:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-1 text-sm text-mute">
+            <li><strong>Alojamiento Web y CDN:</strong> Servidores con cifrado TLS y cortafuegos de seguridad perimetral.</li>
+            <li><strong>Procesamiento de Formularios:</strong> Pasarelas cifradas (Web3Forms / servidores SMTP propios) para el enrutamiento seguro de mensajes al buzón corporativo.</li>
+            <li><strong>Plataformas de Comunicación:</strong> WhatsApp Business (Meta Platforms Inc.) y herramientas de videollamada para coordinación con clientes.</li>
+          </ul>
+        </section>
+
+        <!-- Sección 6 -->
+        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
+          <h2 class="font-display text-xl text-light md:text-2xl mb-4">6. Derechos de los Titulares (Derechos ARCO)</h2>
+          <p>
+            De conformidad con la Ley 1581 de 2012 y normativas afines, como titular de los datos personales usted tiene derecho en cualquier momento a:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-1.5 text-sm text-mute">
+            <li>Conocer, actualizar y rectificar sus datos personales frente a información inexacta o incompleta.</li>
+            <li>Solicitar prueba de la autorización otorgada para el tratamiento.</li>
+            <li>Ser informado sobre el uso que se le ha dado a sus datos personales.</li>
+            <li>Revocar la autorización o solicitar la supresión de sus datos cuando considere que no se respetan los principios constitucionales y legales.</li>
+            <li>Acceder de forma gratuita a sus datos personales que hayan sido objeto de tratamiento.</li>
+          </ul>
+          <p class="mt-4 text-sm">
+            Para ejercer estos derechos, puede remitir una solicitud formal al correo <a href={`mailto:${CONTACT_EMAIL}?subject=Ejercicio%20Derechos%20ARCO%20-%20Proteccion%20Datos`} class="text-amber-200 underline">{CONTACT_EMAIL}</a> indicando su nombre, documento de identidad y la solicitud concreta. Daremos respuesta en un plazo máximo de diez (10) días hábiles.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

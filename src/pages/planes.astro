@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { plans, maintenancePackages, onDemandMaintenance, plansFaq, waLink, waSections, CONTACT_EMAIL } from '../config/site';
+import { plans, maintenancePackages, onDemandMaintenance, plansFaq, waLink, waSections } from '../config/site';
 
 const wa = waSections.planes;
 
@@ -18,7 +18,11 @@ const advancedPlans = plans.slice(3, 5);
 >
   <Header activePath="/planes" />
 
-  <main class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32">
+  <main
+    class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32"
+    data-wa-label={wa.label}
+    data-wa-message={wa.message}
+  >
     <!-- Fondo claroscuro de arte: Aristóteles con el busto de Homero (1653) -->
     <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
       <img
