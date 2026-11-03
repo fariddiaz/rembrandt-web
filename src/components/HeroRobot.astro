@@ -28,7 +28,7 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
 </div>
 
 <script>
-  type IdleFn = (cb: () => void, opts?: { timeout: number }) => number;
+  
   type NetInfo = { saveData?: boolean };
 
   const wrap = document.querySelector<HTMLElement>('[data-hero-robot]');
@@ -48,9 +48,7 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     }
   })();
 
-  const idle: IdleFn =
-    (window as unknown as { requestIdleCallback?: IdleFn }).requestIdleCallback ??
-    ((cb) => window.setTimeout(cb, 120));
+  
 
   async function mountRobot(el: HTMLElement, cv: HTMLCanvasElement) {
     const scene = el.dataset.scene;
@@ -99,9 +97,8 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     }
 
     if (hasWebGL && !saveData) {
-      const boot = () => idle(() => void mountRobot(wrap, canvas), { timeout: 2000 });
-      if (document.readyState === 'complete') boot();
-      else addEventListener('load', boot, { once: true });
+      // En PC: montar de inmediato para máxima rapidez sin retrasos artificiales
+      void mountRobot(wrap, canvas);
     }
   }
 </script>
