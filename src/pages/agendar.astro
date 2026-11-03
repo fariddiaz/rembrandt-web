@@ -1,0 +1,368 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { waLink } from '../config/site';
+---
+
+<Layout
+  title="Agendar Videollamada de Diagnóstico (15 min) · Rembrandt Studio"
+  description="Reserva una sesión estratégica gratuita de 15 minutos para analizar la web de tu marca, resolver dudas técnicas y recibir una cotización a medida."
+>
+  <Header activePath="/agendar" />
+
+  <main class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32">
+    <!-- Fondo claroscuro de arte: Filósofo en meditación -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+      <img
+        src="/art/philosopher.jpg"
+        alt=""
+        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-carbon via-carbon/90 to-carbon"></div>
+    </div>
+
+    <div class="mx-auto w-[min(1080px,calc(100%-2.5rem))]">
+      
+      <!-- Encabezado Editorial -->
+      <header class="mb-12 text-center max-w-2xl mx-auto">
+        <p class="text-xs uppercase tracking-[0.22em] text-violet-300 font-medium">
+          Diagnóstico Estratégico · 15 Minutos sin Compromiso
+        </p>
+        <h1 class="mt-4 font-display text-[clamp(2.4rem,5vw,4.2rem)] leading-[1.02] text-light">
+          Agenda tu sesión de <span class="bg-gradient-to-r from-violet-300 via-light to-amber-200 bg-clip-text text-transparent">diagnóstico web.</span>
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-mute">
+          Analizamos en vivo tu sitio actual, revisamos tus objetivos comerciales y te mostramos cómo estructurar una web de autor que cargue en 0.7s y multiplique tus ventas.
+        </p>
+      </header>
+
+      <!-- Contenedor del Calendario y Formulario -->
+      <div class="glass relative overflow-hidden rounded-[2rem] border border-white/10 bg-carbon-2/80 p-6 md:p-10 shadow-2xl">
+        <div id="booking-container">
+          <form id="booking-form" class="space-y-8">
+            
+            <!-- Paso 1: Selección de Fecha y Hora -->
+            <div>
+              <div class="flex items-center gap-3 mb-4">
+                <span class="flex size-7 items-center justify-center rounded-full bg-violet/20 text-xs font-bold text-violet-300 ring-1 ring-violet/40">1</span>
+                <h3 class="text-lg font-semibold text-light">Elige la fecha y horario</h3>
+              </div>
+
+              <!-- Selector de Días Próximos -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2.5" id="date-selector">
+                <!-- Se inyecta dinámicamente con JavaScript -->
+              </div>
+
+              <!-- Selector de Horarios -->
+              <div class="mt-5">
+                <p class="text-xs font-mono text-mute mb-2.5">Horarios disponibles (Hora Colombia / Miami GMT-5):</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="slot-selector">
+                  <button type="button" class="slot-btn active" data-slot="09:00 AM">09:00 AM</button>
+                  <button type="button" class="slot-btn" data-slot="10:00 AM">10:00 AM</button>
+                  <button type="button" class="slot-btn" data-slot="11:30 AM">11:30 AM</button>
+                  <button type="button" class="slot-btn" data-slot="02:00 PM">02:00 PM</button>
+                  <button type="button" class="slot-btn" data-slot="03:00 PM">03:00 PM</button>
+                  <button type="button" class="slot-btn" data-slot="04:00 PM">04:00 PM</button>
+                  <button type="button" class="slot-btn" data-slot="05:00 PM">05:00 PM</button>
+                  <button type="button" class="slot-btn" data-slot="06:00 PM">06:00 PM</button>
+                </div>
+              </div>
+            </div>
+
+            <hr class="border-white/10" />
+
+            <!-- Paso 2: Información de tu Empresa -->
+            <div>
+              <div class="flex items-center gap-3 mb-4">
+                <span class="flex size-7 items-center justify-center rounded-full bg-violet/20 text-xs font-bold text-violet-300 ring-1 ring-violet/40">2</span>
+                <h3 class="text-lg font-semibold text-light">Tus datos de contacto</h3>
+              </div>
+
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="clientName" class="block text-xs font-mono text-mute mb-1.5">Tu Nombre Completo *</label>
+                  <input
+                    type="text"
+                    id="clientName"
+                    name="clientName"
+                    required
+                    placeholder="Ej. Carlos Mendoza"
+                    class="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-light placeholder-white/20 focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label for="companyName" class="block text-xs font-mono text-mute mb-1.5">Empresa o Marca</label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    name="companyName"
+                    placeholder="Ej. Clínica Dental / Firma Legal"
+                    class="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-light placeholder-white/20 focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label for="clientPhone" class="block text-xs font-mono text-mute mb-1.5">WhatsApp con prefijo de país *</label>
+                  <input
+                    type="tel"
+                    id="clientPhone"
+                    name="clientPhone"
+                    required
+                    placeholder="Ej. +57 314 771 4202"
+                    class="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-light placeholder-white/20 focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label for="clientEmail" class="block text-xs font-mono text-mute mb-1.5">Correo Electrónico Corporativo</label>
+                  <input
+                    type="email"
+                    id="clientEmail"
+                    name="clientEmail"
+                    placeholder="carlos@tuempresa.com"
+                    class="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-light placeholder-white/20 focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet transition-all"
+                  />
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <label for="serviceInterested" class="block text-xs font-mono text-mute mb-1.5">Servicio o Plan de Interés</label>
+                <select
+                  id="serviceInterested"
+                  name="serviceInterested"
+                  class="w-full rounded-xl border border-white/10 bg-carbon px-4 py-3 text-sm text-light focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet transition-all"
+                >
+                  <option value="Página Web Express (4-6 días - $249 USD)">Página Web Express (4–6 días hábiles · $249 USD / ~$990.000 COP)</option>
+                  <option value="Web Corporativa & Autoridad ($399 USD)">Web Corporativa & Autoridad (Multi-Página · $399 USD / ~$1.590.000 COP)</option>
+                  <option value="Web + Automatización WhatsApp 24/7 ($490 USD)">Web + Automatización WhatsApp 24/7 ($490 USD / ~$1.950.000 COP)</option>
+                  <option value="Rediseño / Proyecto Signature con 3D a Medida">Proyecto a Medida con 3D Interactivo</option>
+                  <option value="Diagnóstico general de sitio actual">Diagnóstico general de mi sitio web actual</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Botón de Envío -->
+            <div class="pt-4">
+              <button
+                type="submit"
+                id="submit-btn"
+                class="btn btn-light w-full py-4 text-base font-semibold shadow-[0_12px_32px_-12px_rgba(255,255,255,0.4)] hover:scale-[1.01] transition-transform"
+              >
+                Confirmar Videollamada Estratégica (15 min)
+              </button>
+              <p class="mt-3 text-center text-xs text-mute">
+                Sesión 1 a 1 por Google Meet. Sin costo ni compromiso comercial.
+              </p>
+            </div>
+          </form>
+
+          <!-- Pantalla de Éxito -->
+          <div id="success-screen" class="hidden py-12 text-center">
+            <div class="mx-auto flex size-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/30">
+              <svg class="size-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 class="mt-6 font-display text-3xl text-light">¡Sesión Agendada con Éxito!</h2>
+            <p class="mx-auto mt-3 max-w-md text-sm text-mute leading-relaxed">
+              Hemos registrado tu videollamada para el <strong id="confirmed-date" class="text-violet-300"></strong> a las <strong id="confirmed-time" class="text-violet-300"></strong>. Te hemos enviado la confirmación y te escribiremos a tu WhatsApp.
+            </p>
+            <div class="mt-8 flex justify-center gap-4">
+              <a href="/" class="btn btn-ghost !py-2.5 !px-6 text-sm">
+                ← Volver al Inicio
+              </a>
+              <a href={waLink('Hola Farid, acabo de agendar una llamada de diagnóstico desde la web.')} class="btn btn-light !py-2.5 !px-6 text-sm">
+                Escribir por WhatsApp directo
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .date-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .date-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .date-card.active {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+  }
+  .date-card .day-name {
+    font-size: 0.7rem;
+    font-family: monospace;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+  .date-card .day-num {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 0.2rem;
+  }
+  .date-card .month-name {
+    font-size: 0.65rem;
+    color: var(--color-mute);
+  }
+  .date-card.active .day-name,
+  .date-card.active .month-name {
+    color: rgb(196 181 253);
+  }
+
+  .slot-btn {
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    color: #e2e8f0;
+    font-size: 0.82rem;
+    font-family: monospace;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .slot-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .slot-btn.active {
+    background: rgba(139, 92, 246, 0.25);
+    border-color: rgb(139, 92, 246);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+  }
+</style>
+
+<script>
+  // Inicialización del selector dinámico de fechas
+  const dateContainer = document.getElementById('date-selector');
+  const slotButtons = document.querySelectorAll<HTMLButtonElement>('.slot-btn');
+  const form = document.getElementById('booking-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successScreen = document.getElementById('success-screen');
+
+  let selectedDateStr = '';
+  let selectedSlot = '09:00 AM';
+
+  const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+  const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+  // Generar próximos 6 días hábiles
+  if (dateContainer) {
+    let count = 0;
+    let d = new Date();
+    d.setDate(d.getDate() + 1); // Empezar mañana
+
+    while (count < 6) {
+      if (d.getDay() !== 0) { // Excluir domingos
+        const dayName = daysOfWeek[d.getDay()];
+        const dayNum = d.getDate();
+        const monthName = months[d.getMonth()];
+        const fullDateStr = `${dayName} ${dayNum} de ${monthName}`;
+
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = `date-card ${count === 0 ? 'active' : ''}`;
+        card.dataset.date = fullDateStr;
+        card.innerHTML = `
+          <span class="day-name">${dayName}</span>
+          <span class="day-num">${dayNum}</span>
+          <span class="month-name">${monthName}</span>
+        `;
+
+        if (count === 0) selectedDateStr = fullDateStr;
+
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.date-card').forEach((c) => c.classList.remove('active'));
+          card.classList.add('active');
+          selectedDateStr = fullDateStr;
+        });
+
+        dateContainer.appendChild(card);
+        count++;
+      }
+      d.setDate(d.getDate() + 1);
+    }
+  }
+
+  // Manejador de selección de horarios
+  slotButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      slotButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedSlot = btn.dataset.slot || '09:00 AM';
+    });
+  });
+
+  // Envío del formulario
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Confirmando reserva...';
+
+    const formData = new FormData(form);
+    const payload = {
+      clientName: formData.get('clientName'),
+      companyName: formData.get('companyName'),
+      clientPhone: formData.get('clientPhone'),
+      clientEmail: formData.get('clientEmail'),
+      serviceInterested: formData.get('serviceInterested'),
+      dateStr: selectedDateStr,
+      timeSlot: selectedSlot,
+    };
+
+    try {
+      // 1. Enviar al endpoint de Cloudflare Pages Function
+      await fetch('/api/appointment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      // 2. Intentar registrar en el microservicio local si está activo
+      try {
+        await fetch('http://localhost:3005/api/appointment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } catch (e) {
+        // Fallback transparente
+      }
+
+      form.classList.add('hidden');
+      if (successScreen) {
+        successScreen.classList.remove('hidden');
+        const confirmedDate = document.getElementById('confirmed-date');
+        const confirmedTime = document.getElementById('confirmed-time');
+        if (confirmedDate) confirmedDate.textContent = selectedDateStr;
+        if (confirmedTime) confirmedTime.textContent = selectedSlot;
+      }
+    } catch (err) {
+      alert('Hubo un problema registrando tu cita. Por favor escríbenos directamente a WhatsApp.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Confirmar Videollamada Estratégica (15 min)';
+    }
+  });
+</script>
