@@ -12,7 +12,7 @@ const wa = waSections.planes;
   <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
     
     <!-- Encabezado de la Sección -->
-    <div class="mb-16 grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-end">
+    <div class="mb-16 grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-end max-sm:mb-10 max-sm:gap-4">
       <div>
         <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
           Inversión & Retorno
@@ -21,8 +21,8 @@ const wa = waSections.planes;
           Planes claros, precios cerrados.
         </h2>
       </div>
-      <p class="max-w-[32rem] text-lg leading-relaxed text-mute">
-        Sin sorpresas ni cobros ocultos. Elige el plan que mejor se adapte a tu etapa actual y escríbenos por WhatsApp o mediante nuestro formulario para coordinar los detalles.
+      <p class="max-w-[32rem] text-lg leading-relaxed text-mute max-sm:text-base">
+        Sin sorpresas ni cobros ocultos. Elige el plan para tu etapa y coordinamos por WhatsApp o formulario.
       </p>
     </div>
 
@@ -54,11 +54,11 @@ const wa = waSections.planes;
                 {plan.badge}
               </p>
               
-              <p class="mt-5 max-w-[30rem] text-base md:text-lg leading-relaxed text-mute">
+              <p class="mt-5 max-w-[30rem] text-base md:text-lg leading-relaxed text-mute max-sm:mt-4 max-sm:text-[0.95rem] max-sm:leading-[1.6]">
                 {plan.audience}
               </p>
               
-              <p class="mt-auto flex items-center gap-2 pt-8 text-xs md:text-sm text-light/80">
+              <p class="mt-auto flex items-center gap-2 pt-8 text-xs md:text-sm text-light/80 max-sm:pt-5">
                 <span class="size-2 rounded-full bg-emerald-400" aria-hidden="true" />
                 {plan.delivery}
               </p>
@@ -73,7 +73,7 @@ const wa = waSections.planes;
                   <p class="mt-2 text-sm text-mute">{plan.priceCop}</p>
                 )}
                 
-                <ul class="mt-8 space-y-3.5 border-t border-white/10 pt-8 text-sm md:text-base text-light/90">
+                <ul class="mt-8 space-y-3.5 border-t border-white/10 pt-8 text-sm md:text-base text-light/90 max-sm:mt-6 max-sm:space-y-2.5 max-sm:pt-6">
                   {plan.features.map((f) => (
                     <li class="flex gap-3 leading-snug">
                       <span class="mt-[0.5em] size-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
@@ -83,7 +83,7 @@ const wa = waSections.planes;
                 </ul>
               </div>
 
-              <div class="mt-10 flex flex-wrap items-center gap-4">
+              <div class="mt-10 flex flex-wrap items-center gap-4 max-sm:mt-8">
                 <a
                   href={waLink(plan.message)}
                   target="_blank"
@@ -122,7 +122,7 @@ const wa = waSections.planes;
           {carePlan.name} · <span class="text-mute font-sans text-lg">{carePlan.subtitle}</span>
         </h3>
         <p class="mt-2 text-sm text-mute">
-          Hosting premium, certificado SSL, copias de seguridad continuas y soporte directo por WhatsApp para cambios de fotos y textos cada mes. Tu web siempre al 100%.
+          Hosting premium, SSL, copias de seguridad y soporte por WhatsApp para cambios mensuales de fotos y textos.
         </p>
       </div>
 

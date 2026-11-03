@@ -1,51 +1,106 @@
 ---
 // Marco artístico lateral: pinturas de Rembrandt en los bordes del viewport.
 // Puramente decorativo: fijo, sin eventos de puntero y bajo el contenido (main es z-[2], footer es z-[10]).
-// Cada página cuenta con sus propias obras maestras exclusivas:
-// 0: Inicio -> Tormenta en el Mar de Galilea · 1633 / La Ronda de Noche · 1642
-// 1: Planes -> Aristóteles con el busto de Homero · 1653 / El Molino · 1645
-// 2: Portafolio -> El Retorno del Hijo Pródigo · 1669 / Lección de Anatomía · 1632
-// 3: Proceso -> Filósofo en Meditación · 1632 / El Sacrificio de Isaac · 1635
-// 4: Contacto -> La Novia Judía · 1667 / Autorretrato con dos círculos · 1665
+// Cada página (ventana) cuenta con más de 3 obras maestras exclusivas por lado (4 en izquierda y 4 en derecha = 8 por página),
+// ninguna repetida en todo el sitio, con transición al scroll y rótulo visible en todo momento.
 
 interface Artwork {
   src: string;
   caption: string;
 }
 
-const left: Artwork[] = [
-  { src: '/art/storm.jpg', caption: 'Tormenta en el Mar de Galilea · 1633' },
-  { src: '/art/aristotle.jpg', caption: 'Aristóteles con el busto de Homero · 1653' },
-  { src: '/art/prodigalson.jpg', caption: 'El Retorno del Hijo Pródigo · 1669' },
-  { src: '/art/philosopher.jpg', caption: 'Filósofo en Meditación · 1632' },
-  { src: '/art/jewishbride.jpg', caption: 'La Novia Judía · 1667' },
-];
+interface PageArt {
+  left: Artwork[];
+  right: Artwork[];
+}
 
-const right: Artwork[] = [
-  { src: '/art/nightwatch.jpg', caption: 'La Ronda de Noche · 1642' },
-  { src: '/art/mill.jpg', caption: 'El Molino · 1645' },
-  { src: '/art/anatomy.jpg', caption: 'Lección de Anatomía · 1632' },
-  { src: '/art/isaac.jpg', caption: 'El Sacrificio de Isaac · 1635' },
-  { src: '/art/selfportrait.jpg', caption: 'Autorretrato con dos círculos · 1665' },
-];
+const artCatalog: Record<string, PageArt> = {
+  inicio: {
+    left: [
+      { src: '/art/storm.jpg', caption: 'Tormenta en el Mar de Galilea · 1633' },
+      { src: '/art/jeremiah.jpg', caption: 'Jeremías Llorando la Ruina de Jerusalén · 1630' },
+      { src: '/art/europa.jpg', caption: 'El Rapto de Europa · 1632' },
+      { src: '/art/lazarus.jpg', caption: 'La Resurrección de Lázaro · 1632' },
+    ],
+    right: [
+      { src: '/art/nightwatch.jpg', caption: 'La Ronda de Noche · 1642' },
+      { src: '/art/claudius.jpg', caption: 'La Conspiración de Claudius Civilis · 1661' },
+      { src: '/art/goldenhelmet.jpg', caption: 'El Hombre del Casco de Oro · 1650' },
+      { src: '/art/polishnobleman.jpg', caption: 'Noble Polaco · 1637' },
+    ],
+  },
+  planes: {
+    left: [
+      { src: '/art/aristotle.jpg', caption: 'Aristóteles con el busto de Homero · 1653' },
+      { src: '/art/syndics.jpg', caption: 'Los Síndicos de los Pañeros · 1662' },
+      { src: '/art/scholar.jpg', caption: 'Erudito en su Gabinete · 1631' },
+      { src: '/art/tobit.jpg', caption: 'Tobías y su Esposa · 1659' },
+    ],
+    right: [
+      { src: '/art/mill.jpg', caption: 'El Molino · 1645' },
+      { src: '/art/jansix.jpg', caption: 'Retrato de Jan Six · 1654' },
+      { src: '/art/doomer.jpg', caption: 'Retrato de Harmen Doomer · 1640' },
+      { src: '/art/ladyfan.jpg', caption: 'Dama con Abanico de Plumas · 1656' },
+    ],
+  },
+  portafolio: {
+    left: [
+      { src: '/art/prodigalson.jpg', caption: 'El Retorno del Hijo Pródigo · 1669' },
+      { src: '/art/samson.jpg', caption: 'El Banquete de Bodas de Sansón · 1638' },
+      { src: '/art/jacob.jpg', caption: 'Jacob Bendiciendo a los Hijos de José · 1656' },
+      { src: '/art/susanna.jpg', caption: 'Susana y los Ancianos · 1647' },
+    ],
+    right: [
+      { src: '/art/anatomy.jpg', caption: 'Lección de Anatomía · 1632' },
+      { src: '/art/belshazzar.jpg', caption: 'El Festín de Baltasar · 1635' },
+      { src: '/art/peterprison.jpg', caption: 'San Pedro en Prisión · 1631' },
+      { src: '/art/manhat.jpg', caption: 'Caballero con Sombrero Alto · 1656' },
+    ],
+  },
+  proceso: {
+    left: [
+      { src: '/art/philosopher.jpg', caption: 'Filósofo en Meditación · 1632' },
+      { src: '/art/bellona.jpg', caption: 'Bellona, Diosa de la Guerra · 1633' },
+      { src: '/art/stpaulinprison.jpg', caption: 'San Pablo en Prisión · 1627' },
+      { src: '/art/bathsheba.jpg', caption: 'Betsabé en su Baño · 1654' },
+    ],
+    right: [
+      { src: '/art/isaac.jpg', caption: 'El Sacrificio de Isaac · 1635' },
+      { src: '/art/judith.jpg', caption: 'Judith en el Banquete de Holofernes · 1634' },
+      { src: '/art/simeon.jpg', caption: 'Simeón en el Templo · 1631' },
+      { src: '/art/lucretia.jpg', caption: 'El Suicidio de Lucrecia · 1666' },
+    ],
+  },
+  contacto: {
+    left: [
+      { src: '/art/jewishbride.jpg', caption: 'La Novia Judía · 1667' },
+      { src: '/art/flora.jpg', caption: 'Saskia como Flora · 1634' },
+      { src: '/art/hendrickje.jpg', caption: 'Retrato de Hendrickje Stoffels · 1654' },
+      { src: '/art/rembrandtsmother.jpg', caption: 'La Madre de Rembrandt · 1630' },
+    ],
+    right: [
+      { src: '/art/selfportrait.jpg', caption: 'Autorretrato con dos Círculos · 1665' },
+      { src: '/art/selfportrait1640.jpg', caption: 'Autorretrato a los 34 Años · 1640' },
+      { src: '/art/selfportrait1669.jpg', caption: 'Autorretrato Anciano · 1669' },
+      { src: '/art/selfportrait1632.jpg', caption: 'Autorretrato de Juventud · 1632' },
+    ],
+  },
+};
+
+// Detección SSR de página
+const pathname = Astro.url.pathname.toLowerCase().replace(/\/$/, '') || '/';
+let pageKey = 'inicio';
+if (pathname.includes('/planes')) pageKey = 'planes';
+else if (pathname.includes('/portafolio')) pageKey = 'portafolio';
+else if (pathname.includes('/proceso')) pageKey = 'proceso';
+else if (pathname.includes('/contacto')) pageKey = 'contacto';
+
+const currentArt = artCatalog[pageKey] || artCatalog.inicio;
 
 const sides = [
-  { side: 'left', works: left },
-  { side: 'right', works: right },
+  { side: 'left', works: currentArt.left },
+  { side: 'right', works: currentArt.right },
 ] as const;
-
-// Detección en tiempo de compilación / render SSR para evitar cualquier parpadeo
-const pathname = Astro.url.pathname.toLowerCase().replace(/\/$/, '') || '/';
-let initialIndex = 0;
-if (pathname.startsWith('/planes')) {
-  initialIndex = 1;
-} else if (pathname.startsWith('/portafolio')) {
-  initialIndex = 2;
-} else if (pathname.startsWith('/proceso')) {
-  initialIndex = 3;
-} else if (pathname.startsWith('/contacto')) {
-  initialIndex = 4;
-}
 ---
 <div class="art-frame pointer-events-none fixed inset-0 z-0 hidden select-none xl:block" aria-hidden="true" data-art-borders>
   {sides.map(({ side, works }) => (
@@ -55,10 +110,10 @@ if (pathname.startsWith('/planes')) {
           <img
             src={w.src}
             alt=""
-            loading={i === initialIndex ? 'eager' : 'lazy'}
+            loading={i === 0 ? 'eager' : 'lazy'}
             decoding="async"
             draggable="false"
-            class:list={['art-img', i === initialIndex && 'is-active']}
+            class:list={['art-img', i === 0 && 'is-active']}
             data-art-state={i}
           />
         ))}
@@ -67,12 +122,12 @@ if (pathname.startsWith('/planes')) {
   ))}
 </div>
 
-<!-- Rótulos en capa hermana sobre <main> (z-[2]) para que sus fondos no los tapen -->
+<!-- Rótulos en capa fija hermana sobre <main> (z-[15]) para que los fondos no los tapen -->
 <div class="pointer-events-none fixed inset-0 z-[15] hidden select-none xl:block" aria-hidden="true" data-art-captions>
   {sides.map(({ side, works }) => (
     <div class={`art-caption-col art-caption-col--${side}`}>
       {works.map((w, i) => (
-        <span class:list={['art-caption', `art-caption--${side}`, i === initialIndex && 'is-active']} data-art-state={i}>
+        <span class:list={['art-caption', `art-caption--${side}`, i === 0 && 'is-active']} data-art-state={i}>
           {w.caption}
         </span>
       ))}
@@ -80,17 +135,17 @@ if (pathname.startsWith('/planes')) {
   ))}
 </div>
 
-<!-- Móvil: telón de fondo ambiental con la obra de la página, casi imperceptible -->
+<!-- Móvil: telón de fondo ambiental con la primera obra maestra de la página -->
 <div class="art-mobile-backdrop pointer-events-none fixed inset-0 z-0 select-none md:hidden" aria-hidden="true">
-  <img src={left[initialIndex].src} alt="" decoding="async" draggable="false" />
+  <img src={currentArt.left[0].src} alt="" decoding="async" draggable="false" />
 </div>
 
-<!-- Móvil: crédito de la obra en violeta de marca -->
+<!-- Móvil: crédito de la obra con el nombre siempre visible -->
 <div class="art-mobile-credit pointer-events-none fixed right-3.5 top-20 z-30 select-none md:hidden" aria-hidden="true">
   <div class="glass flex items-center gap-2 rounded-full border border-violet/25 px-3 py-1">
     <span class="size-1.5 rounded-full bg-violet-400"></span>
     <span class="font-serif text-[0.65rem] italic tracking-wide text-violet-300/90">
-      Rembrandt · {left[initialIndex].caption}
+      Rembrandt · {currentArt.left[0].caption}
     </span>
   </div>
 </div>
@@ -107,18 +162,6 @@ if (pathname.startsWith('/planes')) {
     );
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const path = window.location.pathname.toLowerCase();
-    let defaultState = 0;
-    if (path.includes('/planes')) {
-      defaultState = 1;
-    } else if (path.includes('/portafolio')) {
-      defaultState = 2;
-    } else if (path.includes('/proceso')) {
-      defaultState = 3;
-    } else if (path.includes('/contacto')) {
-      defaultState = 4;
-    }
-
     let current = -1;
     let raf = 0;
 
@@ -130,10 +173,14 @@ if (pathname.startsWith('/planes')) {
 
     const update = () => {
       raf = 0;
-      const state = defaultState;
+      
+      // Progresión de scroll a lo largo de la página para alternar entre las 4 pinturas de cada lado
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight || 1;
+      const scrollRatio = Math.min(Math.max(window.scrollY / maxScroll, 0), 0.999);
+      const state = Math.min(Math.floor(scrollRatio * 4), 3);
       setState(state);
 
-      // Ocultar rótulos cuando el footer entra al viewport (solo tras hacer scroll)
+      // Ocultar rótulos cuando el footer entra al viewport (solo tras hacer scroll real)
       const footer = document.querySelector('footer');
       if (footer) {
         const fRect = footer.getBoundingClientRect();
@@ -142,9 +189,8 @@ if (pathname.startsWith('/planes')) {
       }
 
       if (!reduceMotion) {
-        // Parallax sutil: la pintura se desplaza más lento que el contenido (máx. ±4% de su alto)
-        const max = document.documentElement.scrollHeight - innerHeight || 1;
-        const shift = (scrollY / max - 0.5) * -8;
+        // Parallax sutil existente (sin alterar animación)
+        const shift = (scrollRatio - 0.5) * -8;
         layers.forEach((l) => (l.style.transform = `translate3d(0, ${shift.toFixed(2)}%, 0)`));
       }
     };
@@ -185,7 +231,6 @@ if (pathname.startsWith('/planes')) {
   .art-parallax {
     position: absolute;
     inset: -6% 0;
-    /* La máscara aísla la capa: el modo screen se aplica al grupo completo contra el carbón */
     mix-blend-mode: screen;
     will-change: transform;
   }

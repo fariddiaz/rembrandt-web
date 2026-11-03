@@ -93,7 +93,7 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     );
   }
 
-  if (wrap && canvas) {
+  if (wrap && canvas && window.innerWidth >= 768) {
     if (halo && finePointer && !reduceMotion) {
       followCursor(wrap, halo);
     }

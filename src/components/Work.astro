@@ -32,8 +32,8 @@ const domainOf = (url: string) => {
           Casos de estudio reales.
         </h2>
       </div>
-      <p class="max-w-[32rem] text-lg leading-relaxed text-mute">
-        Cada proyecto comienza con una meta de negocio: captar clientes, transmitir autoridad y vender más. Mira lo que construimos y los resultados alcanzados.
+      <p class="max-w-[32rem] text-lg leading-relaxed text-mute max-sm:text-base">
+        Cada proyecto parte de una meta de negocio: captar clientes, transmitir autoridad y vender más. Estos son los resultados.
       </p>
     </div>
 
@@ -127,7 +127,7 @@ const domainOf = (url: string) => {
                 </h3>
 
                 <!-- Desglose estructurado -->
-                <div class="mt-7 space-y-5">
+                <div class="mt-7 space-y-5 max-sm:mt-5 max-sm:space-y-3">
                   <div class="rounded-xl bg-white/[0.02] p-4 ring-1 ring-white/5">
                     <p class="case-label text-rose-300">¿Qué necesitaba el cliente?</p>
                     <p class="mt-1.5 text-sm leading-relaxed text-mute">{c.challenge}</p>
@@ -139,7 +139,7 @@ const domainOf = (url: string) => {
                   </div>
 
                   <div class="rounded-xl bg-violet/5 p-4 ring-1 ring-violet/20">
-                    <p class="case-label text-emerald-300">¿Qué logramos para el cliente?</p>
+                    <p class="case-label text-emerald-300">¿Qué logramos?</p>
                     <p class="mt-1.5 text-sm leading-relaxed text-light font-medium">{c.impact}</p>
                   </div>
                 </div>
@@ -261,8 +261,8 @@ const domainOf = (url: string) => {
 
       <!-- Pie de página del modal -->
       <footer class="flex items-center justify-between border-t border-white/10 px-5 py-2.5 text-xs text-mute bg-carbon-2/60">
-        <span>Preview en tiempo real. Puedes interactuar con los elementos directamente.</span>
-        <span class="text-light/60">Presiona ESC o clic fuera para cerrar</span>
+        <span>Preview en vivo: interactúa directamente.</span>
+        <span class="text-light/60">ESC o clic fuera para cerrar</span>
       </footer>
     </div>
   </dialog>
