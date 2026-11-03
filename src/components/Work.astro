@@ -256,15 +256,21 @@ const domainOf = (url: string) => {
             data-preview-frame
             class="size-full border-0 bg-carbon"
             referrerpolicy="strict-origin-when-cross-origin"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            allow="fullscreen"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
           ></iframe>
+        </div>
+        <!-- Indicador de carga mientras llega el sitio real -->
+        <div class="preview-loading" data-preview-loading aria-hidden="true">
+          <span class="preview-spinner"></span>
+          <span>Cargando sitio en vivo…</span>
         </div>
       </div>
 
       <!-- Pie de página del modal -->
       <footer class="flex items-center justify-between border-t border-white/10 px-5 py-2.5 text-xs text-mute bg-carbon-2/60">
         <span>Preview en vivo: interactúa directamente.</span>
-        <span class="text-light/60">ESC o clic fuera para cerrar</span>
+        <span class="hidden sm:inline text-light/60">ESC o clic fuera para cerrar</span>
       </footer>
     </div>
   </dialog>
@@ -284,8 +290,13 @@ const domainOf = (url: string) => {
     const domain = dialog.querySelector<HTMLElement>('[data-preview-domain]');
     const live = dialog.querySelector<HTMLAnchorElement>('[data-preview-live]');
     const closeBtn = dialog.querySelector<HTMLButtonElement>('[data-preview-close]');
+    const loading = dialog.querySelector<HTMLElement>('[data-preview-loading]');
     const deviceBtns = dialog.querySelectorAll<HTMLButtonElement>('[data-device]');
     if (!frame || !wrap || !name || !domain || !live || !closeBtn) return;
+
+    frame.addEventListener('load', () => {
+      if (frame.src !== 'about:blank') loading?.classList.add('is-hidden');
+    });
 
     const setDevice = (device: string) => {
       wrap.classList.toggle('is-mobile', device === 'mobile');
@@ -293,6 +304,7 @@ const domainOf = (url: string) => {
     };
 
     const open = (url: string, title: string, liveUrl: string) => {
+      loading?.classList.remove('is-hidden');
       frame.src = url;
       name.textContent = title;
       try {
@@ -419,6 +431,49 @@ const domainOf = (url: string) => {
     width: min(390px, 100%);
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
     border-inline: 1px solid rgb(255 255 255 / 0.15);
+  }
+
+  /* En celular el modal ocupa casi toda la pantalla y el sitio llena el ancho */
+  @media (max-width: 639px) {
+    .preview-dialog {
+      width: calc(100% - 1rem);
+      height: calc(100dvh - 1rem);
+    }
+    .preview-frame.is-mobile {
+      width: 100%;
+      box-shadow: none;
+      border-inline: 0;
+    }
+  }
+
+  .preview-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    background: var(--color-carbon);
+    color: var(--color-mute);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .preview-loading.is-hidden {
+    opacity: 0;
+  }
+  .preview-spinner {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    border: 2px solid rgb(255 255 255 / 0.12);
+    border-top-color: rgb(139 92 246 / 0.9);
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
   }
 
   .device-btn {

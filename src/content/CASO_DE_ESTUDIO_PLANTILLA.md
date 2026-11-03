@@ -33,22 +33,11 @@ Agrega el nuevo objeto dentro del array `caseStudies`:
 
 ## 2. Creación de la Preview Interactiva
 
-Crea el archivo correspondiente en `src/pages/preview/[id].astro`:
+La preview muestra siempre el **sitio real** del cliente, nunca una página simulada.
 
-1. Utiliza la estructura base de `src/pages/preview/eventosleymar.astro`.
-2. Estilos CSS completamente autocontenidos (sin dependencias de CDN que puedan fallar en iframe o sandbox).
-3. Asegura que el logo tenga dimensiones restringidas:
-   ```css
-   .client-logo {
-     height: 38px;
-     max-height: 38px;
-     width: auto;
-     max-width: 140px;
-     object-fit: contain;
-     display: block;
-   }
-   ```
-4. Los botones de acción deben redirigir al WhatsApp del cliente con mensaje preconfigurado.
+1. Si el sitio del cliente permite iframes desde nuestro dominio (sin `X-Frame-Options: DENY` ni `frame-ancestors` restrictivo), usa directamente su URL en `url`.
+2. Si lo bloquea, crea un proxy en vivo como Cloudflare Pages Function, tomando como base `functions/preview/eventosleymar/[[path]].ts` (cambia `UPSTREAM`, `MEDIA` y `PREFIX`), y usa `url: '/preview/nombre-cliente'`.
+3. Verifica en escritorio y celular que cargan fuentes, imágenes y videos, y que la navegación interna se mantiene dentro del modal.
 
 ---
 
