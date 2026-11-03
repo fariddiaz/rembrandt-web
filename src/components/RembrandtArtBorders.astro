@@ -155,7 +155,7 @@ const sides = [
   <div class="art-mobile-caption-wrap">
     {currentArt.left.map((w, i) => (
       <span class:list={['art-caption-mobile', i === 0 && 'is-active']} data-art-mobile-state={i}>
-        Rembrandt · {w.caption}
+        {w.caption.split(' · ')[0]}
       </span>
     ))}
   </div>
@@ -375,9 +375,8 @@ const sides = [
   .art-caption-mobile {
     position: fixed;
     bottom: 2.2rem;
-    left: 0.85rem;
+    right: 0.85rem;
     writing-mode: vertical-rl;
-    transform: rotate(180deg);
     font-size: 0.58rem;
     letter-spacing: 0.32em;
     text-transform: uppercase;
@@ -389,7 +388,7 @@ const sides = [
     z-index: 0;
   }
   .art-caption-mobile.is-active {
-    opacity: 0.22;
+    opacity: 0.14;
   }
 
   /* Al llegar al footer se desvanece con máxima pulcritud */
