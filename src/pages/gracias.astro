@@ -81,15 +81,33 @@ import { waLink } from '../config/site';
           href={waLink('Hola Rembrandt Studio 👋 Acabo de enviar el formulario de contacto y me gustaría adelantar detalles de mi proyecto por aquí.')}
           target="_blank"
           rel="noopener"
-          class="btn btn-ghost"
+          data-gracias-wa-btn
+          class="btn btn-ghost border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/10 flex items-center gap-2"
           data-magnetic="0.3"
         >
-          Agilizar por WhatsApp Directo
+          <svg class="size-4 fill-current shrink-0" viewBox="0 0 24 24">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/>
+          </svg>
+          <span>Agilizar por WhatsApp Directo</span>
         </a>
       </div>
 
     </div>
   </main>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const plan = urlParams.get('plan');
+    const waBtn = document.querySelector<HTMLAnchorElement>('[data-gracias-wa-btn]');
+    if (waBtn && (name || plan)) {
+      let msg = 'Hola Rembrandt Studio 👋 Acabo de enviar el formulario en la web.';
+      if (name) msg += ` Mi nombre es ${name}.`;
+      if (plan) msg += ` Me interesa el plan: ${plan}.`;
+      msg += ' Me gustaría agilizar los detalles de la propuesta por aquí.';
+      waBtn.href = `https://wa.me/573147714202?text=${encodeURIComponent(msg)}`;
+    }
+  </script>
 
   <Footer />
 </Layout>

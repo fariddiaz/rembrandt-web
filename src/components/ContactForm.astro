@@ -1,5 +1,5 @@
 ---
-const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || '644b5b46-ac1d-456b-ba02-eab88e67c3ae';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const graciasUrl = `${base}/gracias`;
 
@@ -115,14 +115,27 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
     </div>
 
     <div class="flex flex-wrap items-center justify-between gap-4 pt-3">
-      <button
-        class="btn btn-light btn-float !py-3 !px-7 text-sm font-semibold max-sm:w-full max-sm:justify-center max-sm:!py-3.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-        type="submit"
-        data-magnetic="0.2"
-      >
-        <span>Enviar solicitud de propuesta</span>
-        <span aria-hidden="true">→</span>
-      </button>
+      <div class="flex flex-wrap items-center gap-3 max-sm:w-full">
+        <button
+          class="btn btn-light btn-float !py-3 !px-7 text-sm font-semibold max-sm:w-full max-sm:justify-center max-sm:!py-3.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+          type="submit"
+          data-magnetic="0.2"
+        >
+          <span>Enviar solicitud por correo</span>
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+
+        <button
+          type="button"
+          data-wa-submit
+          class="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-3 text-sm font-semibold text-emerald-300 transition-all hover:border-emerald-500/50 hover:bg-emerald-500/20 max-sm:w-full cursor-pointer"
+        >
+          <svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/>
+          </svg>
+          <span>O enviar directo a WhatsApp</span>
+        </button>
+      </div>
 
       <span class="text-xs text-mute flex items-center gap-1.5">
         <span class="size-1.5 rounded-full bg-emerald-400"></span>
@@ -161,6 +174,32 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
 
     const status = form.querySelector<HTMLElement>('[data-form-status]');
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const waButton = form.querySelector<HTMLButtonElement>('[data-wa-submit]');
+
+    if (waButton) {
+      waButton.addEventListener('click', () => {
+        const name = (form.querySelector<HTMLInputElement>('#name')?.value || '').trim();
+        const email = (form.querySelector<HTMLInputElement>('#email')?.value || '').trim();
+        const planSelect = form.querySelector<HTMLSelectElement>('#plan');
+        const planText = planSelect?.options[planSelect.selectedIndex]?.text || '';
+        const budget = form.querySelector<HTMLSelectElement>('#budget')?.value || '';
+        const message = (form.querySelector<HTMLTextAreaElement>('#message')?.value || '').trim();
+
+        if (!name) {
+          showStatus('Por favor ingresa al menos tu nombre antes de abrir WhatsApp.', true);
+          form.querySelector<HTMLInputElement>('#name')?.focus();
+          return;
+        }
+
+        let waText = 'Hola Rembrandt Studio 👋 Mi nombre es *' + name + '*';
+        if (email) waText += ' (' + email + ')';
+        if (planText) waText += '.\n\nMe interesa el plan: *' + planText + '*';
+        if (budget) waText += '\nPresupuesto estimado: *' + budget + '*';
+        if (message) waText += '\n\nDetalles del proyecto:\n' + message;
+
+        window.open('https://wa.me/573147714202?text=' + encodeURIComponent(waText), '_blank');
+      });
+    }
     let lastSubmitTime = 0;
 
     const showStatus = (message: string, isError: boolean) => {
@@ -218,7 +257,7 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
           `Nombre: ${name}\nEmail: ${email}\nPlan seleccionado: ${plan}\n\nDetalles del proyecto:\n${message}`,
         );
 
-        window.location.href = `mailto:contacto@rembrandtstudio.co?subject=${mailSubject}&body=${mailBody}`;
+        window.location.href = `mailto:hola@rembrandtstudio.co?subject=${mailSubject}&body=${mailBody}`;
         showStatus('Redirigiendo a tu cliente de correo corporativo...', false);
         button.disabled = false;
         button.innerHTML = originalText;
@@ -240,12 +279,12 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
         }
 
         showStatus(
-          result.message || 'No se pudo enviar. Puedes escribirnos directamente a contacto@rembrandtstudio.co o al WhatsApp oficial.',
+          result.message || 'No se pudo enviar. Puedes escribirnos directamente a hola@rembrandtstudio.co o al WhatsApp oficial.',
           true,
         );
       } catch {
         showStatus(
-          'Error de conexión. Escríbenos directamente a contacto@rembrandtstudio.co o al WhatsApp +57 314 771 4202.',
+          'Error de conexión. Escríbenos directamente a hola@rembrandtstudio.co o al WhatsApp +57 314 771 4202.',
           true,
         );
       }

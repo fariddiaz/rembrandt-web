@@ -4,7 +4,7 @@
 // ────────────────────────────────────────────────────────────
 
 export const WHATSAPP_NUMBER = '573147714202'; // +57 314 771 4202, sin "+" ni espacios
-export const CONTACT_EMAIL = 'contacto@rembrandtstudio.co';
+export const CONTACT_EMAIL = 'hola@rembrandtstudio.co';
 export const CALENDLY_LINK = 'https://cal.com'; // O enlace a videollamada personalizada
 
 export const waLink = (message: string) =>
