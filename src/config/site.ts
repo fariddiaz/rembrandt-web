@@ -56,10 +56,14 @@ export interface Plan {
   badge: string;
   /** Para quién es, en una frase clara para cualquier emprendedor. */
   audience: string;
+  /** Versión corta de `audience` para móvil (< 640px). */
+  audienceShort?: string;
   priceUsd: string;
   priceCop?: string;
   delivery: string;
   features: string[];
+  /** Versión corta de `features` para móvil (< 640px), mismo orden y datos. */
+  featuresShort?: string[];
   cta: string;
   message: string;
   featured?: boolean;
@@ -72,6 +76,7 @@ export const plans: Plan[] = [
     badge: 'Entrega 4–6 días',
     audience:
       'Para emprendedores y negocios de servicios que necesitan una web profesional, lista para recibir clientes por WhatsApp en 4–6 días hábiles.',
+    audienceShort: 'Web profesional para emprendedores, lista para recibir clientes por WhatsApp.',
     priceUsd: '$249 USD',
     priceCop: '~$990.000 COP',
     delivery: 'Entrega garantizada en 4–6 días hábiles',
@@ -83,6 +88,14 @@ export const plans: Plan[] = [
       'Dominio propio, SSL y alta en Google',
       'Sin costos ocultos: web y código 100% tuyos',
     ],
+    featuresShort: [
+      'Landing de alta conversión',
+      'Diseño de autor con tu marca',
+      'WhatsApp + formulario a tu correo',
+      'Carga en 0.7s en celular',
+      'Dominio, SSL y alta en Google',
+      'Sin costos ocultos: código 100% tuyo',
+    ],
     cta: 'Elegir Plan Express',
     message: 'Hola Rembrandt Studio, quiero la Página Web Express ($249 USD / ~$990.000 COP). Mi negocio es: ',
   },
@@ -92,6 +105,7 @@ export const plans: Plan[] = [
     badge: 'Multi-Página (3–5 secciones)',
     audience:
       'Para empresas y firmas con varios servicios que necesitan autoridad, confianza institucional y visibilidad en Google.',
+    audienceShort: 'Para empresas con varios servicios: autoridad, confianza y visibilidad en Google.',
     priceUsd: '$399 USD',
     priceCop: '~$1.590.000 COP',
     delivery: 'Entrega en 8–12 días hábiles',
@@ -103,6 +117,14 @@ export const plans: Plan[] = [
       'Formulario de cotización validado y analítica de visitas',
       'Panel autoadministrable para editar textos y fotos',
     ],
+    featuresShort: [
+      'Inicio, Servicios, Nosotros, Portafolio y Contacto',
+      'Diseño editorial claroscuro',
+      'SEO avanzado en Google',
+      'Correos con tu dominio',
+      'Formulario validado + analítica',
+      'Panel para editar textos y fotos',
+    ],
     cta: 'Elegir Plan Corporativo',
     message: 'Hola Rembrandt Studio, me interesa la Web Corporativa ($399 USD / ~$1.590.000 COP). Mi empresa es: ',
   },
@@ -112,6 +134,7 @@ export const plans: Plan[] = [
     badge: 'Web + Chatbot Inteligente 24/7',
     audience:
       'El favorito de empresarios ocupados: tu web capta prospectos y WhatsApp responde al instante, califica al cliente y agenda citas 24/7.',
+    audienceShort: 'Tu web capta prospectos; WhatsApp responde, califica y agenda 24/7.',
     priceUsd: '$490 USD',
     priceCop: '~$1.950.000 COP',
     delivery: 'Entrega en 12–15 días hábiles',
@@ -123,6 +146,14 @@ export const plans: Plan[] = [
       'Agendamiento automático de citas o videollamadas en tu calendario',
       'Alerta a tu celular cuando un cliente calificado pide atención humana',
     ],
+    featuresShort: [
+      'Todo lo de la Web Corporativa',
+      'Respuesta inmediata en WhatsApp 24/7',
+      'Filtra curiosos y detecta compradores',
+      'Envía catálogos, precios y pagos',
+      'Agenda citas en tu calendario',
+      'Te alerta cuando un cliente pide atención',
+    ],
     cta: 'Elegir Web + Automatización',
     message: 'Hola Rembrandt Studio, me interesa el Plan Web + Automatización WhatsApp ($490 USD / ~$1.950.000 COP). Mi negocio es: ',
     featured: true,
@@ -133,6 +164,7 @@ export const plans: Plan[] = [
     badge: 'E-commerce & Catálogo',
     audience:
       'Para marcas que venden productos físicos o digitales con pagos en línea automáticos, compra fluida y sin comisiones abusivas.',
+    audienceShort: 'Vende productos con pagos en línea automáticos y sin comisiones abusivas.',
     priceUsd: '$590 USD',
     priceCop: '~$2.390.000 COP',
     delivery: 'Entrega en 15–20 días hábiles',
@@ -144,6 +176,14 @@ export const plans: Plan[] = [
       'Cálculo automático de envíos y cupones de descuento',
       'Capacitación en video para administrar tu tienda',
     ],
+    featuresShort: [
+      'Catálogo con carrito y fichas',
+      'Stripe, Wompi, PSE y tarjetas',
+      'Pedidos confirmados por WhatsApp y correo',
+      'Panel de inventario, precios y pedidos',
+      'Envíos y cupones automáticos',
+      'Capacitación en video',
+    ],
     cta: 'Elegir Tienda Ágil',
     message: 'Hola Rembrandt Studio, quiero cotizar el Plan Catálogo & Tienda Ágil ($590 USD / ~$2.390.000 COP). Vendo: ',
   },
@@ -153,6 +193,7 @@ export const plans: Plan[] = [
     badge: 'A Medida · 3D Interactivo',
     audience:
       'Para marcas de lujo, arquitectura y startups que buscan una presencia única con 3D interactivo (Spline/WebGL) y diseño de autor sin plantillas.',
+    audienceShort: 'Presencia única con 3D interactivo para marcas de lujo y startups.',
     priceUsd: 'Desde $950 USD',
     delivery: 'Entrega en 3–5 semanas (20–25 días hábiles)',
     features: [
@@ -162,6 +203,14 @@ export const plans: Plan[] = [
       'Sonido ambiental de autor o interactividad inmersiva',
       'Estrategia de posicionamiento de marca premium',
       'Soporte directo de los fundadores en todo el desarrollo',
+    ],
+    featuresShort: [
+      '3D interactivo en tiempo real',
+      'Animaciones cinemáticas al scroll',
+      'Astro, React o Next.js a medida',
+      'Sonido e interactividad inmersiva',
+      'Estrategia de marca premium',
+      'Soporte directo de los fundadores',
     ],
     cta: 'Cotizar Proyecto Signature',
     message: 'Hola Rembrandt Studio, quiero cotizar un Proyecto Signature a medida con 3D. Mi idea es: ',
@@ -268,6 +317,12 @@ export const carePlan = {
     'Soporte prioritario por WhatsApp para cambios de textos, fotos y precios',
     'Sin permanencia: pausa, cancela o cambia de plan cuando quieras',
   ],
+  featuresShort: [
+    'Hosting cloud y SSL incluidos',
+    'Backups y monitoreo 24/7 (99.9%)',
+    'Cambios de textos, fotos y precios por WhatsApp',
+    'Sin permanencia: pausa o cancela cuando quieras',
+  ],
   cta: 'Ver Paquetes de Mantenimiento',
   message: waSections.cuidado.message,
 };
@@ -320,6 +375,8 @@ export interface CaseStudy {
   solution: string;
   /** El impacto: ¿qué logramos? */
   impact: string;
+  /** Versiones cortas para móvil (< 640px). */
+  short?: { challenge: string; solution: string; impact: string };
   metrics: CaseMetric[];
   /** Dos tonos para el póster del marco del navegador. */
   tint: [string, string];
@@ -330,7 +387,7 @@ export const caseStudies: CaseStudy[] = [
     id: 'leymar',
     client: 'Eventos Leymar',
     sector: 'Wedding Planner & Eventos · Cartagena',
-    url: 'https://www.eventosleymar.com',
+    url: '/preview/eventosleymar',
     liveUrl: 'https://eventosleymar.com',
     challenge:
       'Captar parejas internacionales que planean su boda en Cartagena y recibir cotizaciones directas por WhatsApp, sin intermediarios.',
@@ -338,6 +395,11 @@ export const caseStudies: CaseStudy[] = [
       'Web de autor con catálogo nupcial, galería inmersiva de bodas reales y un flujo de cotización que lleva a cada cliente directo a WhatsApp.',
     impact:
       'Carga en 0.7 segundos y las cotizaciones directas crecieron un 45% en los dos primeros meses.',
+    short: {
+      challenge: 'Captar parejas internacionales y cotizar directo por WhatsApp.',
+      solution: 'Web de autor con galería de bodas reales y cotización directa a WhatsApp.',
+      impact: 'Carga en 0.7 s y +45% de cotizaciones en 2 meses.',
+    },
     metrics: [
       { value: '0.7 s', label: 'Tiempo de carga' },
       { value: '+45%', label: 'Más cotizaciones' },

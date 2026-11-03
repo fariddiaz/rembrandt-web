@@ -12,6 +12,7 @@
   --color-violet-deep: #7c3aed;
   --color-light: #fcfbfe;
   --color-mute: #a19eae; /* texto secundario, contraste AA sobre carbón */
+  --color-gold: #d4af37; /* oro viejo: acentos de conversión */
 
   --font-display: 'Gloock', 'Times New Roman', serif;
   --font-sans: 'Hanken Grotesk Variable', system-ui, sans-serif;
@@ -298,9 +299,8 @@ html.cursor-hidden .cursor-trail {
     html {
       -webkit-tap-highlight-color: transparent;
     }
-    /* Espacio para la barra inferior de acciones (MobileBottomBar) */
     body {
-      padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+      padding-bottom: 0;
     }
     a, button, [role='button'], summary, label {
       touch-action: manipulation;
@@ -372,5 +372,106 @@ html.cursor-hidden .cursor-trail {
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
   .btn-float {
     animation: none;
+  }
+}
+
+/* ── Motion de autor: claroscuro, levitación y radar ────────────
+   Solo transform/opacity (GPU). Sin animar layout ni sombras. */
+
+/* Borde de cristal con brillo especular: luz cenital dorada arriba-izquierda,
+   rebote violeta abajo-derecha. Anillo de 1px recortado con máscara. */
+.glass-sheen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 220, 160, 0.42) 0%,
+    rgba(255, 255, 255, 0.08) 22%,
+    transparent 45%,
+    transparent 70%,
+    rgba(139, 92, 246, 0.38) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0.75;
+}
+/* En escritorio el brillo respira lento; en móvil queda estático (ahorro de GPU) */
+@media (min-width: 768px) {
+  .glass-sheen::before {
+    animation: sheenBreath 6s ease-in-out infinite;
+  }
+}
+@keyframes sheenBreath {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+/* Radar de conversión: núcleo dorado con dos ondas desfasadas */
+.radar {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--radar, var(--color-gold));
+  box-shadow: 0 0 8px -1px var(--radar, var(--color-gold));
+}
+.radar::before,
+.radar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  opacity: 0;
+  animation: radarPing 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.radar::after {
+  animation-delay: 1.3s;
+}
+.radar-violet { --radar: #a78bfa; }
+.radar-emerald { --radar: #34d399; }
+@keyframes radarPing {
+  0% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(3.4); opacity: 0; }
+}
+
+/* Levitación de badges y microtarjetas: solo en móvil, periodos desacoplados */
+@media (max-width: 767px) {
+  .float-pulse {
+    will-change: transform;
+    animation: floatPulseLite 5.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+  .float-pulse.is-slow { animation-duration: 6s; }
+  .float-pulse.is-fast { animation-duration: 4.5s; }
+}
+/* Cristal que levita en móvil: sin backdrop-filter (re-desenfocar el fondo en
+   cada frame es lo más caro en GPU móvil); fondo carbón translúcido en su lugar. */
+@media (max-width: 767px) {
+  .glass.float-pulse,
+  .glass.hero-metric-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: linear-gradient(145deg, rgba(27, 25, 36, 0.92) 0%, rgba(18, 17, 24, 0.86) 100%);
+  }
+}
+@keyframes floatPulseLite {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -4px, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-pulse,
+  .glass-sheen::before,
+  .radar::before,
+  .radar::after {
+    animation: none !important;
   }
 }

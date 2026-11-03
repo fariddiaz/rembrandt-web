@@ -29,7 +29,8 @@ const wa = waSections.contacto;
       </h2>
 
       <p class="mx-auto mt-5 max-w-2xl text-base md:text-lg text-mute max-sm:mt-4 max-sm:text-[0.95rem] max-sm:leading-[1.6]">
-        Formulario en 30 segundos, WhatsApp con respuesta inmediata o videollamada: tú eliges.
+        <span class="max-sm:hidden">Formulario en 30 segundos, WhatsApp con respuesta inmediata o videollamada: tú eliges.</span>
+        <span class="sm:hidden">Formulario (30 s), WhatsApp o videollamada: tú eliges.</span>
       </p>
     </div>
 
@@ -55,10 +56,10 @@ const wa = waSections.contacto;
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-semibold text-light text-base group-hover:text-emerald-300 transition-colors">WhatsApp Business</h3>
-              <span class="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[0.68rem] font-medium text-emerald-400">En minutos</span>
+              <span class="float-pulse is-fast inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[0.68rem] font-medium text-emerald-400"><span class="radar radar-emerald !size-1.5" aria-hidden="true"></span>En minutos</span>
             </div>
             <p class="mt-1 text-xs text-mute leading-relaxed">
-              Ideal para Colombia y Latinoamérica. Asesoría directa sobre alcance y costos.
+              <span class="max-sm:hidden">Ideal para Colombia y Latinoamérica. </span>Asesoría directa sobre alcance y costos.
             </p>
             <span class="mt-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-light group-hover:text-emerald-300">
               Escribir a +57 314 771 4202 <span aria-hidden="true">→</span>
@@ -83,7 +84,7 @@ const wa = waSections.contacto;
               <span class="rounded-full bg-white/5 px-2 py-0.5 text-[0.68rem] text-mute">Global</span>
             </div>
             <p class="mt-1 text-xs text-mute leading-relaxed">
-              Para RFP, requerimientos formales o clientes de EE.UU. y Europa.
+              Para RFP<span class="max-sm:hidden">, requerimientos formales</span> o clientes de EE.UU. y Europa.
             </p>
             <span class="mt-2.5 inline-flex items-center gap-1.5 text-xs font-mono font-medium text-violet-300 group-hover:text-light transition-colors">
               {CONTACT_EMAIL} <span aria-hidden="true">→</span>
@@ -110,7 +111,7 @@ const wa = waSections.contacto;
               <span class="rounded-full bg-rose-500/10 px-2 py-0.5 text-[0.68rem] text-rose-300 font-medium">Google Meet / Zoom</span>
             </div>
             <p class="mt-1 text-xs text-mute leading-relaxed">
-              Habla con los fundadores sobre alcance, viabilidad y presupuesto.
+              <span class="max-sm:hidden">Habla con los fundadores sobre alcance, viabilidad y presupuesto.</span><span class="sm:hidden">Alcance y presupuesto con los fundadores.</span>
             </p>
             <span class="mt-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-light group-hover:text-rose-300">
               Agendar llamada en línea <span aria-hidden="true">→</span>
@@ -119,7 +120,7 @@ const wa = waSections.contacto;
         </a>
 
         <!-- Bloque de Confianza Internacional -->
-        <div class="rounded-2xl border border-white/10 bg-carbon-2/60 p-5 backdrop-blur-md">
+        <div class="glass-sheen relative rounded-2xl border border-white/10 bg-carbon-2/60 p-5 backdrop-blur-md max-sm:backdrop-blur-none">
           <p class="text-xs font-semibold uppercase tracking-wider text-light/80 mb-3">Compromisos Rembrandt Studio</p>
           <ul class="space-y-2 text-xs text-mute">
             <li class="flex items-center gap-2">
@@ -132,7 +133,7 @@ const wa = waSections.contacto;
             </li>
             <li class="flex items-center gap-2">
               <span class="size-1.5 rounded-full bg-violet-400"></span>
-              <span><strong>Propiedad total:</strong> código 100% tuyo, sin letra chica ni dependencias.</span>
+              <span><strong>Propiedad total:</strong> código 100% tuyo<span class="max-sm:hidden">, sin letra chica ni dependencias</span>.</span>
             </li>
           </ul>
         </div>
@@ -140,14 +141,15 @@ const wa = waSections.contacto;
       </div>
 
       <!-- Columna Derecha (7 cols): Formulario Express Integrado -->
-      <div class="glass relative rounded-[2rem] p-6 sm:p-8 md:p-10 lg:col-span-7">
+      <div class="glass glass-sheen relative rounded-[2rem] p-6 sm:p-8 md:p-10 lg:col-span-7">
         <div class="mb-6">
-          <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium mb-3">
+          <p class="mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-mute font-medium"><span class="radar" aria-hidden="true"></span>
             Formulario Directo
           </p>
           <h3 class="font-display text-2xl text-light sm:text-3xl">Envía los detalles de tu web</h3>
           <p class="mt-1.5 text-xs sm:text-sm text-mute">
-            Recibe propuesta y cotización completas en menos de 2 horas.
+            <span class="max-sm:hidden">Recibe propuesta y cotización completas en menos de 2 horas.</span>
+            <span class="sm:hidden">Cotización completa en <strong class="font-semibold text-light">menos de 2 h</strong>.</span>
           </p>
         </div>
         <ContactForm />

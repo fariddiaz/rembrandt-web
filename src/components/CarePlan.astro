@@ -9,7 +9,7 @@ const wa = waSections.cuidado;
   data-wa-label={wa.label}
   data-wa-message={wa.message}
 >
-  <div class="glass mx-auto grid w-[min(1240px,calc(100%-2.5rem))] items-center gap-10 rounded-[2rem] p-8 md:grid-cols-[1.2fr_1.1fr_auto] md:p-12 border border-white/10 shadow-2xl max-md:gap-8 max-md:rounded-3xl max-sm:p-6">
+  <div class="glass glass-sheen mx-auto grid w-[min(1240px,calc(100%-2.5rem))] items-center gap-10 rounded-[2rem] p-8 md:grid-cols-[1.2fr_1.1fr_auto] md:p-12 border border-white/10 shadow-2xl max-md:gap-8 max-md:rounded-3xl max-sm:p-6">
     <div>
       <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">
         Tranquilidad Total
@@ -18,15 +18,17 @@ const wa = waSections.cuidado;
         {carePlan.name}
       </h2>
       <p class="mt-2 text-sm md:text-base text-mute">
-        Cuidamos la parte técnica de tu web cada mes; tú te ocupas de atender clientes y vender.
+        <span class="max-sm:hidden">Cuidamos la parte técnica de tu web cada mes; tú te ocupas de atender clientes y vender.</span>
+        <span class="sm:hidden">Cuidamos tu web cada mes; tú vendes.</span>
       </p>
     </div>
 
     <ul class="space-y-3 text-sm text-light/90">
-      {carePlan.features.map((f) => (
+      {carePlan.features.map((f, fi) => (
         <li class="flex gap-3 leading-snug">
           <span class="mt-1 size-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
-          <span>{f}</span>
+          <span class="max-sm:hidden">{f}</span>
+          <span class="sm:hidden">{carePlan.featuresShort[fi] ?? f}</span>
         </li>
       ))}
     </ul>
@@ -35,12 +37,13 @@ const wa = waSections.cuidado;
       <p class="font-display text-4xl md:text-5xl leading-none text-light whitespace-nowrap">
         Desde $15<span class="font-sans text-base text-mute"> USD/mes</span>
       </p>
-      <p class="text-xs text-mute mt-1 font-sans">O pago único a demanda</p>
+      <p class="float-pulse is-slow mt-2 inline-flex items-center gap-2 rounded-full border border-[#d4af37]/25 bg-white/5 px-2.5 py-0.5 text-xs text-mute font-sans">O pago único a demanda</p>
       <a
         href="/planes"
         class="btn btn-ghost mt-5 !py-3 !px-6 text-sm max-sm:w-full max-sm:justify-center"
         data-magnetic="0.3"
       >
+        <span class="radar" aria-hidden="true"></span>
         Ver Paquetes de Cuidado
       </a>
     </div>

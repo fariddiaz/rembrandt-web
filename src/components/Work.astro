@@ -33,7 +33,8 @@ const domainOf = (url: string) => {
         </h2>
       </div>
       <p class="max-w-[32rem] text-lg leading-relaxed text-mute max-sm:text-base">
-        Cada proyecto parte de una meta de negocio: captar clientes, transmitir autoridad y vender más. Estos son los resultados.
+        <span class="max-sm:hidden">Cada proyecto parte de una meta de negocio: captar clientes, transmitir autoridad y vender más. Estos son los resultados.</span>
+        <span class="sm:hidden">Metas de negocio reales: captar clientes, transmitir autoridad y vender más.</span>
       </p>
     </div>
 
@@ -130,25 +131,25 @@ const domainOf = (url: string) => {
                 <div class="mt-7 space-y-5 max-sm:mt-5 max-sm:space-y-3">
                   <div class="rounded-xl bg-white/[0.02] p-4 ring-1 ring-white/5">
                     <p class="case-label text-rose-300">¿Qué necesitaba el cliente?</p>
-                    <p class="mt-1.5 text-sm leading-relaxed text-mute">{c.challenge}</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-mute">{c.short ? (<><span class="max-sm:hidden">{c.challenge}</span><span class="sm:hidden">{c.short.challenge}</span></>) : c.challenge}</p>
                   </div>
 
                   <div class="rounded-xl bg-white/[0.02] p-4 ring-1 ring-white/5">
                     <p class="case-label text-violet-300">¿Qué le construimos?</p>
-                    <p class="mt-1.5 text-sm leading-relaxed text-mute">{c.solution}</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-mute">{c.short ? (<><span class="max-sm:hidden">{c.solution}</span><span class="sm:hidden">{c.short.solution}</span></>) : c.solution}</p>
                   </div>
 
                   <div class="rounded-xl bg-violet/5 p-4 ring-1 ring-violet/20">
-                    <p class="case-label text-emerald-300">¿Qué logramos?</p>
-                    <p class="mt-1.5 text-sm leading-relaxed text-light font-medium">{c.impact}</p>
+                    <p class="case-label flex items-center gap-2 text-emerald-300"><span class="radar radar-emerald !size-1.5" aria-hidden="true"></span>¿Qué logramos?</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-light font-medium">{c.short ? (<><span class="max-sm:hidden">{c.impact}</span><span class="sm:hidden">{c.short.impact}</span></>) : c.impact}</p>
                   </div>
                 </div>
 
                 <!-- Métricas Destacadas -->
                 {c.metrics.length > 0 && (
                   <div class="mt-6 grid grid-cols-2 gap-3" aria-label="Resultados">
-                    {c.metrics.map((m) => (
-                      <div class="glass rounded-xl p-3.5 text-center">
+                    {c.metrics.map((m, mi) => (
+                      <div class:list={['glass glass-sheen float-pulse rounded-xl p-3.5 text-center', mi % 2 === 1 && 'is-slow']}>
                         <span class="block font-display text-2xl leading-none text-light">{m.value}</span>
                         <span class="mt-1.5 block text-xs text-mute">{m.label}</span>
                       </div>
@@ -169,6 +170,7 @@ const domainOf = (url: string) => {
                         data-magnetic="0.3"
                         data-cursor="PREVIEW"
                       >
+                        <span class="radar" aria-hidden="true"></span>
                         Ver preview interactiva
                       </button>
                       <a
@@ -208,19 +210,19 @@ const domainOf = (url: string) => {
   <dialog id="case-preview" class="preview-dialog" aria-labelledby="case-preview-title" data-lenis-prevent>
     <div class="glass flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/15 bg-carbon/95 shadow-2xl">
       <!-- Barra de herramientas del modal -->
-      <header class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-3.5 bg-carbon-2/80">
-        <div class="flex items-center gap-2">
-          <span class="size-3 rounded-full bg-rose-500/80" />
-          <span class="size-3 rounded-full bg-amber-500/80" />
-          <span class="size-3 rounded-full bg-emerald-500/80" />
-          <p id="case-preview-title" class="ml-3 min-w-0 flex-1 truncate text-xs font-mono text-mute">
-            <span class="text-light font-sans font-semibold" data-preview-name></span> · <span data-preview-domain></span>
+      <header class="flex items-center justify-between gap-2 border-b border-white/10 px-3.5 py-2.5 sm:px-5 sm:py-3.5 bg-carbon-2/80">
+        <div class="flex items-center gap-2 min-w-0 flex-1">
+          <span class="size-2.5 sm:size-3 rounded-full bg-rose-500/80 shrink-0" />
+          <span class="size-2.5 sm:size-3 rounded-full bg-amber-500/80 shrink-0" />
+          <span class="size-2.5 sm:size-3 rounded-full bg-emerald-500/80 shrink-0" />
+          <p id="case-preview-title" class="ml-1.5 sm:ml-3 min-w-0 flex-1 truncate text-xs font-mono text-mute">
+            <span class="text-light font-sans font-semibold" data-preview-name></span> <span class="hidden sm:inline">·</span> <span class="hidden sm:inline" data-preview-domain></span>
           </p>
         </div>
 
-        <div class="flex items-center gap-3">
-          <!-- Toggle Vista Escritorio / Celular -->
-          <div class="flex rounded-full bg-white/5 p-1 text-xs" role="group" aria-label="Tamaño de la vista">
+        <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <!-- Toggle Vista Escritorio / Celular (en escritorio) -->
+          <div class="hidden sm:flex rounded-full bg-white/5 p-1 text-xs" role="group" aria-label="Tamaño de la vista">
             <button type="button" class="device-btn" data-device="desktop" aria-pressed="true">
               Escritorio
             </button>
@@ -230,7 +232,7 @@ const domainOf = (url: string) => {
           </div>
 
           <!-- Abrir en pestaña nueva -->
-          <a data-preview-live href="#" target="_blank" rel="noopener" class="btn btn-ghost !py-1.5 !px-3.5 text-xs">
+          <a data-preview-live href="#" target="_blank" rel="noopener" class="btn btn-ghost !py-1 !px-2.5 sm:!py-1.5 sm:!px-3.5 text-[0.72rem] sm:text-xs">
             Abrir en vivo <span aria-hidden="true">↗</span>
           </a>
 
@@ -238,7 +240,7 @@ const domainOf = (url: string) => {
           <button
             type="button"
             data-preview-close
-            class="grid size-8 place-items-center rounded-full bg-white/10 text-sm text-light hover:bg-white/20 transition-colors"
+            class="grid size-7 sm:size-8 place-items-center rounded-full bg-white/10 text-xs sm:text-sm text-light hover:bg-white/20 transition-colors"
             aria-label="Cerrar ventana de preview"
           >
             ✕
@@ -299,7 +301,8 @@ const domainOf = (url: string) => {
         domain.textContent = liveUrl;
       }
       live.href = liveUrl;
-      setDevice('desktop');
+      const isMobileScreen = window.innerWidth < 768;
+      setDevice(isMobileScreen ? 'mobile' : 'desktop');
       dialog.showModal();
       getLenis()?.stop();
     };
@@ -375,8 +378,8 @@ const domainOf = (url: string) => {
   }
 
   .preview-dialog {
-    width: min(1280px, calc(100% - 2rem));
-    height: min(88vh, 900px);
+    width: min(1280px, calc(100% - 1.5rem));
+    height: min(90vh, 900px);
     max-width: none;
     max-height: none;
     margin: auto;

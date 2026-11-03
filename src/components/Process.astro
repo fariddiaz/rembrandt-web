@@ -5,15 +5,21 @@ const wa = waSections.proceso;
 const steps = [
   {
     title: 'Primer Contacto & Diagnóstico Rápido',
+    titleShort: 'Contacto y diagnóstico',
     text: 'Nos cuentas qué vendes, a quién y qué estilo buscas. Con eso arrancamos, sin formularios engorrosos ni reuniones eternas.',
+    short: 'Cuéntanos qué vendes y a quién. Sin formularios ni reuniones eternas.',
   },
   {
     title: 'Diseño Editorial de Autor & Afinamiento',
+    titleShort: 'Diseño y ajustes',
     text: 'Propuesta visual en tiempo récord (4–6 días hábiles en planes express) y ajustes contigo hasta que tu marca luzca impecable.',
+    short: 'Propuesta visual en 4–6 días hábiles (planes express) y ajustes contigo.',
   },
   {
     title: 'Lanzamiento Oficial & Ventas en Vivo',
+    titleShort: 'Lanzamiento y ventas',
     text: 'Publicamos en tu dominio, optimizado para celular y Google, con WhatsApp listo para recibir clientes desde el primer minuto.',
+    short: 'Publicamos en tu dominio, optimizada para celular, Google y WhatsApp.',
   },
 ];
 ---
@@ -36,7 +42,8 @@ const steps = [
         Tres pasos directos, sin reuniones eternas.
       </h2>
       <p class="mt-4 max-w-[28rem] text-lg text-mute max-sm:mt-3 max-sm:text-base">
-        Lanza la web de tu negocio rápido, claro y sin complicaciones técnicas.
+        <span class="max-sm:hidden">Lanza la web de tu negocio rápido, claro y sin complicaciones técnicas.</span>
+        <span class="sm:hidden">Tu web lista rápido, sin complicaciones técnicas.</span>
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-4 max-sm:gap-3.5">
         <a
@@ -44,6 +51,7 @@ const steps = [
           class="btn btn-light btn-float max-sm:text-sm"
           data-magnetic
         >
+          <span class="radar" aria-hidden="true"></span>
           Conocer proceso a fondo
         </a>
         <a
@@ -54,16 +62,20 @@ const steps = [
           data-magnetic
           data-cursor="WHATSAPP"
         >
+          <span class="radar radar-emerald" aria-hidden="true"></span>
           Dar el primer paso
         </a>
       </div>
     </div>
 
     <ol class="divide-y divide-white/10 border-y border-white/10">
-      {steps.map((s) => (
+      {steps.map((s, si) => (
         <li class="py-7 max-sm:py-5">
-          <h3 class="text-xl md:text-2xl font-sans font-semibold text-light max-sm:text-lg max-sm:leading-snug">{s.title}</h3>
-          <p class="mt-2.5 max-w-[34rem] text-sm md:text-base leading-relaxed text-mute max-sm:mt-2">{s.text}</p>
+          <h3 class="flex items-baseline gap-3 text-xl md:text-2xl font-sans font-semibold text-light max-sm:text-lg max-sm:leading-snug">
+            <span class="font-display text-sm text-gold/80 tabular-nums" aria-hidden="true">0{si + 1}</span>
+            <span class="max-sm:hidden">{s.title}</span><span class="sm:hidden">{s.titleShort}</span>
+          </h3>
+          <p class="mt-2.5 max-w-[34rem] text-sm md:text-base leading-relaxed text-mute max-sm:mt-2"><span class="max-sm:hidden">{s.text}</span><span class="sm:hidden">{s.short}</span></p>
         </li>
       ))}
     </ol>

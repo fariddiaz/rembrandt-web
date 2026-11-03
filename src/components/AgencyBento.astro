@@ -15,7 +15,7 @@ const logos = [
 ];
 ---
 <section
-  class="relative pt-6 pb-16 md:pt-10 md:pb-24 overflow-hidden"
+  class="relative pt-6 pb-6 md:pt-10 md:pb-20 overflow-hidden"
   aria-label="Acerca del estudio"
   data-wa-label={wa.label}
   data-wa-message={wa.message}
@@ -25,7 +25,8 @@ const logos = [
     <!-- Frase Declarativa de Impacto (Estilo AgentAI) -->
     <div class="mb-16 max-w-4xl max-md:mb-10">
       <p class="text-[clamp(1.75rem,3.4vw,2.9rem)] font-light leading-[1.2] text-light max-sm:text-[1.4rem] max-sm:leading-[1.28]">
-        Diseñamos y programamos <span class="font-normal text-violet-300">soluciones web</span> centradas en las personas, para que cada <span class="font-normal text-rose-300">página convierta</span> visitas en clientes y ventas.
+        <span class="max-sm:hidden">Diseñamos y programamos <span class="font-normal text-violet-300">soluciones web</span> centradas en las personas, para que cada <span class="font-normal text-rose-300">página convierta</span> visitas en clientes y ventas.</span>
+        <span class="sm:hidden">Webs <span class="font-normal text-violet-300">de autor</span> que <span class="font-normal text-rose-300">convierten</span> visitas en clientes.</span>
       </p>
     </div>
 
@@ -45,7 +46,7 @@ const logos = [
             Estudio digital con alcance global <span class="text-mute font-sans text-lg max-sm:text-sm">· Colombia, EE.UU. y Latinoamérica</span>
           </h3>
           <p class="mt-2 max-w-md text-sm text-mute max-sm:mt-2.5 max-sm:text-xs max-sm:leading-relaxed">
-            100% en línea, por WhatsApp y videollamada. Tu web express, lista en 4–6 días hábiles.
+            <span class="max-sm:hidden">100% en línea, por WhatsApp y videollamada. </span>Tu web express, lista en 4–6 días hábiles.
           </p>
           <a
             href={waLink('Hola Rembrandt Studio, quiero iniciar un proyecto web para mi negocio.')}
@@ -55,6 +56,7 @@ const logos = [
             data-magnetic="0.3"
             data-cursor="PROYECTO"
           >
+            <span class="radar" aria-hidden="true"></span>
             Iniciar Proyecto
           </a>
         </div>
@@ -63,7 +65,7 @@ const logos = [
         <div class="mt-8 overflow-hidden rounded-xl border border-white/10 bg-carbon-2/80 p-5 shadow-inner max-sm:p-4">
           <div class="flex items-center justify-between text-xs text-mute">
             <span class="flex items-center gap-2">
-              <span class="size-2 rounded-full bg-emerald-400"></span>
+              <span class="radar radar-emerald !size-2" aria-hidden="true"></span>
               En desarrollo en tiempo real
             </span>
             <span class="rounded bg-white/5 px-2 py-0.5">Astro + Tailwind + 3D</span>
@@ -76,7 +78,7 @@ const logos = [
                 <p class="text-xs text-mute max-sm:text-[0.7rem]">Diseño de autor sin plantillas genéricas</p>
               </div>
             </div>
-            <span class="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-light">
+            <span class="float-pulse is-fast shrink-0 rounded-md border border-[#d4af37]/25 bg-white/5 px-2.5 py-1 text-xs font-medium text-light">
               Entrega 4–6 días
             </span>
           </div>
@@ -87,7 +89,7 @@ const logos = [
       <div class="flex flex-col gap-6 md:col-span-5">
         
         <!-- Bento Card 2: Calidad e Ingeniería Verificada (Sin datos inflados) -->
-        <div class="glass relative overflow-hidden rounded-[2rem] p-7 md:p-8 max-md:rounded-3xl max-sm:p-6">
+        <div class="glass glass-sheen relative overflow-hidden rounded-[2rem] p-7 md:p-8 max-md:rounded-3xl max-sm:p-6">
           <p class="text-xs font-medium uppercase tracking-[0.14em] text-violet-300">
             Ingeniería & Calidad de Código
           </p>
@@ -98,7 +100,7 @@ const logos = [
             Código propio, sin plantillas pesadas
           </p>
           <p class="mt-2 text-xs leading-relaxed text-mute">
-            Carga en menos de 1 segundo, arquitectura moderna (Astro + Tailwind) y entrega en el plazo acordado.
+            Carga en menos de 1 segundo<span class="max-sm:hidden">, arquitectura moderna (Astro + Tailwind)</span> y entrega en el plazo acordado.
           </p>
         </div>
 
@@ -106,7 +108,7 @@ const logos = [
         <div class="glass relative flex flex-col justify-between overflow-hidden rounded-[2rem] p-7 md:p-8 max-md:rounded-3xl max-sm:p-6">
           <div class="text-violet-400 text-2xl font-serif leading-none">“</div>
           <p class="mt-2 text-sm leading-relaxed text-light/90 max-sm:text-xs">
-            El rediseño de nuestra web elevó el estatus de la marca ante parejas internacionales y aumentó notablemente las solicitudes de cotización directa por WhatsApp. Una inversión que marcó un antes y un después para Eventos Leymar.
+            El rediseño de nuestra web elevó el estatus de la marca ante parejas internacionales y aumentó notablemente las solicitudes de cotización directa por WhatsApp.<span class="max-sm:hidden"> Una inversión que marcó un antes y un después para Eventos Leymar.</span>
           </p>
           <div class="mt-5 flex items-center gap-3 border-t border-white/10 pt-4">
             <img
@@ -130,7 +132,7 @@ const logos = [
     </div>
 
     <!-- Marquee infinito de logos de confianza (derecha → izquierda) -->
-    <div class="mt-16 border-y border-white/10 py-7 max-sm:mt-12 max-sm:py-6">
+    <div class="mt-12 border-y border-white/10 py-6 max-sm:mt-8 max-sm:py-5">
       <p class="text-center text-xs font-medium uppercase tracking-[0.18em] text-mute/80">
         Tecnologías y marcas detrás de cada desarrollo
       </p>
@@ -158,6 +160,16 @@ const logos = [
           ))}
         </div>
       </div>
+    </div>
+
+    <!-- Puente Editorial de Alta Gama entre Marquee y Planes -->
+    <div class="mt-8 flex items-center justify-center gap-3 max-sm:mt-6" aria-hidden="true">
+      <div class="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-violet-400/40"></div>
+      <div class="glass float-pulse is-slow flex items-center gap-2 rounded-full border border-violet/20 px-3.5 py-1 text-[0.68rem] tracking-[0.2em] uppercase text-violet-300/90 shadow-[0_0_20px_-5px_rgba(139,92,246,0.25)]">
+        <span class="radar radar-violet !size-1.5"></span>
+        <span>Ingeniería Web de Autor · Precios Cerrados</span>
+      </div>
+      <div class="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-violet-400/40"></div>
     </div>
 
   </div>
