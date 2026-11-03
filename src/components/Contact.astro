@@ -21,9 +21,9 @@ const wa = waSections.contacto;
         Atención Global · Colombia, EE.UU. & Internacional
       </p>
 
-      <h2 class="mt-6 text-[clamp(2.4rem,5.5vw,4.8rem)] leading-[1.02] text-light">
+      <h2 class="mt-6 text-[clamp(2.4rem,5.5vw,4.8rem)] leading-[1.02] text-light max-sm:text-[2.2rem]">
         Hablemos de tu proyecto.<br />
-        <span class="bg-gradient-to-r from-amber-100 via-light to-amber-200/90 bg-clip-text text-transparent">
+        <span class="bg-gradient-to-r from-violet-300 via-light to-rose-300 bg-clip-text text-transparent">
           Cotiza en minutos.
         </span>
       </h2>
@@ -44,7 +44,7 @@ const wa = waSections.contacto;
           href={waLink(wa.message)}
           target="_blank"
           rel="noopener"
-          class="glass group relative flex items-start gap-4 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:border-violet/40 hover:bg-white/[0.04]"
+          class="glass group relative flex items-start gap-4 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:border-violet/40 hover:bg-white/[0.04] max-md:active:scale-[0.98]"
           data-magnetic="0.2"
         >
           <div class="grid size-12 shrink-0 place-items-center rounded-xl bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/30 group-hover:bg-emerald-500/20 transition-colors">
@@ -55,7 +55,7 @@ const wa = waSections.contacto;
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-semibold text-light text-base group-hover:text-emerald-300 transition-colors">WhatsApp Business</h3>
-              <span class="rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[0.68rem] font-medium text-emerald-300">En minutos</span>
+              <span class="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[0.68rem] font-medium text-emerald-400">En minutos</span>
             </div>
             <p class="mt-1 text-xs text-mute leading-relaxed">
               Ideal para Colombia y Latinoamérica. Te asesoramos directamente sobre alcance y costos.
@@ -69,7 +69,7 @@ const wa = waSections.contacto;
         <!-- Canal 2: Correo Corporativo Directo -->
         <a
           href={`mailto:${CONTACT_EMAIL}`}
-          class="glass group relative flex items-start gap-4 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:border-violet/40 hover:bg-white/[0.04]"
+          class="glass group relative flex items-start gap-4 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:border-violet/40 hover:bg-white/[0.04] max-md:active:scale-[0.98]"
           data-magnetic="0.2"
         >
           <div class="grid size-12 shrink-0 place-items-center rounded-xl bg-violet/10 text-violet-300 ring-1 ring-violet/30 group-hover:bg-violet/20 transition-colors">
@@ -80,12 +80,12 @@ const wa = waSections.contacto;
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-semibold text-light text-base group-hover:text-violet-300 transition-colors">Correo Corporativo</h3>
-              <span class="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[0.68rem] text-mute font-mono">Global</span>
+              <span class="rounded-full bg-white/5 px-2 py-0.5 text-[0.68rem] text-mute">Global</span>
             </div>
             <p class="mt-1 text-xs text-mute leading-relaxed">
               Para RFP, requerimientos formales o clientes de EE.UU. y Europa.
             </p>
-            <span class="mt-2.5 inline-flex items-center gap-1.5 text-xs font-mono font-medium text-amber-200/90 group-hover:text-light transition-colors">
+            <span class="mt-2.5 inline-flex items-center gap-1.5 text-xs font-mono font-medium text-violet-300 group-hover:text-light transition-colors">
               {CONTACT_EMAIL} <span aria-hidden="true">→</span>
             </span>
           </div>
@@ -96,18 +96,18 @@ const wa = waSections.contacto;
           href={CALENDLY_LINK}
           target="_blank"
           rel="noopener"
-          class="glass group relative flex items-start gap-4 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:border-violet/40 hover:bg-white/[0.04]"
+          class="glass group relative flex items-start gap-4 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:border-violet/40 hover:bg-white/[0.04] max-md:active:scale-[0.98]"
           data-magnetic="0.2"
         >
-          <div class="grid size-12 shrink-0 place-items-center rounded-xl bg-amber-500/10 text-amber-300 ring-1 ring-amber-500/30 group-hover:bg-amber-500/20 transition-colors">
+          <div class="grid size-12 shrink-0 place-items-center rounded-xl bg-rose-500/10 text-rose-300 ring-1 ring-rose-500/30 group-hover:bg-rose-500/20 transition-colors">
             <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5" />
             </svg>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h3 class="font-semibold text-light text-base group-hover:text-amber-200 transition-colors">Videollamada de 15 min</h3>
-              <span class="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[0.68rem] text-amber-200/90 font-mono">Google Meet / Zoom</span>
+              <h3 class="font-semibold text-light text-base group-hover:text-rose-300 transition-colors">Videollamada de 15 min</h3>
+              <span class="rounded-full bg-rose-500/10 px-2 py-0.5 text-[0.68rem] text-rose-300 font-medium">Google Meet / Zoom</span>
             </div>
             <p class="mt-1 text-xs text-mute leading-relaxed">
               Conversa directamente con los fundadores para alinear alcance, viabilidad y presupuesto.

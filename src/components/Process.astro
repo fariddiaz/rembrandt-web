@@ -27,7 +27,7 @@ const steps = [
   <div class="art-bg pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
     <img src="/art/anatomy.jpg" alt="" loading="lazy" decoding="async" draggable="false" style="opacity:0.09" />
   </div>
-  <div class="mx-auto grid w-[min(1240px,calc(100%-2.5rem))] gap-14 md:grid-cols-[0.9fr_1.1fr] md:items-start">
+  <div class="mx-auto grid w-[min(1240px,calc(100%-2.5rem))] gap-14 md:grid-cols-[0.9fr_1.1fr] md:items-start max-md:gap-10">
     <div>
       <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
         Metodología Ágil
@@ -38,10 +38,10 @@ const steps = [
       <p class="mt-4 max-w-[28rem] text-lg text-mute">
         Hacemos que lanzar la página web de tu negocio sea rápido, claro y sin complicaciones técnicas.
       </p>
-      <div class="mt-8 flex flex-wrap items-center gap-4">
+      <div class="mt-8 flex flex-wrap items-center gap-4 max-sm:gap-3.5">
         <a
           href="/proceso"
-          class="btn btn-light"
+          class="btn btn-light btn-float max-sm:text-sm"
           data-magnetic
         >
           Conocer proceso a fondo
@@ -50,7 +50,7 @@ const steps = [
           href={waLink(wa.message)}
           target="_blank"
           rel="noopener"
-          class="btn btn-ghost"
+          class="btn btn-ghost max-sm:text-sm"
           data-magnetic
           data-cursor="WHATSAPP"
         >

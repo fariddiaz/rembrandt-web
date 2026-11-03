@@ -6,7 +6,7 @@ const initial = waSections.hero;
   href={waLink(initial.message)}
   target="_blank"
   rel="noopener"
-  class="wa-float glass hidden md:inline-flex"
+  class="wa-float glass"
   data-wa-float
   data-magnetic="0.25"
   data-cursor="WHATSAPP"
@@ -64,5 +64,9 @@ const initial = waSections.hero;
   }
   @media (max-width: 480px) {
     .wa-float { padding-right: 0.95rem; font-size: 0.85rem; }
+  }
+  /* En móvil la barra inferior (MobileBottomBar) ya ofrece WhatsApp */
+  @media (max-width: 767px) {
+    .wa-float { display: none; }
   }
 </style>

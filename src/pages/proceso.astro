@@ -75,7 +75,7 @@ const steps = [
       <section class="mb-24" aria-label="Fases del desarrollo">
         <div class="grid gap-6 md:grid-cols-2">
           {steps.map((s) => (
-            <article class="glass relative flex flex-col justify-between overflow-hidden rounded-3xl md:rounded-[2rem] p-6 sm:p-8 md:p-10 border border-white/10 shadow-2xl">
+            <article class="glass relative flex flex-col justify-between overflow-hidden rounded-[2rem] p-8 md:p-10 border border-white/10 shadow-2xl max-md:rounded-3xl max-sm:p-6">
               <div>
                 <div class="flex items-center justify-between">
                   <span class="rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-amber-200/90">
@@ -180,21 +180,21 @@ const steps = [
             <p class="font-sans font-semibold text-light text-base mb-4">Lo único que necesitamos de ti:</p>
             <ul class="space-y-3 text-sm text-mute">
               <li class="flex items-center gap-2">
-                <span class="size-1.5 rounded-full bg-amber-200/70"></span>
+                <span class="size-1.5 rounded-full bg-violet-400"></span>
                 <span>Tu logotipo (si tienes uno, si no, te preparamos una tipografía elegante).</span>
               </li>
               <li class="flex items-center gap-2">
-                <span class="size-1.5 rounded-full bg-amber-200/70"></span>
+                <span class="size-1.5 rounded-full bg-violet-400"></span>
                 <span>Explicarnos brevemente tus servicios o productos por mensaje de audio o WhatsApp.</span>
               </li>
               <li class="flex items-center gap-2">
-                <span class="size-1.5 rounded-full bg-amber-200/70"></span>
+                <span class="size-1.5 rounded-full bg-violet-400"></span>
                 <span>Tus datos de contacto (teléfono, ciudad, correo).</span>
               </li>
             </ul>
           </div>
 
-          <div class="rounded-2xl border border-amber-400/20 bg-amber-400/[0.03] p-6">
+          <div class="rounded-2xl border border-violet/20 bg-violet/5 p-6">
             <p class="font-sans font-semibold text-light text-base mb-4">De lo que nos encargamos nosotros al 100%:</p>
             <ul class="space-y-3 text-sm text-light/90">
               <li class="flex items-center gap-2">
@@ -218,18 +218,18 @@ const steps = [
         </div>
       </section>
 
-      <!-- CTA de Cierre hacia Contacto con Levitación Flotante -->
-      <section class="glass rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-14 text-center border border-white/10">
-        <h2 class="font-display text-2xl sm:text-3xl md:text-5xl text-light">
+      <!-- CTA de Cierre hacia Contacto -->
+      <section class="glass rounded-[2.5rem] p-8 md:p-14 text-center border border-white/10 max-md:rounded-3xl max-sm:p-6">
+        <h2 class="font-display text-3xl md:text-5xl text-light max-sm:text-2xl">
           ¿Empezamos hoy mismo?
         </h2>
-        <p class="mt-4 max-w-xl mx-auto text-sm sm:text-base text-mute">
+        <p class="mt-4 max-w-xl mx-auto text-base text-mute max-sm:text-sm">
           Tu página web profesional puede estar lista y vendiendo en los próximos 4 a 6 días hábiles.
         </p>
-        <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3.5 sm:gap-4">
+        <div class="mt-8 flex flex-wrap justify-center gap-4 max-sm:flex-col max-sm:gap-3.5">
           <a
             href="/contacto"
-            class="btn btn-light btn-float w-full sm:w-auto text-sm sm:text-base"
+            class="btn btn-light btn-float max-sm:w-full max-sm:justify-center max-sm:text-sm"
             data-magnetic="0.3"
           >
             Iniciar Proyecto
@@ -238,7 +238,7 @@ const steps = [
             href={waLink(wa.message)}
             target="_blank"
             rel="noopener"
-            class="btn btn-ghost w-full sm:w-auto text-sm sm:text-base active:scale-95 transition-transform"
+            class="btn btn-ghost max-sm:w-full max-sm:justify-center max-sm:text-sm"
             data-magnetic="0.3"
           >
             Escribir por WhatsApp

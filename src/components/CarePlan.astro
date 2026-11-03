@@ -9,7 +9,7 @@ const wa = waSections.cuidado;
   data-wa-label={wa.label}
   data-wa-message={wa.message}
 >
-  <div class="glass mx-auto grid w-[min(1240px,calc(100%-2.5rem))] items-center gap-10 rounded-[2rem] p-8 md:grid-cols-[1.2fr_1.1fr_auto] md:p-12 border border-white/10 shadow-2xl">
+  <div class="glass mx-auto grid w-[min(1240px,calc(100%-2.5rem))] items-center gap-10 rounded-[2rem] p-8 md:grid-cols-[1.2fr_1.1fr_auto] md:p-12 border border-white/10 shadow-2xl max-md:gap-8 max-md:rounded-3xl max-sm:p-6">
     <div>
       <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">
         Tranquilidad Total
@@ -25,7 +25,7 @@ const wa = waSections.cuidado;
     <ul class="space-y-3 text-sm text-light/90">
       {carePlan.features.map((f) => (
         <li class="flex gap-3 leading-snug">
-          <span class="mt-1 size-1.5 shrink-0 rounded-full bg-amber-200/60" aria-hidden="true" />
+          <span class="mt-1 size-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
           <span>{f}</span>
         </li>
       ))}
@@ -38,7 +38,7 @@ const wa = waSections.cuidado;
       <p class="text-xs text-mute mt-1 font-sans">O pago único a demanda</p>
       <a
         href="/planes"
-        class="btn btn-ghost mt-5 !py-3 !px-6 text-sm"
+        class="btn btn-ghost mt-5 !py-3 !px-6 text-sm max-sm:w-full max-sm:justify-center"
         data-magnetic="0.3"
       >
         Ver Paquetes de Cuidado

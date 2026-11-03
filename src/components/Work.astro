@@ -23,7 +23,7 @@ const domainOf = (url: string) => {
   <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
     
     <!-- Encabezado de Portafolio -->
-    <div class="mb-20 grid gap-6 md:grid-cols-[1.1fr_1fr] md:items-end">
+    <div class="mb-20 grid gap-6 md:grid-cols-[1.1fr_1fr] md:items-end max-md:mb-14">
       <div>
         <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
           Casos de Éxito & Autoridad
@@ -38,7 +38,7 @@ const domainOf = (url: string) => {
     </div>
 
     <!-- Lista de Casos de Éxito -->
-    <ol class="grid gap-24 md:gap-32">
+    <ol class="grid gap-24 md:gap-32 max-sm:gap-20">
       {caseStudies.map((c, i) => {
         const liveUrl = c.liveUrl || c.url;
         const domain = liveUrl ? domainOf(liveUrl) : c.client;
@@ -106,7 +106,7 @@ const domainOf = (url: string) => {
 
                       {c.url && (
                         <div class="flex items-center gap-2">
-                          <span class="inline-flex items-center gap-2 rounded-xl bg-light px-4 py-2 text-xs font-bold text-carbon shadow-lg transition-transform duration-300 group-hover:scale-105">
+                          <span class="inline-flex items-center gap-2 rounded-full bg-light px-4 py-2 text-xs font-bold text-carbon shadow-[0_10px_24px_-12px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-105">
                             <span aria-hidden="true">▶</span> Ver preview interactiva
                           </span>
                         </div>
@@ -157,12 +157,12 @@ const domainOf = (url: string) => {
                 )}
 
                 <!-- Acciones -->
-                <div class="mt-8 flex flex-wrap items-center gap-3">
+                <div class="mt-8 flex flex-wrap items-center gap-3 max-sm:flex-col max-sm:items-stretch">
                   {c.url ? (
                     <>
                       <button
                         type="button"
-                        class="btn btn-light !py-2.5 !px-5 text-sm"
+                        class="btn btn-light btn-float !py-2.5 !px-5 text-sm max-sm:justify-center"
                         data-preview={c.url}
                         data-preview-title={c.client}
                         data-preview-live={liveUrl}
@@ -175,7 +175,7 @@ const domainOf = (url: string) => {
                         href={liveUrl}
                         target="_blank"
                         rel="noopener"
-                        class="btn btn-ghost !py-2.5 !px-5 text-sm"
+                        class="btn btn-ghost !py-2.5 !px-5 text-sm max-sm:justify-center"
                         data-magnetic="0.3"
                         data-cursor="VISITAR"
                       >
@@ -187,7 +187,7 @@ const domainOf = (url: string) => {
                       href={waLink(`Hola, vi el caso de ${c.client} y quiero algo parecido para mi marca.`)}
                       target="_blank"
                       rel="noopener"
-                      class="btn btn-ghost !py-2.5 !px-5 text-sm"
+                      class="btn btn-ghost !py-2.5 !px-5 text-sm max-sm:justify-center"
                       data-magnetic="0.3"
                       data-cursor="WHATSAPP"
                     >
