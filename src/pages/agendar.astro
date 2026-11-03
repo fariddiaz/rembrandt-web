@@ -3,6 +3,27 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { waLink } from '../config/site';
+
+const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+const availableDates: { dayName: string; dayNum: number; monthName: string; fullStr: string }[] = [];
+const d = new Date();
+d.setDate(d.getDate() + 1); // Empezar mañana
+while (availableDates.length < 6) {
+  if (d.getDay() !== 0) { // Excluir domingos
+    const dayName = daysOfWeek[d.getDay()];
+    const dayNum = d.getDate();
+    const monthName = months[d.getMonth()];
+    availableDates.push({
+      dayName,
+      dayNum,
+      monthName,
+      fullStr: `${dayName} ${dayNum} de ${monthName}`,
+    });
+  }
+  d.setDate(d.getDate() + 1);
+}
 ---
 
 <Layout
@@ -52,8 +73,18 @@ import { waLink } from '../config/site';
               </div>
 
               <!-- Selector de Días Próximos -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2.5" id="date-selector">
-                <!-- Se inyecta dinámicamente con JavaScript -->
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2.5" id="date-selector">
+                {availableDates.map((item, index) => (
+                  <button
+                    type="button"
+                    class:list={['date-card', index === 0 && 'active']}
+                    data-date={item.fullStr}
+                  >
+                    <span class="day-name">{item.dayName}</span>
+                    <span class="day-num">{item.dayNum}</span>
+                    <span class="month-name">{item.monthName}</span>
+                  </button>
+                ))}
               </div>
 
               <!-- Selector de Horarios -->
@@ -255,56 +286,23 @@ import { waLink } from '../config/site';
 </style>
 
 <script>
-  // Inicialización del selector dinámico de fechas
-  const dateContainer = document.getElementById('date-selector');
+  const dateCards = document.querySelectorAll<HTMLButtonElement>('.date-card');
   const slotButtons = document.querySelectorAll<HTMLButtonElement>('.slot-btn');
   const form = document.getElementById('booking-form') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const successScreen = document.getElementById('success-screen');
 
-  let selectedDateStr = '';
+  let selectedDateStr = dateCards[0]?.dataset.date || '';
   let selectedSlot = '09:00 AM';
 
-  const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-  const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-
-  // Generar próximos 6 días hábiles
-  if (dateContainer) {
-    let count = 0;
-    let d = new Date();
-    d.setDate(d.getDate() + 1); // Empezar mañana
-
-    while (count < 6) {
-      if (d.getDay() !== 0) { // Excluir domingos
-        const dayName = daysOfWeek[d.getDay()];
-        const dayNum = d.getDate();
-        const monthName = months[d.getMonth()];
-        const fullDateStr = `${dayName} ${dayNum} de ${monthName}`;
-
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.className = `date-card ${count === 0 ? 'active' : ''}`;
-        card.dataset.date = fullDateStr;
-        card.innerHTML = `
-          <span class="day-name">${dayName}</span>
-          <span class="day-num">${dayNum}</span>
-          <span class="month-name">${monthName}</span>
-        `;
-
-        if (count === 0) selectedDateStr = fullDateStr;
-
-        card.addEventListener('click', () => {
-          document.querySelectorAll('.date-card').forEach((c) => c.classList.remove('active'));
-          card.classList.add('active');
-          selectedDateStr = fullDateStr;
-        });
-
-        dateContainer.appendChild(card);
-        count++;
-      }
-      d.setDate(d.getDate() + 1);
-    }
-  }
+  // Manejador de selección de fechas
+  dateCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      dateCards.forEach((c) => c.classList.remove('active'));
+      card.classList.add('active');
+      selectedDateStr = card.dataset.date || '';
+    });
+  });
 
   // Manejador de selección de horarios
   slotButtons.forEach((btn) => {

@@ -91,7 +91,8 @@ export async function onRequest({ request }: Context): Promise<Response> {
 
   const resHeaders = new Headers(upstream.headers);
   DROP_RESPONSE.forEach((h) => resHeaders.delete(h));
-  resHeaders.set('x-frame-options', 'SAMEORIGIN');
+  resHeaders.delete('x-frame-options');
+  resHeaders.set('content-security-policy', "frame-ancestors 'self' https://rembrandtstudio.co https://www.rembrandtstudio.co http://localhost:*");
   resHeaders.set('x-robots-tag', 'noindex, nofollow');
   // Las cookies del sitio real quedan limitadas a la ruta del proxy en nuestro dominio.
   const cookies = upstream.headers.getSetCookie?.() ?? [];

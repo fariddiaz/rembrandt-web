@@ -66,9 +66,11 @@ const isPlanesPage = currentPath.startsWith('/planes');
           const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
           // Ocultar si está a menos de 80px del final del documento para no tapar los enlaces legales
           if (scrollY > maxScroll - 100) {
-            dock.style.transform = 'translateY(120%)';
+            dock.style.transform = 'translateY(140%)';
+            dock.style.opacity = '0';
           } else {
             dock.style.transform = 'translateY(0%)';
+            dock.style.opacity = '1';
           }
           ticking = false;
         });
