@@ -5,7 +5,8 @@
 
 export const WHATSAPP_NUMBER = '573147714202'; // +57 314 771 4202, sin "+" ni espacios
 export const CONTACT_EMAIL = 'hola@rembrandtstudio.co';
-export const CALENDLY_LINK = 'https://cal.com'; // O enlace a videollamada personalizada
+/** Agenda propia de videollamadas (src/pages/agendar.astro). */
+export const CALENDLY_LINK = '/agendar';
 
 export const waLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -17,7 +18,7 @@ export const HERO_ROBOT_SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/sce
 export const waSections = {
   hero: {
     label: 'Cuéntanos tu idea',
-    message: 'Hola Rembrandt Studio 👋 Vi su web y quiero una página para mi negocio.',
+    message: 'Hola Rembrandt Studio, vi su web y quiero una página para mi negocio.',
   },
   showcase: {
     label: 'Iniciar proyecto',

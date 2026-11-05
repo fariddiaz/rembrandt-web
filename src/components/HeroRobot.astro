@@ -97,8 +97,15 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     }
 
     if (hasWebGL && !saveData) {
-      // En PC: montar de inmediato para máxima rapidez sin retrasos artificiales
-      void mountRobot(wrap, canvas);
+      // Tras 'load' y con el hilo principal libre: Spline nunca compite con el LCP.
+      const IDLE_TIMEOUT_MS = 1200;
+      const mount = () => void mountRobot(wrap, canvas);
+      const whenIdle = () =>
+        'requestIdleCallback' in window
+          ? requestIdleCallback(mount, { timeout: IDLE_TIMEOUT_MS })
+          : setTimeout(mount, 200);
+      if (document.readyState === 'complete') whenIdle();
+      else addEventListener('load', whenIdle, { once: true });
     }
   }
 </script>
@@ -111,25 +118,31 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     overflow: visible;
   }
 
-  /* Halo violeta y dorado detrás del robot en claroscuro */
+  /* Luz rasante de taller: un foco ámbar cae en diagonal desde arriba a la
+     izquierda y se apaga en ciruela, como la ventana alta de Rembrandt.
+     Sin filter: blur (cliché 22): la suavidad sale de la elipse misma. */
   .robot-halo {
     position: absolute;
     left: 50%;
-    top: 46%;
-    width: min(52vw, 700px);
-    aspect-ratio: 1;
+    top: 42%;
+    width: min(64vw, 860px);
+    aspect-ratio: 4 / 5;
     translate: -50% -50%;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgb(139 92 246 / 0.42) 0%,
-      rgb(225 29 72 / 0.18) 35%,
-      rgb(245 158 11 / 0.09) 55%,
-      transparent 72%
-    );
-    filter: blur(52px);
+    background:
+      radial-gradient(
+        ellipse 46% 38% at 38% 30%,
+        rgb(217 119 6 / 0.2) 0%,
+        rgb(180 83 9 / 0.08) 45%,
+        transparent 100%
+      ),
+      radial-gradient(
+        ellipse 60% 52% at 56% 56%,
+        rgb(76 29 149 / 0.34) 0%,
+        rgb(46 16 101 / 0.16) 50%,
+        transparent 100%
+      );
     will-change: transform;
-    animation: breathe 7s ease-in-out infinite;
+    animation: breathe 9s var(--ease-oil) infinite;
   }
 
   /* ── Canvas del Robot 3D ── */

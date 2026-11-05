@@ -18,7 +18,7 @@ const domainOf = (url: string) => {
 >
   <!-- Fondo en claroscuro: Filósofo en Meditación (1632), viñeta radial + duotono violeta/carbón -->
   <div class="art-bg pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-    <img src="/art/philosopher.jpg" alt="" loading="lazy" decoding="async" draggable="false" style="opacity:0.11" />
+    <img src="/art/philosopher.webp" alt="" loading="lazy" decoding="async" draggable="false" style="opacity:0.11" />
   </div>
   <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
     
@@ -63,13 +63,13 @@ const domainOf = (url: string) => {
               aria-labelledby={`case-${c.id}`}
             >
               <!-- Marco de Navegador Simulado (Browser Mockup) -->
-              <div class:list={['glass overflow-hidden rounded-[1.75rem] border border-white/10 shadow-2xl', i % 2 === 1 && 'lg:order-2']}>
+              <div class:list={['glass overflow-hidden rounded-2xl border border-white/10 shadow-2xl', i % 2 === 1 && 'lg:order-2']}>
                 <!-- Barra superior de ventana -->
                 <div class="flex items-center gap-2 border-b border-white/10 px-5 py-3.5 text-xs text-mute bg-carbon/50 backdrop-blur-md">
                   <div class="flex gap-1.5">
-                    <span class="size-3 rounded-full bg-rose-500/80" />
-                    <span class="size-3 rounded-full bg-amber-500/80" />
-                    <span class="size-3 rounded-full bg-emerald-500/80" />
+                    <span class="size-3 rounded-full bg-light/15" />
+                    <span class="size-3 rounded-full bg-light/15" />
+                    <span class="size-3 rounded-full bg-light/15" />
                   </div>
                   <span class="ml-4 min-w-0 flex-1 truncate rounded-full bg-white/5 px-4 py-1 text-center font-mono text-[0.72rem] text-light/70 ring-1 ring-white/10">
                     https://{domain}
@@ -130,7 +130,7 @@ const domainOf = (url: string) => {
                 <!-- Desglose estructurado -->
                 <div class="mt-7 space-y-5 max-sm:mt-5 max-sm:space-y-3">
                   <div class="rounded-xl bg-white/[0.02] p-4 ring-1 ring-white/5">
-                    <p class="case-label text-rose-300">¿Qué necesitaba el cliente?</p>
+                    <p class="case-label text-amber-200">¿Qué necesitaba el cliente?</p>
                     <p class="mt-1.5 text-sm leading-relaxed text-mute">{c.short ? (<><span class="max-sm:hidden">{c.challenge}</span><span class="sm:hidden">{c.short.challenge}</span></>) : c.challenge}</p>
                   </div>
 
@@ -208,13 +208,13 @@ const domainOf = (url: string) => {
 
   <!-- Modal de Preview Interactiva con Vista Escritorio y Celular -->
   <dialog id="case-preview" class="preview-dialog" aria-labelledby="case-preview-title" data-lenis-prevent>
-    <div class="glass flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/15 bg-carbon/95 shadow-2xl">
+    <div class="glass flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-carbon/95 shadow-2xl">
       <!-- Barra de herramientas del modal -->
       <header class="flex items-center justify-between gap-2 border-b border-white/10 px-3.5 py-2.5 sm:px-5 sm:py-3.5 bg-carbon-2/80">
         <div class="flex items-center gap-2 min-w-0 flex-1">
-          <span class="size-2.5 sm:size-3 rounded-full bg-rose-500/80 shrink-0" />
-          <span class="size-2.5 sm:size-3 rounded-full bg-amber-500/80 shrink-0" />
-          <span class="size-2.5 sm:size-3 rounded-full bg-emerald-500/80 shrink-0" />
+          <span class="size-2.5 sm:size-3 rounded-full bg-light/15 shrink-0" />
+          <span class="size-2.5 sm:size-3 rounded-full bg-light/15 shrink-0" />
+          <span class="size-2.5 sm:size-3 rounded-full bg-light/15 shrink-0" />
           <p id="case-preview-title" class="ml-1.5 sm:ml-3 min-w-0 flex-1 truncate text-xs font-mono text-mute">
             <span class="text-light font-sans font-semibold" data-preview-name></span> <span class="hidden sm:inline">·</span> <span class="hidden sm:inline" data-preview-domain></span>
           </p>

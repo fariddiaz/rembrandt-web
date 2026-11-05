@@ -97,6 +97,9 @@ else if (pathname.includes('/contacto')) pageKey = 'contacto';
 
 const currentArt = artCatalog[pageKey] || artCatalog.inicio;
 
+/** Variantes ligeras generadas por scripts/optimize-art.mjs (AVIF > WebP > JPG). */
+const variant = (src: string, ext: 'avif' | 'webp') => src.replace(/\.jpg$/i, `.${ext}`);
+
 const sides = [
   { side: 'left', works: currentArt.left },
   { side: 'right', works: currentArt.right },
@@ -107,15 +110,19 @@ const sides = [
     <div class={`art-border art-border--${side}`}>
       <div class="art-parallax" data-art-parallax>
         {works.map((w, i) => (
-          <img
-            src={w.src}
-            alt=""
-            loading={i === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-            draggable="false"
-            class:list={['art-img', i === 0 && 'is-active']}
-            data-art-state={i}
-          />
+          <picture>
+            <source srcset={variant(w.src, 'avif')} type="image/avif" />
+            <source srcset={variant(w.src, 'webp')} type="image/webp" />
+            <img
+              src={w.src}
+              alt=""
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              draggable="false"
+              class:list={['art-img', i === 0 && 'is-active']}
+              data-art-state={i}
+            />
+          </picture>
         ))}
       </div>
     </div>
@@ -138,15 +145,19 @@ const sides = [
 <!-- Móvil & Tablet (< 1280px): telón de fondo ambiental con 4 obras maestras de Rembrandt que rotan al scroll -->
 <div class="art-mobile-backdrop pointer-events-none fixed inset-0 z-0 select-none xl:hidden" aria-hidden="true" data-art-mobile-backdrop>
   {currentArt.left.map((w, i) => (
-    <img
-      src={w.src}
-      alt=""
-      loading={i === 0 ? 'eager' : 'lazy'}
-      decoding="async"
-      draggable="false"
-      class:list={['art-mobile-img', i === 0 && 'is-active']}
-      data-art-mobile-state={i}
-    />
+    <picture>
+      <source srcset={variant(w.src, 'avif')} type="image/avif" />
+      <source srcset={variant(w.src, 'webp')} type="image/webp" />
+      <img
+        src={w.src}
+        alt=""
+        loading={i === 0 ? 'eager' : 'lazy'}
+        decoding="async"
+        draggable="false"
+        class:list={['art-mobile-img', i === 0 && 'is-active']}
+        data-art-mobile-state={i}
+      />
+    </picture>
   ))}
 </div>
 

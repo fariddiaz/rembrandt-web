@@ -26,7 +26,7 @@ const advancedPlans = plans.slice(3, 5);
     <!-- Fondo claroscuro de arte: Aristóteles con el busto de Homero (1653) -->
     <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
       <img
-        src="/art/aristotle.jpg"
+        src="/art/aristotle.webp"
         alt=""
         class="size-full object-cover filter grayscale contrast-125 brightness-75"
         loading="lazy"
@@ -103,7 +103,7 @@ const advancedPlans = plans.slice(3, 5);
             return (
               <article
                 class:list={[
-                  'flex flex-col justify-between rounded-[2rem] p-7 md:p-8 transition-all duration-300 max-sm:p-6',
+                  'flex flex-col justify-between rounded-2xl p-7 md:p-8 transition-all duration-300 max-sm:p-6',
                   isFeatured
                     ? 'glass-rembrandt border-amber-400/30 bg-amber-950/10 shadow-2xl relative'
                     : 'glass border-white/10 hover:border-white/20',
@@ -189,7 +189,7 @@ const advancedPlans = plans.slice(3, 5);
         <div class="grid gap-6 md:grid-cols-2 items-stretch">
           {advancedPlans.map((plan) => (
             <article
-              class="glass flex flex-col justify-between rounded-[2rem] p-7 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300 max-sm:p-6"
+              class="glass flex flex-col justify-between rounded-2xl p-7 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300 max-sm:p-6"
               aria-labelledby={`plan-title-${plan.id}`}
             >
               <div>
@@ -261,7 +261,7 @@ const advancedPlans = plans.slice(3, 5);
       </section>
 
       <!-- Sección Especial: Flujo de la Automatización de WhatsApp (Hitos Narrativos Elegantes) -->
-      <section class="glass-rembrandt mb-24 overflow-hidden rounded-[2.5rem] p-8 md:p-12 border border-amber-400/20" aria-labelledby="automation-flow">
+      <section class="glass-rembrandt mb-24 overflow-hidden rounded-2xl p-8 md:p-12 border border-amber-400/20" aria-labelledby="automation-flow">
         <div class="grid gap-10 lg:grid-cols-12 lg:items-center">
           <div class="lg:col-span-5">
             <p class="text-xs uppercase tracking-[0.2em] text-amber-200/90 font-medium">
@@ -330,7 +330,7 @@ const advancedPlans = plans.slice(3, 5);
 
             <div class="rounded-2xl border border-white/10 bg-carbon-2/80 p-4 sm:p-5 backdrop-blur-md">
               <div class="flex items-center justify-between text-xs text-mute">
-                <span class="font-medium text-rose-300 tracking-wide">Filtro de Alto Valor</span>
+                <span class="font-medium text-amber-200 tracking-wide">Filtro de Alto Valor</span>
                 <span>Calificación automática</span>
               </div>
               <p class="mt-2 text-sm font-semibold text-light">
@@ -376,7 +376,7 @@ const advancedPlans = plans.slice(3, 5);
           {maintenancePackages.map((pkg) => (
             <article
               class:list={[
-                'flex flex-col justify-between rounded-[2rem] p-7 transition-all duration-300',
+                'flex flex-col justify-between rounded-2xl p-7 transition-all duration-300',
                 pkg.featured
                   ? 'glass-rembrandt border-amber-400/30 bg-amber-950/10 shadow-xl'
                   : 'glass border-white/10 hover:border-white/20',
@@ -437,7 +437,7 @@ const advancedPlans = plans.slice(3, 5);
         </div>
 
         <!-- Opción Sin Mensualidad (Pago Único / A Demanda) -->
-        <aside class="glass mt-6 rounded-[2rem] p-6 sm:p-8 border border-white/10" aria-label="Opción a demanda">
+        <aside class="glass mt-6 rounded-2xl p-6 sm:p-8 border border-white/10" aria-label="Opción a demanda">
           <div class="grid gap-6 md:grid-cols-12 md:items-center">
             <div class="md:col-span-7">
               <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">Libertad Total</p>
@@ -583,7 +583,7 @@ const advancedPlans = plans.slice(3, 5);
       </section>
 
       <!-- CTA de Cierre Armónico -->
-      <section class="glass rounded-[2.5rem] p-8 md:p-12 text-center border border-white/10" aria-label="Llamado a la acción">
+      <section class="glass rounded-2xl p-8 md:p-12 text-center border border-white/10" aria-label="Llamado a la acción">
         <h2 class="font-display text-2xl md:text-4xl text-light">
           ¿No tienes claro cuál es el plan para tu negocio?
         </h2>
