@@ -17,8 +17,8 @@ El modelo híbrido funciona si se venden **dos productos con dos vitrinas bajo u
 
 ### La Escalera de Valor de Rembrandt Studio
 
-| Nivel | Nombre | Rango COP | Rango USD | Enfoque |
-|---|---|---|---|---|
-| **Nivel 1** | **Boceto (Express)** | 1.290.000 – 3.490.000 | ~400 – 1.090 | Salida rápida (7–15 días), plantillas del sistema de diseño Rembrandt, venta por WhatsApp. |
-| **Nivel 2** | **Lienzo (Corporativo)** | 6.500.000 – 18.000.000 | ~2.000 – 5.600 | Diseño exclusivo en Figma, generación de leads, SEO técnico e integraciones. |
-| **Nivel 3** | **Obra (Signature / Craft)** | Desde 28.000.000 (típico 35–120 M) | Desde ~8.750 | Discovery pagado (4–8 M), experiencias inmersivas 3D, WebGL/Spline, estatus y autoría. |
+| Nivel       | Nombre                       | Rango COP                          | Rango USD      | Enfoque                                                                                    |
+| ----------- | ---------------------------- | ---------------------------------- | -------------- | ------------------------------------------------------------------------------------------ |
+| **Nivel 1** | **Boceto (Express)**         | 1.290.000 – 3.490.000              | ~400 – 1.090   | Salida rápida (7–15 días), plantillas del sistema de diseño Rembrandt, venta por WhatsApp. |
+| **Nivel 2** | **Lienzo (Corporativo)**     | 6.500.000 – 18.000.000             | ~2.000 – 5.600 | Diseño exclusivo en Figma, generación de leads, SEO técnico e integraciones.               |
+| **Nivel 3** | **Obra (Signature / Craft)** | Desde 28.000.000 (típico 35–120 M) | Desde ~8.750   | Discovery pagado (4–8 M), experiencias inmersivas 3D, WebGL/Spline, estatus y autoría.     |

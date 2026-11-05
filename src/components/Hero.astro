@@ -168,9 +168,12 @@ const fromPrice = plans[0]?.priceUsd ?? '$249 USD';
     }
   }
 
+  /* En el contexto preserve-3d el orden lo da la profundidad, no el DOM: el velo
+     va por delante del robot (z +70) para apagar toda la escena al liberarse. */
   .hero-dim {
     background: var(--color-carbon);
     opacity: 0;
+    transform: translateZ(160px);
   }
 
   .hero-title .line {

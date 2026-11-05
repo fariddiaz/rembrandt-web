@@ -125,9 +125,23 @@ function initDialog(): void {
   const deviceButtons = dialog.querySelectorAll<HTMLButtonElement>('[data-device]');
   if (!frame || !wrap || !name || !domain || !live || !close) return;
 
+  // Si el sitio nunca dispara 'load' (lento o bloquea iframes), el skeleton se
+  // retira igual y queda a mano "Abrir en vivo" en la barra.
+  let skeletonTimer = 0;
+  const hideSkeleton = () => {
+    window.clearTimeout(skeletonTimer);
+    skeleton?.classList.add('is-hidden');
+  };
   frame.addEventListener('load', () => {
-    if (frame.src && frame.src !== 'about:blank') skeleton?.classList.add('is-hidden');
+    if (frame.src && frame.src !== 'about:blank') hideSkeleton();
   });
+
+  // Bloquea el scroll del fondo también en táctil (Lenis no gobierna el touch).
+  const lockScroll = (locked: boolean) => {
+    document.documentElement.style.overflow = locked ? 'hidden' : '';
+    if (locked) getLenis()?.stop();
+    else getLenis()?.start();
+  };
 
   const setDevice = (device: Device) => {
     DEVICES.forEach((d) => wrap.classList.toggle(`is-${d}`, d === device && d !== 'desktop'));
@@ -138,13 +152,15 @@ function initDialog(): void {
 
   const open = (url: string, title: string, liveUrl: string) => {
     skeleton?.classList.remove('is-hidden');
+    window.clearTimeout(skeletonTimer);
+    skeletonTimer = window.setTimeout(hideSkeleton, LOAD_TIMEOUT_MS);
     frame.src = url;
     name.textContent = title;
     domain.textContent = domainOf(liveUrl);
     live.href = liveUrl;
     setDevice(innerWidth < 768 ? 'mobile' : 'desktop');
     dialog.showModal();
-    getLenis()?.stop();
+    lockScroll(true);
   };
 
   document.querySelectorAll<HTMLElement>('[data-preview]').forEach((trigger) => {
@@ -160,14 +176,25 @@ function initDialog(): void {
       setDevice(device);
     }),
   );
-  close.addEventListener('click', () => dialog.close());
+  // Limpieza idempotente: se llama al cerrar por botón, fondo o Esc y también en
+  // 'close'. No depende solo de 'close', que es asíncrono y en algunos entornos
+  // tarda o no llega; dejar el scroll bloqueado sería peor que limpiar dos veces.
+  const teardown = () => {
+    window.clearTimeout(skeletonTimer);
+    if (frame.getAttribute('src') !== 'about:blank') frame.src = 'about:blank'; // libera memoria y red
+    lockScroll(false);
+  };
+  const closeDialog = () => {
+    dialog.close();
+    teardown();
+  };
+
+  close.addEventListener('click', closeDialog);
   dialog.addEventListener('click', (e) => {
-    if (e.target === dialog) dialog.close();
+    if (e.target === dialog) closeDialog();
   });
-  dialog.addEventListener('close', () => {
-    frame.src = 'about:blank'; // libera memoria y red del sitio embebido
-    getLenis()?.start();
-  });
+  dialog.addEventListener('cancel', teardown); // Esc
+  dialog.addEventListener('close', teardown);
 }
 
 export function initWorkPreview(): void {

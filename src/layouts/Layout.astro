@@ -68,7 +68,9 @@ const jsonLd = {
     <link rel="canonical" href={canonical} />
     <meta
       name="robots"
-      content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+      content={noindex
+        ? 'noindex, nofollow'
+        : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
     />
 
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
@@ -79,7 +81,10 @@ const jsonLd = {
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="es_CO" />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content="Rembrandt Studio · Ingeniería Digital & Diseño Web de Autor" />
+    <meta
+      property="og:image:alt"
+      content="Rembrandt Studio · Ingeniería Digital & Diseño Web de Autor"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
@@ -114,19 +119,19 @@ const jsonLd = {
     </script>
 
     <!-- Google Analytics 4 (Solo se activa si se provee PUBLIC_GA_ID en entorno) -->
-    {
-      gaId && (
-        <>
-          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
-          <script is:inline define:vars={{ gaId }}>
-            gtag('js', new Date());
-            gtag('config', gaId, { anonymize_ip: true });
-          </script>
-        </>
-      )
-    }
+    {gaId && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />}
+    <!-- La configuración va fuera de la expresión (Prettier no analiza scripts dentro de JSX);
+         sin PUBLIC_GA_ID no hace nada. -->
+    <script is:inline define:vars={{ gaId }}>
+      if (gaId) {
+        gtag('js', new Date());
+        gtag('config', gaId, { anonymize_ip: true });
+      }
+    </script>
   </head>
-  <body class="bg-carbon text-light selection:bg-amber-400/20 selection:text-amber-200 relative min-h-screen">
+  <body
+    class="bg-carbon text-light selection:bg-amber-400/20 selection:text-amber-200 relative min-h-screen"
+  >
     <!-- Enlace accesible de salto al contenido -->
     <a
       href="#main-content"
@@ -136,7 +141,7 @@ const jsonLd = {
     </a>
 
     <RembrandtArtBorders />
-    
+
     <div id="main-content">
       <slot />
     </div>

@@ -42,6 +42,7 @@ La preview muestra siempre el **sitio real** del cliente, nunca una página simu
 ---
 
 ## 3. Checklist de Lanzamiento
+
 - [ ] Logotipo del cliente guardado en SVG en `public/preview-assets/` y en `public/logos/` si se incluye en el marquee.
 - [ ] Foto o avatar del fundador/directivo en `public/preview-assets/`.
 - [ ] Comprobación del modal interactivo en escritorio y celular.

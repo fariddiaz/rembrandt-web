@@ -7,9 +7,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) =>
-        !page.includes('/404') &&
-        !page.includes('/gracias') &&
-        !page.includes('/preview/'),
+        !page.includes('/404') && !page.includes('/gracias') && !page.includes('/preview/'),
     }),
   ],
   vite: {

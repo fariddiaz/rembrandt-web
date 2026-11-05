@@ -59,15 +59,26 @@ const quote = waLink(
   if (dock) {
     let lastY = scrollY;
     let raf = 0;
+    // Altura máxima de scroll en caché: no se lee el layout en cada frame.
+    let maxScroll = 0;
+    const measure = () => (maxScroll = document.documentElement.scrollHeight - innerHeight);
+    measure();
+    new ResizeObserver(measure).observe(document.body);
+
+    // Oculto = fuera del orden de tabulación y del árbol de accesibilidad (inert).
+    const setHidden = (hidden: boolean) => {
+      dock.classList.toggle('is-hidden', hidden);
+      dock.inert = hidden;
+    };
 
     const update = () => {
       raf = 0;
       const y = scrollY;
-      const atEnd = y > document.documentElement.scrollHeight - innerHeight - END_MARGIN_PX;
+      const atEnd = y > maxScroll - END_MARGIN_PX;
       const goingDown = y - lastY > DELTA_PX;
       const goingUp = lastY - y > DELTA_PX;
-      if (atEnd || (goingDown && y > HIDE_AFTER_PX)) dock.classList.add('is-hidden');
-      else if (goingUp || y <= HIDE_AFTER_PX) dock.classList.remove('is-hidden');
+      if (atEnd || (goingDown && y > HIDE_AFTER_PX)) setHidden(true);
+      else if (goingUp || y <= HIDE_AFTER_PX) setHidden(false);
       if (goingDown || goingUp) lastY = y;
     };
     addEventListener('scroll', () => raf || (raf = requestAnimationFrame(update)), {

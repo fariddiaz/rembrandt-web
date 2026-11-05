@@ -14,11 +14,14 @@ import { waLink } from '../config/site';
 
   <main class="relative z-[2] flex min-h-[80vh] items-center pt-28 pb-24 md:pt-36 md:pb-32">
     <!-- Fondo claroscuro de arte: El Retorno del Hijo Pródigo (1669) -->
-    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10"
+      aria-hidden="true"
+    >
       <img
         src="/art/prodigalson.webp"
         alt=""
-        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        class="size-full object-cover saturate-[0.85] brightness-75"
         loading="lazy"
         decoding="async"
       />
@@ -26,13 +29,8 @@ import { waLink } from '../config/site';
     </div>
 
     <div class="mx-auto w-[min(780px,calc(100%-2.5rem))] text-center">
-      
       <!-- Icono de confirmación en cristal Rembrandt -->
-      <div class="mx-auto mb-6 grid size-16 place-items-center rounded-2xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 shadow-xl shadow-emerald-950/40">
-        <svg class="size-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
+      <span class="mx-auto mb-8 block h-px w-12 bg-gold" aria-hidden="true"></span>
 
       <p class="text-xs uppercase tracking-[0.22em] text-emerald-400 font-mono">
         Solicitud Enviada con Éxito
@@ -43,7 +41,8 @@ import { waLink } from '../config/site';
       </h1>
 
       <p class="mx-auto mt-5 max-w-xl text-base md:text-lg leading-relaxed text-mute">
-        Analizaremos el alcance de tu negocio y te responderemos con una propuesta personalizada y cotización formal en menos de <strong class="text-light">2 horas hábiles</strong>.
+        Analizaremos el alcance de tu negocio y te responderemos con una propuesta personalizada y
+        cotización formal en menos de <strong class="text-light">2 horas hábiles</strong>.
       </p>
 
       <!-- Próximos pasos transparentes -->
@@ -62,23 +61,21 @@ import { waLink } from '../config/site';
           </li>
           <li class="flex items-start gap-2.5">
             <span class="font-mono text-amber-300 font-bold">3.</span>
-            <span>Si deseas avanzar con urgencia, puedes escribirnos de inmediato por WhatsApp.</span>
+            <span
+              >Si deseas avanzar con urgencia, puedes escribirnos de inmediato por WhatsApp.</span
+            >
           </li>
         </ol>
       </div>
 
       <!-- Acciones de retorno y contacto inmediato -->
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a
-          href="/"
-          class="btn btn-light"
-          data-magnetic="0.3"
-        >
-          Volver a la Página de Inicio
-        </a>
+        <a href="/" class="btn btn-light" data-magnetic="0.3"> Volver a la Página de Inicio </a>
 
         <a
-          href={waLink('Hola Rembrandt Studio, acabo de enviar el formulario de contacto y me gustaría adelantar detalles de mi proyecto por aquí.')}
+          href={waLink(
+            'Hola Rembrandt Studio, acabo de enviar el formulario de contacto y me gustaría adelantar detalles de mi proyecto por aquí.',
+          )}
           target="_blank"
           rel="noopener"
           data-gracias-wa-btn
@@ -86,12 +83,13 @@ import { waLink } from '../config/site';
           data-magnetic="0.3"
         >
           <svg class="size-4 fill-current shrink-0" viewBox="0 0 24 24">
-            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/>
+            <path
+              d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"
+            ></path>
           </svg>
           <span>Agilizar por WhatsApp Directo</span>
         </a>
       </div>
-
     </div>
   </main>
 

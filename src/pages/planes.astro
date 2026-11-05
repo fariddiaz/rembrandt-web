@@ -2,7 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { plans, maintenancePackages, onDemandMaintenance, plansFaq, waLink, waSections } from '../config/site';
+import {
+  plans,
+  maintenancePackages,
+  onDemandMaintenance,
+  plansFaq,
+  waLink,
+  waSections,
+} from '../config/site';
 
 const wa = waSections.planes;
 
@@ -12,6 +19,7 @@ const corePlans = plans.slice(0, 3);
 // Fila 2: Soluciones avanzadas de alto impacto (2 columnas simétricas 50% / 50%)
 const advancedPlans = plans.slice(3, 5);
 ---
+
 <Layout
   title="Planes y Precios · Rembrandt Studio | Webs de Alto Rendimiento y Automatización"
   description="Planes web claros, precios cerrados y sin letras chicas. Entrega express en 4 a 6 días y webs con automatización de WhatsApp 24/7 para empresarios."
@@ -24,11 +32,14 @@ const advancedPlans = plans.slice(3, 5);
     data-wa-message={wa.message}
   >
     <!-- Fondo claroscuro de arte: Aristóteles con el busto de Homero (1653) -->
-    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10"
+      aria-hidden="true"
+    >
       <img
         src="/art/aristotle.webp"
         alt=""
-        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        class="size-full object-cover saturate-[0.85] brightness-75"
         loading="lazy"
         decoding="async"
       />
@@ -36,62 +47,80 @@ const advancedPlans = plans.slice(3, 5);
     </div>
 
     <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
-      
       <!-- Encabezado Editorial con el Sello de Autor "Rembrandt f." -->
       <header class="mb-12 max-w-3xl">
         <div class="flex items-center gap-3">
           <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
             Inversión Comercial & Retorno Real
           </p>
-          <span class="font-serif italic text-xs tracking-[0.25em] text-amber-200/50">Rembrandt f.</span>
+          <span class="font-serif italic text-xs tracking-[0.25em] text-amber-200/50"
+            >Rembrandt f.</span
+          >
         </div>
         <h1 class="mt-4 font-display text-[clamp(2.4rem,5vw,4.4rem)] leading-[1.02] text-light">
           Planes claros. Tu negocio vendiendo las 24 horas.
         </h1>
         <p class="mt-4 text-base md:text-lg leading-relaxed text-mute">
-          Sin términos técnicos confusos ni cobros ocultos. Diseñamos herramientas comerciales hechas para captar clientes, posicionar tu marca con autoridad y responder al instante por WhatsApp mientras te enfocas en operar tu empresa.
+          Sin términos técnicos confusos ni cobros ocultos. Diseñamos herramientas comerciales
+          hechas para captar clientes, posicionar tu marca con autoridad y responder al instante por
+          WhatsApp mientras te enfocas en operar tu empresa.
         </p>
       </header>
 
       <!-- Cinta de Compromisos de Autor (Sutil, delgada y elegante, sin diapositivas gigantes) -->
-      <div class="glass mb-14 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 px-6 py-3.5 text-xs text-mute backdrop-blur-md">
+      <div
+        class="glass mb-14 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 px-6 py-3.5 text-xs text-mute backdrop-blur-md"
+      >
         <div class="flex items-center gap-2">
           <span class="h-px w-3 bg-gold" aria-hidden="true"></span>
-          <span><strong class="text-light font-medium">4 a 6 días</strong> · Entrega express garantizada</span>
+          <span
+            ><strong class="text-light font-medium">4 a 6 días</strong> · Entrega express garantizada</span
+          >
         </div>
         <div class="hidden sm:block h-3 w-px bg-white/10"></div>
         <div class="flex items-center gap-2">
           <span class="size-1.5 rounded-full bg-amber-400"></span>
-          <span><strong class="text-light font-medium">WhatsApp 24/7</strong> · Asistente con respuesta inmediata</span>
+          <span
+            ><strong class="text-light font-medium">WhatsApp 24/7</strong> · Asistente con respuesta inmediata</span
+          >
         </div>
         <div class="hidden md:block h-3 w-px bg-white/10"></div>
         <div class="flex items-center gap-2">
           <span class="size-1.5 rounded-full bg-violet-400"></span>
-          <span><strong class="text-light font-medium">Propiedad 100%</strong> · Código y dominio tuyos</span>
+          <span
+            ><strong class="text-light font-medium">Propiedad 100%</strong> · Código y dominio tuyos</span
+          >
         </div>
         <div class="hidden lg:block h-3 w-px bg-white/10"></div>
         <div class="flex items-center gap-2">
           <span class="size-1.5 rounded-full bg-light"></span>
-          <span><strong class="text-light font-medium">0.7s</strong> · Carga instantánea en celulares</span>
+          <span
+            ><strong class="text-light font-medium">0.7s</strong> · Carga instantánea en celulares</span
+          >
         </div>
       </div>
 
       <!-- Selector rápido de planes (solo móvil) -->
-      <nav class="no-scrollbar -mx-2 mb-8 overflow-x-auto px-2 md:hidden" aria-label="Acceso rápido a cada plan">
+      <nav
+        class="no-scrollbar -mx-2 mb-8 overflow-x-auto px-2 md:hidden"
+        aria-label="Acceso rápido a cada plan"
+      >
         <div class="flex min-w-max items-center gap-2 pb-1">
-          {plans.map((p) => (
-            <a
-              href={`#plan-title-${p.id}`}
-              class:list={[
-                'whitespace-nowrap rounded-full px-3.5 py-2 text-xs font-medium backdrop-blur-md transition-all active:scale-95',
-                p.featured
-                  ? 'border border-violet/40 bg-violet/15 font-semibold text-violet-300'
-                  : 'border border-white/10 bg-white/5 text-light/80',
-              ]}
-            >
-              {p.name.split('&')[0].replace('Web + Automatización', 'Auto WhatsApp').trim()}
-            </a>
-          ))}
+          {
+            plans.map((p) => (
+              <a
+                href={`#plan-title-${p.id}`}
+                class:list={[
+                  'whitespace-nowrap rounded-full px-3.5 py-2 text-xs font-medium backdrop-blur-md transition-all active:scale-95',
+                  p.featured
+                    ? 'border border-violet/40 bg-violet/15 font-semibold text-violet-300'
+                    : 'border border-white/10 bg-white/5 text-light/80',
+                ]}
+              >
+                {p.name.split('&')[0].replace('Web + Automatización', 'Auto WhatsApp').trim()}
+              </a>
+            ))
+          }
         </div>
       </nav>
 
@@ -99,16 +128,107 @@ const advancedPlans = plans.slice(3, 5);
            de la izquierda; los otros dos se apilan a la derecha (sin tríada SaaS). -->
       <section class="mb-6" aria-label="Planes principales de presencia y conversión">
         <div class="grid gap-6 md:grid-cols-12 items-stretch">
-          {corePlans.map((plan) => {
-            const isFeatured = plan.featured;
-            return (
+          {
+            corePlans.map((plan) => {
+              const isFeatured = plan.featured;
+              return (
+                <article
+                  class:list={[
+                    'flex flex-col justify-between rounded-2xl p-7 md:p-8 transition-colors duration-300 max-sm:p-6',
+                    isFeatured
+                      ? 'glass-rembrandt border border-amber-500/30 md:sticky md:top-28 md:self-start md:order-first md:col-span-7 md:row-span-2 md:p-10'
+                      : 'glass border border-white/10 hover:border-white/20 md:col-span-5',
+                  ]}
+                  aria-labelledby={`plan-title-${plan.id}`}
+                >
+                  <div>
+                    <div class="flex items-center justify-between gap-2 min-h-[1.75rem]">
+                      <span class="text-xs uppercase tracking-wider text-amber-200/90 font-medium">
+                        {plan.badge}
+                      </span>
+                      {isFeatured && (
+                        <span class="rounded-md border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 text-[0.7rem] font-medium text-amber-200">
+                          Recomendado
+                        </span>
+                      )}
+                    </div>
+
+                    <h2
+                      id={`plan-title-${plan.id}`}
+                      class="mt-3 font-display text-2xl text-light leading-snug max-md:scroll-mt-28"
+                    >
+                      {plan.name}
+                    </h2>
+
+                    <p class="mt-2 text-xs md:text-sm text-mute leading-relaxed min-h-[3.6rem]">
+                      {plan.audience}
+                    </p>
+
+                    {/* Precio y Plazo */}
+                    <div class="mt-6 border-y border-white/10 py-4">
+                      <div class="flex items-baseline gap-2">
+                        <span class="font-display text-3xl md:text-4xl text-light leading-none">
+                          {plan.priceUsd}
+                        </span>
+                        {plan.priceCop && (
+                          <span class="text-xs text-mute font-sans">{plan.priceCop}</span>
+                        )}
+                      </div>
+                      <p class="mt-2 flex items-center gap-1.5 text-xs text-light/80">
+                        <span class="h-px w-3 bg-gold" aria-hidden="true" />
+                        {plan.delivery}
+                      </p>
+                    </div>
+
+                    {/* Entregables */}
+                    <ul class="mt-6 space-y-2.5 text-xs text-light/90">
+                      {plan.features.map((f) => (
+                        <li class="flex items-start gap-2 leading-relaxed">
+                          <span
+                            class="mt-[0.7em] h-px w-2.5 shrink-0 bg-gold/70"
+                            aria-hidden="true"
+                          />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Botón CTA alineado en la base */}
+                  <div class="mt-8 pt-5 border-t border-white/10 flex flex-col gap-2.5">
+                    <a
+                      href={waLink(plan.message)}
+                      target="_blank"
+                      rel="noopener"
+                      class:list={[
+                        'btn w-full justify-center text-center !py-2.5 text-sm',
+                        isFeatured ? 'btn-light btn-float' : 'btn-ghost',
+                      ]}
+                      data-magnetic="0.2"
+                    >
+                      {plan.cta}
+                    </a>
+                    <a
+                      href={`/contacto?plan=${plan.id}`}
+                      class="text-center text-[0.72rem] text-mute hover:text-light transition-colors underline underline-offset-4"
+                    >
+                      O cotizar por formulario →
+                    </a>
+                  </div>
+                </article>
+              );
+            })
+          }
+        </div>
+      </section>
+
+      <!-- Fila 2: Soluciones Especializadas (2 Columnas Simétricas 50% / 50%) -->
+      <section class="mb-24" aria-label="Soluciones especializadas y a medida">
+        <div class="grid gap-6 md:grid-cols-2 items-stretch">
+          {
+            advancedPlans.map((plan) => (
               <article
-                class:list={[
-                  'flex flex-col justify-between rounded-2xl p-7 md:p-8 transition-colors duration-300 max-sm:p-6',
-                  isFeatured
-                    ? 'glass-rembrandt border border-amber-500/30 md:sticky md:top-28 md:self-start md:order-first md:col-span-7 md:row-span-2 md:p-10'
-                    : 'glass border border-white/10 hover:border-white/20 md:col-span-5',
-                ]}
+                class="glass flex flex-col justify-between rounded-2xl p-7 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300 max-sm:p-6"
                 aria-labelledby={`plan-title-${plan.id}`}
               >
                 <div>
@@ -116,22 +236,23 @@ const advancedPlans = plans.slice(3, 5);
                     <span class="text-xs uppercase tracking-wider text-amber-200/90 font-medium">
                       {plan.badge}
                     </span>
-                    {isFeatured && (
-                      <span class="rounded-md border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 text-[0.7rem] font-medium text-amber-200">
-                        Recomendado
-                      </span>
-                    )}
+                    <span class="rounded-md border border-white/10 bg-white/5 px-2.5 py-0.5 text-[0.7rem] text-mute">
+                      Solución Avanzada
+                    </span>
                   </div>
 
-                  <h2 id={`plan-title-${plan.id}`} class="mt-3 font-display text-2xl text-light leading-snug max-md:scroll-mt-28">
+                  <h2
+                    id={`plan-title-${plan.id}`}
+                    class="mt-3 font-display text-2xl text-light leading-snug max-md:scroll-mt-28"
+                  >
                     {plan.name}
                   </h2>
 
-                  <p class="mt-2 text-xs md:text-sm text-mute leading-relaxed min-h-[3.6rem]">
+                  <p class="mt-2 text-xs md:text-sm text-mute leading-relaxed min-h-[3rem]">
                     {plan.audience}
                   </p>
 
-                  <!-- Precio y Plazo -->
+                  {/* Precio y Plazo */}
                   <div class="mt-6 border-y border-white/10 py-4">
                     <div class="flex items-baseline gap-2">
                       <span class="font-display text-3xl md:text-4xl text-light leading-none">
@@ -142,32 +263,32 @@ const advancedPlans = plans.slice(3, 5);
                       )}
                     </div>
                     <p class="mt-2 flex items-center gap-1.5 text-xs text-light/80">
-                      <span class="h-px w-3 bg-gold" aria-hidden="true"></span>
+                      <span class="h-px w-3 bg-gold" aria-hidden="true" />
                       {plan.delivery}
                     </p>
                   </div>
 
-                  <!-- Entregables -->
+                  {/* Entregables */}
                   <ul class="mt-6 space-y-2.5 text-xs text-light/90">
                     {plan.features.map((f) => (
                       <li class="flex items-start gap-2 leading-relaxed">
-                        <span class="mt-[0.7em] h-px w-2.5 shrink-0 bg-gold/70" aria-hidden="true"></span>
+                        <span
+                          class="mt-[0.7em] h-px w-2.5 shrink-0 bg-gold/70"
+                          aria-hidden="true"
+                        />
                         <span>{f}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <!-- Botón CTA alineado en la base -->
+                {/* Botón CTA alineado en la base */}
                 <div class="mt-8 pt-5 border-t border-white/10 flex flex-col gap-2.5">
                   <a
                     href={waLink(plan.message)}
                     target="_blank"
                     rel="noopener"
-                    class:list={[
-                      'btn w-full justify-center text-center !py-2.5 text-sm',
-                      isFeatured ? 'btn-light btn-float' : 'btn-ghost',
-                    ]}
+                    class="btn btn-ghost w-full justify-center text-center !py-2.5 text-sm"
                     data-magnetic="0.2"
                   >
                     {plan.cta}
@@ -180,99 +301,31 @@ const advancedPlans = plans.slice(3, 5);
                   </a>
                 </div>
               </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <!-- Fila 2: Soluciones Especializadas (2 Columnas Simétricas 50% / 50%) -->
-      <section class="mb-24" aria-label="Soluciones especializadas y a medida">
-        <div class="grid gap-6 md:grid-cols-2 items-stretch">
-          {advancedPlans.map((plan) => (
-            <article
-              class="glass flex flex-col justify-between rounded-2xl p-7 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-300 max-sm:p-6"
-              aria-labelledby={`plan-title-${plan.id}`}
-            >
-              <div>
-                <div class="flex items-center justify-between gap-2 min-h-[1.75rem]">
-                  <span class="text-xs uppercase tracking-wider text-amber-200/90 font-medium">
-                    {plan.badge}
-                  </span>
-                  <span class="rounded-md border border-white/10 bg-white/5 px-2.5 py-0.5 text-[0.7rem] text-mute">
-                    Solución Avanzada
-                  </span>
-                </div>
-
-                <h2 id={`plan-title-${plan.id}`} class="mt-3 font-display text-2xl text-light leading-snug max-md:scroll-mt-28">
-                  {plan.name}
-                </h2>
-
-                <p class="mt-2 text-xs md:text-sm text-mute leading-relaxed min-h-[3rem]">
-                  {plan.audience}
-                </p>
-
-                <!-- Precio y Plazo -->
-                <div class="mt-6 border-y border-white/10 py-4">
-                  <div class="flex items-baseline gap-2">
-                    <span class="font-display text-3xl md:text-4xl text-light leading-none">
-                      {plan.priceUsd}
-                    </span>
-                    {plan.priceCop && (
-                      <span class="text-xs text-mute font-sans">{plan.priceCop}</span>
-                    )}
-                  </div>
-                  <p class="mt-2 flex items-center gap-1.5 text-xs text-light/80">
-                    <span class="h-px w-3 bg-gold" aria-hidden="true"></span>
-                    {plan.delivery}
-                  </p>
-                </div>
-
-                <!-- Entregables -->
-                <ul class="mt-6 space-y-2.5 text-xs text-light/90">
-                  {plan.features.map((f) => (
-                    <li class="flex items-start gap-2 leading-relaxed">
-                      <span class="mt-[0.7em] h-px w-2.5 shrink-0 bg-gold/70" aria-hidden="true"></span>
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <!-- Botón CTA alineado en la base -->
-              <div class="mt-8 pt-5 border-t border-white/10 flex flex-col gap-2.5">
-                <a
-                  href={waLink(plan.message)}
-                  target="_blank"
-                  rel="noopener"
-                  class="btn btn-ghost w-full justify-center text-center !py-2.5 text-sm"
-                  data-magnetic="0.2"
-                >
-                  {plan.cta}
-                </a>
-                <a
-                  href={`/contacto?plan=${plan.id}`}
-                  class="text-center text-[0.72rem] text-mute hover:text-light transition-colors underline underline-offset-4"
-                >
-                  O cotizar por formulario →
-                </a>
-              </div>
-            </article>
-          ))}
+            ))
+          }
         </div>
       </section>
 
       <!-- Sección Especial: Flujo de la Automatización de WhatsApp (Hitos Narrativos Elegantes) -->
-      <section class="glass-rembrandt mb-24 overflow-hidden rounded-2xl p-8 md:p-12 border border-amber-400/20" aria-labelledby="automation-flow">
+      <section
+        class="glass-rembrandt mb-24 overflow-hidden rounded-2xl p-8 md:p-12 border border-amber-400/20"
+        aria-labelledby="automation-flow"
+      >
         <div class="grid gap-10 lg:grid-cols-12 lg:items-center">
           <div class="lg:col-span-5">
             <p class="text-xs uppercase tracking-[0.2em] text-amber-200/90 font-medium">
               Ingeniería Comercial
             </p>
-            <h2 id="automation-flow" class="mt-3 font-display text-[clamp(1.9rem,3.4vw,2.8rem)] leading-tight text-light">
+            <h2
+              id="automation-flow"
+              class="mt-3 font-display text-[clamp(1.9rem,3.4vw,2.8rem)] leading-tight text-light"
+            >
               ¿Cómo funciona la Automatización de WhatsApp para tu empresa?
             </h2>
             <p class="mt-4 text-sm text-mute leading-relaxed">
-              El 70% de las ventas en internet se pierden cuando un cliente escribe y tarda más de 5 minutos en recibir respuesta. Nuestro sistema conecta tu página web con un asistente virtual inteligente en tu WhatsApp Business que opera las 24 horas del día.
+              El 70% de las ventas en internet se pierden cuando un cliente escribe y tarda más de 5
+              minutos en recibir respuesta. Nuestro sistema conecta tu página web con un asistente
+              virtual inteligente en tu WhatsApp Business que opera las 24 horas del día.
             </p>
 
             <div class="mt-6 space-y-2.5 text-xs text-light/90">
@@ -291,7 +344,9 @@ const advancedPlans = plans.slice(3, 5);
             </div>
 
             <a
-              href={waLink('Hola Rembrandt Studio, quiero ver una demostración de la Automatización de WhatsApp para mi negocio.')}
+              href={waLink(
+                'Hola Rembrandt Studio, quiero ver una demostración de la Automatización de WhatsApp para mi negocio.',
+              )}
               target="_blank"
               rel="noopener"
               class="btn btn-light mt-8 !py-2.5 !px-6 text-sm"
@@ -303,7 +358,9 @@ const advancedPlans = plans.slice(3, 5);
 
           <!-- Cuatro Hitos de Atención Comercial (Sin PASO 01, con diseño simétrico) -->
           <div class="space-y-3.5 lg:col-span-7">
-            <div class="rounded-2xl border border-white/10 bg-carbon-2/80 p-4 sm:p-5 backdrop-blur-md">
+            <div
+              class="rounded-2xl border border-white/10 bg-carbon-2/80 p-4 sm:p-5 backdrop-blur-md"
+            >
               <div class="flex items-center justify-between text-xs text-mute">
                 <span class="font-medium text-amber-200/90 tracking-wide">El Clic de Interés</span>
                 <span>Inmediatez: 0s</span>
@@ -312,11 +369,14 @@ const advancedPlans = plans.slice(3, 5);
                 El cliente entra a tu web y solicita información
               </p>
               <p class="mt-1 text-xs text-mute leading-relaxed">
-                Llega directamente a tu WhatsApp con un mensaje estructurado indicando el servicio o producto exacto de su interés.
+                Llega directamente a tu WhatsApp con un mensaje estructurado indicando el servicio o
+                producto exacto de su interés.
               </p>
             </div>
 
-            <div class="rounded-2xl border border-amber-400/20 bg-amber-400/[0.03] p-4 sm:p-5 backdrop-blur-md">
+            <div
+              class="rounded-2xl border border-amber-400/20 bg-amber-400/[0.03] p-4 sm:p-5 backdrop-blur-md"
+            >
               <div class="flex items-center justify-between text-xs text-amber-300">
                 <span class="font-medium tracking-wide">Acogida Inmediata 24/7</span>
                 <span>Respuesta: &lt; 3s</span>
@@ -325,11 +385,14 @@ const advancedPlans = plans.slice(3, 5);
                 El asistente virtual saluda con la voz de tu marca
               </p>
               <p class="mt-1 text-xs text-mute leading-relaxed">
-                "¡Hola! Bienvenido a [Tu Empresa]. Con gusto te asesoramos: (1) Ver tarifas y catálogo, (2) Agendar videollamada, (3) Hablar con un especialista".
+                "¡Hola! Bienvenido a [Tu Empresa]. Con gusto te asesoramos: (1) Ver tarifas y
+                catálogo, (2) Agendar videollamada, (3) Hablar con un especialista".
               </p>
             </div>
 
-            <div class="rounded-2xl border border-white/10 bg-carbon-2/80 p-4 sm:p-5 backdrop-blur-md">
+            <div
+              class="rounded-2xl border border-white/10 bg-carbon-2/80 p-4 sm:p-5 backdrop-blur-md"
+            >
               <div class="flex items-center justify-between text-xs text-mute">
                 <span class="font-medium text-amber-200 tracking-wide">Filtro de Alto Valor</span>
                 <span>Calificación automática</span>
@@ -338,11 +401,14 @@ const advancedPlans = plans.slice(3, 5);
                 Filtra curiosos y recopila los datos clave
               </p>
               <p class="mt-1 text-xs text-mute leading-relaxed">
-                Identifica ciudad, tipo de requerimiento y presupuesto. Si está listo para comprar, le despacha tu catálogo o enlace de pago directo.
+                Identifica ciudad, tipo de requerimiento y presupuesto. Si está listo para comprar,
+                le despacha tu catálogo o enlace de pago directo.
               </p>
             </div>
 
-            <div class="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] p-4 sm:p-5 backdrop-blur-md">
+            <div
+              class="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] p-4 sm:p-5 backdrop-blur-md"
+            >
               <div class="flex items-center justify-between text-xs text-emerald-300">
                 <span class="font-medium tracking-wide">El Encuentro de Cierre</span>
                 <span>Resultado: Venta asistida</span>
@@ -351,7 +417,8 @@ const advancedPlans = plans.slice(3, 5);
                 Cita agendada o alerta a tu WhatsApp personal
               </p>
               <p class="mt-1 text-xs text-mute leading-relaxed">
-                El prospecto agenda en tu calendario (Google Calendar o Cal.com) y tú recibes una alerta en tu móvil con todo el resumen del cliente.
+                El prospecto agenda en tu calendario (Google Calendar o Cal.com) y tú recibes una
+                alerta en tu móvil con todo el resumen del cliente.
               </p>
             </div>
           </div>
@@ -364,81 +431,97 @@ const advancedPlans = plans.slice(3, 5);
           <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">
             Soporte Continuo & Tranquilidad Técnica
           </p>
-          <h2 id="maintenance-section-title" class="mt-2 font-display text-3xl md:text-4xl text-light">
+          <h2
+            id="maintenance-section-title"
+            class="mt-2 font-display text-3xl md:text-4xl text-light"
+          >
             Mantenimiento mensual para que tu web nunca se detenga
           </h2>
           <p class="mt-3 text-sm text-mute leading-relaxed">
-            Un servicio opcional y accesible diseñado para que tu web siga cargando rápido, segura y con tus contenidos al día sin tener que lidiar con problemas técnicos ni pagar mensualidades abusivas.
+            Un servicio opcional y accesible diseñado para que tu web siga cargando rápido, segura y
+            con tus contenidos al día sin tener que lidiar con problemas técnicos ni pagar
+            mensualidades abusivas.
           </p>
         </div>
 
         <!-- Paquetes mensuales: el más elegido ocupa la columna alta, los otros se apilan -->
         <div class="grid gap-6 md:grid-cols-12 items-stretch">
-          {maintenancePackages.map((pkg) => (
-            <article
-              class:list={[
-                'flex flex-col justify-between rounded-2xl p-7 transition-colors duration-300',
-                pkg.featured
-                  ? 'glass-rembrandt border border-amber-500/30 md:sticky md:top-28 md:self-start md:order-first md:col-span-7 md:row-span-2 md:p-10'
-                  : 'glass border border-white/10 hover:border-white/20 md:col-span-5',
-              ]}
-            >
-              <div>
-                <div class="flex items-center justify-between gap-2 min-h-[1.5rem]">
-                  <span class="text-xs font-medium uppercase tracking-wider text-amber-200/90">
-                    {pkg.badge}
-                  </span>
-                  {pkg.featured && (
-                    <span class="rounded-md border border-amber-400/30 bg-amber-400/10 px-2 py-0.5 text-[0.68rem] text-amber-200">
-                      Más Elegido
+          {
+            maintenancePackages.map((pkg) => (
+              <article
+                class:list={[
+                  'flex flex-col justify-between rounded-2xl p-7 transition-colors duration-300',
+                  pkg.featured
+                    ? 'glass-rembrandt border border-amber-500/30 md:sticky md:top-28 md:self-start md:order-first md:col-span-7 md:row-span-2 md:p-10'
+                    : 'glass border border-white/10 hover:border-white/20 md:col-span-5',
+                ]}
+              >
+                <div>
+                  <div class="flex items-center justify-between gap-2 min-h-[1.5rem]">
+                    <span class="text-xs font-medium uppercase tracking-wider text-amber-200/90">
+                      {pkg.badge}
                     </span>
-                  )}
-                </div>
-
-                <h3 class="mt-3 font-display text-xl text-light">{pkg.name}</h3>
-                <p class="mt-2 text-xs text-mute leading-relaxed min-h-[2.5rem]">{pkg.audience}</p>
-
-                <div class="mt-5 border-y border-white/10 py-3.5">
-                  <div class="flex items-baseline gap-1">
-                    <span class="font-display text-3xl text-light leading-none">{pkg.priceUsd}</span>
-                    <span class="text-xs text-mute font-sans">{pkg.period}</span>
+                    {pkg.featured && (
+                      <span class="rounded-md border border-amber-400/30 bg-amber-400/10 px-2 py-0.5 text-[0.68rem] text-amber-200">
+                        Más Elegido
+                      </span>
+                    )}
                   </div>
-                  <p class="mt-1 text-xs text-mute">{pkg.priceCop}</p>
-                  {pkg.annualDiscount && (
-                    <p class="mt-1.5 text-[0.7rem] text-emerald-400 font-medium">{pkg.annualDiscount}</p>
-                  )}
+
+                  <h3 class="mt-3 font-display text-xl text-light">{pkg.name}</h3>
+                  <p class="mt-2 text-xs text-mute leading-relaxed min-h-[2.5rem]">
+                    {pkg.audience}
+                  </p>
+
+                  <div class="mt-5 border-y border-white/10 py-3.5">
+                    <div class="flex items-baseline gap-1">
+                      <span class="font-display text-3xl text-light leading-none">
+                        {pkg.priceUsd}
+                      </span>
+                      <span class="text-xs text-mute font-sans">{pkg.period}</span>
+                    </div>
+                    <p class="mt-1 text-xs text-mute">{pkg.priceCop}</p>
+                    {pkg.annualDiscount && (
+                      <p class="mt-1.5 text-[0.7rem] text-emerald-400 font-medium">
+                        {pkg.annualDiscount}
+                      </p>
+                    )}
+                  </div>
+
+                  <ul class="mt-5 space-y-2 text-xs text-light/90">
+                    {pkg.features.map((feat) => (
+                      <li class="flex items-start gap-2 leading-snug">
+                        <span class="mt-1 size-1.5 shrink-0 rounded-full bg-amber-300/80" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <ul class="mt-5 space-y-2 text-xs text-light/90">
-                  {pkg.features.map((feat) => (
-                    <li class="flex items-start gap-2 leading-snug">
-                      <span class="mt-1 size-1.5 shrink-0 rounded-full bg-amber-300/80"></span>
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="mt-7 pt-4 border-t border-white/10">
-                <a
-                  href={waLink(pkg.message)}
-                  target="_blank"
-                  rel="noopener"
-                  class:list={[
-                    'btn w-full justify-center text-center !py-2 text-xs font-medium',
-                    pkg.featured ? 'btn-light' : 'btn-ghost',
-                  ]}
-                  data-magnetic="0.2"
-                >
-                  {pkg.cta}
-                </a>
-              </div>
-            </article>
-          ))}
+                <div class="mt-7 pt-4 border-t border-white/10">
+                  <a
+                    href={waLink(pkg.message)}
+                    target="_blank"
+                    rel="noopener"
+                    class:list={[
+                      'btn w-full justify-center text-center !py-2 text-xs font-medium',
+                      pkg.featured ? 'btn-light' : 'btn-ghost',
+                    ]}
+                    data-magnetic="0.2"
+                  >
+                    {pkg.cta}
+                  </a>
+                </div>
+              </article>
+            ))
+          }
         </div>
 
         <!-- Opción Sin Mensualidad (Pago Único / A Demanda) -->
-        <aside class="glass mt-6 rounded-2xl p-6 sm:p-8 border border-white/10" aria-label="Opción a demanda">
+        <aside
+          class="glass mt-6 rounded-2xl p-6 sm:p-8 border border-white/10"
+          aria-label="Opción a demanda"
+        >
           <div class="grid gap-6 md:grid-cols-12 md:items-center">
             <div class="md:col-span-7">
               <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">Libertad Total</p>
@@ -450,14 +533,22 @@ const advancedPlans = plans.slice(3, 5);
               </p>
             </div>
 
-            <div class="md:col-span-5 space-y-2 border-t border-white/10 pt-4 md:border-t-0 md:pt-0">
-              <p class="text-xs font-semibold uppercase tracking-wider text-light/80 mb-1">Tarifas de ajustes puntuales:</p>
-              {onDemandMaintenance.rates.map((rate) => (
-                <div class="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] p-2.5 text-xs">
-                  <span class="text-mute pr-2">{rate.task}</span>
-                  <span class="font-mono font-bold text-light whitespace-nowrap">{rate.price}</span>
-                </div>
-              ))}
+            <div
+              class="md:col-span-5 space-y-2 border-t border-white/10 pt-4 md:border-t-0 md:pt-0"
+            >
+              <p class="text-xs font-semibold uppercase tracking-wider text-light/80 mb-1">
+                Tarifas de ajustes puntuales:
+              </p>
+              {
+                onDemandMaintenance.rates.map((rate) => (
+                  <div class="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] p-2.5 text-xs">
+                    <span class="text-mute pr-2">{rate.task}</span>
+                    <span class="font-mono font-bold text-light whitespace-nowrap">
+                      {rate.price}
+                    </span>
+                  </div>
+                ))
+              }
             </div>
           </div>
         </aside>
@@ -466,11 +557,15 @@ const advancedPlans = plans.slice(3, 5);
       <!-- Tabla Comparativa de Planes (Tipografía Balanceada y Simetría Exacta) -->
       <section class="mb-24" aria-labelledby="table-title">
         <div class="mb-8 text-center max-w-2xl mx-auto">
-          <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">Comparativa Detallada</p>
+          <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">
+            Comparativa Detallada
+          </p>
           <h2 id="table-title" class="mt-2 font-display text-3xl md:text-4xl text-light">
             Todo lo que incluye cada opción frente a frente
           </h2>
-          <p class="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-violet-300 md:hidden">
+          <p
+            class="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-violet-300 md:hidden"
+          >
             <span aria-hidden="true">⇄</span> Desliza horizontalmente para comparar
           </p>
         </div>
@@ -482,7 +577,10 @@ const advancedPlans = plans.slice(3, 5);
                 <th class="py-4 pr-4">Característica</th>
                 <th class="py-4 px-3 text-center">Express</th>
                 <th class="py-4 px-3 text-center">Corporativa</th>
-                <th class="py-4 px-3 text-center text-amber-200 font-bold bg-white/[0.03] rounded-t-xl">Web + Auto WhatsApp</th>
+                <th
+                  class="py-4 px-3 text-center text-amber-200 font-bold bg-white/[0.03] rounded-t-xl"
+                  >Web + Auto WhatsApp</th
+                >
                 <th class="py-4 px-3 text-center">Tienda Ágil</th>
                 <th class="py-4 px-3 text-center">Signature 3D</th>
               </tr>
@@ -492,7 +590,10 @@ const advancedPlans = plans.slice(3, 5);
                 <td class="py-3.5 pr-4 font-medium text-light">Tiempo de Entrega</td>
                 <td class="py-3.5 px-3 text-center font-mono">4–6 días</td>
                 <td class="py-3.5 px-3 text-center font-mono">8–12 días</td>
-                <td class="py-3.5 px-3 text-center font-mono text-amber-200 font-bold bg-white/[0.03]">12–15 días</td>
+                <td
+                  class="py-3.5 px-3 text-center font-mono text-amber-200 font-bold bg-white/[0.03]"
+                  >12–15 días</td
+                >
                 <td class="py-3.5 px-3 text-center font-mono">15–20 días</td>
                 <td class="py-3.5 px-3 text-center font-mono">3–5 semanas</td>
               </tr>
@@ -508,31 +609,39 @@ const advancedPlans = plans.slice(3, 5);
                 <td class="py-3.5 pr-4 font-medium text-light">Botón Directo WhatsApp</td>
                 <td class="py-3.5 px-3 text-center text-light">Incluido</td>
                 <td class="py-3.5 px-3 text-center text-light">Incluido</td>
-                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]">Incluido</td>
+                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]"
+                  >Incluido</td
+                >
                 <td class="py-3.5 px-3 text-center text-light">Incluido</td>
                 <td class="py-3.5 px-3 text-center text-light">Incluido</td>
               </tr>
               <tr>
                 <td class="py-3.5 pr-4 font-medium text-light">Chatbot Automatizado 24/7</td>
-                <td class="py-3.5 px-3 text-center text-mute">—</td>
-                <td class="py-3.5 px-3 text-center text-mute">—</td>
-                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]">Incluido</td>
-                <td class="py-3.5 px-3 text-center text-mute">—</td>
+                <td class="py-3.5 px-3 text-center text-mute">No</td>
+                <td class="py-3.5 px-3 text-center text-mute">No</td>
+                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]"
+                  >Incluido</td
+                >
+                <td class="py-3.5 px-3 text-center text-mute">No</td>
                 <td class="py-3.5 px-3 text-center text-emerald-400">Opcional</td>
               </tr>
               <tr>
                 <td class="py-3.5 pr-4 font-medium text-light">Agendamiento Automático de Citas</td>
-                <td class="py-3.5 px-3 text-center text-mute">—</td>
-                <td class="py-3.5 px-3 text-center text-mute">—</td>
-                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]">Incluido</td>
-                <td class="py-3.5 px-3 text-center text-mute">—</td>
+                <td class="py-3.5 px-3 text-center text-mute">No</td>
+                <td class="py-3.5 px-3 text-center text-mute">No</td>
+                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]"
+                  >Incluido</td
+                >
+                <td class="py-3.5 px-3 text-center text-mute">No</td>
                 <td class="py-3.5 px-3 text-center text-light">Incluido</td>
               </tr>
               <tr>
-                <td class="py-3.5 pr-4 font-medium text-light">Pasarela de Pagos (Stripe / PSE / Bold)</td>
-                <td class="py-3.5 px-3 text-center text-mute">—</td>
-                <td class="py-3.5 px-3 text-center text-mute">—</td>
-                <td class="py-3.5 px-3 text-center text-mute bg-white/[0.03]">—</td>
+                <td class="py-3.5 pr-4 font-medium text-light"
+                  >Pasarela de Pagos (Stripe / PSE / Bold)</td
+                >
+                <td class="py-3.5 px-3 text-center text-mute">No</td>
+                <td class="py-3.5 px-3 text-center text-mute">No</td>
+                <td class="py-3.5 px-3 text-center text-mute bg-white/[0.03]">No</td>
                 <td class="py-3.5 px-3 text-center text-light font-bold">Incluido</td>
                 <td class="py-3.5 px-3 text-center text-emerald-400">Opcional</td>
               </tr>
@@ -540,7 +649,8 @@ const advancedPlans = plans.slice(3, 5);
                 <td class="py-3.5 pr-4 font-medium text-light">Correos Corporativos con Dominio</td>
                 <td class="py-3.5 px-3 text-center text-mute">Opcional</td>
                 <td class="py-3.5 px-3 text-center text-light">Hasta 3</td>
-                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]">Hasta 5</td>
+                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]">Hasta 5</td
+                >
                 <td class="py-3.5 px-3 text-center text-light">Hasta 5</td>
                 <td class="py-3.5 px-3 text-center text-light">Ilimitados</td>
               </tr>
@@ -548,7 +658,9 @@ const advancedPlans = plans.slice(3, 5);
                 <td class="py-3.5 pr-4 font-medium text-light">Inversión Aproximada</td>
                 <td class="py-3.5 px-3 text-center font-bold text-light">$249 USD</td>
                 <td class="py-3.5 px-3 text-center font-bold text-light">$399 USD</td>
-                <td class="py-3.5 px-3 text-center font-bold text-amber-200 bg-white/[0.03]">$490 USD</td>
+                <td class="py-3.5 px-3 text-center font-bold text-amber-200 bg-white/[0.03]"
+                  >$490 USD</td
+                >
                 <td class="py-3.5 px-3 text-center font-bold text-light">$590 USD</td>
                 <td class="py-3.5 px-3 text-center font-bold text-light">Desde $950 USD</td>
               </tr>
@@ -567,33 +679,41 @@ const advancedPlans = plans.slice(3, 5);
         </div>
 
         <div class="space-y-3.5">
-          {plansFaq.map((faq) => (
-            <details class="glass group rounded-2xl border border-white/10 p-5 transition-all duration-200 open:bg-white/[0.04]">
-              <summary class="flex cursor-pointer items-center justify-between gap-4 font-sans text-base font-semibold text-light list-none">
-                <span>{faq.q}</span>
-                <span class="size-6 shrink-0 rounded-full border border-white/10 flex items-center justify-center text-xs text-mute transition-transform group-open:rotate-45">
-                  +
-                </span>
-              </summary>
-              <p class="mt-3.5 text-xs md:text-sm leading-relaxed text-mute border-t border-white/10 pt-3.5">
-                {faq.a}
-              </p>
-            </details>
-          ))}
+          {
+            plansFaq.map((faq) => (
+              <details class="glass group rounded-2xl border border-white/10 p-5 transition-all duration-200 open:bg-white/[0.04]">
+                <summary class="flex cursor-pointer items-center justify-between gap-4 font-sans text-base font-semibold text-light list-none">
+                  <span>{faq.q}</span>
+                  <span class="size-6 shrink-0 rounded-full border border-white/10 flex items-center justify-center text-xs text-mute transition-transform group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p class="mt-3.5 text-xs md:text-sm leading-relaxed text-mute border-t border-white/10 pt-3.5">
+                  {faq.a}
+                </p>
+              </details>
+            ))
+          }
         </div>
       </section>
 
       <!-- CTA de Cierre Armónico -->
-      <section class="glass rounded-2xl p-8 md:p-12 text-center border border-white/10" aria-label="Llamado a la acción">
+      <section
+        class="glass rounded-2xl p-8 md:p-12 text-center border border-white/10"
+        aria-label="Llamado a la acción"
+      >
         <h2 class="font-display text-2xl md:text-4xl text-light">
           ¿No tienes claro cuál es el plan para tu negocio?
         </h2>
         <p class="mt-3 max-w-lg mx-auto text-sm text-mute">
-          Escríbenos por WhatsApp o déjanos un mensaje. En 10 minutos evaluamos tu caso y te recomendamos exactamente lo que necesitas sin gastar de más.
+          Escríbenos por WhatsApp o déjanos un mensaje. En 10 minutos evaluamos tu caso y te
+          recomendamos exactamente lo que necesitas sin gastar de más.
         </p>
         <div class="mt-6 flex flex-wrap justify-center gap-3">
           <a
-            href={waLink('Hola Rembrandt Studio, quiero asesoría para elegir el plan ideal para mi negocio.')}
+            href={waLink(
+              'Hola Rembrandt Studio, quiero asesoría para elegir el plan ideal para mi negocio.',
+            )}
             target="_blank"
             rel="noopener"
             class="btn btn-light !py-2.5 !px-6 text-sm"
@@ -601,16 +721,11 @@ const advancedPlans = plans.slice(3, 5);
           >
             Consultar por WhatsApp
           </a>
-          <a
-            href="/contacto"
-            class="btn btn-ghost !py-2.5 !px-6 text-sm"
-            data-magnetic="0.3"
-          >
+          <a href="/contacto" class="btn btn-ghost !py-2.5 !px-6 text-sm" data-magnetic="0.3">
             Ir a formulario de contacto
           </a>
         </div>
       </section>
-
     </div>
   </main>
 

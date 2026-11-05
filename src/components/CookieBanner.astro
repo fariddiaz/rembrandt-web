@@ -3,6 +3,7 @@
 // Distingue cookies técnicas esenciales de cookies analíticas opcionales.
 // Permite aceptar y rechazar con facilidad equivalente, sin patrones oscuros.
 ---
+
 <aside
   id="cookie-consent-banner"
   class="fixed bottom-4 left-4 right-4 z-[9990] mx-auto hidden max-w-xl rounded-2xl border border-white/15 bg-carbon/95 p-5 shadow-2xl backdrop-blur-2xl transition-all duration-300 md:bottom-6 md:left-6 md:right-auto"
@@ -30,8 +31,13 @@
     </div>
 
     <p id="cookie-desc" class="text-xs leading-relaxed text-mute">
-      Utilizamos cookies técnicas necesarias para el funcionamiento del sitio y, con tu autorización, cookies analíticas anónimas para evaluar el rendimiento de la web. Puedes aceptar o rechazar las cookies no esenciales con un solo clic. Consulta nuestra{' '}
-      <a href="/politica-de-privacidad" class="text-light underline underline-offset-2 hover:text-amber-200 transition-colors">
+      Utilizamos cookies técnicas necesarias para el funcionamiento del sitio y, con tu
+      autorización, cookies analíticas anónimas para evaluar el rendimiento de la web. Puedes
+      aceptar o rechazar las cookies no esenciales con un solo clic. Consulta nuestra{' '}
+      <a
+        href="/politica-de-privacidad"
+        class="text-light underline underline-offset-2 hover:text-amber-200 transition-colors"
+      >
         Política de Privacidad
       </a>.
     </p>
@@ -87,7 +93,10 @@
       banner.classList.add('hidden');
 
       // Actualizar Google Consent Mode si gtag está disponible
-      if (typeof window !== 'undefined' && (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag) {
+      if (
+        typeof window !== 'undefined' &&
+        (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag
+      ) {
         (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('consent', 'update', {
           analytics_storage: status === 'accepted' ? 'granted' : 'denied',
         });

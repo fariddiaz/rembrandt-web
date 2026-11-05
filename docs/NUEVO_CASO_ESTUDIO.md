@@ -10,20 +10,21 @@ Cada caso de estudio vive en `src/config/site.ts` dentro del arreglo `caseStudie
 
 ```typescript
 export interface CaseStudy {
-  id: string;            // Identificador único (slug), ej: 'mi-cliente'
-  client: string;        // Nombre comercial de la empresa
-  sector: string;        // Industria o ciudad, ej: 'Restaurante de Autor · Medellín'
-  url: string;           // Ruta de preview interactiva interna o URL directa
-  liveUrl?: string;      // Enlace real al sitio web público en vivo
-  image?: string;        // (Opcional) Captura estática en /public para el poster
-  challenge: string;     // ¿Qué necesitaba el cliente? (El reto inicial)
-  solution: string;      // ¿Qué le construimos? (La solución diseñada)
-  impact: string;        // ¿Qué logramos para el cliente? (Resultados e impacto medible)
-  metrics: {             // 1 o 2 métricas contundentes
-    value: string;       // ej: '+60%' o '0.8 s' o '3x'
-    label: string;       // ej: 'Aumento en prospectos'
+  id: string; // Identificador único (slug), ej: 'mi-cliente'
+  client: string; // Nombre comercial de la empresa
+  sector: string; // Industria o ciudad, ej: 'Restaurante de Autor · Medellín'
+  url: string; // Ruta de preview interactiva interna o URL directa
+  liveUrl?: string; // Enlace real al sitio web público en vivo
+  image?: string; // (Opcional) Captura estática en /public para el poster
+  challenge: string; // ¿Qué necesitaba el cliente? (El reto inicial)
+  solution: string; // ¿Qué le construimos? (La solución diseñada)
+  impact: string; // ¿Qué logramos para el cliente? (Resultados e impacto medible)
+  metrics: {
+    // 1 o 2 métricas contundentes
+    value: string; // ej: '+60%' o '0.8 s' o '3x'
+    label: string; // ej: 'Aumento en prospectos'
   }[];
-  tint: [string, string];// Dos colores hexadecimales para el degradado del poster
+  tint: [string, string]; // Dos colores hexadecimales para el degradado del poster
 }
 ```
 
@@ -57,6 +58,7 @@ export interface CaseStudy {
 ## 3. Manejo de la Preview Interactiva
 
 Si el sitio del cliente cuenta con cabeceras `X-Frame-Options: SAMEORIGIN` (como ocurre con dominios que bloquean iframes externos):
+
 1. Crea una página de preview dentro de `src/pages/preview/[cliente].astro`.
 2. Asigna `url: '/preview/[cliente]'` en `site.ts`.
 3. Asigna `liveUrl: 'https://dominiodelcliente.com'` para que el botón **"Visitar sitio en vivo ↗"** abra la web oficial en una nueva pestaña.

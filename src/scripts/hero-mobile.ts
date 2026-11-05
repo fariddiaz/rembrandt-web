@@ -9,7 +9,6 @@
 const MAX_TILT_DEG = 8;
 const TILT_RANGE_DEG = 25;
 const BETA_REST_DEG = 45; // inclinación natural al sostener el teléfono
-const RELEASE_MS = 600;
 
 type PermissionFn = () => Promise<'granted' | 'denied'>;
 
@@ -21,10 +20,13 @@ export function initHeroMobile(): void {
   if (!root || !card) return;
 
   let visible = false;
+  // Se reasigna más abajo cuando hay giroscopio: conecta o desconecta el sensor.
+  let syncOrientation = (): void => {};
   new IntersectionObserver(
     ([entry]) => {
       visible = entry.isIntersecting;
       if (visible) root.classList.add('is-visible');
+      syncOrientation();
     },
     { threshold: 0.2 },
   ).observe(root);
@@ -68,7 +70,6 @@ export function initHeroMobile(): void {
   const release = () => {
     card.classList.remove('is-live');
     set(0, 0);
-    setTimeout(() => card.classList.remove('is-live'), RELEASE_MS);
   };
   card.addEventListener('pointerup', release);
   card.addEventListener('pointercancel', release);
@@ -78,6 +79,21 @@ export function initHeroMobile(): void {
   if (typeof DeviceOrientationEvent === 'undefined') return; // queda el arrastre
   const orientationApi = DeviceOrientationEvent as unknown as { requestPermission?: PermissionFn };
 
+  // El sensor solo escucha mientras la tarjeta está en pantalla: fuera de ella no
+  // hay eventos a 60 Hz despertando el hilo principal ni gastando batería.
+  let allowed = false;
+  let listening = false;
+  syncOrientation = () => {
+    const shouldListen = allowed && visible;
+    if (shouldListen === listening) return;
+    listening = shouldListen;
+    if (shouldListen) addEventListener('deviceorientation', onOrientation, { passive: true });
+    else {
+      removeEventListener('deviceorientation', onOrientation);
+      release();
+    }
+  };
+
   if (typeof orientationApi.requestPermission === 'function') {
     // iOS 13+: el permiso exige un gesto explícito del usuario.
     const button = root.querySelector<HTMLButtonElement>('[data-hm-permission]');
@@ -85,9 +101,8 @@ export function initHeroMobile(): void {
     button.classList.remove('hidden');
     button.addEventListener('click', async () => {
       try {
-        if ((await orientationApi.requestPermission?.()) === 'granted') {
-          addEventListener('deviceorientation', onOrientation, { passive: true });
-        }
+        allowed = (await orientationApi.requestPermission?.()) === 'granted';
+        syncOrientation();
       } catch (err) {
         console.warn('[HeroMobile] Permiso de orientación no disponible:', err);
       } finally {
@@ -95,6 +110,7 @@ export function initHeroMobile(): void {
       }
     });
   } else {
-    addEventListener('deviceorientation', onOrientation, { passive: true });
+    allowed = true;
+    syncOrientation();
   }
 }

@@ -13,11 +13,14 @@ import Footer from '../components/Footer.astro';
 
   <main class="relative z-[2] flex min-h-[82vh] items-center pt-28 pb-24 md:pt-36 md:pb-32">
     <!-- Fondo claroscuro de arte: Tormenta en el Mar de Galilea (1633) -->
-    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10"
+      aria-hidden="true"
+    >
       <img
         src="/art/storm.webp"
         alt=""
-        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        class="size-full object-cover saturate-[0.85] brightness-75"
         loading="lazy"
         decoding="async"
       />
@@ -25,7 +28,6 @@ import Footer from '../components/Footer.astro';
     </div>
 
     <div class="mx-auto w-[min(780px,calc(100%-2.5rem))] text-center">
-      
       <p class="font-mono text-xs uppercase tracking-[0.25em] text-amber-200/80 font-medium">
         Error 404 · Fuera de la Galería
       </p>
@@ -35,7 +37,8 @@ import Footer from '../components/Footer.astro';
       </h1>
 
       <p class="mx-auto mt-6 max-w-lg text-base md:text-lg leading-relaxed text-mute">
-        La dirección que intentas visitar no existe, ha sido reubicada o el enlace ingresado tiene una errata. Te invitamos a continuar explorando nuestro estudio:
+        La dirección que intentas visitar no existe, ha sido reubicada o el enlace ingresado tiene
+        una errata. Te invitamos a continuar explorando nuestro estudio:
       </p>
 
       <!-- Rutas útiles recomendadas -->
@@ -44,13 +47,22 @@ import Footer from '../components/Footer.astro';
           Secciones sugeridas
         </p>
         <div class="flex flex-wrap items-center justify-center gap-3 text-xs">
-          <a href="/planes" class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-light hover:border-amber-400/40 hover:text-amber-200 transition-colors">
+          <a
+            href="/planes"
+            class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-light hover:border-amber-400/40 hover:text-amber-200 transition-colors"
+          >
             Planes y Precios →
           </a>
-          <a href="/portafolio" class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-light hover:border-amber-400/40 hover:text-amber-200 transition-colors">
+          <a
+            href="/portafolio"
+            class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-light hover:border-amber-400/40 hover:text-amber-200 transition-colors"
+          >
             Casos de Éxito →
           </a>
-          <a href="/contacto" class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-light hover:border-amber-400/40 hover:text-amber-200 transition-colors">
+          <a
+            href="/contacto"
+            class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-light hover:border-amber-400/40 hover:text-amber-200 transition-colors"
+          >
             Contacto Directo →
           </a>
         </div>
@@ -58,15 +70,8 @@ import Footer from '../components/Footer.astro';
 
       <!-- Botón de retorno al inicio -->
       <div class="mt-10">
-        <a
-          href="/"
-          class="btn btn-light"
-          data-magnetic="0.3"
-        >
-          Volver a la Página de Inicio
-        </a>
+        <a href="/" class="btn btn-light" data-magnetic="0.3"> Volver a la Página de Inicio </a>
       </div>
-
     </div>
   </main>
 

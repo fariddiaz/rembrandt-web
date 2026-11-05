@@ -7,11 +7,13 @@ import { waLink, WHATSAPP_NUMBER } from '../config/site';
 const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
-const availableDates: { dayName: string; dayNum: number; monthName: string; fullStr: string }[] = [];
+const availableDates: { dayName: string; dayNum: number; monthName: string; fullStr: string }[] =
+  [];
 const d = new Date();
 d.setDate(d.getDate() + 1); // Empezar mañana
 while (availableDates.length < 6) {
-  if (d.getDay() !== 0) { // Excluir domingos
+  if (d.getDay() !== 0) {
+    // Excluir domingos
     const dayName = daysOfWeek[d.getDay()];
     const dayNum = d.getDate();
     const monthName = months[d.getMonth()];
@@ -34,11 +36,14 @@ while (availableDates.length < 6) {
 
   <main class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32">
     <!-- Fondo claroscuro de arte: Filósofo en meditación -->
-    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10"
+      aria-hidden="true"
+    >
       <img
         src="/art/philosopher.webp"
         alt=""
-        class="size-full object-cover filter grayscale contrast-125 brightness-75"
+        class="size-full object-cover saturate-[0.85] brightness-75"
         loading="lazy"
         decoding="async"
       />
@@ -46,7 +51,6 @@ while (availableDates.length < 6) {
     </div>
 
     <div class="mx-auto w-[min(1080px,calc(100%-2.5rem))]">
-      
       <!-- Encabezado Editorial -->
       <header class="mb-12 text-center max-w-2xl mx-auto">
         <p class="text-xs uppercase tracking-[0.22em] text-violet-300 font-medium">
@@ -56,42 +60,53 @@ while (availableDates.length < 6) {
           Agenda tu sesión de <span class="text-gold">diagnóstico web.</span>
         </h1>
         <p class="mt-4 text-base leading-relaxed text-mute">
-          Analizamos en vivo tu sitio actual, revisamos tus objetivos comerciales y te mostramos cómo estructurar una web de autor que cargue en 0.7s y multiplique tus ventas.
+          Analizamos en vivo tu sitio actual, revisamos tus objetivos comerciales y te mostramos
+          cómo estructurar una web de autor que cargue en 0.7s y multiplique tus ventas.
         </p>
       </header>
 
       <!-- Contenedor del Calendario y Formulario -->
-      <div class="glass relative overflow-hidden rounded-2xl border border-white/10 bg-carbon-2/80 p-6 md:p-10 shadow-2xl">
+      <div
+        class="glass relative overflow-hidden rounded-2xl border border-white/10 bg-carbon-2/80 p-6 md:p-10 shadow-2xl"
+      >
         <div id="booking-container">
           <form id="booking-form" class="space-y-8">
-            
             <!-- Paso 1: Selección de Fecha y Hora -->
             <div>
               <div class="flex items-center gap-3 mb-4">
-                <span class="flex size-7 items-center justify-center rounded-full bg-violet/20 text-xs font-bold text-violet-300 ring-1 ring-violet/40">1</span>
+                <span
+                  class="flex size-7 items-center justify-center rounded-full bg-violet/20 text-xs font-bold text-violet-300 ring-1 ring-violet/40"
+                  >1</span
+                >
                 <h3 class="text-lg font-semibold text-light">Elige la fecha y horario</h3>
               </div>
 
               <!-- Selector de Días Próximos -->
               <div class="grid grid-cols-3 sm:grid-cols-6 gap-2.5" id="date-selector">
-                {availableDates.map((item, index) => (
-                  <button
-                    type="button"
-                    class:list={['date-card', index === 0 && 'active']}
-                    data-date={item.fullStr}
-                  >
-                    <span class="day-name">{item.dayName}</span>
-                    <span class="day-num">{item.dayNum}</span>
-                    <span class="month-name">{item.monthName}</span>
-                  </button>
-                ))}
+                {
+                  availableDates.map((item, index) => (
+                    <button
+                      type="button"
+                      class:list={['date-card', index === 0 && 'active']}
+                      data-date={item.fullStr}
+                    >
+                      <span class="day-name">{item.dayName}</span>
+                      <span class="day-num">{item.dayNum}</span>
+                      <span class="month-name">{item.monthName}</span>
+                    </button>
+                  ))
+                }
               </div>
 
               <!-- Selector de Horarios -->
               <div class="mt-5">
-                <p class="text-xs font-mono text-mute mb-2.5">Horarios disponibles (Hora Colombia / Miami GMT-5):</p>
+                <p class="text-xs font-mono text-mute mb-2.5">
+                  Horarios disponibles (Hora Colombia / Miami GMT-5):
+                </p>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="slot-selector">
-                  <button type="button" class="slot-btn active" data-slot="09:00 AM">09:00 AM</button>
+                  <button type="button" class="slot-btn active" data-slot="09:00 AM"
+                    >09:00 AM</button
+                  >
                   <button type="button" class="slot-btn" data-slot="10:00 AM">10:00 AM</button>
                   <button type="button" class="slot-btn" data-slot="11:30 AM">11:30 AM</button>
                   <button type="button" class="slot-btn" data-slot="02:00 PM">02:00 PM</button>
@@ -108,13 +123,18 @@ while (availableDates.length < 6) {
             <!-- Paso 2: Información de tu Empresa -->
             <div>
               <div class="flex items-center gap-3 mb-4">
-                <span class="flex size-7 items-center justify-center rounded-full bg-violet/20 text-xs font-bold text-violet-300 ring-1 ring-violet/40">2</span>
+                <span
+                  class="flex size-7 items-center justify-center rounded-full bg-violet/20 text-xs font-bold text-violet-300 ring-1 ring-violet/40"
+                  >2</span
+                >
                 <h3 class="text-lg font-semibold text-light">Tus datos de contacto</h3>
               </div>
 
               <div class="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label for="clientName" class="block text-xs font-mono text-mute mb-1.5">Tu Nombre Completo *</label>
+                  <label for="clientName" class="block text-xs font-mono text-mute mb-1.5"
+                    >Tu Nombre Completo *</label
+                  >
                   <input
                     type="text"
                     id="clientName"
@@ -126,7 +146,9 @@ while (availableDates.length < 6) {
                 </div>
 
                 <div>
-                  <label for="companyName" class="block text-xs font-mono text-mute mb-1.5">Empresa o Marca</label>
+                  <label for="companyName" class="block text-xs font-mono text-mute mb-1.5"
+                    >Empresa o Marca</label
+                  >
                   <input
                     type="text"
                     id="companyName"
@@ -137,7 +159,9 @@ while (availableDates.length < 6) {
                 </div>
 
                 <div>
-                  <label for="clientPhone" class="block text-xs font-mono text-mute mb-1.5">WhatsApp con prefijo de país *</label>
+                  <label for="clientPhone" class="block text-xs font-mono text-mute mb-1.5"
+                    >WhatsApp con prefijo de país *</label
+                  >
                   <input
                     type="tel"
                     id="clientPhone"
@@ -149,7 +173,9 @@ while (availableDates.length < 6) {
                 </div>
 
                 <div>
-                  <label for="clientEmail" class="block text-xs font-mono text-mute mb-1.5">Correo Electrónico Corporativo</label>
+                  <label for="clientEmail" class="block text-xs font-mono text-mute mb-1.5"
+                    >Correo Electrónico Corporativo</label
+                  >
                   <input
                     type="email"
                     id="clientEmail"
@@ -161,17 +187,29 @@ while (availableDates.length < 6) {
               </div>
 
               <div class="mt-4">
-                <label for="serviceInterested" class="block text-xs font-mono text-mute mb-1.5">Servicio o Plan de Interés</label>
+                <label for="serviceInterested" class="block text-xs font-mono text-mute mb-1.5"
+                  >Servicio o Plan de Interés</label
+                >
                 <select
                   id="serviceInterested"
                   name="serviceInterested"
                   class="w-full rounded-xl border border-white/10 bg-carbon px-4 py-3 text-sm text-light focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet transition-all"
                 >
-                  <option value="Página Web Express (4-6 días - $249 USD)">Página Web Express (4–6 días hábiles · $249 USD / ~$990.000 COP)</option>
-                  <option value="Web Corporativa & Autoridad ($399 USD)">Web Corporativa & Autoridad (Multi-Página · $399 USD / ~$1.590.000 COP)</option>
-                  <option value="Web + Automatización WhatsApp 24/7 ($490 USD)">Web + Automatización WhatsApp 24/7 ($490 USD / ~$1.950.000 COP)</option>
-                  <option value="Rediseño / Proyecto Signature con 3D a Medida">Proyecto a Medida con 3D Interactivo</option>
-                  <option value="Diagnóstico general de sitio actual">Diagnóstico general de mi sitio web actual</option>
+                  <option value="Página Web Express (4-6 días - $249 USD)"
+                    >Página Web Express (4–6 días hábiles · $249 USD / ~$990.000 COP)</option
+                  >
+                  <option value="Web Corporativa & Autoridad ($399 USD)"
+                    >Web Corporativa & Autoridad (Multi-Página · $399 USD / ~$1.590.000 COP)</option
+                  >
+                  <option value="Web + Automatización WhatsApp 24/7 ($490 USD)"
+                    >Web + Automatización WhatsApp 24/7 ($490 USD / ~$1.950.000 COP)</option
+                  >
+                  <option value="Rediseño / Proyecto Signature con 3D a Medida"
+                    >Proyecto a Medida con 3D Interactivo</option
+                  >
+                  <option value="Diagnóstico general de sitio actual"
+                    >Diagnóstico general de mi sitio web actual</option
+                  >
                 </select>
               </div>
             </div>
@@ -197,7 +235,13 @@ while (availableDates.length < 6) {
                 data-wa-number={WHATSAPP_NUMBER}
               >
                 <p>No pudimos registrar tu cita en este momento.</p>
-                <a id="booking-error-wa" href="#" target="_blank" rel="noopener" class="mt-2 inline-block text-gold underline underline-offset-4">
+                <a
+                  id="booking-error-wa"
+                  href="#"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-2 inline-block text-gold underline underline-offset-4"
+                >
                   Enviar la solicitud por WhatsApp con tus datos
                 </a>
               </div>
@@ -209,18 +253,22 @@ while (availableDates.length < 6) {
             <span class="mx-auto block h-px w-12 bg-gold" aria-hidden="true"></span>
             <h2 class="mt-6 font-display text-3xl text-light">Sesión agendada</h2>
             <p class="mx-auto mt-3 max-w-md text-sm text-mute leading-relaxed">
-              Registramos tu videollamada para el <strong id="confirmed-date" class="text-light"></strong> a las <strong id="confirmed-time" class="text-light"></strong>. Te escribiremos por WhatsApp para confirmarla y enviarte el enlace de Google Meet.
+              Registramos tu videollamada para el <strong id="confirmed-date" class="text-light"
+              ></strong> a las <strong id="confirmed-time" class="text-light"></strong>. Te
+              escribiremos por WhatsApp para confirmarla y enviarte el enlace de Google Meet.
             </p>
             <div class="mt-8 flex justify-center gap-4">
-              <a href="/" class="btn btn-ghost !py-2.5 !px-6 text-sm">
-                ← Volver al Inicio
-              </a>
-              <a href={waLink('Hola Farid, acabo de agendar una llamada de diagnóstico desde la web.')} class="btn btn-light !py-2.5 !px-6 text-sm">
+              <a href="/" class="btn btn-ghost !py-2.5 !px-6 text-sm"> ← Volver al Inicio </a>
+              <a
+                href={waLink(
+                  'Hola Farid, acabo de agendar una llamada de diagnóstico desde la web.',
+                )}
+                class="btn btn-light !py-2.5 !px-6 text-sm"
+              >
                 Escribir por WhatsApp directo
               </a>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -303,6 +351,45 @@ while (availableDates.length < 6) {
   const errorBox = document.getElementById('booking-error');
   const errorWa = document.getElementById('booking-error-wa') as HTMLAnchorElement | null;
   const SUBMIT_LABEL = 'Confirmar Videollamada Estratégica (15 min)';
+
+  // Las fechas del HTML se calculan al compilar y quedarían congeladas el día del
+  // despliegue: se recalculan aquí, desde mañana y sin domingos.
+  const DAY_NAMES = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+  const MONTH_NAMES = [
+    'Ene',
+    'Feb',
+    'Mar',
+    'Abr',
+    'May',
+    'Jun',
+    'Jul',
+    'Ago',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dic',
+  ];
+  function refreshDates() {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    dateCards.forEach((card) => {
+      if (d.getDay() === 0) d.setDate(d.getDate() + 1);
+      const dayName = DAY_NAMES[d.getDay()];
+      const monthName = MONTH_NAMES[d.getMonth()];
+      card.dataset.date = `${dayName} ${d.getDate()} de ${monthName}`;
+      const parts: [string, string][] = [
+        ['.day-name', dayName],
+        ['.day-num', String(d.getDate())],
+        ['.month-name', monthName],
+      ];
+      parts.forEach(([sel, text]) => {
+        const el = card.querySelector(sel);
+        if (el) el.textContent = text;
+      });
+      d.setDate(d.getDate() + 1);
+    });
+  }
+  refreshDates();
 
   let selectedDateStr = dateCards[0]?.dataset.date || '';
   let selectedSlot = '09:00 AM';

@@ -3,41 +3,50 @@ import { carePlan, waSections } from '../config/site';
 
 const wa = waSections.cuidado;
 ---
+
 <section
   id="cuidado"
   class="relative py-16 md:py-24"
   data-wa-label={wa.label}
   data-wa-message={wa.message}
 >
-  <div class="glass glass-sheen mx-auto grid w-[min(1240px,calc(100%-2.5rem))] items-center gap-10 rounded-2xl p-8 md:grid-cols-[1.2fr_1.1fr_auto] md:p-12 border border-white/10 shadow-2xl max-md:gap-8 max-sm:p-6">
+  <div
+    class="glass glass-sheen mx-auto grid w-[min(1240px,calc(100%-2.5rem))] items-center gap-10 rounded-2xl p-8 md:grid-cols-[1.2fr_1.1fr_auto] md:p-12 border border-white/10 shadow-2xl max-md:gap-8 max-sm:p-6"
+  >
     <div>
-      <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">
-        Tranquilidad Total
-      </p>
+      <p class="text-xs uppercase tracking-[0.2em] text-mute font-medium">Tranquilidad Total</p>
       <h2 class="mt-3 text-[clamp(2rem,3.4vw,2.8rem)] leading-tight text-light">
         {carePlan.name}
       </h2>
       <p class="mt-2 text-sm md:text-base text-mute">
-        <span class="max-sm:hidden">Cuidamos la parte técnica de tu web cada mes; tú te ocupas de atender clientes y vender.</span>
+        <span class="max-sm:hidden"
+          >Cuidamos la parte técnica de tu web cada mes; tú te ocupas de atender clientes y vender.</span
+        >
         <span class="sm:hidden">Cuidamos tu web cada mes; tú vendes.</span>
       </p>
     </div>
 
     <ul class="space-y-3 text-sm text-light/90">
-      {carePlan.features.map((f, fi) => (
-        <li class="flex gap-3 leading-snug">
-          <span class="mt-1 size-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
-          <span class="max-sm:hidden">{f}</span>
-          <span class="sm:hidden">{carePlan.featuresShort[fi] ?? f}</span>
-        </li>
-      ))}
+      {
+        carePlan.features.map((f, fi) => (
+          <li class="flex gap-3 leading-snug">
+            <span class="mt-1 size-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
+            <span class="max-sm:hidden">{f}</span>
+            <span class="sm:hidden">{carePlan.featuresShort[fi] ?? f}</span>
+          </li>
+        ))
+      }
     </ul>
 
     <div class="md:text-right">
       <p class="font-display text-4xl md:text-5xl leading-none text-light whitespace-nowrap">
         Desde $15<span class="font-sans text-base text-mute"> USD/mes</span>
       </p>
-      <p class="mt-2 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-white/5 px-2.5 py-0.5 text-xs text-mute font-sans">O pago único a demanda</p>
+      <p
+        class="mt-2 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-white/5 px-2.5 py-0.5 text-xs text-mute font-sans"
+      >
+        O pago único a demanda
+      </p>
       <a
         href="/planes"
         class="btn btn-ghost mt-5 !py-3 !px-6 text-sm max-sm:w-full max-sm:justify-center"

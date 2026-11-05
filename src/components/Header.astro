@@ -20,39 +20,55 @@ const isLinkActive = (href: string) => {
   return currentPath.startsWith(href);
 };
 ---
+
 <header class="fixed inset-x-0 top-0 z-50">
   <nav
     class="glass mx-auto mt-4 flex w-[min(1240px,calc(100%-2rem))] items-center justify-between rounded-full py-2 pr-2.5 pl-4 sm:pl-6 border border-white/10 shadow-2xl backdrop-blur-xl"
     aria-label="Principal"
   >
     <!-- Logo Oficial de Marca: Isotipo R con degradado + Logotipo Rembrandt + Badge Studio -->
-    <a href="/" class="flex items-center gap-2.5 sm:gap-3 group py-1" aria-label="Rembrandt Studio, inicio">
-      <Logo variant="mark-color" class="h-7 sm:h-8 w-auto transition-transform duration-300 group-hover:scale-105" />
-      <Logo variant="wordmark" class="h-4 sm:h-4.5 w-auto text-light transition-opacity duration-300 group-hover:opacity-90" />
-      <span class="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[0.68rem] font-medium tracking-wider text-mute uppercase font-sans">Studio</span>
+    <a
+      href="/"
+      class="flex items-center gap-2.5 sm:gap-3 group py-1"
+      aria-label="Rembrandt Studio, inicio"
+    >
+      <Logo
+        variant="mark-color"
+        class="h-7 sm:h-8 w-auto transition-transform duration-300 group-hover:scale-105"
+      />
+      <Logo
+        variant="wordmark"
+        class="h-4 sm:h-4.5 w-auto text-light transition-opacity duration-300 group-hover:opacity-90"
+      />
+      <span
+        class="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[0.68rem] font-medium tracking-wider text-mute uppercase font-sans"
+        >Studio</span
+      >
     </a>
 
     <!-- Menú Centrado Multi-Página -->
     <ul class="hidden items-center gap-2 text-[0.92rem] md:flex">
-      {links.map((l) => {
-        const active = isLinkActive(l.href);
-        return (
-          <li>
-            <a
-              href={l.href}
-              class:list={[
-                'rounded-full px-4 py-1.5 transition-all duration-200',
-                active
-                  ? 'border border-white/15 bg-white/10 font-medium text-light shadow-sm'
-                  : 'text-mute hover:text-light hover:bg-white/[0.04]',
-              ]}
-              aria-current={active ? 'page' : undefined}
-            >
-              {l.label}
-            </a>
-          </li>
-        );
-      })}
+      {
+        links.map((l) => {
+          const active = isLinkActive(l.href);
+          return (
+            <li>
+              <a
+                href={l.href}
+                class:list={[
+                  'rounded-full px-4 py-1.5 transition-all duration-200',
+                  active
+                    ? 'border border-white/15 bg-white/10 font-medium text-light shadow-sm'
+                    : 'text-mute hover:text-light hover:bg-white/[0.04]',
+                ]}
+                aria-current={active ? 'page' : undefined}
+              >
+                {l.label}
+              </a>
+            </li>
+          );
+        })
+      }
     </ul>
 
     <!-- CTA Universal hacia la página de Contacto -->
@@ -74,8 +90,15 @@ const isLinkActive = (href: string) => {
         aria-expanded="false"
         id="mobile-menu-toggle"
       >
-        <svg class="size-4" id="burger-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        <svg
+          class="size-4"
+          id="burger-icon"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </div>
@@ -86,29 +109,28 @@ const isLinkActive = (href: string) => {
     id="mobile-nav-drawer"
     class="glass mx-auto mt-2 hidden w-[min(1240px,calc(100%-2rem))] flex-col gap-1.5 rounded-2xl p-4 border border-violet/20 shadow-2xl backdrop-blur-2xl md:hidden"
   >
-    {links.map((l) => {
-      const active = isLinkActive(l.href);
-      return (
-        <a
-          href={l.href}
-          class:list={[
-            'group flex items-center justify-between rounded-xl px-4 py-3 text-base transition-all active:scale-[0.98]',
-            active
-              ? 'border border-violet/30 bg-violet/10 font-semibold text-light'
-              : 'text-mute hover:bg-white/5 hover:text-light',
-          ]}
-          aria-current={active ? 'page' : undefined}
-        >
-          <span class="group-hover:text-violet-300 transition-colors">{l.label}</span>
-          {active && <span class="size-1.5 rounded-full bg-violet-400" aria-hidden="true" />}
-        </a>
-      );
-    })}
+    {
+      links.map((l) => {
+        const active = isLinkActive(l.href);
+        return (
+          <a
+            href={l.href}
+            class:list={[
+              'group flex items-center justify-between rounded-xl px-4 py-3 text-base transition-all active:scale-[0.98]',
+              active
+                ? 'border border-violet/30 bg-violet/10 font-semibold text-light'
+                : 'text-mute hover:bg-white/5 hover:text-light',
+            ]}
+            aria-current={active ? 'page' : undefined}
+          >
+            <span class="group-hover:text-violet-300 transition-colors">{l.label}</span>
+            {active && <span class="size-1.5 rounded-full bg-violet-400" aria-hidden="true" />}
+          </a>
+        );
+      })
+    }
     <div class="mt-2 border-t border-white/10 pt-3">
-      <a
-        href="/contacto"
-        class="btn btn-light btn-float w-full justify-center text-center text-sm"
-      >
+      <a href="/contacto" class="btn btn-light btn-float w-full justify-center text-center text-sm">
         Iniciar Proyecto
       </a>
     </div>
@@ -119,8 +141,10 @@ const isLinkActive = (href: string) => {
   const toggle = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-nav-drawer');
   const icon = document.getElementById('burger-icon');
-  const OPEN_PATH = '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />';
-  const CLOSED_PATH = '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />';
+  const OPEN_PATH =
+    '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />';
+  const CLOSED_PATH =
+    '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />';
 
   if (toggle && menu && icon) {
     const setOpen = (open: boolean) => {
@@ -130,6 +154,8 @@ const isLinkActive = (href: string) => {
       toggle.setAttribute('aria-expanded', String(open));
     };
     toggle.addEventListener('click', () => setOpen(menu.classList.contains('hidden')));
-    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+    menu
+      .querySelectorAll('a')
+      .forEach((link) => link.addEventListener('click', () => setOpen(false)));
   }
 </script>

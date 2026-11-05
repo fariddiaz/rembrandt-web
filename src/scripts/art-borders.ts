@@ -33,7 +33,19 @@ function sweep(el: HTMLElement): void {
 export function initArtBorders(): void {
   const captions = document.querySelector<HTMLElement>('[data-art-captions]');
   const mobileCaptions = document.querySelector<HTMLElement>('[data-art-mobile-captions]');
-  const footer = document.querySelector<HTMLElement>('footer');
+  // El pie del sitio, no cualquier <footer> (p. ej. uno dentro de un <dialog> cerrado mide 0).
+  const footer = document.querySelector<HTMLElement>('[data-site-footer]');
+
+  // Medidas de layout en caché: se recalculan solo cuando cambia el tamaño del
+  // documento, no en cada frame de scroll (evita layouts forzados).
+  let maxScroll = 1;
+  let footerTop = Infinity;
+  const measure = (): void => {
+    maxScroll = document.documentElement.scrollHeight - innerHeight || 1;
+    footerTop = footer ? footer.getBoundingClientRect().top + scrollY : Infinity;
+  };
+  measure();
+  new ResizeObserver(measure).observe(document.body);
 
   const layers: ParallaxLayer[] = [
     ...document.querySelectorAll<HTMLElement>('[data-art-parallax]'),
@@ -83,17 +95,13 @@ export function initArtBorders(): void {
 
   const frame = (): void => {
     raf = 0;
-    const maxScroll = document.documentElement.scrollHeight - innerHeight || 1;
     const ratio = Math.min(Math.max(scrollY / maxScroll, 0), 0.999);
     setState(Math.min(Math.floor(ratio * STATES), STATES - 1));
 
-    if (footer) {
-      const atFooter =
-        scrollY > FOOTER_SCROLL_MIN &&
-        footer.getBoundingClientRect().top < innerHeight - FOOTER_MARGIN_PX;
-      captions?.classList.toggle('at-footer', atFooter);
-      mobileCaptions?.classList.toggle('at-footer', atFooter);
-    }
+    const atFooter =
+      scrollY > FOOTER_SCROLL_MIN && footerTop - scrollY < innerHeight - FOOTER_MARGIN_PX;
+    captions?.classList.toggle('at-footer', atFooter);
+    mobileCaptions?.classList.toggle('at-footer', atFooter);
 
     if (reduceMotion || !desktop.matches) return;
 
@@ -111,7 +119,14 @@ export function initArtBorders(): void {
   };
 
   addEventListener('scroll', schedule, { passive: true });
-  addEventListener('resize', schedule, { passive: true });
+  addEventListener(
+    'resize',
+    () => {
+      measure();
+      schedule();
+    },
+    { passive: true },
+  );
 
   if (finePointer && !reduceMotion) {
     addEventListener(

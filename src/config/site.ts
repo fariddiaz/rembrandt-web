@@ -98,7 +98,8 @@ export const plans: Plan[] = [
       'Sin costos ocultos: código 100% tuyo',
     ],
     cta: 'Elegir Plan Express',
-    message: 'Hola Rembrandt Studio, quiero la Página Web Express ($249 USD / ~$990.000 COP). Mi negocio es: ',
+    message:
+      'Hola Rembrandt Studio, quiero la Página Web Express ($249 USD / ~$990.000 COP). Mi negocio es: ',
   },
   {
     id: 'empresarial',
@@ -106,7 +107,8 @@ export const plans: Plan[] = [
     badge: 'Multi-Página (3–5 secciones)',
     audience:
       'Para empresas y firmas con varios servicios que necesitan autoridad, confianza institucional y visibilidad en Google.',
-    audienceShort: 'Para empresas con varios servicios: autoridad, confianza y visibilidad en Google.',
+    audienceShort:
+      'Para empresas con varios servicios: autoridad, confianza y visibilidad en Google.',
     priceUsd: '$399 USD',
     priceCop: '~$1.590.000 COP',
     delivery: 'Entrega en 8–12 días hábiles',
@@ -127,7 +129,8 @@ export const plans: Plan[] = [
       'Panel para editar textos y fotos',
     ],
     cta: 'Elegir Plan Corporativo',
-    message: 'Hola Rembrandt Studio, me interesa la Web Corporativa ($399 USD / ~$1.590.000 COP). Mi empresa es: ',
+    message:
+      'Hola Rembrandt Studio, me interesa la Web Corporativa ($399 USD / ~$1.590.000 COP). Mi empresa es: ',
   },
   {
     id: 'automatizacion',
@@ -156,7 +159,8 @@ export const plans: Plan[] = [
       'Te alerta cuando un cliente pide atención',
     ],
     cta: 'Elegir Web + Automatización',
-    message: 'Hola Rembrandt Studio, me interesa el Plan Web + Automatización WhatsApp ($490 USD / ~$1.950.000 COP). Mi negocio es: ',
+    message:
+      'Hola Rembrandt Studio, me interesa el Plan Web + Automatización WhatsApp ($490 USD / ~$1.950.000 COP). Mi negocio es: ',
     featured: true,
   },
   {
@@ -186,7 +190,8 @@ export const plans: Plan[] = [
       'Capacitación en video',
     ],
     cta: 'Elegir Tienda Ágil',
-    message: 'Hola Rembrandt Studio, quiero cotizar el Plan Catálogo & Tienda Ágil ($590 USD / ~$2.390.000 COP). Vendo: ',
+    message:
+      'Hola Rembrandt Studio, quiero cotizar el Plan Catálogo & Tienda Ágil ($590 USD / ~$2.390.000 COP). Vendo: ',
   },
   {
     id: 'signature-3d',
@@ -214,7 +219,8 @@ export const plans: Plan[] = [
       'Soporte directo de los fundadores',
     ],
     cta: 'Cotizar Proyecto Signature',
-    message: 'Hola Rembrandt Studio, quiero cotizar un Proyecto Signature a medida con 3D. Mi idea es: ',
+    message:
+      'Hola Rembrandt Studio, quiero cotizar un Proyecto Signature a medida con 3D. Mi idea es: ',
   },
 ];
 
@@ -240,7 +246,8 @@ export const maintenancePackages: MaintenancePackage[] = [
     id: 'esencial',
     name: 'Cuidado Esencial',
     badge: 'Servidor & Uptime 99.9%',
-    audience: 'Para landings y webs informativas: siempre activas, rápidas y seguras, sin preocupaciones técnicas.',
+    audience:
+      'Para landings y webs informativas: siempre activas, rápidas y seguras, sin preocupaciones técnicas.',
     priceUsd: '$15 USD',
     priceCop: '~$59.000 COP',
     period: '/mes',
@@ -253,13 +260,15 @@ export const maintenancePackages: MaintenancePackage[] = [
       'Parches de seguridad y compatibilidad móvil',
     ],
     cta: 'Elegir Cuidado Esencial',
-    message: 'Hola Rembrandt Studio, me interesa el Plan Cuidado Esencial ($15 USD/mes) para mi web.',
+    message:
+      'Hola Rembrandt Studio, me interesa el Plan Cuidado Esencial ($15 USD/mes) para mi web.',
   },
   {
     id: 'activo',
     name: 'Cuidado Activo',
     badge: 'El Más Elegido por Negocios',
-    audience: 'Para empresas en crecimiento que actualizan promociones, fotos, precios o servicios cada mes.',
+    audience:
+      'Para empresas en crecimiento que actualizan promociones, fotos, precios o servicios cada mes.',
     priceUsd: '$29 USD',
     priceCop: '~$115.000 COP',
     period: '/mes',
@@ -293,7 +302,8 @@ export const maintenancePackages: MaintenancePackage[] = [
       'Atención VIP los 7 días de la semana',
     ],
     cta: 'Elegir Cuidado Pro',
-    message: 'Hola Rembrandt Studio, me interesa el Plan Cuidado Pro & Automatizaciones ($49 USD/mes) para mi web.',
+    message:
+      'Hola Rembrandt Studio, me interesa el Plan Cuidado Pro & Automatizaciones ($49 USD/mes) para mi web.',
   },
 ];
 
@@ -301,9 +311,21 @@ export const onDemandMaintenance = {
   title: '¿Sin mensualidades? Opción a demanda (pago único)',
   desc: 'Tu web y su código son 100% tuyos. Sin plan mensual, te la entregamos con hosting configurado; cuando necesites un cambio, nos escribes por WhatsApp y pagas una tarifa fija solo por ese trabajo.',
   rates: [
-    { task: 'Ajuste simple (teléfono, correo, precios o textos breves)', price: '$15 USD', cop: '~$59.000 COP' },
-    { task: 'Nuevo banner, fotos de galería o servicio publicado', price: '$29 USD', cop: '~$115.000 COP' },
-    { task: 'Optimización técnica integral o ajuste de flujos del chatbot', price: '$45 USD', cop: '~$180.000 COP' },
+    {
+      task: 'Ajuste simple (teléfono, correo, precios o textos breves)',
+      price: '$15 USD',
+      cop: '~$59.000 COP',
+    },
+    {
+      task: 'Nuevo banner, fotos de galería o servicio publicado',
+      price: '$29 USD',
+      cop: '~$115.000 COP',
+    },
+    {
+      task: 'Optimización técnica integral o ajuste de flujos del chatbot',
+      price: '$45 USD',
+      cop: '~$180.000 COP',
+    },
   ],
 };
 

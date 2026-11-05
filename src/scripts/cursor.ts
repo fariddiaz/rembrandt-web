@@ -71,11 +71,11 @@ export function initCursor() {
   const trailPoints: TrailPoint[] = [];
   const MAX_TRAIL_POINTS = 14;
   const PALETTE = [
-    '251, 191, 36',  // Oro cálido Rembrandt (#fbbf24)
+    '251, 191, 36', // Oro cálido Rembrandt (#fbbf24)
     '216, 180, 254', // Violeta etéreo (#d8b4fe)
-    '168, 85, 247',  // Amatista profundo (#a855f7)
+    '168, 85, 247', // Amatista profundo (#a855f7)
     '255, 255, 255', // Diamante luz (#ffffff)
-    '244, 63, 94',   // Rosa cósmico (#f43f5e)
+    '244, 63, 94', // Rosa cósmico (#f43f5e)
   ];
 
   const spawnStardust = (x: number, y: number, count = 2) => {

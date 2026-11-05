@@ -27,7 +27,8 @@ const MEDIA_PATH = '/__media';
 const TEXT_TYPES = /text\/html|javascript|text\/css|text\/x-component|application\/json/i;
 
 // Cabeceras de la petición que no deben llegar al sitio real.
-const DROP_REQUEST = /^(host|origin|referer|cf-|x-forwarded-|x-real-ip|true-client-ip|accept-encoding)/i;
+const DROP_REQUEST =
+  /^(host|origin|referer|cf-|x-forwarded-|x-real-ip|true-client-ip|accept-encoding)/i;
 
 // Cabeceras de la respuesta que bloquean el iframe o dejan de ser válidas al reescribir.
 const DROP_RESPONSE = [
@@ -92,14 +93,20 @@ export async function onRequest({ request }: Context): Promise<Response> {
   const resHeaders = new Headers(upstream.headers);
   DROP_RESPONSE.forEach((h) => resHeaders.delete(h));
   resHeaders.delete('x-frame-options');
-  resHeaders.set('content-security-policy', "frame-ancestors 'self' https://rembrandtstudio.co https://www.rembrandtstudio.co http://localhost:*");
+  resHeaders.set(
+    'content-security-policy',
+    "frame-ancestors 'self' https://rembrandtstudio.co https://www.rembrandtstudio.co http://localhost:*",
+  );
   resHeaders.set('x-robots-tag', 'noindex, nofollow');
   // Las cookies del sitio real quedan limitadas a la ruta del proxy en nuestro dominio.
   const cookies = upstream.headers.getSetCookie?.() ?? [];
   if (cookies.length) {
     resHeaders.delete('set-cookie');
     cookies.forEach((c) =>
-      resHeaders.append('set-cookie', c.replace(/;\s*domain=[^;]*/gi, '').replace(/;\s*path=[^;]*/gi, `; Path=${PREFIX}`)),
+      resHeaders.append(
+        'set-cookie',
+        c.replace(/;\s*domain=[^;]*/gi, '').replace(/;\s*path=[^;]*/gi, `; Path=${PREFIX}`),
+      ),
     );
   }
 
@@ -120,7 +127,8 @@ export async function onRequest({ request }: Context): Promise<Response> {
     const upstreamPath = new URL(upstream.url || target).pathname;
     body = body.replace(
       /<head[^>]*>/i,
-      (head) => `${head}<meta name="robots" content="noindex, nofollow">${bootScript(upstreamPath)}`,
+      (head) =>
+        `${head}<meta name="robots" content="noindex, nofollow">${bootScript(upstreamPath)}`,
     );
   }
 

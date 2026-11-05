@@ -77,13 +77,17 @@
     outline-offset: 3px;
     border-radius: var(--radius-sm);
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: var(--font-display);
     font-weight: 400;
     letter-spacing: -0.02em;
     text-wrap: balance;
   }
-  p { text-wrap: pretty; }
+  p {
+    text-wrap: pretty;
+  }
 }
 
 /* ── Componentes ──────────────────────────────────────────────── */
@@ -120,8 +124,8 @@
     position: relative;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.045) 0%, rgba(18, 16, 24, 0.85) 100%);
     border: 1px solid rgba(230, 200, 140, 0.12);
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
     box-shadow:
       inset 0 1px 0 rgba(245, 220, 160, 0.15),
       inset 0 -1px 0 rgba(0, 0, 0, 0.35),
@@ -151,7 +155,10 @@
     font-weight: 600;
     font-size: 0.98rem;
     line-height: 1;
-    transition: background-color 0.3s var(--ease-cine), box-shadow 0.3s var(--ease-cine), color 0.3s;
+    transition:
+      background-color 0.3s var(--ease-cine),
+      box-shadow 0.3s var(--ease-cine),
+      color 0.3s;
     will-change: transform;
   }
   /* Botones con reflejo especular sutil (luz superior + sombra de contacto), sin resplandor */
@@ -171,15 +178,23 @@
   }
   .btn-ghost {
     color: var(--color-light);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
   .btn-ghost:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.04) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.11) 0%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
   }
 
   /* Halo de luz tipo foco de Rembrandt */
@@ -205,7 +220,7 @@ html.has-cursor [data-lenis-prevent] * {
 
 html.has-cursor dialog button,
 html.has-cursor dialog a,
-html.has-cursor dialog [role="button"],
+html.has-cursor dialog [role='button'],
 html.has-cursor dialog [data-device],
 html.has-cursor dialog [data-preview-close] {
   cursor: pointer !important;
@@ -255,8 +270,14 @@ html.has-cursor .cursor-trail {
   border: 1px solid rgb(244 239 230 / 0.35);
   display: grid;
   place-items: center;
-  transition: width 0.35s var(--ease-cine), height 0.35s var(--ease-cine), margin 0.35s var(--ease-cine),
-    background-color 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 0.25s;
+  transition:
+    width 0.35s var(--ease-cine),
+    height 0.35s var(--ease-cine),
+    margin 0.35s var(--ease-cine),
+    background-color 0.3s,
+    border-color 0.3s,
+    box-shadow 0.3s,
+    opacity 0.25s;
 }
 
 .cursor-ring.is-hover {
@@ -286,7 +307,10 @@ html.cursor-hidden .cursor-trail {
 }
 /* En móvil las tarjetas son más altas que la pantalla: sin apilado, lectura normal */
 @media (max-width: 767px) {
-  .stack-card { position: relative; top: auto; }
+  .stack-card {
+    position: relative;
+    top: auto;
+  }
 }
 /* Tarjetas opacas: al apilarse no se transparentan entre sí */
 .stack-card > .glass {
@@ -305,7 +329,9 @@ html.cursor-hidden .cursor-trail {
 
 /* ── Movimiento reducido ─────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
@@ -320,7 +346,11 @@ html.cursor-hidden .cursor-trail {
     body {
       padding-bottom: 0;
     }
-    a, button, [role='button'], summary, label {
+    a,
+    button,
+    [role='button'],
+    summary,
+    label {
       touch-action: manipulation;
     }
   }
@@ -340,7 +370,11 @@ html.cursor-hidden .cursor-trail {
     .btn {
       -webkit-user-select: none;
       user-select: none;
-      transition: background-color 0.3s var(--ease-cine), box-shadow 0.3s var(--ease-cine), color 0.3s, transform 0.2s var(--ease-cine);
+      transition:
+        background-color 0.3s var(--ease-cine),
+        box-shadow 0.3s var(--ease-cine),
+        color 0.3s,
+        transform 0.2s var(--ease-cine);
     }
     .btn:active,
     .btn-float:active {
@@ -410,9 +444,13 @@ html.cursor-hidden .cursor-trail {
     transparent 70%,
     rgba(139, 92, 246, 0.38) 100%
   );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
   opacity: 0.75;
 }
 /* En escritorio el brillo respira lento; en móvil queda estático (ahorro de GPU) */
@@ -422,8 +460,13 @@ html.cursor-hidden .cursor-trail {
   }
 }
 @keyframes sheenBreath {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* Radar de conversión: núcleo dorado con dos ondas desfasadas */
@@ -450,10 +493,18 @@ html.cursor-hidden .cursor-trail {
 .radar::after {
   animation-delay: 1.3s;
 }
-.radar-violet { --radar: #a78bfa; }
+.radar-violet {
+  --radar: #a78bfa;
+}
 @keyframes radarPing {
-  0% { transform: scale(1); opacity: 0.55; }
-  100% { transform: scale(3.4); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(3.4);
+    opacity: 0;
+  }
 }
 
 /* Levitación de badges y microtarjetas: solo en móvil, periodos desacoplados */
@@ -462,8 +513,12 @@ html.cursor-hidden .cursor-trail {
     will-change: transform;
     animation: floatPulseLite 5.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   }
-  .float-pulse.is-slow { animation-duration: 6s; }
-  .float-pulse.is-fast { animation-duration: 4.5s; }
+  .float-pulse.is-slow {
+    animation-duration: 6s;
+  }
+  .float-pulse.is-fast {
+    animation-duration: 4.5s;
+  }
 }
 /* Cristal que levita en móvil: sin backdrop-filter (re-desenfocar el fondo en
    cada frame es lo más caro en GPU móvil); fondo carbón translúcido en su lugar. */
@@ -476,8 +531,13 @@ html.cursor-hidden .cursor-trail {
   }
 }
 @keyframes floatPulseLite {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -4px, 0); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -4px, 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

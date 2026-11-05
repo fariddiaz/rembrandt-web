@@ -201,7 +201,8 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
   }
 
   /* En táctil/móvil */
-  @media (max-width: 767px), (pointer: coarse) {
+  /* Por debajo de lg el robot comparte columna con el copy: no debe capturar clics */
+  @media (max-width: 1023px), (pointer: coarse) {
     .robot-wrap.is-ready .robot-canvas {
       pointer-events: none;
     }

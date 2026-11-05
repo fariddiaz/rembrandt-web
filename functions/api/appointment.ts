@@ -20,6 +20,8 @@ interface AppointmentInput {
 }
 
 const MAX_FIELD_LENGTH = 200;
+const MAX_BODY_BYTES = 4096;
+const TELEGRAM_TIMEOUT_MS = 8000;
 const PHONE_PATTERN = /^\+?[0-9\s()-]{7,20}$/;
 
 const json = (body: unknown, status: number): Response =>
@@ -31,6 +33,17 @@ const field = (value: unknown): string =>
 
 /** Escapa los caracteres de control del Markdown de Telegram para que el visitante no inyecte formato. */
 const escapeMarkdown = (value: string): string => value.replace(/[_*`[\]]/g, '\\$&');
+
+/** true si el Origin del navegador coincide con el host que atiende la petición ("null" o ausente = no). */
+function isSameOrigin(request: Request): boolean {
+  const origin = request.headers.get('Origin');
+  if (!origin) return false;
+  try {
+    return new URL(origin).host === new URL(request.url).host;
+  } catch {
+    return false;
+  }
+}
 
 function parseInput(raw: unknown): AppointmentInput | null {
   if (typeof raw !== 'object' || raw === null) return null;
@@ -70,9 +83,20 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
     return json({ error: 'Servicio de agenda no disponible' }, 503);
   }
 
+  const { request } = context;
+
+  // Solo se aceptan envíos desde el propio sitio (el navegador fija Origin en un POST).
+  if (!isSameOrigin(request)) {
+    return json({ error: 'Origen no permitido' }, 403);
+  }
+
+  // Cuerpo acotado antes de parsear: una cita real ocupa menos de 2 KB.
+  const body = await request.text();
+  if (body.length > MAX_BODY_BYTES) return json({ error: 'Solicitud demasiado grande' }, 413);
+
   let raw: unknown;
   try {
-    raw = await context.request.json();
+    raw = JSON.parse(body);
   } catch {
     return json({ error: 'Solicitud inválida' }, 400);
   }
@@ -82,6 +106,7 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      signal: AbortSignal.timeout(TELEGRAM_TIMEOUT_MS),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

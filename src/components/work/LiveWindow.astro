@@ -26,15 +26,9 @@ const { url, liveUrl, client, sector, domain, tint } = Astro.props;
     <span class="lw-domain">{domain}</span>
   </div>
 
-  <button
-    type="button"
-    class="lw-stage"
-    data-preview={url}
-    data-preview-title={client}
-    data-preview-live={liveUrl}
-    data-cursor="EXPLORAR"
-    aria-label={`Abrir la preview interactiva de ${client}`}
-  >
+  <!-- Escenario: el iframe no puede ir dentro de un <button> (HTML inválido),
+       así que el botón es una capa hermana que cubre todo el escenario. -->
+  <div class="lw-stage">
     <span class="lw-poster" aria-hidden="true">
       <span class="lw-poster__client">{client}</span>
       <span class="lw-poster__sector">{sector}</span>
@@ -51,8 +45,18 @@ const { url, liveUrl, client, sector, domain, tint } = Astro.props;
       loading="lazy"
       referrerpolicy="strict-origin-when-cross-origin"></iframe>
 
-    <span class="lw-hint" aria-hidden="true">Clic para interactuar</span>
-  </button>
+    <button
+      type="button"
+      class="lw-open"
+      data-preview={url}
+      data-preview-title={client}
+      data-preview-live={liveUrl}
+      data-cursor="EXPLORAR"
+      aria-label={`Abrir la preview interactiva de ${client}`}
+    >
+      <span class="lw-hint" aria-hidden="true">Clic para interactuar</span>
+    </button>
+  </div>
 </div>
 
 <style>
@@ -110,8 +114,19 @@ const { url, liveUrl, client, sector, domain, tint } = Astro.props;
     width: 100%;
     aspect-ratio: 16 / 10;
     overflow: hidden;
-    text-align: left;
+  }
+
+  /* Capa-botón sobre todo el escenario: abre la preview interactiva */
+  .lw-open {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
     cursor: pointer;
+  }
+  .lw-open:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: -4px;
   }
 
   /* Póster tipográfico: siempre presente debajo, visible si no hay iframe */
@@ -167,7 +182,7 @@ const { url, liveUrl, client, sector, domain, tint } = Astro.props;
   .live-window.is-loaded .lw-frame {
     opacity: 1;
   }
-  .live-window.is-loaded .lw-stage:is(:hover, :focus-visible) .lw-frame {
+  .live-window.is-loaded .lw-stage:is(:hover, :focus-within) .lw-frame {
     transform: translateY(calc(var(--travel, 0px) * -1)) scale(var(--s, 0.5));
   }
 
@@ -188,7 +203,7 @@ const { url, liveUrl, client, sector, domain, tint } = Astro.props;
       opacity 0.4s var(--ease-cine),
       transform 0.4s var(--ease-cine);
   }
-  .lw-stage:is(:hover, :focus-visible) .lw-hint {
+  .lw-stage:is(:hover, :focus-within) .lw-hint {
     opacity: 1;
     transform: none;
   }
@@ -200,7 +215,7 @@ const { url, liveUrl, client, sector, domain, tint } = Astro.props;
     .lw-frame {
       transition: opacity 0.3s;
     }
-    .live-window.is-loaded .lw-stage:is(:hover, :focus-visible) .lw-frame {
+    .live-window.is-loaded .lw-stage:is(:hover, :focus-within) .lw-frame {
       transform: scale(var(--s, 0.5));
     }
   }

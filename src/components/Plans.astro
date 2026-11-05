@@ -3,6 +3,7 @@ import { carePlan, plans, waLink, waSections } from '../config/site';
 
 const wa = waSections.planes;
 ---
+
 <section
   id="planes"
   class="relative pt-6 pb-20 md:py-32"
@@ -10,117 +11,124 @@ const wa = waSections.planes;
   data-wa-message={wa.message}
 >
   <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
-    
     <!-- Encabezado de la Sección -->
     <div class="mb-16 grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-end max-sm:mb-8 max-sm:gap-4">
       <div>
-        <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">
-          Inversión & Retorno
-        </p>
+        <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">Inversión & Retorno</p>
         <h2 class="mt-4 text-[clamp(2.4rem,5vw,4.4rem)] leading-[1.02]">
           Planes claros, precios cerrados.
         </h2>
       </div>
       <p class="max-w-[32rem] text-lg leading-relaxed text-mute max-sm:text-base">
-        <span class="max-sm:hidden">Sin sorpresas ni cobros ocultos. Elige el plan para tu etapa y coordinamos por WhatsApp o formulario.</span>
+        <span class="max-sm:hidden"
+          >Sin sorpresas ni cobros ocultos. Elige el plan para tu etapa y coordinamos por WhatsApp o
+          formulario.</span
+        >
         <span class="sm:hidden">Sin cobros ocultos. Elige tu plan y coordinamos por WhatsApp.</span>
       </p>
     </div>
 
     <!-- Lista de Tarjetas que se apilan dinámicamente al hacer scroll (Stack Effect) -->
     <ol class="stack" aria-label="Planes disponibles">
-      {plans.map((plan, i) => (
-        <li class="stack-card" style={`--i:${i}`}>
-          <article
-            class:list={[
-              'glass grid gap-10 rounded-2xl p-7 md:grid-cols-[1.1fr_1fr] md:p-12 max-sm:gap-8 max-sm:p-6',
-              plan.featured && 'is-featured glass-sheen',
-            ]}
-            aria-labelledby={`plan-${plan.id}`}
-          >
-            <div class="flex flex-col">
-              {plan.featured && (
-                <div class="mb-4">
-                  <span class="inline-flex items-center gap-2 border-b border-gold/60 pb-1 text-xs tracking-[0.18em] text-gold uppercase">
-                    Más elegido por empresas
-                  </span>
-                </div>
-              )}
-
-              <h3 id={`plan-${plan.id}`} class="text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.02] text-light">
-                {plan.name}
-              </h3>
-              
-              <p class="mt-3 text-xs tracking-wider uppercase text-gold font-medium">
-                {plan.badge}
-              </p>
-              
-              <p class="mt-5 max-w-[30rem] text-base md:text-lg leading-relaxed text-mute max-sm:mt-4 max-sm:text-[0.95rem] max-sm:leading-[1.6]">
-                {plan.audienceShort ? (
-                  <>
-                    <span class="max-sm:hidden">{plan.audience}</span>
-                    <span class="sm:hidden">{plan.audienceShort}</span>
-                  </>
-                ) : plan.audience}
-              </p>
-              
-              <p class="mt-auto pt-8 max-sm:pt-5">
-                <span class="inline-flex items-center gap-2.5 text-xs md:text-sm text-light/80">
-                  <span class="h-px w-4 bg-gold" aria-hidden="true" />
-                  {plan.delivery}
-                </span>
-              </p>
-            </div>
-
-            <div class="flex flex-col justify-between">
-              <div>
-                <p class="font-display text-[clamp(2.4rem,4.2vw,3.8rem)] leading-none text-light whitespace-nowrap">
-                  {plan.priceUsd}
-                </p>
-                {plan.priceCop && (
-                  <p class="mt-2 text-sm text-mute">{plan.priceCop}</p>
+      {
+        plans.map((plan, i) => (
+          <li class="stack-card" style={`--i:${i}`}>
+            <article
+              class:list={[
+                'glass grid gap-10 rounded-2xl p-7 md:grid-cols-[1.1fr_1fr] md:p-12 max-sm:gap-8 max-sm:p-6',
+                plan.featured && 'is-featured glass-sheen',
+              ]}
+              aria-labelledby={`plan-${plan.id}`}
+            >
+              <div class="flex flex-col">
+                {plan.featured && (
+                  <div class="mb-4">
+                    <span class="inline-flex items-center gap-2 border-b border-gold/60 pb-1 text-xs tracking-[0.18em] text-gold uppercase">
+                      Más elegido por empresas
+                    </span>
+                  </div>
                 )}
-                
-                <ul class="mt-8 space-y-3.5 border-t border-white/10 pt-8 text-sm md:text-base text-light/90 max-sm:mt-6 max-sm:space-y-2.5 max-sm:pt-6">
-                  {plan.features.map((f, fi) => (
-                    <li class="flex gap-3 leading-snug">
-                      <span class="mt-[0.7em] h-px w-3 shrink-0 bg-gold/70" aria-hidden="true" />
-                      {plan.featuresShort?.[fi] ? (
-                        <>
-                          <span class="max-sm:hidden">{f}</span>
-                          <span class="sm:hidden">{plan.featuresShort[fi]}</span>
-                        </>
-                      ) : <span>{f}</span>}
-                    </li>
-                  ))}
-                </ul>
+
+                <h3
+                  id={`plan-${plan.id}`}
+                  class="text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.02] text-light"
+                >
+                  {plan.name}
+                </h3>
+
+                <p class="mt-3 text-xs tracking-wider uppercase text-gold font-medium">
+                  {plan.badge}
+                </p>
+
+                <p class="mt-5 max-w-[30rem] text-base md:text-lg leading-relaxed text-mute max-sm:mt-4 max-sm:text-[0.95rem] max-sm:leading-[1.6]">
+                  {plan.audienceShort ? (
+                    <>
+                      <span class="max-sm:hidden">{plan.audience}</span>
+                      <span class="sm:hidden">{plan.audienceShort}</span>
+                    </>
+                  ) : (
+                    plan.audience
+                  )}
+                </p>
+
+                <p class="mt-auto pt-8 max-sm:pt-5">
+                  <span class="inline-flex items-center gap-2.5 text-xs md:text-sm text-light/80">
+                    <span class="h-px w-4 bg-gold" aria-hidden="true" />
+                    {plan.delivery}
+                  </span>
+                </p>
               </div>
 
-              <div class="mt-10 flex flex-wrap items-center gap-4 max-sm:mt-8">
-                <a
-                  href={waLink(plan.message)}
-                  target="_blank"
-                  rel="noopener"
-                  class:list={[
-                    'btn !py-3.5 !px-8 text-sm md:text-base',
-                    plan.featured ? 'btn-light' : 'btn-ghost',
-                  ]}
-                  data-magnetic="0.3"
-                >
-                  {plan.featured && <span class="radar" aria-hidden="true" />}
-                  {plan.cta}
-                </a>
-                <a
-                  href="/contacto"
-                  class="text-xs text-mute hover:text-light transition-colors underline underline-offset-4"
-                >
-                  O cotizar por formulario →
-                </a>
+              <div class="flex flex-col justify-between">
+                <div>
+                  <p class="font-display text-[clamp(2.4rem,4.2vw,3.8rem)] leading-none text-light whitespace-nowrap">
+                    {plan.priceUsd}
+                  </p>
+                  {plan.priceCop && <p class="mt-2 text-sm text-mute">{plan.priceCop}</p>}
+
+                  <ul class="mt-8 space-y-3.5 border-t border-white/10 pt-8 text-sm md:text-base text-light/90 max-sm:mt-6 max-sm:space-y-2.5 max-sm:pt-6">
+                    {plan.features.map((f, fi) => (
+                      <li class="flex gap-3 leading-snug">
+                        <span class="mt-[0.7em] h-px w-3 shrink-0 bg-gold/70" aria-hidden="true" />
+                        {plan.featuresShort?.[fi] ? (
+                          <>
+                            <span class="max-sm:hidden">{f}</span>
+                            <span class="sm:hidden">{plan.featuresShort[fi]}</span>
+                          </>
+                        ) : (
+                          <span>{f}</span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="mt-10 flex flex-wrap items-center gap-4 max-sm:mt-8">
+                  <a
+                    href={waLink(plan.message)}
+                    target="_blank"
+                    rel="noopener"
+                    class:list={[
+                      'btn !py-3.5 !px-8 text-sm md:text-base',
+                      plan.featured ? 'btn-light' : 'btn-ghost',
+                    ]}
+                    data-magnetic="0.3"
+                  >
+                    {plan.featured && <span class="radar" aria-hidden="true" />}
+                    {plan.cta}
+                  </a>
+                  <a
+                    href="/contacto"
+                    class="text-xs text-mute hover:text-light transition-colors underline underline-offset-4"
+                  >
+                    O cotizar por formulario →
+                  </a>
+                </div>
               </div>
-            </div>
-          </article>
-        </li>
-      ))}
+            </article>
+          </li>
+        ))
+      }
     </ol>
 
     <!-- Plan Cuidado: Resumen destacado para después del lanzamiento -->
@@ -136,7 +144,10 @@ const wa = waSections.planes;
           {carePlan.name} · <span class="text-mute font-sans text-lg">{carePlan.subtitle}</span>
         </h3>
         <p class="mt-2 text-sm text-mute">
-          <span class="max-sm:hidden">Hosting premium, SSL, copias de seguridad y soporte por WhatsApp para cambios mensuales de fotos y textos.</span>
+          <span class="max-sm:hidden"
+            >Hosting premium, SSL, copias de seguridad y soporte por WhatsApp para cambios mensuales
+            de fotos y textos.</span
+          >
           <span class="sm:hidden">Hosting, SSL, backups y cambios mensuales por WhatsApp.</span>
         </p>
       </div>
@@ -149,11 +160,7 @@ const wa = waSections.planes;
           <p class="text-xs text-mute mt-1">Sin contratos forzados</p>
         </div>
         <div class="flex flex-wrap items-center gap-3">
-          <a
-            href="/planes"
-            class="btn btn-ghost !py-3 !px-6"
-            data-magnetic="0.3"
-          >
+          <a href="/planes" class="btn btn-ghost !py-3 !px-6" data-magnetic="0.3">
             Ver Paquetes de Mantenimiento
           </a>
           <a
@@ -165,7 +172,6 @@ const wa = waSections.planes;
         </div>
       </div>
     </aside>
-
   </div>
 </section>
 
