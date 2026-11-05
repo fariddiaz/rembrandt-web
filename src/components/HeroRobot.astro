@@ -14,21 +14,29 @@ interface Props {
 }
 const { scene = HERO_ROBOT_SCENE } = Astro.props;
 ---
-<!-- data-hero-orb: initHeroScroll() (smooth-scroll.ts) aleja este bloque al hacer scroll -->
-<div class="robot-wrap" data-hero-robot data-hero-orb data-scene={scene}>
-  <!-- Halo ambiental cósmico en claroscuro de autor -->
+
+<div class="robot-wrap" data-hero-robot data-scene={scene}>
+  <!-- Luz rasante de taller detrás del robot -->
   <div class="robot-halo" aria-hidden="true"></div>
+
+  <!-- Skeleton de lujo: boceto a línea dorada mientras Spline carga -->
+  <div class="robot-skeleton" aria-hidden="true">
+    <svg class="robot-skeleton__sketch" viewBox="0 0 200 260" fill="none">
+      <ellipse cx="100" cy="62" rx="38" ry="42"></ellipse>
+      <path d="M62 128c0-14 17-24 38-24s38 10 38 24v46c0 12-17 20-38 20s-38-8-38-20z"></path>
+      <path d="M62 136c-16 6-24 22-26 44M138 136c16 6 24 22 26 44"></path>
+    </svg>
+    <span class="robot-skeleton__label">Preparando modelo 3D</span>
+  </div>
 
   <!-- Canvas 3D interactivo con desvanecimiento etéreo en la base -->
   <canvas
     class="robot-canvas"
     role="img"
-    aria-label="Robot 3D interactivo que sigue el movimiento del cursor"
-  ></canvas>
+    aria-label="Robot 3D interactivo que sigue el movimiento del cursor"></canvas>
 </div>
 
 <script>
-  
   type NetInfo = { saveData?: boolean };
 
   const wrap = document.querySelector<HTMLElement>('[data-hero-robot]');
@@ -37,7 +45,8 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
 
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(pointer: fine)').matches;
-  const saveData = (navigator as Navigator & { connection?: NetInfo }).connection?.saveData === true;
+  const saveData =
+    (navigator as Navigator & { connection?: NetInfo }).connection?.saveData === true;
 
   const hasWebGL = (() => {
     try {
@@ -48,8 +57,6 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     }
   })();
 
-  
-
   async function mountRobot(el: HTMLElement, cv: HTMLCanvasElement) {
     const scene = el.dataset.scene;
     if (!scene) return;
@@ -59,6 +66,8 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
       await app.load(scene);
       el.classList.add('is-ready');
     } catch (err) {
+      // Sin 3D la composición sigue completa: se retira el boceto y queda la luz.
+      el.classList.add('is-failed');
       console.warn('[HeroRobot] No se pudo cargar la escena Spline:', err);
     }
   }
@@ -106,6 +115,9 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
           : setTimeout(mount, 200);
       if (document.readyState === 'complete') whenIdle();
       else addEventListener('load', whenIdle, { once: true });
+    } else {
+      // Sin WebGL o con ahorro de datos no habrá escena: se retira el boceto.
+      wrap.classList.add('is-failed');
     }
   }
 </script>
@@ -198,8 +210,81 @@ const { scene = HERO_ROBOT_SCENE } = Astro.props;
     }
   }
 
+  /* ── Skeleton: el robot "se dibuja" a mano alzada en oro viejo ── */
+  .robot-skeleton {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    translate: -50% -50%;
+    transition: opacity 0.9s var(--ease-cine);
+  }
+  .robot-skeleton__sketch {
+    width: clamp(120px, 12vw, 180px);
+    stroke: rgb(217 119 6 / 0.55);
+    stroke-width: 0.8;
+    stroke-linecap: round;
+  }
+  .robot-skeleton__sketch :is(ellipse, path) {
+    stroke-dasharray: 320;
+    stroke-dashoffset: 320;
+    animation: sketch 3.2s var(--ease-oil) infinite;
+  }
+  .robot-skeleton__sketch path:nth-of-type(1) {
+    animation-delay: 0.25s;
+  }
+  .robot-skeleton__sketch path:nth-of-type(2) {
+    animation-delay: 0.5s;
+  }
+  .robot-skeleton__label {
+    font-size: 0.6rem;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: rgb(244 239 230 / 0.45);
+  }
+  .robot-wrap:is(.is-ready, .is-failed) .robot-skeleton {
+    opacity: 0;
+  }
+  /* Sin WebGL, con ahorro de datos o en móvil no se intenta cargar: sin boceto */
+  @media (max-width: 767px) {
+    .robot-skeleton {
+      display: none;
+    }
+  }
+
+  @keyframes sketch {
+    0% {
+      stroke-dashoffset: 320;
+      opacity: 0.2;
+    }
+    55% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 0.2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .robot-skeleton__sketch :is(ellipse, path) {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+
   @keyframes breathe {
-    0%, 100% { scale: 1; opacity: 0.88; }
-    50% { scale: 1.08; opacity: 1; }
+    0%,
+    100% {
+      scale: 1;
+      opacity: 0.88;
+    }
+    50% {
+      scale: 1.08;
+      opacity: 1;
+    }
   }
 </style>

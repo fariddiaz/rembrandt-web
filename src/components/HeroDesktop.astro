@@ -1,0 +1,103 @@
+---
+// Capa visual del hero en PC (>= 768px): robot 3D de Spline, marco de lienzo
+// dorado que aparece durante la tensión de scroll y guía "Desliza".
+// La coreografía vive en src/scripts/hero-cinematic.ts; el copy (h1, CTAs)
+// es compartido y está en Hero.astro. En móvil esta capa no se renderiza
+// (display: none): HeroMobile.astro ocupa su lugar.
+import HeroRobot from './HeroRobot.astro';
+---
+
+<div class="hero-desktop pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
+  <!-- Robot: a la derecha, en su propia capa de profundidad -->
+  <div
+    class="hero-robot-layer pointer-events-auto absolute inset-y-0 right-[-4%] left-[42%]"
+    data-hero-robot-layer
+  >
+    <HeroRobot />
+  </div>
+
+  <!-- Marco de lienzo: filete dorado que se revela cuando la escena se enmarca -->
+  <span class="hero-frame" data-hero-frame></span>
+
+  <!-- Guía de scroll: línea que se llena, sin flechas que rebotan -->
+  <div class="hero-cue" data-hero-cue>
+    <span class="hero-cue__label">Desliza</span>
+    <span class="hero-cue__track"><span class="hero-cue__fill"></span></span>
+  </div>
+</div>
+
+<style>
+  /* Sin esto la capa aplanaría el z/rotateY del robot en el plano del lienzo */
+  .hero-desktop,
+  .hero-robot-layer {
+    transform-style: preserve-3d;
+  }
+  .hero-robot-layer {
+    will-change: transform;
+  }
+
+  .hero-frame {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgb(217 119 6 / 0.55);
+    box-shadow:
+      inset 0 0 0 6px rgb(7 6 9 / 0.6),
+      inset 0 0 0 7px rgb(217 119 6 / 0.18);
+    opacity: 0;
+  }
+
+  .hero-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    translate: -50% 0;
+  }
+  .hero-cue__label {
+    font-size: 0.62rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgb(244 239 230 / 0.5);
+  }
+  .hero-cue__track {
+    position: relative;
+    width: 1px;
+    height: 3.25rem;
+    overflow: hidden;
+    background: rgb(244 239 230 / 0.12);
+  }
+  .hero-cue__fill {
+    position: absolute;
+    inset: 0;
+    background: var(--color-gold);
+    animation: cue-fill 2.8s var(--ease-oil) infinite;
+  }
+  @keyframes cue-fill {
+    0% {
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+    50% {
+      transform: scaleY(1);
+      transform-origin: top;
+    }
+    50.01% {
+      transform: scaleY(1);
+      transform-origin: bottom;
+    }
+    100% {
+      transform: scaleY(0);
+      transform-origin: bottom;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-cue__fill {
+      animation: none;
+      transform: scaleY(1);
+    }
+  }
+</style>

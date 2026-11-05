@@ -31,7 +31,6 @@ export function initMotion() {
 
   bindAnchors();
   initStackCards(reduce);
-  initHeroScroll(reduce);
   initCursor();
   initWhatsApp();
 
@@ -75,18 +74,5 @@ function initStackCards(reduce: boolean) {
         scrub: true,
       },
     });
-  });
-}
-
-/** El orbe se aleja hacia la oscuridad al salir del hero. */
-function initHeroScroll(reduce: boolean) {
-  const orb = document.querySelector<HTMLElement>('[data-hero-orb]');
-  if (!orb || reduce) return;
-  gsap.to(orb, {
-    yPercent: 18,
-    scale: 0.82,
-    opacity: 0.25,
-    ease: 'none',
-    scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true },
   });
 }
