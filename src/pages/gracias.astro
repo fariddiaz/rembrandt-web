@@ -78,7 +78,7 @@ import { waLink } from '../config/site';
         </a>
 
         <a
-          href={waLink('Hola Rembrandt Studio 👋 Acabo de enviar el formulario de contacto y me gustaría adelantar detalles de mi proyecto por aquí.')}
+          href={waLink('Hola Rembrandt Studio, acabo de enviar el formulario de contacto y me gustaría adelantar detalles de mi proyecto por aquí.')}
           target="_blank"
           rel="noopener"
           data-gracias-wa-btn
@@ -101,7 +101,7 @@ import { waLink } from '../config/site';
     const plan = urlParams.get('plan');
     const waBtn = document.querySelector<HTMLAnchorElement>('[data-gracias-wa-btn]');
     if (waBtn && (name || plan)) {
-      let msg = 'Hola Rembrandt Studio 👋 Acabo de enviar el formulario en la web.';
+      let msg = 'Hola Rembrandt Studio, acabo de enviar el formulario en la web.';
       if (name) msg += ` Mi nombre es ${name}.`;
       if (plan) msg += ` Me interesa el plan: ${plan}.`;
       msg += ' Me gustaría agilizar los detalles de la propuesta por aquí.';

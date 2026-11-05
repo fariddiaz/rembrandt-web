@@ -56,7 +56,7 @@ const advancedPlans = plans.slice(3, 5);
       <!-- Cinta de Compromisos de Autor (Sutil, delgada y elegante, sin diapositivas gigantes) -->
       <div class="glass mb-14 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 px-6 py-3.5 text-xs text-mute backdrop-blur-md">
         <div class="flex items-center gap-2">
-          <span class="size-1.5 rounded-full bg-emerald-400"></span>
+          <span class="h-px w-3 bg-gold" aria-hidden="true"></span>
           <span><strong class="text-light font-medium">4 a 6 días</strong> · Entrega express garantizada</span>
         </div>
         <div class="hidden sm:block h-3 w-px bg-white/10"></div>
@@ -95,18 +95,19 @@ const advancedPlans = plans.slice(3, 5);
         </div>
       </nav>
 
-      <!-- Fila 1: La Tríada Comercial (3 Columnas con Simetría y Altura Exactas) -->
+      <!-- Fila 1: composición asimétrica. El plan recomendado ocupa la columna alta
+           de la izquierda; los otros dos se apilan a la derecha (sin tríada SaaS). -->
       <section class="mb-6" aria-label="Planes principales de presencia y conversión">
-        <div class="grid gap-6 md:grid-cols-3 items-stretch">
+        <div class="grid gap-6 md:grid-cols-12 items-stretch">
           {corePlans.map((plan) => {
             const isFeatured = plan.featured;
             return (
               <article
                 class:list={[
-                  'flex flex-col justify-between rounded-2xl p-7 md:p-8 transition-all duration-300 max-sm:p-6',
+                  'flex flex-col justify-between rounded-2xl p-7 md:p-8 transition-colors duration-300 max-sm:p-6',
                   isFeatured
-                    ? 'glass-rembrandt border-amber-400/30 bg-amber-950/10 shadow-2xl relative'
-                    : 'glass border-white/10 hover:border-white/20',
+                    ? 'glass-rembrandt border border-amber-500/30 md:sticky md:top-28 md:self-start md:order-first md:col-span-7 md:row-span-2 md:p-10'
+                    : 'glass border border-white/10 hover:border-white/20 md:col-span-5',
                 ]}
                 aria-labelledby={`plan-title-${plan.id}`}
               >
@@ -141,7 +142,7 @@ const advancedPlans = plans.slice(3, 5);
                       )}
                     </div>
                     <p class="mt-2 flex items-center gap-1.5 text-xs text-light/80">
-                      <span class="size-1.5 rounded-full bg-emerald-400"></span>
+                      <span class="h-px w-3 bg-gold" aria-hidden="true"></span>
                       {plan.delivery}
                     </p>
                   </div>
@@ -150,7 +151,7 @@ const advancedPlans = plans.slice(3, 5);
                   <ul class="mt-6 space-y-2.5 text-xs text-light/90">
                     {plan.features.map((f) => (
                       <li class="flex items-start gap-2 leading-relaxed">
-                        <span class="mt-[0.35em] size-1.5 shrink-0 rounded-full bg-amber-300/80"></span>
+                        <span class="mt-[0.7em] h-px w-2.5 shrink-0 bg-gold/70" aria-hidden="true"></span>
                         <span>{f}</span>
                       </li>
                     ))}
@@ -221,7 +222,7 @@ const advancedPlans = plans.slice(3, 5);
                     )}
                   </div>
                   <p class="mt-2 flex items-center gap-1.5 text-xs text-light/80">
-                    <span class="size-1.5 rounded-full bg-emerald-400"></span>
+                    <span class="h-px w-3 bg-gold" aria-hidden="true"></span>
                     {plan.delivery}
                   </p>
                 </div>
@@ -230,7 +231,7 @@ const advancedPlans = plans.slice(3, 5);
                 <ul class="mt-6 space-y-2.5 text-xs text-light/90">
                   {plan.features.map((f) => (
                     <li class="flex items-start gap-2 leading-relaxed">
-                      <span class="mt-[0.35em] size-1.5 shrink-0 rounded-full bg-amber-300/80"></span>
+                      <span class="mt-[0.7em] h-px w-2.5 shrink-0 bg-gold/70" aria-hidden="true"></span>
                       <span>{f}</span>
                     </li>
                   ))}
@@ -276,15 +277,15 @@ const advancedPlans = plans.slice(3, 5);
 
             <div class="mt-6 space-y-2.5 text-xs text-light/90">
               <div class="flex items-center gap-2.5">
-                <span class="size-1.5 rounded-full bg-emerald-400"></span>
+                <span class="h-px w-3 bg-gold" aria-hidden="true"></span>
                 <span>Cero comisiones mensuales por mensaje de nuestra parte</span>
               </div>
               <div class="flex items-center gap-2.5">
-                <span class="size-1.5 rounded-full bg-emerald-400"></span>
+                <span class="h-px w-3 bg-gold" aria-hidden="true"></span>
                 <span>Configurado con tu tono de voz y respuestas reales de tu negocio</span>
               </div>
               <div class="flex items-center gap-2.5">
-                <span class="size-1.5 rounded-full bg-emerald-400"></span>
+                <span class="h-px w-3 bg-gold" aria-hidden="true"></span>
                 <span>Notificación instantánea a tu móvil cuando el cliente quiere pagar</span>
               </div>
             </div>
@@ -371,15 +372,15 @@ const advancedPlans = plans.slice(3, 5);
           </p>
         </div>
 
-        <!-- Grid Armónico de 3 Columnas para Paquetes Mensuales -->
-        <div class="grid gap-6 md:grid-cols-3 items-stretch">
+        <!-- Paquetes mensuales: el más elegido ocupa la columna alta, los otros se apilan -->
+        <div class="grid gap-6 md:grid-cols-12 items-stretch">
           {maintenancePackages.map((pkg) => (
             <article
               class:list={[
-                'flex flex-col justify-between rounded-2xl p-7 transition-all duration-300',
+                'flex flex-col justify-between rounded-2xl p-7 transition-colors duration-300',
                 pkg.featured
-                  ? 'glass-rembrandt border-amber-400/30 bg-amber-950/10 shadow-xl'
-                  : 'glass border-white/10 hover:border-white/20',
+                  ? 'glass-rembrandt border border-amber-500/30 md:sticky md:top-28 md:self-start md:order-first md:col-span-7 md:row-span-2 md:p-10'
+                  : 'glass border border-white/10 hover:border-white/20 md:col-span-5',
               ]}
             >
               <div>
@@ -505,17 +506,17 @@ const advancedPlans = plans.slice(3, 5);
               </tr>
               <tr>
                 <td class="py-3.5 pr-4 font-medium text-light">Botón Directo WhatsApp</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400">✓</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400">✓</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400 font-bold bg-white/[0.03]">✓</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400">✓</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400">✓</td>
+                <td class="py-3.5 px-3 text-center text-light">Incluido</td>
+                <td class="py-3.5 px-3 text-center text-light">Incluido</td>
+                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]">Incluido</td>
+                <td class="py-3.5 px-3 text-center text-light">Incluido</td>
+                <td class="py-3.5 px-3 text-center text-light">Incluido</td>
               </tr>
               <tr>
                 <td class="py-3.5 pr-4 font-medium text-light">Chatbot Automatizado 24/7</td>
                 <td class="py-3.5 px-3 text-center text-mute">—</td>
                 <td class="py-3.5 px-3 text-center text-mute">—</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400 font-bold bg-white/[0.03]">✓ Incluido</td>
+                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]">Incluido</td>
                 <td class="py-3.5 px-3 text-center text-mute">—</td>
                 <td class="py-3.5 px-3 text-center text-emerald-400">Opcional</td>
               </tr>
@@ -523,25 +524,25 @@ const advancedPlans = plans.slice(3, 5);
                 <td class="py-3.5 pr-4 font-medium text-light">Agendamiento Automático de Citas</td>
                 <td class="py-3.5 px-3 text-center text-mute">—</td>
                 <td class="py-3.5 px-3 text-center text-mute">—</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400 font-bold bg-white/[0.03]">✓ Incluido</td>
+                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]">Incluido</td>
                 <td class="py-3.5 px-3 text-center text-mute">—</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400">✓</td>
+                <td class="py-3.5 px-3 text-center text-light">Incluido</td>
               </tr>
               <tr>
                 <td class="py-3.5 pr-4 font-medium text-light">Pasarela de Pagos (Stripe / PSE / Bold)</td>
                 <td class="py-3.5 px-3 text-center text-mute">—</td>
                 <td class="py-3.5 px-3 text-center text-mute">—</td>
                 <td class="py-3.5 px-3 text-center text-mute bg-white/[0.03]">—</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400 font-bold">✓ Incluido</td>
+                <td class="py-3.5 px-3 text-center text-light font-bold">Incluido</td>
                 <td class="py-3.5 px-3 text-center text-emerald-400">Opcional</td>
               </tr>
               <tr>
                 <td class="py-3.5 pr-4 font-medium text-light">Correos Corporativos con Dominio</td>
                 <td class="py-3.5 px-3 text-center text-mute">Opcional</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400">✓ Hasta 3</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400 font-bold bg-white/[0.03]">✓ Hasta 5</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400">✓ Hasta 5</td>
-                <td class="py-3.5 px-3 text-center text-emerald-400">✓ Ilimitados</td>
+                <td class="py-3.5 px-3 text-center text-light">Hasta 3</td>
+                <td class="py-3.5 px-3 text-center text-light font-bold bg-white/[0.03]">Hasta 5</td>
+                <td class="py-3.5 px-3 text-center text-light">Hasta 5</td>
+                <td class="py-3.5 px-3 text-center text-light">Ilimitados</td>
               </tr>
               <tr>
                 <td class="py-3.5 pr-4 font-medium text-light">Inversión Aproximada</td>

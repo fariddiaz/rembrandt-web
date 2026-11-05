@@ -41,8 +41,7 @@ const wa = waSections.planes;
             <div class="flex flex-col">
               {plan.featured && (
                 <div class="mb-4">
-                  <span class="float-pulse inline-flex items-center gap-2 rounded-md border border-[#d4af37]/30 bg-white/10 px-3 py-0.5 text-xs font-medium text-light backdrop-blur-md">
-                    <span class="radar !size-1.5" aria-hidden="true"></span>
+                  <span class="inline-flex items-center gap-2 border-b border-gold/60 pb-1 text-xs tracking-[0.18em] text-gold uppercase">
                     Más elegido por empresas
                   </span>
                 </div>
@@ -52,7 +51,7 @@ const wa = waSections.planes;
                 {plan.name}
               </h3>
               
-              <p class="mt-3 text-xs tracking-wider uppercase text-violet-300/90 font-medium">
+              <p class="mt-3 text-xs tracking-wider uppercase text-gold font-medium">
                 {plan.badge}
               </p>
               
@@ -66,8 +65,8 @@ const wa = waSections.planes;
               </p>
               
               <p class="mt-auto pt-8 max-sm:pt-5">
-                <span class="float-pulse is-slow inline-flex items-center gap-2 text-xs md:text-sm text-light/80 max-sm:rounded-full max-sm:border max-sm:border-white/10 max-sm:bg-white/[0.04] max-sm:px-3 max-sm:py-1">
-                  <span class="radar radar-emerald !size-2" aria-hidden="true" />
+                <span class="inline-flex items-center gap-2.5 text-xs md:text-sm text-light/80">
+                  <span class="h-px w-4 bg-gold" aria-hidden="true" />
                   {plan.delivery}
                 </span>
               </p>
@@ -85,7 +84,7 @@ const wa = waSections.planes;
                 <ul class="mt-8 space-y-3.5 border-t border-white/10 pt-8 text-sm md:text-base text-light/90 max-sm:mt-6 max-sm:space-y-2.5 max-sm:pt-6">
                   {plan.features.map((f, fi) => (
                     <li class="flex gap-3 leading-snug">
-                      <span class="mt-[0.5em] size-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
+                      <span class="mt-[0.7em] h-px w-3 shrink-0 bg-gold/70" aria-hidden="true" />
                       {plan.featuresShort?.[fi] ? (
                         <>
                           <span class="max-sm:hidden">{f}</span>
@@ -104,7 +103,7 @@ const wa = waSections.planes;
                   rel="noopener"
                   class:list={[
                     'btn !py-3.5 !px-8 text-sm md:text-base',
-                    plan.featured ? 'btn-light btn-float' : 'btn-ghost',
+                    plan.featured ? 'btn-light' : 'btn-ghost',
                   ]}
                   data-magnetic="0.3"
                 >

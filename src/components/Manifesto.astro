@@ -1,0 +1,238 @@
+---
+// Manifiesto del estudio (sustituye a la grilla bento de AgencyBento).
+// Composición editorial asimétrica: una declaración grande, tres principios
+// en numeración romana con filetes (no tarjetas idénticas), una cita de cliente
+// como pull-quote y el carrusel de tecnologías. Una sola acción.
+import { waLink, waSections } from '../config/site';
+
+const wa = waSections.showcase;
+
+const principles = [
+  {
+    num: 'I',
+    title: 'Luz sobre lo importante',
+    text: 'Como en un retrato de Rembrandt, cada pantalla ilumina una sola idea y una sola acción. Tu cliente sabe qué hacer sin pensarlo.',
+  },
+  {
+    num: 'II',
+    title: 'Código propio',
+    text: 'Sin plantillas ni constructores pesados. Carga en menos de un segundo y el código, el diseño y el dominio son tuyos.',
+  },
+  {
+    num: 'III',
+    title: 'Plazo y precio cerrados',
+    text: 'Web express en 4 a 6 días hábiles, con precio fijo: 50% para empezar y 50% con tu sitio aprobado.',
+  },
+];
+
+const logos = [
+  { file: 'leymar.svg', name: 'Eventos Leymar' },
+  { file: 'astro.svg', name: 'Astro' },
+  { file: 'tailwind.svg', name: 'Tailwind CSS' },
+  { file: 'nextjs.svg', name: 'Next.js' },
+  { file: 'spline.svg', name: 'Spline 3D' },
+  { file: 'typescript.svg', name: 'TypeScript' },
+  { file: 'stripe.svg', name: 'Stripe' },
+];
+---
+
+<section
+  class="relative overflow-hidden pt-10 pb-10 md:pt-16 md:pb-24"
+  aria-labelledby="manifesto-title"
+  data-wa-label={wa.label}
+  data-wa-message={wa.message}
+>
+  <div class="mx-auto w-[min(1240px,calc(100%-2.5rem))]">
+    <div class="grid gap-14 lg:grid-cols-[1.35fr_1fr] lg:gap-20">
+      <div>
+        <p class="text-xs font-medium tracking-[0.22em] text-mute uppercase">
+          Manifiesto del estudio
+        </p>
+        <h2
+          id="manifesto-title"
+          class="mt-5 text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] text-light max-sm:text-[1.75rem]"
+        >
+          Diseñamos y programamos webs de autor para negocios que quieren <span class="text-gold"
+            >vender más</span
+          >. Cada decisión de diseño responde a esa meta.
+        </h2>
+
+        <ol class="mt-12 max-sm:mt-9">
+          {
+            principles.map((p) => (
+              <li class="principle">
+                <span class="principle__num" aria-hidden="true">
+                  {p.num}
+                </span>
+                <div>
+                  <h3 class="principle__title">{p.title}</h3>
+                  <p class="principle__text">{p.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+
+        <a
+          href={waLink('Hola Rembrandt Studio, quiero iniciar un proyecto web para mi negocio.')}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-ghost mt-10 !px-5 !py-2.5 text-sm"
+          data-magnetic="0.3"
+          data-cursor="PROYECTO"
+        >
+          Iniciar un proyecto <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <!-- Cita de cliente como pull-quote editorial -->
+      <figure class="quote self-end">
+        <blockquote>
+          <p>
+            El rediseño de nuestra web elevó el estatus de la marca ante parejas internacionales y
+            aumentó notablemente las solicitudes de cotización directa por WhatsApp.
+          </p>
+        </blockquote>
+        <figcaption class="quote__by">
+          <img
+            src="/preview-assets/leidys-lascarro.jpg"
+            alt=""
+            width="44"
+            height="44"
+            loading="lazy"
+            decoding="async"
+            class="quote__photo"
+          />
+          <span>
+            <span class="block text-sm text-light">Leidys Lascarro</span>
+            <span class="block text-xs text-mute">Directora y fundadora, Eventos Leymar</span>
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- Tecnologías y clientes: carrusel continuo, pausado al pasar el cursor -->
+    <div class="mt-20 border-y border-light/10 py-6 max-sm:mt-14 max-sm:py-5">
+      <p class="text-center text-xs font-medium tracking-[0.18em] text-mute uppercase">
+        Con qué construimos y para quién
+      </p>
+      <div class="logo-marquee mt-6 overflow-hidden" aria-label="Marcas y tecnologías">
+        <div class="logo-track flex w-max items-center">
+          {
+            [0, 1].map((copy) => (
+              <ul
+                class="flex shrink-0 items-center gap-14 pr-14 md:gap-20 md:pr-20"
+                aria-hidden={copy === 1 ? 'true' : undefined}
+              >
+                {logos.map((l) => (
+                  <li class="flex shrink-0 items-center justify-center">
+                    <img
+                      src={`/logos/${l.file}`}
+                      alt={copy === 0 ? l.name : ''}
+                      width="150"
+                      height="38"
+                      loading="lazy"
+                      decoding="async"
+                      class:list={[
+                        'logo w-auto',
+                        l.file === 'leymar.svg' ? 'h-9 md:h-10' : 'h-6 md:h-7',
+                      ]}
+                    />
+                  </li>
+                ))}
+              </ul>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .principle {
+    display: grid;
+    grid-template-columns: 3.25rem 1fr;
+    gap: 1.25rem;
+    padding: 1.4rem 0;
+    border-top: 1px solid rgb(244 239 230 / 0.08);
+  }
+  .principle:last-child {
+    border-bottom: 1px solid rgb(244 239 230 / 0.08);
+  }
+  .principle__num {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--color-gold);
+  }
+  .principle__title {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    color: var(--color-light);
+  }
+  .principle__text {
+    margin-top: 0.45rem;
+    max-width: 34rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-mute);
+  }
+
+  .quote {
+    position: relative;
+    padding-left: 1.75rem;
+    border-left: 1px solid rgb(217 119 6 / 0.5);
+  }
+  .quote blockquote p {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2vw, 1.75rem);
+    line-height: 1.3;
+    color: rgb(244 239 230 / 0.92);
+  }
+  .quote__by {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+  }
+  .quote__photo {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: saturate(0.85);
+  }
+
+  .logo-marquee {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+  .logo {
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+  .logo:hover {
+    opacity: 1;
+  }
+  .logo-track {
+    animation: marquee-scroll 32s linear infinite;
+  }
+  .logo-marquee:hover .logo-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-track {
+      animation: none;
+    }
+  }
+</style>
