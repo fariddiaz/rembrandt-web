@@ -7,6 +7,7 @@
 // - Móvil o movimiento reducido: pista de altura normal, sin tensión.
 // El copy (h1, CTAs, métricas) es único y compartido por ambas experiencias.
 import HeroDesktop from './HeroDesktop.astro';
+import HeroMobile from './HeroMobile.astro';
 import { plans, waSections } from '../config/site';
 
 const wa = waSections.hero;
@@ -124,6 +125,8 @@ const fromPrice = plans[0]?.priceUsd ?? '$249 USD';
                 </dd>
               </div>
             </dl>
+
+            <HeroMobile />
           </div>
 
           <!-- Columna derecha: espacio libre para el robot -->

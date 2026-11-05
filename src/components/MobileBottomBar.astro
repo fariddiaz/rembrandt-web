@@ -1,81 +1,201 @@
 ---
-// Barra de Navegación Rápida Flotante para Móvil (Thumb-Zone Architecture)
-// Inspirada en las mejores prácticas de Awwwards y diseño móvil de autor:
-// Coloca las dos decisiones más importantes de negocio al alcance inmediato del pulgar.
+// Dock inferior móvil (< 768px), en la zona del pulgar.
+// Navegación principal + una sola acción de conversión (WhatsApp), como una app
+// nativa: se esconde al bajar, vuelve al subir y desaparece al final de la
+// página para no tapar el footer legal. Etiquetas tipográficas en vez de
+// paquetes de íconos; respuesta táctil visual (y vibración breve en Android).
 import { waLink } from '../config/site';
 
-const currentPath = Astro.url.pathname.toLowerCase().replace(/\/$/, '') || '/';
-const isPlanesPage = currentPath.startsWith('/planes');
+const path = Astro.url.pathname.toLowerCase().replace(/\/$/, '') || '/';
+
+const links = [
+  { href: '/planes', label: 'Planes', match: ['/planes', '/express'] },
+  { href: '/portafolio', label: 'Obras', match: ['/portafolio'] },
+  { href: '/proceso', label: 'Proceso', match: ['/proceso'] },
+];
+
+const quote = waLink(
+  'Hola Rembrandt Studio, estuve revisando su web desde el móvil y quiero cotizar una web para mi negocio.',
+);
 ---
 
-<aside
-  class="fixed inset-x-0 bottom-3 z-40 px-3 md:hidden pointer-events-none transition-transform duration-300"
-  aria-label="Acciones rápidas para móvil"
-  id="mobile-bottom-dock"
->
-  <div
-    class="glass pointer-events-auto mx-auto flex max-w-sm items-center justify-between gap-2.5 rounded-full p-2 border border-violet/25 shadow-[0_16px_36px_-10px_rgba(0,0,0,0.85),0_0_24px_-8px_rgba(139,92,246,0.35)]"
-    style="padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));"
-  >
-    <!-- Botón 1: Explorar Planes o Ver Casos de Estudio -->
+<nav class="dock md:hidden" aria-label="Navegación rápida" data-dock>
+  <div class="dock__bar">
+    {
+      links.map(({ href, label, match }) => {
+        const active = match.some((m) => path.startsWith(m));
+        return (
+          <a
+            href={href}
+            class:list={['dock__link', active && 'is-active']}
+            aria-current={active ? 'page' : undefined}
+            data-press
+          >
+            {label}
+          </a>
+        );
+      })
+    }
     <a
-      href={isPlanesPage ? '/portafolio' : '/planes'}
-      class="flex-1 rounded-full px-3.5 py-2.5 text-center text-xs font-medium text-light/90 transition-all hover:bg-white/10 active:scale-[0.96]"
-    >
-      <span class="flex items-center justify-center gap-1.5">
-        <svg class="size-3.5 text-violet-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          {isPlanesPage ? (
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
-          ) : (
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          )}
-        </svg>
-        <span>{isPlanesPage ? 'Ver Portafolio' : 'Ver Planes'}</span>
-      </span>
-    </a>
-
-    <!-- Botón 2: Cotizar por WhatsApp con Levitación Flotante -->
-    <a
-      href={waLink('Hola Rembrandt Studio, estuve revisando su web desde el móvil y quiero cotizar una web para mi negocio.')}
+      href={quote}
       target="_blank"
       rel="noopener"
-      class="btn-float flex-1 rounded-full bg-light px-4 py-2.5 text-center text-xs font-semibold text-carbon shadow-[0_10px_28px_-10px_rgba(139,92,246,0.55)] transition-transform active:scale-[0.96]"
-      aria-label="Escribir por WhatsApp para cotización inmediata"
+      class="dock__cta"
+      data-press
+      aria-label="Cotizar por WhatsApp"
     >
-      <span class="flex items-center justify-center gap-1.5">
-        <span class="relative flex size-2">
-          <span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
-        </span>
-        <span>Cotizar Ahora</span>
-      </span>
+      Cotizar
     </a>
   </div>
-</aside>
+</nav>
 
 <script>
-  // Ocultar suavemente la barra móvil cuando el usuario está en el formulario de contacto o al pie
-  const dock = document.getElementById('mobile-bottom-dock');
-  if (dock) {
-    let ticking = false;
+  const HIDE_AFTER_PX = 120;
+  const END_MARGIN_PX = 100;
+  const DELTA_PX = 6;
+  const HAPTIC_MS = 8;
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-          // Ocultar si está a menos de 80px del final del documento para no tapar los enlaces legales
-          if (scrollY > maxScroll - 100) {
-            dock.style.transform = 'translateY(140%)';
-            dock.style.opacity = '0';
-          } else {
-            dock.style.transform = 'translateY(0%)';
-            dock.style.opacity = '1';
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
+  const dock = document.querySelector<HTMLElement>('[data-dock]');
+  if (dock) {
+    let lastY = scrollY;
+    let raf = 0;
+
+    const update = () => {
+      raf = 0;
+      const y = scrollY;
+      const atEnd = y > document.documentElement.scrollHeight - innerHeight - END_MARGIN_PX;
+      const goingDown = y - lastY > DELTA_PX;
+      const goingUp = lastY - y > DELTA_PX;
+      if (atEnd || (goingDown && y > HIDE_AFTER_PX)) dock.classList.add('is-hidden');
+      else if (goingUp || y <= HIDE_AFTER_PX) dock.classList.remove('is-hidden');
+      if (goingDown || goingUp) lastY = y;
+    };
+    addEventListener('scroll', () => raf || (raf = requestAnimationFrame(update)), {
+      passive: true,
+    });
+
+    // Respuesta táctil: pulso visual inmediato y vibración corta donde exista.
+    dock.querySelectorAll<HTMLElement>('[data-press]').forEach((el) => {
+      el.addEventListener(
+        'pointerdown',
+        () => {
+          el.classList.remove('is-pressed');
+          void el.offsetWidth; // reinicia la animación del pulso
+          el.classList.add('is-pressed');
+          navigator.vibrate?.(HAPTIC_MS);
+        },
+        { passive: true },
+      );
+    });
   }
 </script>
+
+<style>
+  .dock {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 40;
+    padding: 0 0.75rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+    pointer-events: none;
+    transition:
+      transform 0.45s var(--ease-cine),
+      opacity 0.3s;
+  }
+  .dock.is-hidden {
+    transform: translate3d(0, 120%, 0);
+    opacity: 0;
+  }
+
+  .dock__bar {
+    pointer-events: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 1.25fr;
+    align-items: stretch;
+    max-width: 28rem;
+    margin-inline: auto;
+    padding: 0.35rem;
+    border: 1px solid rgb(244 239 230 / 0.08);
+    border-radius: var(--radius-lg);
+    background: rgb(15 13 20 / 0.94);
+    box-shadow: 0 18px 40px -18px rgb(7 6 9 / 0.95);
+  }
+
+  .dock__link,
+  .dock__cta {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 48px;
+    border-radius: var(--radius-md);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    transition:
+      transform 0.18s var(--ease-cine),
+      color 0.2s;
+  }
+  .dock__link {
+    color: rgb(244 239 230 / 0.62);
+  }
+  /* Activo: filete ámbar arriba, como el rótulo de una obra */
+  .dock__link.is-active {
+    color: var(--color-light);
+  }
+  .dock__link.is-active::before {
+    content: '';
+    position: absolute;
+    top: 0.3rem;
+    left: 50%;
+    width: 1.1rem;
+    height: 1px;
+    background: var(--color-gold);
+    translate: -50% 0;
+  }
+  .dock__cta {
+    margin-left: 0.2rem;
+    background: var(--color-light);
+    color: var(--color-carbon);
+    font-weight: 600;
+  }
+
+  .dock__link:active,
+  .dock__cta:active {
+    transform: scale(0.95);
+  }
+
+  /* Pulso háptico visual: anillo ámbar que se expande desde el toque */
+  .dock__link::after,
+  .dock__cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 1px rgb(217 119 6 / 0.7);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .is-pressed::after {
+    animation: press-pulse 0.5s var(--ease-cine);
+  }
+  @keyframes press-pulse {
+    from {
+      opacity: 1;
+      transform: scale(0.94);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.08);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dock,
+    .is-pressed::after {
+      transition: none;
+      animation: none;
+    }
+  }
+</style>
