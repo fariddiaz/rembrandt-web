@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { waLink } from '../config/site';
+import { waLink, WHATSAPP_NUMBER } from '../config/site';
 
 const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
@@ -188,19 +188,28 @@ while (availableDates.length < 6) {
               <p class="mt-3 text-center text-xs text-mute">
                 Sesión 1 a 1 por Google Meet. Sin costo ni compromiso comercial.
               </p>
+
+              <!-- Error de registro: la cita no se pierde, se envía por WhatsApp con los datos ya escritos -->
+              <div
+                id="booking-error"
+                class="mt-5 hidden border-l border-gold/60 pl-4 text-sm text-light/90"
+                role="alert"
+                data-wa-number={WHATSAPP_NUMBER}
+              >
+                <p>No pudimos registrar tu cita en este momento.</p>
+                <a id="booking-error-wa" href="#" target="_blank" rel="noopener" class="mt-2 inline-block text-gold underline underline-offset-4">
+                  Enviar la solicitud por WhatsApp con tus datos
+                </a>
+              </div>
             </div>
           </form>
 
           <!-- Pantalla de Éxito -->
           <div id="success-screen" class="hidden py-12 text-center">
-            <div class="mx-auto flex size-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/30">
-              <svg class="size-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h2 class="mt-6 font-display text-3xl text-light">¡Sesión Agendada con Éxito!</h2>
+            <span class="mx-auto block h-px w-12 bg-gold" aria-hidden="true"></span>
+            <h2 class="mt-6 font-display text-3xl text-light">Sesión agendada</h2>
             <p class="mx-auto mt-3 max-w-md text-sm text-mute leading-relaxed">
-              Hemos registrado tu videollamada para el <strong id="confirmed-date" class="text-violet-300"></strong> a las <strong id="confirmed-time" class="text-violet-300"></strong>. Te hemos enviado la confirmación y te escribiremos a tu WhatsApp.
+              Registramos tu videollamada para el <strong id="confirmed-date" class="text-light"></strong> a las <strong id="confirmed-time" class="text-light"></strong>. Te escribiremos por WhatsApp para confirmarla y enviarte el enlace de Google Meet.
             </p>
             <div class="mt-8 flex justify-center gap-4">
               <a href="/" class="btn btn-ghost !py-2.5 !px-6 text-sm">
@@ -291,6 +300,9 @@ while (availableDates.length < 6) {
   const form = document.getElementById('booking-form') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const successScreen = document.getElementById('success-screen');
+  const errorBox = document.getElementById('booking-error');
+  const errorWa = document.getElementById('booking-error-wa') as HTMLAnchorElement | null;
+  const SUBMIT_LABEL = 'Confirmar Videollamada Estratégica (15 min)';
 
   let selectedDateStr = dateCards[0]?.dataset.date || '';
   let selectedSlot = '09:00 AM';
@@ -330,24 +342,16 @@ while (availableDates.length < 6) {
       timeSlot: selectedSlot,
     };
 
+    errorBox?.classList.add('hidden');
+
     try {
-      // 1. Enviar al endpoint de Cloudflare Pages Function
-      await fetch('/api/appointment', {
+      // Solo se confirma si el servidor registró la cita (respuesta 2xx).
+      const res = await fetch('/api/appointment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
-      // 2. Intentar registrar en el microservicio local si está activo
-      try {
-        await fetch('http://localhost:3005/api/appointment', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-      } catch (e) {
-        // Fallback transparente
-      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       form.classList.add('hidden');
       if (successScreen) {
@@ -358,9 +362,22 @@ while (availableDates.length < 6) {
         if (confirmedTime) confirmedTime.textContent = selectedSlot;
       }
     } catch (err) {
-      alert('Hubo un problema registrando tu cita. Por favor escríbenos directamente a WhatsApp.');
+      console.warn('[agendar] La cita no se pudo registrar:', err);
+      showError(payload);
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Confirmar Videollamada Estratégica (15 min)';
+      submitBtn.textContent = SUBMIT_LABEL;
     }
   });
+
+  /** Sin registro, la solicitud viaja por WhatsApp con los datos ya escritos: el cliente no se pierde. */
+  function showError(data: Record<string, FormDataEntryValue | string | null>) {
+    if (!errorBox || !errorWa) return;
+    const value = (key: string) => String(data[key] ?? '').trim();
+    const message =
+      `Hola Rembrandt Studio, quiero agendar una videollamada el ${value('dateStr')} a las ${value('timeSlot')}.` +
+      ` Soy ${value('clientName')}${value('companyName') ? ` de ${value('companyName')}` : ''}.` +
+      ` Me interesa: ${value('serviceInterested')}.`;
+    errorWa.href = `https://wa.me/${errorBox.dataset.waNumber}?text=${encodeURIComponent(message)}`;
+    errorBox.classList.remove('hidden');
+  }
 </script>
