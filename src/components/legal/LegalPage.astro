@@ -1,0 +1,203 @@
+---
+// Plantilla editorial para documentos legales: encabezado, índice navegable
+// (fijo en PC) y secciones separadas por filetes, sin tarjetas de cristal.
+// Las obras de fondo las pone RembrandtArtBorders con el catálogo "legal".
+import Layout from '../../layouts/Layout.astro';
+import Header from '../Header.astro';
+import Footer from '../Footer.astro';
+
+export interface LegalSection {
+  id: string;
+  title: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  heading: string;
+  lastUpdated: string;
+  framework: string;
+  sections: LegalSection[];
+}
+
+const { title, description, eyebrow, heading, lastUpdated, framework, sections } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <Header />
+
+  <main class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32">
+    <div class="mx-auto w-[min(1080px,calc(100%-2.5rem))]">
+      <header class="legal-head">
+        <p class="text-xs font-medium tracking-[0.22em] text-mute uppercase">{eyebrow}</p>
+        <h1 class="mt-4 font-display text-[clamp(2.4rem,4.5vw,3.8rem)] leading-[1.05] text-light">
+          {heading}
+        </h1>
+        <p class="mt-4 text-xs text-mute">
+          Última actualización: {lastUpdated}<span aria-hidden="true"> · </span><br
+            class="sm:hidden"
+          />{framework}
+        </p>
+      </header>
+
+      <div class="legal-grid">
+        <nav class="legal-toc" aria-label="Contenido del documento">
+          <p class="legal-toc__title">Contenido</p>
+          <ol>
+            {
+              sections.map((s, i) => (
+                <li>
+                  <a href={`#${s.id}`}>
+                    <span class="legal-toc__num">{String(i + 1).padStart(2, '0')}</span>
+                    {s.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+
+        <article class="legal-body">
+          <slot />
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legal-head {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgb(244 239 230 / 0.1);
+  }
+
+  .legal-grid {
+    display: grid;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+  @media (min-width: 1024px) {
+    .legal-grid {
+      grid-template-columns: 15rem 1fr;
+      gap: 4rem;
+    }
+    .legal-toc {
+      position: sticky;
+      top: 7rem;
+      align-self: start;
+    }
+  }
+
+  .legal-toc__title {
+    font-size: 0.66rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+  .legal-toc ol {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .legal-toc a {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: var(--color-mute);
+    transition: color 0.2s;
+  }
+  .legal-toc a:hover {
+    color: var(--color-light);
+  }
+  .legal-toc__num {
+    flex-shrink: 0;
+    font-family: var(--font-display);
+    color: rgb(217 119 6 / 0.8);
+  }
+
+  /* Tipografía del cuerpo legal (las secciones vienen del slot) */
+  .legal-body {
+    max-width: 44rem;
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: rgb(244 239 230 / 0.82);
+  }
+  .legal-body :global(section) {
+    padding: 2rem 0;
+    border-top: 1px solid rgb(244 239 230 / 0.08);
+    scroll-margin-top: 7rem;
+  }
+  .legal-body :global(section:first-child) {
+    padding-top: 0;
+    border-top: 0;
+  }
+  .legal-body :global(h2) {
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2vw, 1.65rem);
+    line-height: 1.25;
+    color: var(--color-light);
+  }
+  .legal-body :global(h3) {
+    margin-top: 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-light);
+  }
+  .legal-body :global(p + p),
+  .legal-body :global(p + ul),
+  .legal-body :global(p + ol),
+  .legal-body :global(ul + p),
+  .legal-body :global(ol + p) {
+    margin-top: 0.85rem;
+  }
+  .legal-body :global(ul),
+  .legal-body :global(ol) {
+    display: grid;
+    gap: 0.55rem;
+    padding-left: 1.25rem;
+    color: var(--color-mute);
+  }
+  .legal-body :global(ul) {
+    list-style: none;
+    padding-left: 0;
+  }
+  .legal-body :global(ul > li) {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+  .legal-body :global(ul > li)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85em;
+    width: 0.6rem;
+    height: 1px;
+    background: rgb(217 119 6 / 0.7);
+  }
+  .legal-body :global(ol) {
+    list-style: decimal;
+  }
+  .legal-body :global(strong) {
+    font-weight: 600;
+    color: var(--color-light);
+  }
+  .legal-body :global(a) {
+    color: var(--color-light);
+    text-decoration: underline;
+    text-decoration-color: rgb(217 119 6 / 0.6);
+    text-underline-offset: 3px;
+  }
+  .legal-body :global(.legal-note) {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgb(217 119 6 / 0.5);
+    font-size: 0.88rem;
+    color: var(--color-mute);
+  }
+</style>

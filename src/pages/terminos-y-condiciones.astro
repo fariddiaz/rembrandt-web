@@ -1,142 +1,254 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { CONTACT_EMAIL, WHATSAPP_NUMBER } from '../config/site';
+import LegalPage, { type LegalSection } from '../components/legal/LegalPage.astro';
+import { CONTACT_EMAIL, WHATSAPP_NUMBER, plans } from '../config/site';
 
-const lastUpdated = '2 de noviembre de 2026';
+const lastUpdated = '5 de noviembre de 2026';
+const whatsappDisplay = '+57 314 771 4202';
+
+const sections: LegalSection[] = [
+  { id: 'objeto', title: 'Objeto y aceptación' },
+  { id: 'contratacion', title: 'Cómo se contrata' },
+  { id: 'pagos', title: 'Pagos y facturación' },
+  { id: 'plazos', title: 'Plazos de entrega' },
+  { id: 'obligaciones', title: 'Obligaciones de las partes' },
+  { id: 'propiedad', title: 'Propiedad intelectual' },
+  { id: 'garantia', title: 'Garantía' },
+  { id: 'retracto', title: 'Derecho de retracto' },
+  { id: 'mantenimiento', title: 'Mantenimiento' },
+  { id: 'responsabilidad', title: 'Límites de responsabilidad' },
+  { id: 'datos', title: 'Datos personales' },
+  { id: 'controversias', title: 'Ley aplicable y controversias' },
+  { id: 'contacto', title: 'Cambios y contacto' },
+];
 ---
 
-<Layout
+<LegalPage
   title="Términos y Condiciones · Rembrandt Studio"
-  description="Condiciones de contratación, propiedad intelectual, esquemas de pago y garantías de entrega de los servicios de Rembrandt Studio."
+  description="Condiciones de contratación, pagos, plazos, propiedad intelectual, garantía y derecho de retracto de los servicios de Rembrandt Studio, conforme a la ley colombiana."
+  eyebrow="Condiciones de contratación"
+  heading="Términos y Condiciones"
+  lastUpdated={lastUpdated}
+  framework="Leyes 1480 de 2011, 527 de 1999, 23 de 1982 y 1581 de 2012 (Colombia)"
+  sections={sections}
 >
-  <Header />
+  <section id="objeto">
+    <h2>1. Objeto y aceptación</h2>
+    <p>
+      Estos términos regulan la relación entre <strong>Rembrandt Studio</strong> («el Estudio») y quienes
+      contratan sus servicios de diseño y desarrollo web, páginas de aterrizaje, sitios corporativos,
+      tiendas en línea, experiencias 3D interactivas, automatizaciones de WhatsApp y mantenimiento («el
+      Cliente»).
+    </p>
+    <p>
+      Navegar el sitio no crea obligaciones contractuales. Al aceptar una cotización y pagar el
+      anticipo, el Cliente acepta estos términos junto con el alcance descrito en esa cotización. Si
+      ambos documentos difieren, prevalece la cotización aceptada.
+    </p>
+  </section>
 
-  <main class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32">
-    <!-- Fondo claroscuro de arte: El Molino (1645) -->
-    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10" aria-hidden="true">
-      <img
-        src="/art/mill.webp"
-        alt=""
-        class="size-full object-cover filter grayscale contrast-125 brightness-75"
-        loading="lazy"
-        decoding="async"
-      />
-      <div class="absolute inset-0 bg-gradient-to-b from-carbon via-carbon/90 to-carbon"></div>
-    </div>
+  <section id="contratacion">
+    <h2>2. Cómo se contrata</h2>
+    <ol>
+      <li>
+        El Cliente describe su proyecto por WhatsApp, correo, el formulario del sitio o una
+        videollamada.
+      </li>
+      <li>
+        El Estudio envía una cotización con alcance, entregables, precio, plazo y número de rondas
+        de ajustes.
+      </li>
+      <li>
+        El Cliente acepta la cotización por escrito y paga el anticipo. Desde ese momento el
+        contrato queda celebrado.
+      </li>
+    </ol>
+    <p>
+      Conforme a la Ley 527 de 1999, la aceptación enviada por correo electrónico, WhatsApp u otro
+      mensaje de datos tiene la misma validez que una firma en papel.
+    </p>
+  </section>
 
-    <div class="mx-auto w-[min(960px,calc(100%-2.5rem))]">
-      <header class="mb-12 border-b border-white/10 pb-8">
-        <p class="text-xs uppercase tracking-[0.22em] text-mute font-medium">Marco Contractual & Condiciones Comerciales</p>
-        <h1 class="mt-4 font-display text-[clamp(2.4rem,4.5vw,3.8rem)] leading-[1.05] text-light">
-          Términos y Condiciones
-        </h1>
-        <p class="mt-3 text-xs font-mono text-mute">
-          Última actualización: {lastUpdated} · Rembrandt Studio
-        </p>
-      </header>
+  <section id="pagos">
+    <h2>3. Pagos y facturación</h2>
+    <ul>
+      <li>
+        <strong>50% de anticipo</strong> para reservar el cupo en el cronograma e iniciar el trabajo.
+      </li>
+      <li>
+        <strong>50% restante</strong> cuando el sitio esté terminado, revisado en un entorno de previsualización
+        y aprobado por el Cliente, antes de publicarlo en su dominio.
+      </li>
+    </ul>
+    <p>
+      En Colombia se aceptan transferencias (Bancolombia, Nequi, PSE). Desde el exterior, pagos en
+      dólares (USD) por Stripe, tarjeta de crédito o débito y transferencia internacional. Los
+      precios publicados en dólares son de referencia; los valores en pesos colombianos son
+      aproximados y se fijan en la cotización.
+    </p>
+  </section>
 
-      <div class="prose prose-invert max-w-none space-y-8 text-sm md:text-base leading-relaxed text-light/80">
-        
-        <!-- Sección 1 -->
-        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
-          <h2 class="font-display text-xl text-light md:text-2xl mb-4">1. Objeto y Alcance del Servicio</h2>
-          <p>
-            El presente documento regula la relación comercial entre <strong>Rembrandt Studio</strong> (en adelante, «el Estudio») y los clientes que contraten servicios de diseño web, ingeniería de software, desarrollo de páginas de aterrizaje express, portales corporativos, catálogos de comercio electrónico, experiencias 3D interactivas y flujos de automatización para WhatsApp.
-          </p>
-          <p class="mt-3 text-sm text-mute">
-            El acceso al sitio web, la solicitud de cotizaciones y la contratación formal de cualquier servicio implican la aceptación plena e incondicional de los presentes Términos y Condiciones.
-          </p>
-        </section>
+  <section id="plazos">
+    <h2>4. Plazos de entrega</h2>
+    <ul>
+      {
+        plans.map((p) => (
+          <li>
+            <strong>{p.name}:</strong> {p.delivery.replace(/^Entrega( garantizada)? en /, '')}.
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      Los plazos corren desde el día hábil siguiente a recibir el anticipo y los insumos necesarios
+      (logotipo, textos, fotografías o referencias acordadas). Si el Cliente demora el envío de
+      material o sus aprobaciones, el plazo se extiende por el mismo tiempo de la demora.
+    </p>
+  </section>
 
-        <!-- Sección 2 -->
-        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
-          <h2 class="font-display text-xl text-light md:text-2xl mb-4">2. Propiedad Total del Cliente (100% Tuya)</h2>
-          <p>
-            En Rembrandt Studio defendemos la soberanía digital de cada empresa. A diferencia de las plataformas cerradas de suscripción cautiva:
-          </p>
-          <ul class="mt-3 list-disc pl-5 space-y-2 text-sm text-mute">
-            <li><strong>Código Fuente y Activos:</strong> Una vez cancelada la totalidad del valor acordado para el proyecto, el código fuente, hojas de estilo, archivos multimedia y base de datos del sitio web pasan a ser <strong>propiedad absoluta del cliente</strong>.</li>
-            <li><strong>Dominio y Credenciales:</strong> El dominio web adquirido se registrará a nombre del cliente o su empresa, garantizando que el titular mantenga el control autónomo de sus activos digitales.</li>
-            <li><strong>Sin Ataduras Forzosas:</strong> No existen cláusulas de permanencia mínima obligatoria sobre el desarrollo inicial ni cobros por liberación de archivos.</li>
-          </ul>
-        </section>
+  <section id="obligaciones">
+    <h2>5. Obligaciones de las partes</h2>
+    <h3>El Estudio se compromete a</h3>
+    <ul>
+      <li>
+        Entregar el trabajo descrito en la cotización, en el plazo acordado y con código propio, sin
+        plantillas.
+      </li>
+      <li>
+        Mantener informado al Cliente sobre el avance y atender las rondas de ajustes incluidas.
+      </li>
+      <li>Guardar confidencialidad sobre la información del negocio del Cliente.</li>
+    </ul>
+    <h3>El Cliente se compromete a</h3>
+    <ul>
+      <li>Entregar a tiempo los insumos y aprobaciones que el proyecto requiera.</li>
+      <li>
+        Garantizar que tiene los derechos sobre los textos, imágenes, marcas y demás material que
+        entrega para el sitio.
+      </li>
+      <li>Pagar los valores acordados en las fechas previstas.</li>
+    </ul>
+    <p>
+      Los cambios que excedan el alcance o las rondas de ajustes incluidas se cotizan aparte antes
+      de ejecutarse.
+    </p>
+  </section>
 
-        <!-- Sección 3 -->
-        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
-          <h2 class="font-display text-xl text-light md:text-2xl mb-4">3. Esquema de Pagos y Facturación</h2>
-          <p>
-            Para garantizar la seriedad y el compromiso bilateral en la ejecución de los proyectos, se establece el siguiente esquema comercial estándar:
-          </p>
-          <div class="mt-4 grid gap-4 md:grid-cols-2 text-sm">
-            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
-              <h3 class="font-semibold text-light mb-1">50% Anticipo Inicial</h3>
-              <p class="text-xs text-mute">
-                Requerido para reservar el cupo de desarrollo en el cronograma, adquirir el dominio, estructurar la arquitectura y comenzar el diseño de autor.
-              </p>
-            </div>
-            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
-              <h3 class="font-semibold text-light mb-1">50% Contra Entrega y Aprobación</h3>
-              <p class="text-xs text-mute">
-                Se liquida una vez el sitio web esté completamente desarrollado, revisado en entorno de previsualización y aprobado a entera satisfacción por el cliente.
-              </p>
-            </div>
-          </div>
-          <p class="mt-4 text-xs text-mute">
-            Se aceptan transferencias bancarias en Colombia (Bancolombia, Nequi, PSE) y pagos internacionales en dólares estadounidenses (USD) mediante Stripe, transferencias bancarias internacionales y tarjetas de crédito/débito.
-          </p>
-        </section>
+  <section id="propiedad">
+    <h2>6. Propiedad intelectual</h2>
+    <ul>
+      <li>
+        <strong>El sitio es del Cliente.</strong> Con el pago total, el Estudio cede al Cliente los derechos
+        patrimoniales sobre el diseño, el código fuente y los archivos desarrollados para su proyecto
+        (Ley 23 de 1982 y Decisión Andina 351 de 1993). No hay permanencia mínima ni cobros por entregar
+        archivos.
+      </li>
+      <li>
+        <strong>El dominio</strong> se registra a nombre del Cliente o de su empresa.
+      </li>
+      <li>
+        <strong>Componentes de terceros</strong> (tipografías, librerías de código abierto, Spline, pasarelas
+        de pago) siguen sujetos a sus propias licencias, que el Estudio informa cuando aplican.
+      </li>
+      <li>
+        <strong>Portafolio.</strong> El Estudio conserva los derechos morales de autoría y puede mostrar
+        el proyecto terminado en su portafolio, salvo que el Cliente lo pida por escrito.
+      </li>
+    </ul>
+  </section>
 
-        <!-- Sección 4 -->
-        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
-          <h2 class="font-display text-xl text-light md:text-2xl mb-4">4. Plazos de Entrega y Compromiso de Agilidad</h2>
-          <p>
-            Rembrandt Studio se compromete a entregar proyectos rápidos y perfectos en los plazos contractuales acordados para cada solución:
-          </p>
-          <ul class="mt-3 list-disc pl-5 space-y-1.5 text-sm text-mute">
-            <li><strong>Página Web Express:</strong> 4 a 6 días hábiles.</li>
-            <li><strong>Web Corporativa & Autoridad:</strong> 8 a 12 días hábiles.</li>
-            <li><strong>Web + Automatización WhatsApp:</strong> 12 a 15 días hábiles.</li>
-            <li><strong>Catálogo & Tienda Ágil:</strong> 15 a 20 días hábiles.</li>
-            <li><strong>Obra Signature & 3D Craft:</strong> 3 a 5 semanas calendario.</li>
-          </ul>
-          <p class="mt-3 text-xs text-mute">
-            El cómputo de los plazos inicia a partir del día hábil siguiente a la recepción del anticipo y de los insumos indispensables (logotipos, referencias y contenido acordado). Si el cliente experimenta demoras en el envío de material o aprobaciones, el cronograma se extenderá de forma proporcional.
-          </p>
-        </section>
+  <section id="garantia">
+    <h2>7. Garantía</h2>
+    <p>
+      De acuerdo con la Ley 1480 de 2011, el Estudio responde por la calidad e idoneidad de su
+      trabajo: los errores de funcionamiento atribuibles al desarrollo se corrigen sin costo cuando
+      el Cliente los reporta.
+    </p>
+    <p>
+      La garantía no cubre fallas causadas por cambios hechos por el Cliente o por terceros sobre el
+      código entregado, ni por cambios en servicios externos (por ejemplo, políticas de Meta,
+      WhatsApp o una pasarela de pagos).
+    </p>
+  </section>
 
-        <!-- Sección 5 -->
-        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
-          <h2 class="font-display text-xl text-light md:text-2xl mb-4">5. Servicios de Mantenimiento Post-Lanzamiento</h2>
-          <p>
-            El cliente puede elegir libremente entre suscribir un paquete mensual de cuidado técnico o solicitar intervenciones a demanda:
-          </p>
-          <ul class="mt-3 list-disc pl-5 space-y-1.5 text-sm text-mute">
-            <li><strong>Planes Recurrentes (Cuidado Esencial, Activo y Pro):</strong> Incluyen monitoreo 24/7, servidores de alta velocidad, copias de seguridad continuas y horas de ajustes mensuales. Pueden cancelarse o pausarse en cualquier momento notificando con cinco (5) días hábiles de anticipación.</li>
-            <li><strong>Opción a Demanda (Pago Único):</strong> Sin mensualidades obligatorias. El cliente contrata y paga únicamente por la modificación técnica puntual solicitada por WhatsApp o correo corporativo.</li>
-          </ul>
-        </section>
+  <section id="retracto">
+    <h2>8. Derecho de retracto</h2>
+    <p>
+      Cuando el Cliente tenga la calidad de consumidor, puede retractarse dentro de los cinco (5)
+      días hábiles siguientes a la celebración del contrato, según el artículo 47 de la Ley 1480 de
+      2011. En ese caso el Estudio devuelve el dinero pagado en un plazo máximo de treinta (30) días
+      calendario.
+    </p>
+    <p class="legal-note">
+      La misma ley excluye del retracto los servicios cuya prestación ya comenzó con el acuerdo del
+      consumidor y los bienes hechos según sus especificaciones o claramente personalizados. Por
+      eso, si el Cliente pide iniciar de inmediato, el retracto aplica solo mientras el trabajo no
+      haya comenzado.
+    </p>
+  </section>
 
-        <!-- Sección 6 -->
-        <section class="glass rounded-2xl border border-white/10 p-6 md:p-8">
-          <h2 class="font-display text-xl text-light md:text-2xl mb-4">6. Limitación de Responsabilidad y Legislación Aplicable</h2>
-          <p>
-            Rembrandt Studio aplica rigurosas prácticas de ingeniería, seguridad y optimización de carga. No obstante, no asume responsabilidad por:
-          </p>
-          <ul class="mt-3 list-disc pl-5 space-y-1.5 text-sm text-mute">
-            <li>Caídas originadas por fallas masivas fortuitas en proveedores globales de telecomunicaciones o infraestructura en la nube (AWS, Cloudflare, etc.).</li>
-            <li>Modificaciones no autorizadas realizadas por terceros o por el cliente sobre el código fuente una vez entregado.</li>
-            <li>Interrupciones o cambios en las políticas de APIs externas (Meta/WhatsApp, Stripe, etc.) ajenas a la gobernanza del Estudio.</li>
-          </ul>
-          <p class="mt-4 text-sm">
-            Los presentes términos se rigen e interpretan de conformidad con las leyes de la República de Colombia. Cualquier inquietud sobre estos términos o solicitud de aclaración contractual puede remitirse al correo <a href={`mailto:${CONTACT_EMAIL}`} class="text-amber-200 underline">{CONTACT_EMAIL}</a> o a la línea de atención <a href={`https://wa.me/${WHATSAPP_NUMBER}`} class="text-amber-200 underline">+{WHATSAPP_NUMBER}</a>.
-          </p>
-        </section>
+  <section id="mantenimiento">
+    <h2>9. Mantenimiento</h2>
+    <ul>
+      <li>
+        <strong>Planes mensuales</strong> (Cuidado Esencial, Activo y Pro): incluyen alojamiento, monitoreo,
+        copias de seguridad y las horas de ajustes de cada plan. Se pueden pausar o cancelar avisando
+        con cinco (5) días hábiles de anticipación, sin penalidad.
+      </li>
+      <li>
+        <strong>Opción a demanda:</strong> sin mensualidad; el Cliente paga solo cada cambio que solicite,
+        según la tarifa publicada.
+      </li>
+    </ul>
+  </section>
 
-      </div>
-    </div>
-  </main>
+  <section id="responsabilidad">
+    <h2>10. Límites de responsabilidad</h2>
+    <p>El Estudio no responde por:</p>
+    <ul>
+      <li>
+        Caídas de proveedores de infraestructura o telecomunicaciones ajenos al Estudio (por
+        ejemplo, Cloudflare o AWS).
+      </li>
+      <li>Modificaciones al código hechas por el Cliente o por terceros después de la entrega.</li>
+      <li>
+        Cambios en las políticas o interfaces de servicios externos (Meta, WhatsApp, Stripe,
+        Google).
+      </li>
+      <li>El contenido que el Cliente publique en su sitio.</li>
+    </ul>
+    <p>Nada de lo anterior limita los derechos que la ley colombiana reconoce al consumidor.</p>
+  </section>
 
-  <Footer />
-</Layout>
+  <section id="datos">
+    <h2>11. Datos personales</h2>
+    <p>
+      El tratamiento de los datos que el Cliente comparte con el Estudio se rige por nuestra
+      <a href="/politica-de-privacidad">Política de Privacidad</a>, conforme a la Ley 1581 de 2012.
+    </p>
+  </section>
+
+  <section id="controversias">
+    <h2>12. Ley aplicable y controversias</h2>
+    <p>
+      Estos términos se rigen por las leyes de la República de Colombia. Cualquier diferencia se
+      intentará resolver primero de forma directa durante treinta (30) días calendario. Si no hay
+      acuerdo, el Cliente consumidor puede acudir a la Superintendencia de Industria y Comercio, y
+      cualquiera de las partes a los jueces competentes de Colombia.
+    </p>
+  </section>
+
+  <section id="contacto">
+    <h2>13. Cambios y contacto</h2>
+    <p>
+      El Estudio puede actualizar estos términos; la versión vigente es la publicada en esta página
+      con su fecha de actualización. Los proyectos ya contratados se rigen por la versión aceptada
+      al contratar.
+    </p>
+    <p>
+      Escríbenos a <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> o por WhatsApp al
+      <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener"
+        >{whatsappDisplay}</a
+      >.
+    </p>
+  </section>
+</LegalPage>
