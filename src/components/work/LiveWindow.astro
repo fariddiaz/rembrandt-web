@@ -1,0 +1,207 @@
+---
+// Ventana en vivo de un caso de estudio.
+// En PC con puntero fino el sitio real se carga dentro de la tarjeta (iframe a
+// 1440 px escalado al ancho de la tarjeta) cuando la tarjeta se acerca al
+// viewport; al pasar el cursor la página se recorre sola de arriba abajo y la
+// tarjeta se inclina en 3D hacia el puntero. Un clic abre la preview
+// interactiva completa (PreviewDialog). En móvil, con ahorro de datos o si el
+// sitio no responde, queda el póster tipográfico: nunca una captura muerta.
+// Lógica en src/scripts/work-preview.ts.
+import SiteSkeleton from '../ui/SiteSkeleton.astro';
+
+interface Props {
+  url: string;
+  liveUrl: string;
+  client: string;
+  sector: string;
+  domain: string;
+  tint: [string, string];
+}
+const { url, liveUrl, client, sector, domain, tint } = Astro.props;
+---
+
+<div class="live-window" style={`--t1:${tint[0]};--t2:${tint[1]}`} data-tilt data-live-window>
+  <div class="lw-bar">
+    <span class="lw-status"><span class="lw-dot" aria-hidden="true"></span>En vivo</span>
+    <span class="lw-domain">{domain}</span>
+  </div>
+
+  <button
+    type="button"
+    class="lw-stage"
+    data-preview={url}
+    data-preview-title={client}
+    data-preview-live={liveUrl}
+    data-cursor="EXPLORAR"
+    aria-label={`Abrir la preview interactiva de ${client}`}
+  >
+    <span class="lw-poster" aria-hidden="true">
+      <span class="lw-poster__client">{client}</span>
+      <span class="lw-poster__sector">{sector}</span>
+    </span>
+
+    <SiteSkeleton class="lw-skeleton is-hidden" label={`Abriendo ${domain}`} />
+
+    <iframe
+      class="lw-frame"
+      data-lw-src={url}
+      title={`Sitio en vivo de ${client}`}
+      tabindex="-1"
+      aria-hidden="true"
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+    <span class="lw-hint" aria-hidden="true">Clic para interactuar</span>
+  </button>
+</div>
+
+<style>
+  .live-window {
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgb(244 239 230 / 0.08);
+    border-radius: var(--radius-lg);
+    background: var(--color-carbon-2);
+    box-shadow: 0 40px 80px -48px rgb(7 6 9 / 0.95);
+    transform: perspective(1400px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    transition: transform 0.7s var(--ease-cine);
+  }
+  .live-window.is-tilting {
+    transition: transform 0.12s linear;
+  }
+
+  .lw-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid rgb(244 239 230 / 0.06);
+    font-size: 0.66rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgb(244 239 230 / 0.5);
+  }
+  .lw-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gold);
+  }
+  .lw-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .lw-domain {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: 0.08em;
+    text-transform: none;
+  }
+
+  .lw-stage {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  /* Póster tipográfico: siempre presente debajo, visible si no hay iframe */
+  .lw-poster {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    background:
+      radial-gradient(
+        60% 70% at 22% 20%,
+        color-mix(in srgb, var(--t1) 28%, transparent),
+        transparent 72%
+      ),
+      radial-gradient(
+        60% 70% at 88% 92%,
+        color-mix(in srgb, var(--t2) 22%, transparent),
+        transparent 72%
+      ),
+      linear-gradient(160deg, var(--color-carbon-3), var(--color-carbon));
+  }
+  .lw-poster__client {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.2vw, 3.6rem);
+    line-height: 0.98;
+    color: var(--color-light);
+  }
+  .lw-poster__sector {
+    font-size: 0.8rem;
+    color: rgb(244 239 230 / 0.6);
+  }
+
+  /* Iframe a 1440 px "reales", escalado con --s; al hover se recorre (--travel) */
+  .lw-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1440px;
+    height: 2700px;
+    border: 0;
+    background: var(--color-carbon);
+    pointer-events: none;
+    opacity: 0;
+    transform-origin: 0 0;
+    transform: translateY(0) scale(var(--s, 0.5));
+    transition:
+      opacity 0.8s var(--ease-cine),
+      transform 7s var(--ease-oil);
+  }
+  .live-window.is-loaded .lw-frame {
+    opacity: 1;
+  }
+  .live-window.is-loaded .lw-stage:is(:hover, :focus-visible) .lw-frame {
+    transform: translateY(calc(var(--travel, 0px) * -1)) scale(var(--s, 0.5));
+  }
+
+  .lw-hint {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--radius-sm);
+    background: rgb(7 6 9 / 0.85);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-light);
+    opacity: 0;
+    transform: translate3d(0, 0.4rem, 0);
+    transition:
+      opacity 0.4s var(--ease-cine),
+      transform 0.4s var(--ease-cine);
+  }
+  .lw-stage:is(:hover, :focus-visible) .lw-hint {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live-window {
+      transform: none !important;
+    }
+    .lw-frame {
+      transition: opacity 0.3s;
+    }
+    .live-window.is-loaded .lw-stage:is(:hover, :focus-visible) .lw-frame {
+      transform: scale(var(--s, 0.5));
+    }
+  }
+</style>

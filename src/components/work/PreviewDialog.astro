@@ -1,0 +1,244 @@
+---
+// Modal de preview interactiva: el sitio real a tamaño completo, con selector
+// de dispositivo (escritorio, tablet, celular) y skeleton mientras carga.
+// Lo abren los [data-preview] de Work.astro; lógica en work-preview.ts.
+import SiteSkeleton from '../ui/SiteSkeleton.astro';
+
+const devices = [
+  { id: 'desktop', label: 'Escritorio' },
+  { id: 'tablet', label: 'Tablet' },
+  { id: 'mobile', label: 'Celular' },
+];
+---
+
+<dialog
+  id="case-preview"
+  class="preview-dialog"
+  aria-labelledby="case-preview-title"
+  data-lenis-prevent
+>
+  <div class="pd-shell">
+    <header class="pd-bar">
+      <p id="case-preview-title" class="pd-title">
+        <span class="pd-name" data-preview-name></span>
+        <span class="pd-domain" data-preview-domain></span>
+      </p>
+
+      <div class="pd-devices" role="group" aria-label="Tamaño de la vista">
+        {
+          devices.map((d, i) => (
+            <button
+              type="button"
+              class="pd-device"
+              data-device={d.id}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+            >
+              {d.label}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="pd-actions">
+        <a data-preview-live href="#" target="_blank" rel="noopener" class="pd-action">
+          Abrir en vivo <span aria-hidden="true">↗</span>
+        </a>
+        <button type="button" data-preview-close class="pd-action pd-close">Cerrar</button>
+      </div>
+    </header>
+
+    <div class="pd-viewport">
+      <div class="pd-frame" data-preview-wrap>
+        <iframe title="Preview interactiva del sitio web" data-preview-frame allow="fullscreen"
+        ></iframe>
+      </div>
+      <SiteSkeleton class="pd-skeleton" />
+    </div>
+
+    <footer class="pd-foot">
+      <span>Sitio real en vivo: navega, desplázate y prueba los formularios.</span>
+      <span class="max-sm:hidden">Esc para cerrar</span>
+    </footer>
+  </div>
+</dialog>
+
+<style>
+  .preview-dialog {
+    width: min(1320px, calc(100% - 1.5rem));
+    height: min(92vh, 940px);
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    overflow: visible;
+  }
+  .preview-dialog::backdrop {
+    background: rgb(7 6 9 / 0.88);
+  }
+  .preview-dialog[open] {
+    animation: pd-in 0.5s var(--ease-cine);
+  }
+  /* El cursor personalizado se suspende dentro del modal */
+  .preview-dialog,
+  .preview-dialog * {
+    cursor: auto !important;
+  }
+  .preview-dialog :is(button, a) {
+    cursor: pointer !important;
+  }
+
+  .pd-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid rgb(244 239 230 / 0.1);
+    border-radius: var(--radius-lg);
+    background: var(--color-carbon-2);
+    box-shadow: 0 60px 120px -60px rgb(7 6 9);
+  }
+
+  .pd-bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 0.9rem;
+    border-bottom: 1px solid rgb(244 239 230 / 0.08);
+  }
+  .pd-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+  .pd-name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-light);
+    white-space: nowrap;
+  }
+  .pd-domain {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    color: var(--color-mute);
+  }
+
+  .pd-devices {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.2rem;
+    border: 1px solid rgb(244 239 230 / 0.08);
+    border-radius: var(--radius-md);
+  }
+  .pd-device {
+    min-height: 32px;
+    padding: 0 0.85rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--color-mute);
+    transition:
+      background-color 0.25s,
+      color 0.25s;
+  }
+  .pd-device[aria-pressed='true'] {
+    background: rgb(244 239 230 / 0.1);
+    color: var(--color-light);
+  }
+
+  .pd-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.4rem;
+  }
+  .pd-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 32px;
+    padding: 0 0.85rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--color-light);
+    transition: background-color 0.25s;
+  }
+  .pd-action:hover {
+    background: rgb(244 239 230 / 0.08);
+  }
+  .pd-close {
+    border: 1px solid rgb(244 239 230 / 0.12);
+  }
+
+  .pd-viewport {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    background: var(--color-carbon);
+  }
+  .pd-frame {
+    width: 100%;
+    height: 100%;
+    margin-inline: auto;
+    transition: width 0.55s var(--ease-cine);
+  }
+  .pd-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: var(--color-carbon);
+  }
+  .pd-frame:is(.is-tablet, .is-mobile) {
+    border-inline: 1px solid rgb(244 239 230 / 0.12);
+  }
+  .pd-frame.is-tablet {
+    width: min(820px, 100%);
+  }
+  .pd-frame.is-mobile {
+    width: min(390px, 100%);
+  }
+
+  .pd-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0.9rem;
+    border-top: 1px solid rgb(244 239 230 / 0.08);
+    font-size: 0.7rem;
+    color: var(--color-mute);
+  }
+
+  @media (max-width: 767px) {
+    .preview-dialog {
+      width: calc(100% - 0.75rem);
+      height: calc(100dvh - 0.75rem);
+    }
+    .pd-bar {
+      grid-template-columns: 1fr auto;
+    }
+    .pd-devices {
+      display: none;
+    }
+    .pd-frame:is(.is-tablet, .is-mobile) {
+      width: 100%;
+      border-inline: 0;
+    }
+  }
+
+  @keyframes pd-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 14px, 0) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

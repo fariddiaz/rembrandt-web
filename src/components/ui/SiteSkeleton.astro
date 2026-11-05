@@ -1,0 +1,129 @@
+---
+// Skeleton de un sitio web en línea fina: barra de navegación, titular,
+// párrafo y tres bloques. Un barrido de luz ámbar lo recorre mientras carga.
+// Se usa en la ventana en vivo del portafolio y en el modal de preview.
+interface Props {
+  label?: string;
+  class?: string;
+}
+const { label = 'Cargando sitio en vivo', class: className } = Astro.props;
+---
+
+<div class:list={['site-skeleton', className]} data-site-skeleton>
+  <div class="ss-nav"><span></span><span></span><span></span><span></span></div>
+  <div class="ss-hero">
+    <span class="ss-line ss-line--xl"></span>
+    <span class="ss-line ss-line--lg"></span>
+    <span class="ss-line ss-line--sm"></span>
+    <span class="ss-line ss-line--sm ss-line--short"></span>
+  </div>
+  <div class="ss-blocks"><span></span><span></span><span></span></div>
+  <p class="ss-label">{label}</p>
+</div>
+
+<style>
+  .site-skeleton {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    gap: 7%;
+    padding: 6% 7%;
+    overflow: hidden;
+    background: var(--color-carbon-2);
+    transition: opacity 0.6s var(--ease-cine);
+  }
+  .site-skeleton.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .site-skeleton :is(.ss-nav span, .ss-line, .ss-blocks span) {
+    display: block;
+    border-radius: var(--radius-sm);
+    background: rgb(244 239 230 / 0.06);
+  }
+
+  .ss-nav {
+    display: flex;
+    gap: 6%;
+  }
+  .ss-nav span {
+    width: 9%;
+    height: 0.4rem;
+  }
+  .ss-nav span:first-child {
+    width: 16%;
+    margin-right: auto;
+  }
+
+  .ss-hero {
+    display: grid;
+    align-content: center;
+    gap: 0.7rem;
+  }
+  .ss-line {
+    height: 0.45rem;
+  }
+  .ss-line--xl {
+    width: 62%;
+    height: 1.4rem;
+  }
+  .ss-line--lg {
+    width: 48%;
+    height: 1.4rem;
+    margin-bottom: 0.6rem;
+  }
+  .ss-line--sm {
+    width: 54%;
+  }
+  .ss-line--short {
+    width: 38%;
+  }
+
+  .ss-blocks {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 4%;
+  }
+  .ss-blocks span {
+    aspect-ratio: 4 / 3;
+  }
+
+  .ss-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgb(244 239 230 / 0.4);
+  }
+
+  /* Barrido de luz de taller sobre el boceto */
+  .site-skeleton::after {
+    content: '';
+    position: absolute;
+    inset: -20% -60%;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgb(217 119 6 / 0.08) 49%,
+      rgb(244 239 230 / 0.06) 50%,
+      rgb(217 119 6 / 0.08) 51%,
+      transparent 60%
+    );
+    animation: ss-sweep 2.6s var(--ease-oil) infinite;
+  }
+  @keyframes ss-sweep {
+    from {
+      transform: translate3d(-45%, 0, 0);
+    }
+    to {
+      transform: translate3d(45%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-skeleton::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+</style>
