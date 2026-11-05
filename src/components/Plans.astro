@@ -35,7 +35,7 @@ const wa = waSections.planes;
           <li class="stack-card" style={`--i:${i}`}>
             <article
               class:list={[
-                'glass grid gap-10 rounded-2xl p-7 md:grid-cols-[1.1fr_1fr] md:p-12 max-sm:gap-8 max-sm:p-6',
+                'glass grid min-w-0 grid-cols-[minmax(0,1fr)] gap-10 rounded-2xl p-7 md:grid-cols-[1.1fr_1fr] md:p-12 max-sm:gap-8 max-sm:p-6',
                 plan.featured && 'is-featured glass-sheen',
               ]}
               aria-labelledby={`plan-${plan.id}`}
@@ -81,7 +81,7 @@ const wa = waSections.planes;
 
               <div class="flex flex-col justify-between">
                 <div>
-                  <p class="font-display text-[clamp(2.4rem,4.2vw,3.8rem)] leading-none text-light whitespace-nowrap">
+                  <p class="font-display text-[clamp(2rem,4.2vw,3.8rem)] leading-none text-light sm:whitespace-nowrap">
                     {plan.priceUsd}
                   </p>
                   {plan.priceCop && <p class="mt-2 text-sm text-mute">{plan.priceCop}</p>}
@@ -154,7 +154,7 @@ const wa = waSections.planes;
 
       <div class="flex flex-wrap items-center gap-6">
         <div>
-          <p class="font-display text-4xl leading-none text-light whitespace-nowrap">
+          <p class="font-display text-4xl leading-none text-light sm:whitespace-nowrap">
             {carePlan.priceUsd}<span class="font-sans text-base text-mute">{carePlan.unit}</span>
           </p>
           <p class="text-xs text-mute mt-1">Sin contratos forzados</p>
