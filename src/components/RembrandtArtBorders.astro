@@ -1,252 +1,142 @@
 ---
-// Marco artístico lateral: pinturas de Rembrandt en los bordes del viewport.
-// Puramente decorativo: fijo, sin eventos de puntero y bajo el contenido (main es z-[2], footer es z-[10]).
-// Cada página (ventana) cuenta con más de 3 obras maestras exclusivas por lado (4 en izquierda y 4 en derecha = 8 por página),
-// ninguna repetida en todo el sitio, con transición al scroll y rótulo visible en todo momento.
+// Claroscuro dinámico: obras de Rembrandt en los márgenes del viewport.
+// Decorativo (aria-hidden), fijo y bajo el contenido (main z-[2], footer z-[10]).
+// PC (>= 1280px): 4 obras por lado que se relevan con el scroll; cada relevo
+//   "enciende" el cuadro como una lámpara de taller y un barrido de luz ámbar
+//   lo recorre. Las capas siguen al puntero con paralaje sutil.
+// Móvil y tablet: telón de 4 obras a pantalla completa bajo el contenido.
+// Lógica en src/scripts/art-borders.ts; catálogo en src/config/art.ts.
+import { artForPath, artVariant, type Artwork } from '../config/art';
 
-interface Artwork {
-  src: string;
-  caption: string;
-}
-
-interface PageArt {
-  left: Artwork[];
-  right: Artwork[];
-}
-
-const artCatalog: Record<string, PageArt> = {
-  inicio: {
-    left: [
-      { src: '/art/storm.jpg', caption: 'Tormenta en el Mar de Galilea · 1633' },
-      { src: '/art/jeremiah.jpg', caption: 'Jeremías Llorando la Ruina de Jerusalén · 1630' },
-      { src: '/art/europa.jpg', caption: 'El Rapto de Europa · 1632' },
-      { src: '/art/lazarus.jpg', caption: 'La Resurrección de Lázaro · 1632' },
-    ],
-    right: [
-      { src: '/art/nightwatch.jpg', caption: 'La Ronda de Noche · 1642' },
-      { src: '/art/claudius.jpg', caption: 'La Conspiración de Claudius Civilis · 1661' },
-      { src: '/art/goldenhelmet.jpg', caption: 'El Hombre del Casco de Oro · 1650' },
-      { src: '/art/polishnobleman.jpg', caption: 'Noble Polaco · 1637' },
-    ],
-  },
-  planes: {
-    left: [
-      { src: '/art/aristotle.jpg', caption: 'Aristóteles con el busto de Homero · 1653' },
-      { src: '/art/syndics.jpg', caption: 'Los Síndicos de los Pañeros · 1662' },
-      { src: '/art/scholar.jpg', caption: 'Erudito en su Gabinete · 1631' },
-      { src: '/art/tobit.jpg', caption: 'Tobías y su Esposa · 1659' },
-    ],
-    right: [
-      { src: '/art/mill.jpg', caption: 'El Molino · 1645' },
-      { src: '/art/jansix.jpg', caption: 'Retrato de Jan Six · 1654' },
-      { src: '/art/doomer.jpg', caption: 'Retrato de Harmen Doomer · 1640' },
-      { src: '/art/ladyfan.jpg', caption: 'Dama con Abanico de Plumas · 1656' },
-    ],
-  },
-  portafolio: {
-    left: [
-      { src: '/art/prodigalson.jpg', caption: 'El Retorno del Hijo Pródigo · 1669' },
-      { src: '/art/samson.jpg', caption: 'El Banquete de Bodas de Sansón · 1638' },
-      { src: '/art/jacob.jpg', caption: 'Jacob Bendiciendo a los Hijos de José · 1656' },
-      { src: '/art/susanna.jpg', caption: 'Susana y los Ancianos · 1647' },
-    ],
-    right: [
-      { src: '/art/anatomy.jpg', caption: 'Lección de Anatomía · 1632' },
-      { src: '/art/belshazzar.jpg', caption: 'El Festín de Baltasar · 1635' },
-      { src: '/art/peterprison.jpg', caption: 'San Pedro en Prisión · 1631' },
-      { src: '/art/manhat.jpg', caption: 'Caballero con Sombrero Alto · 1656' },
-    ],
-  },
-  proceso: {
-    left: [
-      { src: '/art/philosopher.jpg', caption: 'Filósofo en Meditación · 1632' },
-      { src: '/art/bellona.jpg', caption: 'Bellona, Diosa de la Guerra · 1633' },
-      { src: '/art/stpaulinprison.jpg', caption: 'San Pablo en Prisión · 1627' },
-      { src: '/art/bathsheba.jpg', caption: 'Betsabé en su Baño · 1654' },
-    ],
-    right: [
-      { src: '/art/isaac.jpg', caption: 'El Sacrificio de Isaac · 1635' },
-      { src: '/art/judith.jpg', caption: 'Judith en el Banquete de Holofernes · 1634' },
-      { src: '/art/simeon.jpg', caption: 'Simeón en el Templo · 1631' },
-      { src: '/art/lucretia.jpg', caption: 'El Suicidio de Lucrecia · 1666' },
-    ],
-  },
-  contacto: {
-    left: [
-      { src: '/art/jewishbride.jpg', caption: 'La Novia Judía · 1667' },
-      { src: '/art/flora.jpg', caption: 'Saskia como Flora · 1634' },
-      { src: '/art/hendrickje.jpg', caption: 'Retrato de Hendrickje Stoffels · 1654' },
-      { src: '/art/rembrandtsmother.jpg', caption: 'La Madre de Rembrandt · 1630' },
-    ],
-    right: [
-      { src: '/art/selfportrait.jpg', caption: 'Autorretrato con dos Círculos · 1665' },
-      { src: '/art/selfportrait1640.jpg', caption: 'Autorretrato a los 34 Años · 1640' },
-      { src: '/art/selfportrait1669.jpg', caption: 'Autorretrato Anciano · 1669' },
-      { src: '/art/selfportrait1632.jpg', caption: 'Autorretrato de Juventud · 1632' },
-    ],
-  },
-};
-
-// Detección SSR de página
-const pathname = Astro.url.pathname.toLowerCase().replace(/\/$/, '') || '/';
-let pageKey = 'inicio';
-if (pathname.includes('/planes')) pageKey = 'planes';
-else if (pathname.includes('/portafolio')) pageKey = 'portafolio';
-else if (pathname.includes('/proceso')) pageKey = 'proceso';
-else if (pathname.includes('/contacto')) pageKey = 'contacto';
-
-const currentArt = artCatalog[pageKey] || artCatalog.inicio;
-
-/** Variantes ligeras generadas por scripts/optimize-art.mjs (AVIF > WebP > JPG). */
-const variant = (src: string, ext: 'avif' | 'webp') => src.replace(/\.jpg$/i, `.${ext}`);
+const currentArt = artForPath(Astro.url.pathname);
 
 const sides = [
   { side: 'left', works: currentArt.left },
   { side: 'right', works: currentArt.right },
 ] as const;
+
+// Móvil: alterna lados para mezclar retratos y escenas en el mismo telón.
+const mobileWorks: Artwork[] = [
+  currentArt.left[0],
+  currentArt.right[0],
+  currentArt.left[2],
+  currentArt.right[2],
+];
 ---
-<div class="art-frame pointer-events-none fixed inset-0 z-0 hidden select-none xl:block" aria-hidden="true" data-art-borders>
-  {sides.map(({ side, works }) => (
-    <div class={`art-border art-border--${side}`}>
-      <div class="art-parallax" data-art-parallax>
+
+<div
+  class="art-frame pointer-events-none fixed inset-0 z-0 hidden select-none xl:block"
+  aria-hidden="true"
+  data-art-borders
+>
+  {
+    sides.map(({ side, works }) => (
+      <div class={`art-border art-border--${side}`}>
+        <div class="art-parallax" data-art-parallax={side}>
+          {works.map((w, i) => (
+            <picture>
+              <source srcset={artVariant(w.src, 'avif')} type="image/avif" />
+              <source srcset={artVariant(w.src, 'webp')} type="image/webp" />
+              <img
+                src={w.src}
+                alt=""
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                draggable="false"
+                class:list={['art-img', i === 0 && 'is-active']}
+                style={w.focus ? `object-position: ${w.focus}` : undefined}
+                data-art-state={i}
+              />
+            </picture>
+          ))}
+          <span class="art-sweep" data-art-sweep />
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<!-- Rótulos en capa hermana sobre <main> (z-[15]) para que los fondos no los tapen -->
+<div
+  class="pointer-events-none fixed inset-0 z-[15] hidden select-none xl:block"
+  aria-hidden="true"
+  data-art-captions
+>
+  {
+    sides.map(({ side, works }) => (
+      <div class={`art-caption-col art-caption-col--${side}`}>
         {works.map((w, i) => (
-          <picture>
-            <source srcset={variant(w.src, 'avif')} type="image/avif" />
-            <source srcset={variant(w.src, 'webp')} type="image/webp" />
-            <img
-              src={w.src}
-              alt=""
-              loading={i === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-              draggable="false"
-              class:list={['art-img', i === 0 && 'is-active']}
-              data-art-state={i}
-            />
-          </picture>
+          <span
+            class:list={['art-caption', `art-caption--${side}`, i === 0 && 'is-active']}
+            data-art-state={i}
+          >
+            <span class="art-caption__title">{w.title}</span>
+            <span class="art-caption__year">Rembrandt · {w.year}</span>
+          </span>
         ))}
       </div>
-    </div>
-  ))}
+    ))
+  }
 </div>
 
-<!-- Rótulos en capa fija hermana sobre <main> (z-[15]) para que los fondos no los tapen -->
-<div class="pointer-events-none fixed inset-0 z-[15] hidden select-none xl:block" aria-hidden="true" data-art-captions>
-  {sides.map(({ side, works }) => (
-    <div class={`art-caption-col art-caption-col--${side}`}>
-      {works.map((w, i) => (
-        <span class:list={['art-caption', `art-caption--${side}`, i === 0 && 'is-active']} data-art-state={i}>
-          {w.caption}
-        </span>
-      ))}
-    </div>
-  ))}
+<!-- Móvil y tablet (< 1280px): telón ambiental con 4 obras que se relevan al scroll -->
+<div
+  class="art-mobile-backdrop pointer-events-none fixed inset-0 z-0 select-none xl:hidden"
+  aria-hidden="true"
+  data-art-mobile-backdrop
+>
+  {
+    mobileWorks.map((w, i) => (
+      <picture>
+        <source srcset={artVariant(w.src, 'avif')} type="image/avif" />
+        <source srcset={artVariant(w.src, 'webp')} type="image/webp" />
+        <img
+          src={w.src}
+          alt=""
+          loading={i === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          draggable="false"
+          class:list={['art-mobile-img', i === 0 && 'is-active']}
+          style={w.focus ? `object-position: ${w.focus}` : undefined}
+          data-art-mobile-state={i}
+        />
+      </picture>
+    ))
+  }
 </div>
 
-<!-- Móvil & Tablet (< 1280px): telón de fondo ambiental con 4 obras maestras de Rembrandt que rotan al scroll -->
-<div class="art-mobile-backdrop pointer-events-none fixed inset-0 z-0 select-none xl:hidden" aria-hidden="true" data-art-mobile-backdrop>
-  {currentArt.left.map((w, i) => (
-    <picture>
-      <source srcset={variant(w.src, 'avif')} type="image/avif" />
-      <source srcset={variant(w.src, 'webp')} type="image/webp" />
-      <img
-        src={w.src}
-        alt=""
-        loading={i === 0 ? 'eager' : 'lazy'}
-        decoding="async"
-        draggable="false"
-        class:list={['art-mobile-img', i === 0 && 'is-active']}
-        data-art-mobile-state={i}
-      />
-    </picture>
-  ))}
-</div>
-
-<!-- Móvil: rótulos de autor idénticos a PC, situados por debajo de ventanas y bloques de texto (z-0) -->
-<div class="pointer-events-none fixed inset-0 z-0 select-none xl:hidden" aria-hidden="true" data-art-mobile-captions>
-  <div class="art-mobile-caption-wrap">
-    {currentArt.left.map((w, i) => (
+<div
+  class="pointer-events-none fixed inset-0 z-0 select-none xl:hidden"
+  aria-hidden="true"
+  data-art-mobile-captions
+>
+  {
+    mobileWorks.map((w, i) => (
       <span class:list={['art-caption-mobile', i === 0 && 'is-active']} data-art-mobile-state={i}>
-        {w.caption.split(' · ')[0]}
+        {w.title} · {w.year}
       </span>
-    ))}
-  </div>
+    ))
+  }
 </div>
 
 <script>
-  function initArtBorders() {
-    const root = document.querySelector<HTMLElement>('[data-art-borders]');
-    const captions = document.querySelector<HTMLElement>('[data-art-captions]');
-    const mobileCaptions = document.querySelector<HTMLElement>('[data-art-mobile-captions]');
-
-    const layers = root ? root.querySelectorAll<HTMLElement>('[data-art-parallax]') : [];
-    const desktopItems = document.querySelectorAll<HTMLElement>(
-      '[data-art-borders] [data-art-state], [data-art-captions] [data-art-state]'
-    );
-    const mobileItems = document.querySelectorAll<HTMLElement>(
-      '[data-art-mobile-backdrop] [data-art-mobile-state], [data-art-mobile-captions] [data-art-mobile-state]'
-    );
-    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    let current = -1;
-    let raf = 0;
-
-    const setState = (state: number) => {
-      if (state === current) return;
-      current = state;
-      desktopItems.forEach((el) => el.classList.toggle('is-active', Number(el.dataset.artState) === state));
-      mobileItems.forEach((el) => el.classList.toggle('is-active', Number(el.dataset.artMobileState) === state));
-    };
-
-    const update = () => {
-      raf = 0;
-      
-      // Progresión de scroll a lo largo de la página para alternar entre las 4 pinturas de cada lado
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight || 1;
-      const scrollRatio = Math.min(Math.max(window.scrollY / maxScroll, 0), 0.999);
-      const state = Math.min(Math.floor(scrollRatio * 4), 3);
-      setState(state);
-
-      // Ocultar rótulos cuando el footer entra al viewport (solo tras hacer scroll real)
-      const footer = document.querySelector('footer');
-      if (footer) {
-        const fRect = footer.getBoundingClientRect();
-        const hasScrolledDown = window.scrollY > 150;
-        const isAtFooter = hasScrolledDown && fRect.top < window.innerHeight - 80;
-        if (captions) captions.classList.toggle('at-footer', isAtFooter);
-        if (mobileCaptions) mobileCaptions.classList.toggle('at-footer', isAtFooter);
-      }
-
-      if (!reduceMotion) {
-        // Parallax sutil existente (sin alterar animación)
-        const shift = (scrollRatio - 0.5) * -8;
-        layers.forEach((l) => (l.style.transform = `translate3d(0, ${shift.toFixed(2)}%, 0)`));
-      }
-    };
-
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-
-    addEventListener('scroll', onScroll, { passive: true });
-    addEventListener('resize', onScroll, { passive: true });
-    update();
-  }
+  import { initArtBorders } from '../scripts/art-borders';
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initArtBorders);
+    document.addEventListener('DOMContentLoaded', initArtBorders, { once: true });
   } else {
     initArtBorders();
   }
 </script>
 
 <style>
+  /* ── PC: márgenes de óleo ─────────────────────────────────────── */
   .art-border {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: clamp(220px, 20vw, 380px);
+    width: clamp(240px, 22vw, 420px);
     overflow: hidden;
-    pointer-events: none;
   }
   .art-border--left {
     left: 0;
@@ -255,67 +145,91 @@ const sides = [
     right: 0;
   }
 
-  /* Capa con margen extra arriba/abajo para que el parallax nunca muestre bordes */
+  /* Margen extra para que el paralaje (scroll + puntero) nunca muestre bordes */
   .art-parallax {
     position: absolute;
-    inset: -6% 0;
-    mix-blend-mode: screen;
+    inset: -7% -4%;
     will-change: transform;
   }
 
+  /* Óleo a color, apenas apagado, que se "enciende" al relevarse */
   .art-img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) contrast(140%) brightness(80%);
     opacity: 0;
-    transition: opacity 1.2s var(--ease-cine);
+    filter: saturate(0.85) contrast(1.06) brightness(0.32);
+    transform: scale(1.06);
+    transition:
+      opacity var(--duration-slow) var(--ease-oil),
+      filter 1.6s var(--ease-oil),
+      transform 2.4s var(--ease-cine);
   }
   .art-img.is-active {
-    opacity: 0.16;
+    opacity: 0.4;
+    filter: saturate(0.85) contrast(1.06) brightness(0.88);
+    transform: scale(1);
   }
 
-  /* Viñeta: se disuelve hacia el centro y también arriba/abajo, fundiéndose en el carbón */
-  .art-border--left .art-parallax {
-    -webkit-mask-image:
-      linear-gradient(to right, #000 0%, transparent 80%),
-      linear-gradient(to bottom, transparent 0%, #000 18%, #000 72%, transparent 92%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, #000 0%, transparent 80%),
-      linear-gradient(to bottom, transparent 0%, #000 18%, #000 72%, transparent 92%);
-    mask-composite: intersect;
-  }
-  .art-border--right .art-parallax {
-    -webkit-mask-image:
-      linear-gradient(to left, #000 0%, transparent 80%),
-      linear-gradient(to bottom, transparent 0%, #000 18%, #000 72%, transparent 92%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to left, #000 0%, transparent 80%),
-      linear-gradient(to bottom, transparent 0%, #000 18%, #000 72%, transparent 92%);
-    mask-composite: intersect;
-  }
-
-  /* Tinte violeta sutil sobre el duotono, con la misma viñeta */
+  /* Veladura ciruela: hunde las sombras del cuadro en la penumbra de la marca */
   .art-parallax::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--color-violet);
-    mix-blend-mode: color;
-    opacity: 0.08;
+    background: var(--color-plum-ink);
+    mix-blend-mode: multiply;
+    opacity: 0.35;
   }
 
-  /* Columnas de rótulos: mismo ancho que los bordes para conservar la posición exacta */
+  /* Barrido de luz: banda ámbar diagonal que cruza el cuadro en cada relevo */
+  .art-sweep {
+    position: absolute;
+    inset: -20% -40%;
+    z-index: 1;
+    background: linear-gradient(
+      115deg,
+      transparent 38%,
+      rgb(217 119 6 / 0.16) 48%,
+      rgb(244 239 230 / 0.1) 50%,
+      rgb(217 119 6 / 0.16) 52%,
+      transparent 62%
+    );
+    mix-blend-mode: screen;
+    opacity: 0;
+    transform: translate3d(-60%, 0, 0);
+  }
+
+  /* Disolución hacia el centro y hacia arriba/abajo, fundida en el carbón */
+  .art-border--left .art-parallax,
+  .art-border--right .art-parallax {
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+  .art-border--left .art-parallax {
+    -webkit-mask-image:
+      linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.75) 40%, transparent 88%),
+      linear-gradient(to bottom, transparent 2%, #000 20%, #000 74%, transparent 94%);
+    mask-image:
+      linear-gradient(to right, #000 0%, rgb(0 0 0 / 0.75) 40%, transparent 88%),
+      linear-gradient(to bottom, transparent 2%, #000 20%, #000 74%, transparent 94%);
+  }
+  .art-border--right .art-parallax {
+    -webkit-mask-image:
+      linear-gradient(to left, #000 0%, rgb(0 0 0 / 0.75) 40%, transparent 88%),
+      linear-gradient(to bottom, transparent 2%, #000 20%, #000 74%, transparent 94%);
+    mask-image:
+      linear-gradient(to left, #000 0%, rgb(0 0 0 / 0.75) 40%, transparent 88%),
+      linear-gradient(to bottom, transparent 2%, #000 20%, #000 74%, transparent 94%);
+  }
+
+  /* ── Rótulos de autor (PC) ────────────────────────────────────── */
   .art-caption-col {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: clamp(220px, 20vw, 380px);
-    pointer-events: none;
+    width: clamp(240px, 22vw, 420px);
   }
   .art-caption-col--left {
     left: 0;
@@ -324,87 +238,119 @@ const sides = [
     right: 0;
   }
 
-  /* Textos verticales de autor originales: impecables, permanentes y elegantes */
   .art-caption {
     position: absolute;
     bottom: 3.5rem;
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
     writing-mode: vertical-rl;
-    font-size: 0.62rem;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--color-light);
-    opacity: 0;
     white-space: nowrap;
-    transition: opacity 0.8s var(--ease-cine);
-    pointer-events: none;
+    opacity: 0;
+    transform: translate3d(0, 0.75rem, 0);
+    transition:
+      opacity 0.9s var(--ease-cine),
+      transform 0.9s var(--ease-cine);
   }
   .art-caption.is-active {
-    opacity: 0.2;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.35s;
   }
   .art-caption--left {
     left: 1.15rem;
+    transform: rotate(180deg) translate3d(0, 0.75rem, 0);
+  }
+  .art-caption--left.is-active {
     transform: rotate(180deg);
   }
   .art-caption--right {
     right: 1.15rem;
   }
+  .art-caption__title {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: rgb(244 239 230 / 0.62);
+  }
+  .art-caption__year {
+    font-size: 0.6rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgb(217 119 6 / 0.75);
+  }
 
-  /* Al llegar al footer, los textos se desvanecen con máxima pulcritud */
   :global([data-art-captions].at-footer) .art-caption {
     opacity: 0 !important;
     transition: opacity 0.35s ease;
   }
 
-  /* ── Móvil (< 1280px): telón ambiental con 4 obras rotativas y rótulos bajo ventanas ── */
+  /* ── Móvil y tablet: telón ────────────────────────────────────── */
   .art-mobile-img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) contrast(140%) brightness(80%);
     opacity: 0;
-    mix-blend-mode: screen;
-    -webkit-mask-image: radial-gradient(85% 65% at 50% 38%, #000 0%, transparent 88%);
-    mask-image: radial-gradient(85% 65% at 50% 38%, #000 0%, transparent 88%);
-    transition: opacity 1.2s var(--ease-cine);
+    filter: saturate(0.8) brightness(0.32);
+    transform: scale(1.05);
+    -webkit-mask-image: radial-gradient(
+      90% 62% at 50% 36%,
+      #000 0%,
+      rgb(0 0 0 / 0.6) 45%,
+      transparent 90%
+    );
+    mask-image: radial-gradient(90% 62% at 50% 36%, #000 0%, rgb(0 0 0 / 0.6) 45%, transparent 90%);
+    transition:
+      opacity var(--duration-slow) var(--ease-oil),
+      filter 1.6s var(--ease-oil),
+      transform 2.4s var(--ease-cine);
   }
   .art-mobile-img.is-active {
-    opacity: 0.085;
+    opacity: 0.24;
+    filter: saturate(0.8) brightness(0.85);
+    transform: scale(1);
   }
   .art-mobile-backdrop::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--color-violet);
-    mix-blend-mode: color;
-    opacity: 0.08;
-    pointer-events: none;
+    background: var(--color-plum-ink);
+    mix-blend-mode: multiply;
+    opacity: 0.4;
   }
 
-  /* Rótulo de autor idéntico al de PC: vertical, elegante, bajo los bloques de texto (z-0) */
+  /* Rótulo móvil: vertical, sobre la barra inferior y bajo el contenido */
   .art-caption-mobile {
     position: fixed;
-    bottom: 2.2rem;
-    right: 0.85rem;
+    bottom: 6.5rem;
+    right: 0.7rem;
     writing-mode: vertical-rl;
     font-size: 0.58rem;
-    letter-spacing: 0.32em;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--color-light);
-    opacity: 0;
     white-space: nowrap;
+    color: rgb(244 239 230 / 0.42);
+    opacity: 0;
     transition: opacity 0.8s var(--ease-cine);
-    pointer-events: none;
-    z-index: 0;
   }
   .art-caption-mobile.is-active {
-    opacity: 0.14;
+    opacity: 1;
   }
 
-  /* Al llegar al footer se desvanece con máxima pulcritud */
   :global([data-art-mobile-captions].at-footer) .art-caption-mobile {
     opacity: 0 !important;
     transition: opacity 0.35s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .art-img,
+    .art-mobile-img {
+      transform: none;
+    }
+    .art-sweep {
+      display: none;
+    }
   }
 </style>

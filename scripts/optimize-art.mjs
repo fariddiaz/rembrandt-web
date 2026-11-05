@@ -33,4 +33,6 @@ for (const file of files) {
   afterWebp += (await stat(webpPath)).size;
 }
 
-console.log(`${files.length} obras: JPG ${kb(before)} KB -> AVIF ${kb(afterAvif)} KB / WebP ${kb(afterWebp)} KB`);
+console.log(
+  `${files.length} obras: JPG ${kb(before)} KB -> AVIF ${kb(afterAvif)} KB / WebP ${kb(afterWebp)} KB`,
+);
