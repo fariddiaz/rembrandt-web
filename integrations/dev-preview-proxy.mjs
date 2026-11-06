@@ -6,11 +6,13 @@
 // Este plugin (solo `serve`, no afecta al build) carga esa MISMA función con
 // ssrLoadModule y le pasa las peticiones: una sola implementación del proxy.
 
-/** Prefijo → archivo de la Pages Function que lo atiende. */
+import path from 'node:path';
+
+/** Prefijo → archivo de la Pages Function que lo atiende (relativo a la raíz del proyecto). */
 const ROUTES = [
   {
     prefix: '/preview/eventosleymar',
-    module: '/functions/preview/eventosleymar/[[path]].ts',
+    module: 'functions/preview/eventosleymar/[[path]].ts',
   },
 ];
 
@@ -57,11 +59,15 @@ export function devPreviewProxy() {
     apply: 'serve',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        const path = (req.url ?? '').split('?')[0];
-        const route = ROUTES.find((r) => path === r.prefix || path.startsWith(`${r.prefix}/`));
+        const pathname = (req.url ?? '').split('?')[0];
+        const route = ROUTES.find(
+          (r) => pathname === r.prefix || pathname.startsWith(`${r.prefix}/`),
+        );
         if (!route) return next();
         try {
-          const { onRequest } = await server.ssrLoadModule(route.module);
+          // Ruta absoluta desde la raíz del proyecto: no depende del SO ni del cwd.
+          const modulePath = path.resolve(server.config.root, route.module);
+          const { onRequest } = await server.ssrLoadModule(modulePath);
           await sendResponse(res, await onRequest({ request: await toRequest(req) }));
         } catch (err) {
           server.config.logger.error(`[preview-proxy] ${route.prefix}: ${err?.message ?? err}`);

@@ -11,8 +11,12 @@ type NetInfo = { saveData?: boolean };
 const VIRTUAL_WIDTH = 1440;
 const VIRTUAL_HEIGHT = 2700;
 const LOAD_MARGIN = '400px 0px';
-/** Sin respuesta válida en este tiempo se muestra la captura real con el enlace al sitio. */
-const LOAD_TIMEOUT_MS = 5000;
+/**
+ * Sin respuesta válida en este tiempo se muestra la captura real con el enlace al
+ * sitio. Leymar (Next.js, fotos y video) puede tardar más de 5 s en disparar
+ * 'load'; mientras tanto se ve el skeleton, no el aviso.
+ */
+const LOAD_TIMEOUT_MS = 15000;
 const MAX_TILT_DEG = 5;
 const DEVICES = ['desktop', 'tablet', 'mobile'] as const;
 type Device = (typeof DEVICES)[number];
