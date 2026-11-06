@@ -297,6 +297,7 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
         const result = await response.json();
 
         if (response.ok && result.success) {
+          notifyLead(form);
           const successUrl = form.getAttribute('data-success-url') || '/gracias';
           window.location.assign(successUrl);
           return;
@@ -317,6 +318,39 @@ const labelClass = 'mb-1.5 block text-xs font-semibold uppercase tracking-wider 
       button.disabled = false;
       button.innerHTML = originalText;
     });
+  }
+
+  /**
+   * Tras un envío correcto a Web3Forms:
+   * 1. Aviso instantáneo al equipo por Telegram (/api/lead). keepalive deja que la
+   *    petición termine aunque la página navegue a /gracias; si falla, el correo de
+   *    Web3Forms ya llegó, así que no se interrumpe al visitante.
+   * 2. Nombre y plan en sessionStorage (no en la URL) para el WhatsApp de /gracias.
+   */
+  function notifyLead(form: HTMLFormElement) {
+    const data = new FormData(form);
+    const planSelect = form.querySelector<HTMLSelectElement>('#plan');
+    const lead = {
+      name: String(data.get('name') ?? ''),
+      email: String(data.get('email') ?? ''),
+      // Nombre corto del plan (sin plazo ni precio entre paréntesis) para WhatsApp y Telegram
+      plan: (planSelect?.options[planSelect.selectedIndex]?.text ?? String(data.get('plan') ?? ''))
+        .split(' (')[0]
+        .trim(),
+      budget: String(data.get('budget') ?? ''),
+      message: String(data.get('message') ?? ''),
+    };
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lead),
+      keepalive: true,
+    }).catch((err) => console.warn('[ContactForm] Aviso instantáneo no enviado:', err));
+    try {
+      sessionStorage.setItem('rs_lead', JSON.stringify({ name: lead.name, plan: lead.plan }));
+    } catch {
+      // Modo privado sin almacenamiento: /gracias usa el mensaje genérico.
+    }
   }
 
   if (document.readyState === 'loading') {

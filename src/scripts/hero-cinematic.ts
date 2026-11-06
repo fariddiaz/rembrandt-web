@@ -1,9 +1,9 @@
 // Storytelling dimensional del hero (solo PC con movimiento permitido).
 // La pista #hero mide 185svh y .hero-stage es sticky (ver Hero.astro), así que
 // aquí solo se "frota" una línea de tiempo sobre ese recorrido:
-//   0 – 0.6  Tensión: la escena se inclina en perspectiva y se enmarca como un
-//            lienzo; el copy retrocede en Z y el robot avanza hacia el visitante.
-//   0.6 – 1  Liberación: el cuadro se eleva y se apaga hacia el carbón, y la
+//   0 – 0.6  Tensión: la escena se inclina en perspectiva y retrocede como un
+//            lienzo que se aleja; el copy va hacia el fondo y el robot avanza.
+//   0.6 – 1  Liberación: la escena se eleva y se apaga hacia el carbón, y la
 //            página sigue su flujo normal cuando termina la pista.
 // Solo transform/opacity. Con matchMedia de GSAP todo se revierte al cambiar
 // de tamaño o activar "reducir movimiento".
@@ -24,7 +24,6 @@ export function initHeroCinematic(): void {
 
   const copy = track.querySelector<HTMLElement>('[data-hero-copy]');
   const robot = track.querySelector<HTMLElement>('[data-hero-robot-layer]');
-  const frame = track.querySelector<HTMLElement>('[data-hero-frame]');
   const cue = track.querySelector<HTMLElement>('[data-hero-cue]');
   const dim = track.querySelector<HTMLElement>('[data-hero-dim]');
 
@@ -55,7 +54,6 @@ export function initHeroCinematic(): void {
       );
     }
     if (cue) tl.to(cue, { opacity: 0, duration: 0.12 }, 0);
-    if (frame) tl.to(frame, { opacity: 1, duration: TENSION * 0.6 }, TENSION * 0.25);
 
     // ── Liberación ────────────────────────────────────────
     tl.to(

@@ -1,9 +1,9 @@
 ---
-// Capa visual del hero en PC (>= 768px): robot 3D de Spline, marco de lienzo
-// dorado que aparece durante la tensión de scroll y guía "Desliza".
+// Capa visual del hero en PC (>= 768px): robot 3D de Spline
+// y guía "Desliza" (sin marco: la escena se funde con el fondo).
 // La coreografía vive en src/scripts/hero-cinematic.ts; el copy (h1, CTAs)
 // es compartido y está en Hero.astro. En móvil esta capa no se renderiza
-// (display: none): HeroMobile.astro ocupa su lugar.
+// (display: none): en móvil el hero es solo tipográfico.
 import HeroRobot from './HeroRobot.astro';
 ---
 
@@ -15,9 +15,6 @@ import HeroRobot from './HeroRobot.astro';
   >
     <HeroRobot />
   </div>
-
-  <!-- Marco de lienzo: filete dorado que se revela cuando la escena se enmarca -->
-  <span class="hero-frame" data-hero-frame></span>
 
   <!-- Guía de scroll: línea que se llena, sin flechas que rebotan -->
   <div class="hero-cue" data-hero-cue>
@@ -34,16 +31,6 @@ import HeroRobot from './HeroRobot.astro';
   }
   .hero-robot-layer {
     will-change: transform;
-  }
-
-  .hero-frame {
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgb(217 119 6 / 0.55);
-    box-shadow:
-      inset 0 0 0 6px rgb(7 6 9 / 0.6),
-      inset 0 0 0 7px rgb(217 119 6 / 0.18);
-    opacity: 0;
   }
 
   .hero-cue {
