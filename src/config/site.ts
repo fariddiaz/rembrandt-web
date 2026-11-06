@@ -5,6 +5,15 @@
 
 export const WHATSAPP_NUMBER = '573147714202'; // +57 314 771 4202, sin "+" ni espacios
 export const CONTACT_EMAIL = 'hola@rembrandtstudio.co';
+
+/**
+ * Clave PÚBLICA de Web3Forms (va en el HTML de los formularios por diseño del
+ * servicio; el buzón de destino se configura en web3forms.com). Se puede
+ * sobrescribir con PUBLIC_WEB3FORMS_KEY al compilar.
+ */
+export const WEB3FORMS_ACCESS_KEY: string =
+  import.meta.env.PUBLIC_WEB3FORMS_KEY || '644b5b46-ac1d-456b-ba02-eab88e67c3ae';
+
 /** Agenda propia de videollamadas (src/pages/agendar.astro). */
 export const CALENDLY_LINK = '/agendar';
 

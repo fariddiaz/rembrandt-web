@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { waLink, WHATSAPP_NUMBER } from '../config/site';
+import { waLink, WHATSAPP_NUMBER, WEB3FORMS_ACCESS_KEY } from '../config/site';
 
 const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
@@ -70,7 +70,7 @@ while (availableDates.length < 6) {
         class="glass relative overflow-hidden rounded-2xl border border-white/10 bg-carbon-2/80 p-6 md:p-10 shadow-2xl"
       >
         <div id="booking-container">
-          <form id="booking-form" class="space-y-8">
+          <form id="booking-form" class="space-y-8" data-web3forms-key={WEB3FORMS_ACCESS_KEY}>
             <!-- Paso 1: Selección de Fecha y Hora -->
             <div>
               <div class="flex items-center gap-3 mb-4">
@@ -432,13 +432,35 @@ while (availableDates.length < 6) {
     errorBox?.classList.add('hidden');
 
     try {
-      // Solo se confirma si el servidor registró la cita (respuesta 2xx).
-      const res = await fetch('/api/appointment', {
+      // 1. Registro de la cita: correo vía Web3Forms a hola@rembrandtstudio.co.
+      //    Solo se confirma al cliente si este registro funcionó.
+      const record = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: form.dataset.web3formsKey,
+          subject: `Nueva videollamada agendada: ${payload.dateStr} ${payload.timeSlot}`,
+          from_name: 'Rembrandt Studio Web',
+          name: payload.clientName,
+          email: payload.clientEmail || undefined,
+          WhatsApp: payload.clientPhone,
+          Empresa: payload.companyName || 'No indicada',
+          Servicio: payload.serviceInterested,
+          Fecha: payload.dateStr,
+          Hora: payload.timeSlot,
+        }),
+      });
+      const result = (await record.json().catch(() => ({}))) as { success?: boolean };
+      if (!record.ok || !result.success) throw new Error(`Web3Forms ${record.status}`);
+
+      // 2. Aviso inmediato a Farid por WhatsApp (servidor). No bloquea ni falla al
+      //    cliente: keepalive deja que termine aunque cambie la pantalla.
+      fetch('/api/appointment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        keepalive: true,
+      }).catch((err) => console.warn('[agendar] Aviso a Farid no enviado:', err));
 
       form.classList.add('hidden');
       if (successScreen) {

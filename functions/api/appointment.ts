@@ -1,69 +1,48 @@
 // POST /api/appointment (Cloudflare Pages Function)
-// Recibe una cita agendada desde /agendar y avisa al equipo por Telegram.
-// Validación de origen, tamaño y envío en ../_lib/telegram.ts.
-import {
-  escapeMarkdown as e,
-  field,
-  json,
-  readJsonBody,
-  sendTelegram,
-  type TelegramEnv,
-} from '../_lib/telegram';
-
-interface AppointmentInput {
-  clientName: string;
-  clientPhone: string;
-  clientEmail: string;
-  companyName: string;
-  serviceInterested: string;
-  dateStr: string;
-  timeSlot: string;
-}
+// Aviso a Farid por WhatsApp cuando un cliente agenda una videollamada en /agendar.
+// El registro de la cita lo hace Web3Forms desde el navegador (correo a
+// hola@rembrandtstudio.co); este aviso es adicional y nunca bloquea al cliente:
+// responde de inmediato y envía el aviso en segundo plano (waitUntil).
+import { field, json, notifyFarid, readJsonBody, type NotifyEnv } from '../_lib/notify';
 
 const PHONE_PATTERN = /^\+?[0-9\s()-]{7,20}$/;
 
-function parseInput(raw: unknown): AppointmentInput | null {
-  if (typeof raw !== 'object' || raw === null) return null;
-  const r = raw as Record<string, unknown>;
-  const input: AppointmentInput = {
-    clientName: field(r.clientName),
-    clientPhone: field(r.clientPhone),
-    clientEmail: field(r.clientEmail),
-    companyName: field(r.companyName),
-    serviceInterested: field(r.serviceInterested),
-    dateStr: field(r.dateStr),
-    timeSlot: field(r.timeSlot),
-  };
-  if (!input.clientName || !input.dateStr || !PHONE_PATTERN.test(input.clientPhone)) return null;
-  return input;
-}
-
-function buildMessage(a: AppointmentInput): string {
-  const digits = a.clientPhone.replace(/[^0-9]/g, '');
-  return (
-    `*Nueva cita agendada desde la web*\n\n` +
-    `*Contacto:* ${e(a.clientName)}\n` +
-    `*Empresa:* ${e(a.companyName || 'No especificada')}\n` +
-    `*WhatsApp:* +${digits}\n` +
-    `*Email:* ${e(a.clientEmail || 'No especificado')}\n` +
-    `*Servicio:* ${e(a.serviceInterested || 'Página Web Express')}\n` +
-    `*Fecha:* ${e(a.dateStr)} a las ${e(a.timeSlot || '10:00 AM')}\n\n` +
-    `Chatear: https://wa.me/${digits}`
-  );
-}
-
-export async function onRequestPost(context: {
+interface PagesContext {
   request: Request;
-  env: TelegramEnv;
-}): Promise<Response> {
+  env: NotifyEnv;
+  waitUntil: (promise: Promise<unknown>) => void;
+}
+
+export async function onRequestPost(context: PagesContext): Promise<Response> {
   const raw = await readJsonBody(context.request);
   if (raw instanceof Response) return raw;
+  if (typeof raw !== 'object' || raw === null) return json({ error: 'Solicitud inválida' }, 400);
 
-  const input = parseInput(raw);
-  if (!input) {
+  const r = raw as Record<string, unknown>;
+  const name = field(r.clientName);
+  const phone = field(r.clientPhone);
+  const email = field(r.clientEmail);
+  const company = field(r.companyName);
+  const dateStr = field(r.dateStr);
+  if (!name || !dateStr || !PHONE_PATTERN.test(phone)) {
     return json({ error: 'Faltan campos requeridos o el teléfono no es válido' }, 400);
   }
 
-  const failure = await sendTelegram(context.env, buildMessage(input), 'appointment');
-  return failure ?? json({ ok: true }, 200);
+  const contact = [phone, email].filter(Boolean).join(' · ');
+  context.waitUntil(
+    notifyFarid(
+      context.env,
+      {
+        event: 'appointment',
+        source: 'web',
+        name: company ? `${name} (${company})` : name,
+        contact,
+        service: field(r.serviceInterested) || 'Videollamada de diagnóstico',
+        date: dateStr,
+        time: field(r.timeSlot),
+      },
+      'appointment',
+    ),
+  );
+  return json({ ok: true }, 202);
 }

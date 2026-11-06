@@ -1,6 +1,8 @@
 ---
-// Capa visual del hero en PC (>= 768px): robot 3D de Spline
-// y guía "Desliza" (sin marco: la escena se funde con el fondo).
+// Capa visual del hero en PC (>= 768px): robot 3D de Spline, cuadro de lienzo
+// y guía "Desliza". El cuadro es un passe-partout fino: filete ámbar casi
+// transparente con cuatro esquinas de visor, inset respecto al viewport para
+// que nunca coincida con el borde de la pantalla (eso lo hacía parecer una caja).
 // La coreografía vive en src/scripts/hero-cinematic.ts; el copy (h1, CTAs)
 // es compartido y está en Hero.astro. En móvil esta capa no se renderiza
 // (display: none): en móvil el hero es solo tipográfico.
@@ -15,6 +17,14 @@ import HeroRobot from './HeroRobot.astro';
   >
     <HeroRobot />
   </div>
+
+  <!-- Cuadro de lienzo: aparece con la tensión de scroll y se retira antes de la salida -->
+  <span class="hero-frame" data-hero-frame>
+    <span class="hero-frame__corner hero-frame__corner--tl"></span>
+    <span class="hero-frame__corner hero-frame__corner--tr"></span>
+    <span class="hero-frame__corner hero-frame__corner--bl"></span>
+    <span class="hero-frame__corner hero-frame__corner--br"></span>
+  </span>
 
   <!-- Guía de scroll: línea que se llena, sin flechas que rebotan -->
   <div class="hero-cue" data-hero-cue>
@@ -31,6 +41,47 @@ import HeroRobot from './HeroRobot.astro';
   }
   .hero-robot-layer {
     will-change: transform;
+  }
+
+  /* Passe-partout: filete de 1px muy tenue + esquinas de visor más presentes */
+  .hero-frame {
+    position: absolute;
+    inset: clamp(5.5rem, 11vh, 7.5rem) clamp(1.5rem, 4vw, 4rem) clamp(1.5rem, 5vh, 3rem);
+    border: 1px solid rgb(217 119 6 / 0.14);
+    opacity: 0;
+    will-change: opacity;
+  }
+  .hero-frame__corner {
+    position: absolute;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-color: rgb(217 119 6 / 0.7);
+    border-style: solid;
+    border-width: 0;
+  }
+  .hero-frame__corner--tl {
+    top: -1px;
+    left: -1px;
+    border-top-width: 1px;
+    border-left-width: 1px;
+  }
+  .hero-frame__corner--tr {
+    top: -1px;
+    right: -1px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+  }
+  .hero-frame__corner--bl {
+    bottom: -1px;
+    left: -1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+  }
+  .hero-frame__corner--br {
+    bottom: -1px;
+    right: -1px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
   }
 
   .hero-cue {

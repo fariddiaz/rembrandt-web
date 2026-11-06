@@ -22,7 +22,12 @@ const fromPrice = plans[0]?.priceUsd ?? '$249 USD';
   <div class="hero-stage relative isolate overflow-hidden" data-hero-stage>
     <!-- Foco de luz en el escenario (no en el lienzo que se escala): al inclinarse
          la escena no aparece ningún rectángulo, solo se mueve el contenido. -->
-    <div class="spotlight pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+    <div
+      class="spotlight pointer-events-none absolute inset-0 -z-10"
+      data-hero-light
+      aria-hidden="true"
+    >
+    </div>
 
     <div
       class="hero-canvas relative flex min-h-svh items-center pt-28 pb-16 max-sm:pb-24 md:pt-36 md:pb-20"
@@ -132,11 +137,9 @@ const fromPrice = plans[0]?.priceUsd ?? '$249 USD';
         </div>
       </div>
     </div>
-
-    <!-- Velo de cierre a pantalla completa, fuera del lienzo 3D: cubre también al
-         robot y nunca dibuja un borde, porque no se escala con la escena. -->
-    <span class="hero-dim pointer-events-none absolute inset-0" data-hero-dim aria-hidden="true"
-    ></span>
+    <!-- Sin velo de carbón encima: la salida desvanece cada capa (texto, robot,
+         cuadro, luz) y lo que queda a la vista es el mismo fondo y las mismas obras
+         laterales que tiene la sección siguiente. Así la unión no tiene salto. -->
   </div>
 </section>
 
@@ -165,16 +168,6 @@ const fromPrice = plans[0]?.priceUsd ?? '$249 USD';
       transform-style: preserve-3d;
       will-change: transform;
     }
-  }
-
-  /* Se funde hacia el carbón desde los bordes: sin aristas visibles */
-  .hero-dim {
-    background: radial-gradient(
-      ellipse 85% 80% at 50% 45%,
-      rgb(7 6 9 / 0.85) 0%,
-      var(--color-carbon) 100%
-    );
-    opacity: 0;
   }
 
   .hero-title .line {

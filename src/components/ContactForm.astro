@@ -1,5 +1,5 @@
 ---
-const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || '644b5b46-ac1d-456b-ba02-eab88e67c3ae';
+import { WEB3FORMS_ACCESS_KEY as accessKey } from '../config/site';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const graciasUrl = `${base}/gracias`;
 
