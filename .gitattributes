@@ -1,0 +1,8 @@
+# Saltos de línea LF en todas las plataformas (coincide con Prettier).
+* text=auto eol=lf
+*.avif binary
+*.webp binary
+*.jpg binary
+*.png binary
+*.glb binary
+*.svg text eol=lf
