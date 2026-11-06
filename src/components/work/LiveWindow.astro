@@ -16,8 +16,10 @@ interface Props {
   sector: string;
   domain: string;
   tint: [string, string];
+  /** Captura real del sitio: se muestra si la ventana en vivo no responde en 5 s. */
+  image?: string;
 }
-const { url, liveUrl, client, sector, domain, tint } = Astro.props;
+const { url, liveUrl, client, sector, domain, tint, image } = Astro.props;
 ---
 
 <div class="live-window" style={`--t1:${tint[0]};--t2:${tint[1]}`} data-tilt data-live-window>
@@ -51,11 +53,33 @@ const { url, liveUrl, client, sector, domain, tint } = Astro.props;
       data-preview={url}
       data-preview-title={client}
       data-preview-live={liveUrl}
+      data-preview-image={image}
       data-cursor="EXPLORAR"
       aria-label={`Abrir la preview interactiva de ${client}`}
     >
       <span class="lw-hint" aria-hidden="true">Clic para interactuar</span>
     </button>
+
+    <!-- Fallback (work-preview.ts añade .is-fallback): captura real y enlace directo.
+         Va encima de la capa-botón para que el enlace sea clicable. -->
+    <div class="lw-fallback">
+      {
+        image && (
+          <img
+            class="lw-fallback__shot"
+            src={image}
+            alt={`Captura del sitio de ${client}`}
+            loading="lazy"
+            decoding="async"
+            width="1440"
+            height="900"
+          />
+        )
+      }
+      <a href={liveUrl} target="_blank" rel="noopener" class="btn btn-light lw-fallback__link">
+        Abrir sitio real en vivo <span aria-hidden="true">↗</span>
+      </a>
+    </div>
   </div>
 </div>
 
@@ -184,6 +208,45 @@ const { url, liveUrl, client, sector, domain, tint } = Astro.props;
   }
   .live-window.is-loaded .lw-stage:is(:hover, :focus-within) .lw-frame {
     transform: translateY(calc(var(--travel, 0px) * -1)) scale(var(--s, 0.5));
+  }
+
+  /* Fallback: captura real + enlace, solo cuando la ventana en vivo falla */
+  .lw-fallback {
+    position: absolute;
+    inset: 0;
+    z-index: 3; /* encima de .lw-open; los clics pasan salvo en el enlace */
+    display: none;
+    place-items: end center;
+    padding: 1.25rem;
+    pointer-events: none;
+  }
+  .live-window.is-fallback .lw-fallback {
+    display: grid;
+    animation: lw-fade 0.6s var(--ease-cine);
+  }
+  .lw-fallback__shot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .lw-fallback::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(7 6 9 / 0.85), transparent 55%);
+  }
+  .lw-fallback__link {
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+  }
+  @keyframes lw-fade {
+    from {
+      opacity: 0;
+    }
   }
 
   .lw-hint {

@@ -73,6 +73,7 @@ const steps = [
                       sector={c.sector}
                       domain={domain}
                       tint={c.tint}
+                      image={c.image}
                     />
                   ) : (
                     <div class="case-poster" style={`--t1:${c.tint[0]};--t2:${c.tint[1]}`}>
@@ -141,6 +142,7 @@ const steps = [
                           data-preview={c.url}
                           data-preview-title={c.client}
                           data-preview-live={liveUrl}
+                          data-preview-image={c.image}
                           data-magnetic="0.3"
                           data-cursor="EXPLORAR"
                         >

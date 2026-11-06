@@ -11,7 +11,8 @@ type NetInfo = { saveData?: boolean };
 const VIRTUAL_WIDTH = 1440;
 const VIRTUAL_HEIGHT = 2700;
 const LOAD_MARGIN = '400px 0px';
-const LOAD_TIMEOUT_MS = 12000;
+/** Sin respuesta válida en este tiempo se muestra la captura real con el enlace al sitio. */
+const LOAD_TIMEOUT_MS = 5000;
 const MAX_TILT_DEG = 5;
 const DEVICES = ['desktop', 'tablet', 'mobile'] as const;
 type Device = (typeof DEVICES)[number];
@@ -25,6 +26,24 @@ const domainOf = (url: string) => {
     return url;
   }
 };
+
+/**
+ * true si el iframe cargó una página de error en vez del sitio: nuestro 404
+ * (ruta del proxy inexistente) o la respuesta 502 del proxy de desarrollo. El
+ * proxy es del mismo origen, así que el documento se puede leer; si no se
+ * puede (otro origen), se da por bueno.
+ */
+function isBrokenFrame(frame: HTMLIFrameElement): boolean {
+  try {
+    const doc = frame.contentDocument;
+    if (!doc) return false;
+    return (
+      /Error 404/i.test(doc.title) || doc.body?.textContent?.trim() === 'Preview no disponible'
+    );
+  } catch {
+    return false;
+  }
+}
 
 function canLoadLiveWindows(): boolean {
   const saveData =
@@ -48,17 +67,25 @@ function loadLiveWindow(win: HTMLElement): void {
   fitFrame(win, stage);
   new ResizeObserver(() => fitFrame(win, stage)).observe(stage);
 
+  // Lento o con error: captura real + "Abrir sitio real en vivo". Si el sitio
+  // termina cargando bien después, la ventana en vivo reemplaza la captura.
+  const showFallback = () => {
+    skeleton?.classList.add('is-hidden');
+    win.classList.remove('is-loaded');
+    win.classList.add('is-fallback');
+  };
   skeleton?.classList.remove('is-hidden');
-  const timeout = window.setTimeout(() => skeleton?.classList.add('is-hidden'), LOAD_TIMEOUT_MS);
-  frame.addEventListener(
-    'load',
-    () => {
-      window.clearTimeout(timeout);
-      win.classList.add('is-loaded');
-      skeleton?.classList.add('is-hidden');
-    },
-    { once: true },
-  );
+  const timeout = window.setTimeout(showFallback, LOAD_TIMEOUT_MS);
+  frame.addEventListener('load', () => {
+    window.clearTimeout(timeout);
+    if (isBrokenFrame(frame)) {
+      showFallback();
+      return;
+    }
+    win.classList.remove('is-fallback');
+    win.classList.add('is-loaded');
+    skeleton?.classList.add('is-hidden');
+  });
   frame.src = frame.dataset.lwSrc;
 }
 
@@ -123,17 +150,28 @@ function initDialog(): void {
   const close = dialog.querySelector<HTMLButtonElement>('[data-preview-close]');
   const skeleton = dialog.querySelector<HTMLElement>('[data-site-skeleton]');
   const deviceButtons = dialog.querySelectorAll<HTMLButtonElement>('[data-device]');
+  const fallback = dialog.querySelector<HTMLElement>('[data-preview-fallback]');
+  const fallbackImg = dialog.querySelector<HTMLImageElement>('[data-preview-fallback-img]');
+  const fallbackLink = dialog.querySelector<HTMLAnchorElement>('[data-preview-fallback-link]');
   if (!frame || !wrap || !name || !domain || !live || !close) return;
 
-  // Si el sitio nunca dispara 'load' (lento o bloquea iframes), el skeleton se
-  // retira igual y queda a mano "Abrir en vivo" en la barra.
+  // Si el sitio no responde en LOAD_TIMEOUT_MS o carga una página de error, se
+  // muestra la captura real con "Abrir sitio real en vivo". Si después carga
+  // bien, el sitio en vivo reemplaza la captura.
   let skeletonTimer = 0;
   const hideSkeleton = () => {
     window.clearTimeout(skeletonTimer);
     skeleton?.classList.add('is-hidden');
   };
+  const setFallback = (visible: boolean) => {
+    if (visible) hideSkeleton();
+    fallback?.classList.toggle('is-visible', visible);
+    fallback?.toggleAttribute('inert', !visible);
+  };
   frame.addEventListener('load', () => {
-    if (frame.src && frame.src !== 'about:blank') hideSkeleton();
+    if (!frame.src || frame.src === 'about:blank') return;
+    hideSkeleton();
+    setFallback(isBrokenFrame(frame));
   });
 
   // Bloquea el scroll del fondo también en táctil (Lenis no gobierna el touch).
@@ -150,14 +188,23 @@ function initDialog(): void {
     );
   };
 
-  const open = (url: string, title: string, liveUrl: string) => {
+  const open = (url: string, title: string, liveUrl: string, image: string) => {
+    setFallback(false);
     skeleton?.classList.remove('is-hidden');
     window.clearTimeout(skeletonTimer);
-    skeletonTimer = window.setTimeout(hideSkeleton, LOAD_TIMEOUT_MS);
+    skeletonTimer = window.setTimeout(() => setFallback(true), LOAD_TIMEOUT_MS);
     frame.src = url;
     name.textContent = title;
     domain.textContent = domainOf(liveUrl);
     live.href = liveUrl;
+    if (fallbackLink) fallbackLink.href = liveUrl;
+    if (fallbackImg) {
+      fallbackImg.hidden = !image;
+      if (image) {
+        fallbackImg.src = image;
+        fallbackImg.alt = `Captura del sitio de ${title}`;
+      }
+    }
     setDevice(innerWidth < 768 ? 'mobile' : 'desktop');
     dialog.showModal();
     lockScroll(true);
@@ -166,7 +213,13 @@ function initDialog(): void {
   document.querySelectorAll<HTMLElement>('[data-preview]').forEach((trigger) => {
     trigger.addEventListener('click', () => {
       const url = trigger.dataset.preview;
-      if (url) open(url, trigger.dataset.previewTitle ?? '', trigger.dataset.previewLive || url);
+      if (url)
+        open(
+          url,
+          trigger.dataset.previewTitle ?? '',
+          trigger.dataset.previewLive || url,
+          trigger.dataset.previewImage ?? '',
+        );
     });
   });
 
@@ -180,7 +233,11 @@ function initDialog(): void {
   // 'close'. No depende solo de 'close', que es asíncrono y en algunos entornos
   // tarda o no llega; dejar el scroll bloqueado sería peor que limpiar dos veces.
   const teardown = () => {
+    // 'close' es asíncrono: si llega después de reabrir el modal, no debe
+    // vaciar el iframe ni cancelar el temporizador de la apertura nueva.
+    if (dialog.open) return;
     window.clearTimeout(skeletonTimer);
+    setFallback(false);
     if (frame.getAttribute('src') !== 'about:blank') frame.src = 'about:blank'; // libera memoria y red
     lockScroll(false);
   };

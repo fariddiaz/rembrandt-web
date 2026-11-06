@@ -421,6 +421,8 @@ export const caseStudies: CaseStudy[] = [
     sector: 'Wedding Planner & Eventos · Cartagena',
     url: '/preview/eventosleymar',
     liveUrl: 'https://eventosleymar.com',
+    // Captura real (1440×900) para el fallback si la preview en vivo no responde.
+    image: '/preview-assets/leymar-captura.webp',
     challenge:
       'Captar parejas internacionales que planean su boda en Cartagena y recibir cotizaciones directas por WhatsApp, sin intermediarios.',
     solution:

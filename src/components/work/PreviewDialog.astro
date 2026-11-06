@@ -40,7 +40,13 @@ const devices = [
       </div>
 
       <div class="pd-actions">
-        <a data-preview-live href="#" target="_blank" rel="noopener" class="pd-action">
+        <a
+          data-preview-live
+          href="https://eventosleymar.com"
+          target="_blank"
+          rel="noopener"
+          class="pd-action"
+        >
           Abrir en vivo <span aria-hidden="true">↗</span>
         </a>
         <button type="button" data-preview-close class="pd-action pd-close">Cerrar</button>
@@ -53,6 +59,23 @@ const devices = [
         ></iframe>
       </div>
       <SiteSkeleton class="pd-skeleton" />
+
+      <!-- Fallback: el sitio tardó más de 5 s o respondió con error (work-preview.ts) -->
+      <div class="pd-fallback" data-preview-fallback inert>
+        <img class="pd-fallback__shot" data-preview-fallback-img alt="" decoding="async" hidden />
+        <div class="pd-fallback__card">
+          <p class="pd-fallback__text">La vista en vivo no respondió a tiempo.</p>
+          <a
+            data-preview-fallback-link
+            href="https://eventosleymar.com"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-light"
+          >
+            Abrir sitio real en vivo <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
     </div>
 
     <div class="pd-foot">
@@ -196,6 +219,55 @@ const devices = [
   }
   .pd-frame:is(.is-tablet, .is-mobile) {
     border-inline: 1px solid rgb(244 239 230 / 0.12);
+  }
+
+  /* Captura real + enlace directo cuando la preview en vivo no responde */
+  .pd-fallback {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: grid;
+    place-items: end center;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    background: var(--color-carbon);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.5s var(--ease-cine),
+      visibility 0s linear 0.5s;
+  }
+  .pd-fallback.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s var(--ease-cine);
+  }
+  .pd-fallback__shot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .pd-fallback::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(7 6 9 / 0.9), rgb(7 6 9 / 0.15) 55%, transparent);
+    pointer-events: none;
+  }
+  .pd-fallback__card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+  .pd-fallback__text {
+    font-size: 0.85rem;
+    color: rgb(244 239 230 / 0.75);
   }
   .pd-frame.is-tablet {
     width: min(820px, 100%);
