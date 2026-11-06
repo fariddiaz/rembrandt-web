@@ -1,0 +1,303 @@
+---
+/**
+ * Calculadora de Fuga — HVCO de la grilla high-ticket (palabra clave FUGA).
+ * Calcula cuánto vale UNA décima de segundo de velocidad para el negocio del visitante,
+ * con la cifra de Deloitte × Google, "Milliseconds Make Millions" (2020):
+ * +8,4 % de conversiones en retail y +10,1 % en viajes por 0,1 s de mejora móvil.
+ * No extrapola más décimas: el estudio no lo respalda. Todo se calcula en el navegador.
+ */
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { WHATSAPP_NUMBER } from '../config/site';
+
+const SECTORS = [
+  { id: 'retail', label: 'Tienda / e-commerce', uplift: 8.4 },
+  { id: 'travel', label: 'Viajes, reservas y eventos', uplift: 10.1 },
+  { id: 'services', label: 'Servicios B2B / leads', uplift: 8.4 },
+] as const;
+
+const inputClass =
+  'w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-lg text-light focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet';
+---
+
+<Layout
+  title="Calculadora de Fuga · ¿Cuánto te cuesta tu web lenta? · Rembrandt Studio"
+  description="Pon tus visitas, tu conversión y tu ticket promedio y descubre cuánto vale para tu negocio una sola décima de segundo de velocidad web. Basado en Deloitte × Google (2020)."
+>
+  <Header activePath="/calculadora-fuga" />
+
+  <main class="relative z-[2] pt-28 pb-24 md:pt-36 md:pb-32">
+    <div class="mx-auto w-[min(1080px,calc(100%-2.5rem))]">
+      <header class="mx-auto mb-12 max-w-2xl text-center">
+        <p class="text-xs font-medium uppercase tracking-[0.22em] text-violet-300">
+          Calculadora de Fuga · 2 minutos
+        </p>
+        <h1 class="mt-4 font-display text-[clamp(2.4rem,5vw,4.2rem)] leading-[1.02] text-light">
+          Tu web no es lenta. <span class="text-gold">Es cara.</span>
+        </h1>
+        <p class="mt-5 text-base leading-relaxed text-mute md:text-lg">
+          Google y Deloitte midieron 37 marcas: una décima de segundo más rápida subió las
+          conversiones hasta un 10 %. Pon tus números y mira cuánto vale esa décima para ti.
+        </p>
+      </header>
+
+      <div class="grid gap-6 md:grid-cols-[1.05fr_1fr] md:gap-8">
+        <form
+          id="fuga-form"
+          class="rounded-2xl border border-white/10 bg-carbon-2/80 p-6 shadow-2xl md:p-10"
+          novalidate
+        >
+          <fieldset class="space-y-6">
+            <legend class="sr-only">Tus números</legend>
+
+            <div>
+              <label for="visits" class="mb-2 block text-sm font-semibold text-light"
+                >Visitas a tu web al mes</label
+              >
+              <input
+                id="visits"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                step="100"
+                value="5000"
+                class={inputClass}
+              />
+              <p class="mt-1.5 text-xs text-mute">
+                Lo ves en Google Analytics o en el panel de tu web.
+              </p>
+            </div>
+
+            <div>
+              <label for="conversion" class="mb-2 block text-sm font-semibold text-light">
+                De cada 100 visitas, ¿cuántas te compran o te escriben?
+              </label>
+              <input
+                id="conversion"
+                type="number"
+                inputmode="decimal"
+                min="0"
+                max="100"
+                step="0.1"
+                value="1.5"
+                class={inputClass}
+              />
+              <p class="mt-1.5 text-xs text-mute">
+                Si no lo sabes, deja 1,5: es un punto de partida común.
+              </p>
+            </div>
+
+            <div>
+              <label for="ticket" class="mb-2 block text-sm font-semibold text-light"
+                >¿Cuánto vale en promedio cada cliente? (COP)</label
+              >
+              <input
+                id="ticket"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                step="10000"
+                value="400000"
+                class={inputClass}
+              />
+            </div>
+
+            <div>
+              <label for="sector" class="mb-2 block text-sm font-semibold text-light"
+                >Tu negocio</label
+              >
+              <select
+                id="sector"
+                class="w-full rounded-xl border border-white/10 bg-carbon-3 px-4 py-3 text-base text-light focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet"
+              >
+                {SECTORS.map((s) => <option value={s.uplift}>{s.label}</option>)}
+              </select>
+              <p class="mt-1.5 text-xs text-mute">
+                Servicios usa la cifra conservadora de retail: el estudio no midió leads B2B por
+                separado.
+              </p>
+            </div>
+          </fieldset>
+          <p id="fuga-error" class="mt-5 hidden text-sm font-semibold text-red-400" role="alert">
+          </p>
+        </form>
+
+        <section
+          aria-live="polite"
+          class="flex flex-col rounded-2xl border border-gold/40 bg-gradient-to-b from-carbon-3 to-carbon-2 p-6 shadow-2xl md:p-10"
+        >
+          <p class="text-xs font-medium uppercase tracking-[0.22em] text-mute">
+            Lo que hoy vende tu web
+          </p>
+          <p id="out-revenue" class="mt-2 font-display text-3xl text-light">—</p>
+
+          <div class="my-6 h-px bg-white/10"></div>
+
+          <p class="text-xs font-medium uppercase tracking-[0.22em] text-gold">
+            Lo que vale una décima de segundo
+          </p>
+          <p
+            id="out-month"
+            class="mt-2 font-display text-[clamp(2.6rem,6vw,3.6rem)] leading-none text-gold"
+          >
+            —
+          </p>
+          <p class="mt-1 text-sm text-mute">al mes</p>
+          <p class="mt-4 text-lg text-light">
+            <span id="out-year" class="font-bold">—</span>
+            <span class="text-mute">al año</span>
+          </p>
+
+          <p class="mt-6 text-sm leading-relaxed text-mute">
+            Es el cálculo de <strong class="text-light">una sola décima</strong>. Si tu web tarda
+            varios segundos en el celular, la distancia con tu competencia es mucho mayor. Eso solo
+            se sabe midiendo tu web real.
+          </p>
+
+          <div class="mt-auto space-y-3 pt-8">
+            <a
+              id="cta-wa"
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              target="_blank"
+              rel="noopener"
+              class="flex w-full items-center justify-center rounded-xl bg-violet px-6 py-4 text-center text-base font-bold text-white transition hover:bg-violet-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet"
+            >
+              Quiero mi diagnóstico + maqueta en 24 h
+            </a>
+            <p class="text-center text-xs text-mute">
+              Escribe AUDITORIA con tu URL. Ves tu web nueva antes de pagar un peso.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <section
+        class="mx-auto mt-10 max-w-3xl rounded-2xl border border-white/10 bg-carbon-2/60 p-6 md:p-8"
+      >
+        <h2 class="font-display text-2xl text-light">¿Qué tan lenta es tu web, de verdad?</h2>
+        <p class="mt-2 text-sm text-mute">
+          Mídela gratis con la herramienta oficial de Google. Mira el resultado de <strong
+            class="text-light">Móvil</strong
+          >: ahí está la mayoría de tus visitas.
+        </p>
+        <form id="speed-form" class="mt-5 flex flex-col gap-3 sm:flex-row" novalidate>
+          <label for="site-url" class="sr-only">URL de tu web</label>
+          <input
+            id="site-url"
+            type="url"
+            inputmode="url"
+            placeholder="tuempresa.com"
+            class="flex-1 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-base text-light placeholder-white/30 focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet"
+          />
+          <button
+            type="submit"
+            class="rounded-xl border border-gold/60 px-6 py-3 font-bold text-gold transition hover:bg-gold/10"
+          >
+            Medir en PageSpeed
+          </button>
+        </form>
+        <p id="speed-error" class="mt-2 hidden text-sm text-red-400" role="alert"></p>
+      </section>
+
+      <p class="mx-auto mt-10 max-w-3xl text-center text-xs leading-relaxed text-mute">
+        Fuente: Deloitte × Google, <em>Milliseconds Make Millions</em> (2020). Estudio de 37 marcas y
+        más de 30 millones de sesiones: una mejora de 0,1 s en la velocidad móvil se asoció con +8,4 %
+        de conversiones en retail y +10,1 % en viajes. Es una estimación de referencia, no una promesa
+        de resultado.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  import { WHATSAPP_NUMBER } from '../config/site';
+
+  const MONTHS_PER_YEAR = 12;
+  const cop = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    maximumFractionDigits: 0,
+  });
+
+  function byId<T extends HTMLElement>(id: string): T {
+    const el = document.getElementById(id);
+    if (!el) throw new Error(`Falta el elemento #${id}`);
+    return el as T;
+  }
+
+  const form = byId<HTMLFormElement>('fuga-form');
+  const visitsEl = byId<HTMLInputElement>('visits');
+  const conversionEl = byId<HTMLInputElement>('conversion');
+  const ticketEl = byId<HTMLInputElement>('ticket');
+  const sectorEl = byId<HTMLSelectElement>('sector');
+  const errorEl = byId<HTMLParagraphElement>('fuga-error');
+  const outRevenue = byId<HTMLParagraphElement>('out-revenue');
+  const outMonth = byId<HTMLParagraphElement>('out-month');
+  const outYear = byId<HTMLSpanElement>('out-year');
+  const ctaWa = byId<HTMLAnchorElement>('cta-wa');
+
+  interface Inputs {
+    readonly visits: number;
+    readonly conversionPct: number;
+    readonly ticket: number;
+    readonly upliftPct: number;
+  }
+
+  function readInputs(): Inputs | string {
+    const visits = Number(visitsEl.value);
+    const conversionPct = Number(conversionEl.value);
+    const ticket = Number(ticketEl.value);
+    const upliftPct = Number(sectorEl.value);
+    if (![visits, conversionPct, ticket].every((n) => Number.isFinite(n) && n >= 0))
+      return 'Usa solo números positivos.';
+    if (conversionPct > 100) return 'La conversión no puede pasar de 100.';
+    return { visits, conversionPct, ticket, upliftPct };
+  }
+
+  function render(): void {
+    const inputs = readInputs();
+    if (typeof inputs === 'string') {
+      errorEl.textContent = inputs;
+      errorEl.classList.remove('hidden');
+      return;
+    }
+    errorEl.classList.add('hidden');
+    const revenue = inputs.visits * (inputs.conversionPct / 100) * inputs.ticket;
+    const leakMonth = revenue * (inputs.upliftPct / 100);
+    outRevenue.textContent = `${cop.format(revenue)} / mes`;
+    outMonth.textContent = cop.format(leakMonth);
+    outYear.textContent = cop.format(leakMonth * MONTHS_PER_YEAR);
+    const message = `AUDITORIA · Mi Calculadora de Fuga dio ${cop.format(leakMonth)} al mes. Mi web es: `;
+    ctaWa.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  }
+
+  form.addEventListener('input', render);
+  form.addEventListener('submit', (e) => e.preventDefault());
+  render();
+
+  const speedForm = byId<HTMLFormElement>('speed-form');
+  const urlEl = byId<HTMLInputElement>('site-url');
+  const speedError = byId<HTMLParagraphElement>('speed-error');
+
+  speedForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const raw = urlEl.value.trim();
+    const candidate = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+    try {
+      const url = new URL(candidate);
+      if (!url.hostname.includes('.')) throw new Error('sin dominio');
+      speedError.classList.add('hidden');
+      window.open(
+        `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(url.href)}&form_factor=mobile`,
+        '_blank',
+        'noopener',
+      );
+    } catch {
+      speedError.textContent = 'Escribe una dirección válida, por ejemplo tuempresa.com';
+      speedError.classList.remove('hidden');
+    }
+  });
+</script>
