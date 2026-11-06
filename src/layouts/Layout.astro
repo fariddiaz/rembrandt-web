@@ -22,7 +22,7 @@ const {
   noindex = false,
 } = Astro.props;
 
-const site = Astro.site ?? new URL('https://rembrandtdigital.com');
+const site = Astro.site ?? new URL('https://rembrandtstudio.co');
 const canonical = canonicalURL ? new URL(canonicalURL, site) : new URL(Astro.url.pathname, site);
 const ogImage = new URL(image, site);
 

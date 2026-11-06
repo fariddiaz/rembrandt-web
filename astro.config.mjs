@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://rembrandtdigital.com',
+  site: 'https://rembrandtstudio.co',
   integrations: [
     sitemap({
       filter: (page) =>

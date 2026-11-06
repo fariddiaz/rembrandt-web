@@ -4,4 +4,4 @@ Disallow: /gracias
 Disallow: /preview/
 Disallow: /404
 
-Sitemap: https://rembrandtdigital.com/sitemap-index.xml
+Sitemap: https://rembrandtstudio.co/sitemap-index.xml
